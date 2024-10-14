@@ -1,15 +1,12 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
+import LogoIcon from './components/icons/LogoIcon.vue'
 import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
   <header>
-    <img
-      alt="Cluster Map logo"
-      class="logo"
-      src="@/assets/cluster-map-logo.svg"
-    />
+    <LogoIcon/>
     <nav>
       <RouterLink to="/">Home</RouterLink>
       <RouterLink to="/about">About</RouterLink>
@@ -28,12 +25,6 @@ header {
   /*padding-right: calc(var(--section-gap) / 2);*/
 }
 
-.logo {
-  /*display: inline;*/
-  margin: 0 2rem 0 0;
-  height: 2rem;
-  width: 2rem;
-}
 
 nav {
   /*width: 100%;*/
