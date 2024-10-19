@@ -1,30 +1,52 @@
 <script setup lang="ts">
+
+import {provide, reactive} from 'vue';
 import { RouterLink, RouterView } from 'vue-router'
 import LogoIcon from './components/icons/LogoIcon.vue'
-import HelloWorld from './components/HelloWorld.vue'
+import {ClusterModel} from "@/models/ClusterModel";
+import clusterJson from "@/data/cluster.json";
+
+const cluster = reactive(new ClusterModel(clusterJson));
+provide('cluster', cluster);
+
 </script>
 
 <template>
   <header>
-    <LogoIcon/>
+    <RouterLink to="/"><LogoIcon/></RouterLink>
     <nav>
-      <RouterLink to="/">Home</RouterLink>
+      <RouterLink to="/map">Map</RouterLink>
       <RouterLink to="/about">About</RouterLink>
     </nav>
   </header>
 
-  <RouterView />
+  <RouterView class="content"/>
+  <footer></footer>
 </template>
 
 <style scoped>
 header {
   line-height: 1.5;
   max-height: 100vh;
+  flex: 0 1 auto;
   display: flex;
   place-items: center;
-  /*padding-right: calc(var(--section-gap) / 2);*/
 }
 
+.content {
+  flex: 1 1 auto;
+  container: content / inline-size;
+}
+
+footer {
+  min-height: 1rem;
+}
+
+@media (max-width: 1024px) {
+  footer {
+    min-height: 1rem;
+  }
+}
 
 nav {
   /*width: 100%;*/

@@ -1,9 +1,17 @@
 <script setup lang="ts">
-import ClusterMap from "@/components/ClusterMap.vue";
+import Bezel from "@/components/Bezel.vue"
+import ClusterMapPanel from "@/components/ClusterMapPanel.vue";
+import ClusterMapControlsPanel from "@/components/ClusterMapControlsPanel.vue";
+
 </script>
 
 <template>
-  <main>
-    <ClusterMap />
-  </main>
+  <Bezel>
+    <template v-slot:display>
+      <ClusterMapPanel/>
+    </template>
+    <template v-slot:controls>
+      <ClusterMapControlsPanel/>
+    </template>
+  </Bezel>
 </template>
