@@ -49,7 +49,6 @@ footer {
 }
 
 nav {
-  /*width: 100%;*/
   text-align: left;
   font-size: 1rem;
   padding: 1rem 0;

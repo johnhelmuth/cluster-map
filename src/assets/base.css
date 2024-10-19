@@ -11,6 +11,16 @@
   --vt-c-black-lightest: #7D7D7D;
 
   --vt-c-indigo: #2c3e50;
+  --vt-c-indigo-hsl: hsl(210 29% 24% / 100);
+  --vt-c-indigo-soft: hsl(210 49% 41% / 100);
+  --vt-c-indigo-mute: hsl(210 59% 54% / 100);
+  --vt-c-indigo-lightest: hsl(210 64% 59% / 100);
+
+  --vt-c-green-dark: hsl(120 64% 15% / 100);
+  --vt-c-green: hsl(120 50% 50%);
+  --vt-c-green-soft: hsl(120 70% 67%);
+  --vt-c-green-mute: hsl(120 80% 75%);
+  --vt-c-green-lightest: hsl(120 85% 80%);
 
   --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
   --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
@@ -18,7 +28,7 @@
   --vt-c-divider-dark-2: rgba(84, 84, 84, 0.48);
 
   --vt-c-text-light-1: var(--vt-c-indigo);
-  --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
+  --vt-c-text-light-2: var(--vt-c-indigo-lightest);
   --vt-c-text-dark-1: var(--vt-c-white);
   --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
 }
@@ -37,6 +47,9 @@
   --color-text: var(--vt-c-text-light-1);
 
   --section-gap: 160px;
+
+  --color-action-background: var(--vt-c-green-lightest);
+  --color-action-text: var(--vt-c-text-light-1);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -51,6 +64,9 @@
 
     --color-heading: var(--vt-c-text-dark-1);
     --color-text: var(--vt-c-text-dark-2);
+
+    --color-action-background: var(--vt-c-green-dark);
+    --color-action-text: var(--vt-c-text-light-2);
   }
 }
 
@@ -65,7 +81,7 @@
 body {
   min-height: 100vh;
   color: var(--color-text);
-  background: var(--color-background-mute);
+  background: var(--color-background);
   transition:
     color 0.5s,
     background-color 0.5s;

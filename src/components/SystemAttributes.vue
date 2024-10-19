@@ -7,8 +7,8 @@ defineProps< {
   attributes: SystemAttributesInterface
 }>();
 
-const displayStyles = [ 'short', 'long', 'detailed'];
-let currentDisplayStyle = 0; // short
+const displayStyles = [ 'detailed', 'long', 'short'];
+let currentDisplayStyle = 0; // detailed
 
 function toggleAttributesSize(e) {
   const infoBlock = e.currentTarget.parentElement;
@@ -25,14 +25,14 @@ function toggleAttributesSize(e) {
 </script>
 
 <template>
-  <div class="system-attributes-container short">
-    <div @click="toggleAttributesSize" class="system-attributes short">
+  <div class="system-attributes-container detailed">
+    <div @click.stop="toggleAttributesSize" class="system-attributes short">
       {{ attributesFormatted(attributes, "short")}}
     </div>
-    <div @click="toggleAttributesSize" class="system-attributes long">
+    <div @click.stop="toggleAttributesSize" class="system-attributes long">
       {{ attributesFormatted(attributes, "long")}}
     </div>
-    <div @click="toggleAttributesSize" class="system-attributes detailed">
+    <div @click.stop="toggleAttributesSize" class="system-attributes detailed">
       <ul>
         <li v-for="( attribute, attr_name) in attributes" :key="attr_name">
           {{ formatAttribute(attr_name, attribute, "detailed")}}
