@@ -25,7 +25,6 @@
   grid-template-columns: 3fr 1fr;
   align-items: stretch;
   padding: 1rem;
-  background-color: rgba(0, 0, 0, 5%);
   height: calc(100cqh - 5rem);
 }
 
@@ -58,7 +57,7 @@
   padding: 0.5rem;
   box-shadow: inset -0.25rem -0.25rem 0.25rem #777,
   inset  0.25rem  0.25rem 0.25rem lightgrey;
-  background-color: #aaa;
+  background-color: var(--color-background-lightest);
   height: calc(100cqh - 8rem);
   border-radius: 0.5rem;
 }

@@ -46,7 +46,7 @@ h2 {
 
 .system-info-card {
   border-radius: 5px;
-  background-color: rgba(255,255,255, 90%);
+  background-color: var(--color-background-soft);
   box-shadow: inset -0.1rem -0.1rem 0.1rem grey,
               inset  0.1rem   0.1rem 0.1rem lightgrey;
   margin: 0.5rem 0;

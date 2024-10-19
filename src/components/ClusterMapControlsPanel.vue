@@ -20,6 +20,7 @@ const cluster = inject('cluster');
 <style scoped>
 
 h1 {
+  color: var(--color-heading);
   border-radius: 0.5rem;
   box-shadow: inset -0.1rem -0.1rem 0.1rem grey,
               inset 0.1rem 0.1rem 0.1rem lightgrey;
