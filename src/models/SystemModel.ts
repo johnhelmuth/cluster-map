@@ -10,6 +10,7 @@ import type {
   SystemModelDataType
 } from "@/types/SystemTypes";
 import {SystemAttributesDefaults} from "@/types/SystemTypes"
+import type {PointType} from "@/types/GeometryTypes";
 
 export default class SystemModel implements SystemModelInterface {
   id: SystemIdType;
@@ -17,6 +18,8 @@ export default class SystemModel implements SystemModelInterface {
   attributes: SystemAttributesInterface;
   aspects: Array<AspectType>;
   cluster: ClusterModelInterface;
+  position: PointType;
+  selected: boolean;
 
   /**
    * Constructor for a SystemModel.
@@ -33,10 +36,13 @@ export default class SystemModel implements SystemModelInterface {
     this.name = 'Unknown system name';
     this.attributes = {...SystemAttributesDefaults};
     this.aspects = [];
+    this.position = { x: 500, y: 500 };
+    this.selected = false;
     if (data) {
       this.name = data.name;
       this.constructAspects(data);
       this.constructAttributes(data);
+      this.constructPosition(data);
       if ("id" in data) {
         this.id = data.id || '';
       }
@@ -58,6 +64,12 @@ export default class SystemModel implements SystemModelInterface {
   constructAspects(data: SystemModelDataType) {
     if ("aspects" in data) {
       this.aspects = [...data.aspects];
+    }
+  }
+
+  constructPosition(data: SystemModelDataType) {
+    if ("position" in data) {
+      this.position = { ...data.position};
     }
   }
 
@@ -106,5 +118,13 @@ export default class SystemModel implements SystemModelInterface {
       }).filter(sys => sys);
     }
     return [];
+  }
+
+  getSelected() {
+    return this.selected;
+  }
+
+  toggleSelected(): void {
+    this.selected = ! this.selected;
   }
 }

@@ -57,7 +57,7 @@
   padding: 0.5rem;
   box-shadow: inset -0.25rem -0.25rem 0.25rem #777,
   inset  0.25rem  0.25rem 0.25rem lightgrey;
-  background-color: var(--color-background-lightest);
+  background-color: var(--vt-c-black-mute);
   height: calc(100cqh - 8rem);
   border-radius: 0.5rem;
 }

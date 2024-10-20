@@ -13,6 +13,10 @@
         "technology": -2,
         "environment": -1,
         "resources": -1
+      },
+      "position": {
+        "x": 250,
+        "y": 85
       }
     },
     {
@@ -26,6 +30,10 @@
         "technology": 0,
         "environment": 0,
         "resources": -1
+      },
+      "position": {
+        "x": 700,
+        "y": 100
       }
     },
     {
@@ -39,6 +47,10 @@
         "technology": 3,
         "environment": 0,
         "resources": -2
+      },
+      "position": {
+        "x": 1030,
+        "y": 150
       }
     },
     {
@@ -52,6 +64,10 @@
         "technology": 0,
         "environment": 0,
         "resources": 1
+      },
+      "position": {
+        "x": 950,
+        "y": 550
       }
     },
     {
@@ -65,6 +81,10 @@
         "technology": 0,
         "environment": 1,
         "resources": -1
+      },
+      "position": {
+        "x": 650,
+        "y": 300
       }
     },
     {
@@ -78,6 +98,10 @@
         "technology": 0,
         "environment": 0,
         "resources": 1
+      },
+      "position": {
+        "x": 320,
+        "y": 290
       }
     },
     {
@@ -91,6 +115,10 @@
         "technology": -2,
         "environment": 1,
         "resources": 4
+      },
+      "position": {
+        "x": 620,
+        "y": 575
       }
     },
     {
@@ -103,6 +131,10 @@
         "technology": 0,
         "environment": -2,
         "resources": -1
+      },
+      "position": {
+        "x": 0,
+        "y": 350
       }
     },
     {
@@ -116,6 +148,10 @@
         "technology": 1,
         "environment": -2,
         "resources": 2
+      },
+      "position": {
+        "x": 375,
+        "y": 665
       }
     },
     {
@@ -129,6 +165,10 @@
         "technology": 1,
         "environment": -1,
         "resources": -2
+      },
+      "position": {
+        "x": 30,
+        "y": 650
       }
     }
   ],
@@ -138,6 +178,16 @@
     ["1","4"],
     ["1","3"],
     ["2","3"],
-    ["2","4"]
+    ["3","4"],
+    ["3","5"],
+    ["3","6"],
+    ["4","5"],
+    ["5","6"],
+    ["5","7"],
+    ["6","7"],
+    ["6","8"],
+    ["7","8"],
+    ["7","9"],
+    ["8","9"]
   ]
 }

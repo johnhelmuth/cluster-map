@@ -1,6 +1,7 @@
 import type { attributeValueType, IdType, AspectType} from "@/types/BasicTypes";
 import type {StraitModelInterface} from "@/types/StraitTypes";
 import type {ClusterModelInterface} from "@/types/ClusterTypes";
+import type { PointType } from "@types/GeometryTypes";
 
 /**
  * System model types
@@ -29,6 +30,8 @@ export interface SystemModelInterface {
   attributes: SystemAttributesInterface;
   aspects: Array<AspectType>;
   cluster: ClusterModelInterface;
+  position: PointType;
+  selected: boolean;
 
   connectTo(system: SystemModelInterface) : void;
   setName(name: string) : string;
@@ -37,6 +40,9 @@ export interface SystemModelInterface {
   addAspect(aspect: AspectType) : Number;
   getConnections(): Array<StraitModelInterface>;
   getConnectedSystems(): Array<SystemModelInterface>;
+  getSelected(): boolean;
+  setSelected(): void;
+  toggleSelected(): void;
 }
 
 export type SystemModelDataType = Omit<SystemModelInterface,"cluster"> | (Pick<SystemModelInterface, "name"> & Partial<Pick<SystemModelInterface, "id">>);

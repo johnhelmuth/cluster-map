@@ -11,13 +11,13 @@ export class ClusterModel implements ClusterModelInterface {
 
   id: ClusterIdType = '';
   name: string = '';
-  systems: Map<SystemIdType, SystemModelInterface>;
+  systemsMap: Map<SystemIdType, SystemModelInterface>;
   straits: Array<StraitModelInterface>;
 
   constructor(data?: ClusterModelDataType) {
     this.id = '';
     this.name = '';
-    this.systems = new Map<string, SystemModelInterface>();
+    this.systemsMap = new Map<string, SystemModelInterface>();
     this.straits = [];
     if (data) {
       this.importData(data);
@@ -32,7 +32,7 @@ export class ClusterModel implements ClusterModelInterface {
   }
 
   addSystem(system: SystemModelInterface): void {
-    this.systems.set(system.id, system);
+    this.systemsMap.set(system.id, system);
   }
 
   connectSystems(systemA: SystemModelInterface, systemB: SystemModelInterface) : void {
@@ -51,7 +51,7 @@ export class ClusterModel implements ClusterModelInterface {
   }
 
   getSystemByName(systemName: string) : SystemModelInterface | null {
-    const matches = [...this.systems.entries().filter(([_, system]) => system.name === systemName)];
+    const matches = [...this.systemsMap.entries().filter(([_, system]) => system.name === systemName)];
     if (matches.length) {
       return matches[0][1];
     }
@@ -59,7 +59,7 @@ export class ClusterModel implements ClusterModelInterface {
   }
 
   getSystemById(systemId: SystemIdType) : SystemModelInterface | null | undefined {
-    return this.systems.get(systemId);
+    return this.systemsMap.get(systemId);
   }
 
   getConnectionsForSystem(system: SystemModelInterface) : Array<StraitModelInterface> {
@@ -71,11 +71,11 @@ export class ClusterModel implements ClusterModelInterface {
   }
 
   getSystemsMap() : Map<SystemIdType, SystemModelInterface> {
-    return this.systems;
+    return this.systemsMap;
   }
 
-  getSystems() : Array<SystemModelInterface> {
-    return [...this.systems.entries()].map(([key, system]) => system);
+  get systems() : Array<SystemModelInterface> {
+    return [...this.systemsMap.entries()].map(([key, system]) => system);
   }
 
   importData(data: ClusterModelDataType) {

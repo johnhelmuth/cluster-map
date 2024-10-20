@@ -1,15 +1,45 @@
-<script setup>
+<script setup lang="ts">
 
-import { inject } from 'vue'
+import type {ClusterModelInterface} from "@/types/ClusterTypes.js";
 
-const cluster = inject('cluster');
+import {ref} from 'vue'
+
+import SystemGraph from "@/components/graph-components/SystemGraph.vue";
+import StraitGraph from "@/components/graph-components/StraitGraph.vue";
+import type {SystemModelInterface} from "@/types/SystemTypes";
+import type {RoutePlanType} from "@/types/RoutePlannerTypes";
+
+const props = defineProps<{
+  cluster: ClusterModelInterface,
+  selectedSystems: Map<SystemId, { seq: Number, system: SystemModelInterface }>,
+  plan?: RoutePlanType;
+}>();
+
+const systems = ref(props.cluster.systems);
+const straits = ref(props.cluster.straits);
+
+console.log('systems: ', systems);
+console.log('straits: ', straits);
+console.log('props.plan: ', props.plan);
 
 </script>
 
 <template>
   <div class="cluster-map-panel">
-    <!-- TODO: Replace this with THREE.js code rendering the data. -->
-    <!--  <img src="@/assets/cluster-map-manual.svg">-->
+    <svg width="100%" height="100%" viewBox="0 0 1000 750" xmlns="http://www.w3.org/2000/svg">
+      <filter id="blur1">
+        <feGaussianBlur stdDeviation="3" />
+      </filter>
+      <filter id="blur2">
+        <feGaussianBlur stdDeviation="2" />
+      </filter>
+      <template v-for="strait in straits">
+        <StraitGraph :strait="strait" :plan="plan"/>
+      </template>
+      <template v-for="system in systems" :key="system.id" >
+        <SystemGraph :system="system" :id="system.id" :plan="plan"></SystemGraph>
+      </template>
+    </svg>
   </div>
 </template>
 
@@ -20,9 +50,5 @@ const cluster = inject('cluster');
   height: 100%;
 }
 
-img {
-  width: 100%;
-  height: 100%;
-}
 
 </style>

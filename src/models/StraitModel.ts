@@ -11,4 +11,21 @@ export class StraitModel implements StraitModelInterface {
     this.systemB = systemB;
   }
 
+  getOtherSystem(system: SystemModelInterface): StraitModelInterface | undefined {
+    if (this.systemA === system) {
+      return this.systemB;
+    }
+    if (this.systemB === system) {
+      return this.systemA;
+    }
+  }
+
+  get id(): string {
+    return `${this.systemA.id || 'unknown'}:${this.systemB.id || 'unknown'}`;
+  }
+
+  includes(system: SystemModelInterface): boolean {
+    return (this.systemA === system || this.systemB === system);
+  }
+
 }

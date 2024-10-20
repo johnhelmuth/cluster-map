@@ -48,8 +48,11 @@
 
   --section-gap: 160px;
 
-  --color-action-background: var(--vt-c-green-lightest);
+  --color-action-background: var(--vt-c-green);
+  --color-action-hover: var(--vt-c-green-lightest);
   --color-action-text: var(--vt-c-text-light-1);
+
+  --color-highlight: var(--vt-c-indigo-lightest);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -66,6 +69,7 @@
     --color-text: var(--vt-c-text-dark-2);
 
     --color-action-background: var(--vt-c-green-dark);
+    --color-action-hover: var(--vt-c-green-soft);
     --color-action-text: var(--vt-c-text-light-2);
   }
 }

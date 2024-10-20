@@ -1,0 +1,72 @@
+import type {ClusterModelInterface} from "@/types/ClusterTypes";
+import type {SystemModelInterface} from "@/types/SystemTypes";
+import type {RoutePlanBType, RoutePlannerInterface, RoutePlanType} from "@/types/RoutePlannerTypes";
+
+export class RoutePlanner implements RoutePlannerInterface {
+
+  cluster: ClusterModelInterface;
+
+  constructor(cluster: ClusterModelInterface) {
+    this.cluster = cluster;
+  }
+
+  plan(systemA: SystemModelInterface, systemB: SystemModelInterface): RoutePlanType {
+
+    const systemsMap = this.cluster.systemsMap;
+
+    if (
+         ! systemA || ! systemB
+      || systemA === systemB
+      || !systemsMap.has(systemA.id) || !systemsMap.has(systemB.id)
+    ) {
+      return undefined;
+    }
+
+    /** Walk the straits between systemA and systemB gathering the list of straits in between, return the shortest list. */
+    const routePlans = this.findRoutes(systemA, systemB, []);
+
+    console.log(`routePlans for ${systemA.name} to ${systemB.name}`, routePlans);
+
+    const {min, shortestPlan} = routePlans.reduce(({min, shortestPlan}, plan) => {
+      if (plan.length < min) {
+        return {min: plan.length, shortestPlan: plan}
+      }
+      return {min, shortestPlan};
+    }, {min: Number.MAX_SAFE_INTEGER, shortestPlan: null});
+
+    console.log('{min, shortestPlan}', {min, shortestPlan});
+
+    return shortestPlan;
+  }
+
+  findRoutes(systemA: SystemModelInterface, systemB: SystemModelInterface, routePlan: RoutePlanBType): RoutePlanBType[] | undefined {
+    if (routePlan.includes(systemA)) {
+      return undefined;
+    }
+    const newRoutePlans: Array<RoutePlanType> = [];
+    const connectedSystems = systemA.getConnectedSystems();
+    const connections = systemA.getConnections();
+    if (connectedSystems.includes(systemB)) {
+      const newRoutePlan = [...routePlan, systemA, systemB] as RoutePlanType;
+      newRoutePlans.push(newRoutePlan);
+      return newRoutePlans;
+    }
+    for (const system of connectedSystems) {
+      const newRoutePlan: RoutePlanType = [...routePlan, systemA];
+      if (system === systemB) {
+        /* Unlikely to happen because of the code above that checks for systemB being in systemA's connected systems. */
+        continue;
+      }
+      /* Recursively look to see if we can find one or more routes from this connected system to systemB otherwise. */
+      const otherNewRoutePlans = this.findRoutes(system, systemB, newRoutePlan);
+      if (otherNewRoutePlans?.length) {
+        newRoutePlans.push(...otherNewRoutePlans);
+      }
+    }
+    return newRoutePlans;
+  }
+}
+
+export function createRoutePlanner(cluster: ClusterModelInterface): RoutePlannerInterface {
+  return new RoutePlanner(cluster);
+}

@@ -18,7 +18,9 @@ export type ClusterIdType = IdType;
 export interface ClusterModelInterface {
   id: ClusterIdType;
   name: string;
-  systems: Map<SystemIdType, SystemModelInterface>;
+  systemsMap: Map<SystemIdType, SystemModelInterface>;
+  systems: Array<SystemModelInterface>;
+  selectedSystems: Array<SystemModelInterface>;
   straits: Array<StraitModelInterface>;
 
   getSystemByName(systemName: string) : SystemModelInterface | null;

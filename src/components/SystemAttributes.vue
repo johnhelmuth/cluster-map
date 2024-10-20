@@ -2,37 +2,24 @@
 
 import type SystemAttributesInterface from "@/models/SystemModel";
 import { attributesFormatted, formatAttribute } from '@/data/attributes-meta';
+import type {attributeFormatType} from "@/types/BasicTypes";
 
 defineProps< {
-  attributes: SystemAttributesInterface
+  attributes: SystemAttributesInterface,
+  attributesFormat: attributeFormatType,
 }>();
 
-const displayStyles = [ 'detailed', 'long', 'short'];
-let currentDisplayStyle = 0; // detailed
-
-function toggleAttributesSize(e) {
-  const infoBlock = e.currentTarget.parentElement;
-  if (infoBlock) {
-    infoBlock.classList.remove(displayStyles[currentDisplayStyle]);
-    if (currentDisplayStyle < 2) {
-      currentDisplayStyle++;
-    } else {
-      currentDisplayStyle = 0;
-    }
-    infoBlock.classList.add(displayStyles[currentDisplayStyle]);
-  }
-}
 </script>
 
 <template>
-  <div class="system-attributes-container detailed">
-    <div @click.stop="toggleAttributesSize" class="system-attributes short">
+  <div class="system-attributes-container" :class="attributesFormat">
+    <div class="system-attributes short">
       {{ attributesFormatted(attributes, "short")}}
     </div>
-    <div @click.stop="toggleAttributesSize" class="system-attributes long">
+    <div class="system-attributes long">
       {{ attributesFormatted(attributes, "long")}}
     </div>
-    <div @click.stop="toggleAttributesSize" class="system-attributes detailed">
+    <div class="system-attributes detailed">
       <ul>
         <li v-for="( attribute, attr_name) in attributes" :key="attr_name">
           {{ formatAttribute(attr_name, attribute, "detailed")}}
