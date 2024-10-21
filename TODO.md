@@ -1,8 +1,8 @@
 
 
 * ~~TODO: add map of cluster to display panel.~~
-* TODO: make cluster map image responsive. 
-* TODO: be able to rotate orientation of map.
+* ~~TODO: make cluster map image responsive.~~ 
+* ~~TODO: be able to rotate orientation of map.~~
 * TODO: auto-layout for cluster map. Maybe just make the map editable.
 * TODO: add persistence layer, first cut just use LocalStorage
 * TODO: Autogenerate new clusters

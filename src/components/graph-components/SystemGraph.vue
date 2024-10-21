@@ -7,7 +7,9 @@ import type {RoutePlanType} from "@/types/RoutePlannerTypes";
 
 const props = defineProps< {
   system: SystemModelInterface,
-  plan?: RoutePlanType;
+  plan?: RoutePlanType,
+  /** @property {boolean} flipped - true if the orientation of the map is rotated 90 degrees. */
+  flipped?: boolean,
 }>()
 
 const radius = 80;
@@ -15,8 +17,8 @@ const textHeight = 15;
 const ringGap = 6;
 const bgDiscGap = 3;
 
-const positionX = computed(() => props.system.position.x);
-const positionY = computed(() => props.system.position.y);
+const positionX = computed(() => props?.flipped ? props.system.positionFlipped.x : props.system.position.x);
+const positionY = computed(() => props?.flipped ? props.system.positionFlipped.y : props.system.position.y);
 const attributes = computed(() => attributesFormatted(props.system.attributes, "short"));
 const isSelected = computed(() => props.system.getSelected());
 

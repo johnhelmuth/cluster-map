@@ -1,13 +1,13 @@
-
-import type { AspectType, attributeValueType } from '@/types/BasicTypes';
-import { attributeValues } from '@/types/BasicTypes';
-import type { StraitModelInterface } from "@/types/StraitTypes";
-import type { ClusterModelInterface } from "@/types/ClusterTypes";
+import type {AspectType, attributeValueType} from '@/types/BasicTypes';
+import {attributeValues} from '@/types/BasicTypes';
+import type {StraitModelInterface} from "@/types/StraitTypes";
+import type {ClusterModelInterface} from "@/types/ClusterTypes";
 import type {
-  SystemIdType,
   SystemAttributesInterface,
-  SystemModelInterface,
-  SystemModelDataType, SystemAttributesKeyType
+  SystemAttributesKeyType,
+  SystemIdType,
+  SystemModelDataType,
+  SystemModelInterface
 } from "@/types/SystemTypes";
 import {SystemAttributesDefaults} from "@/types/SystemTypes"
 import type {PointType} from "@/types/GeometryTypes";
@@ -72,6 +72,13 @@ export default class SystemModel implements SystemModelInterface {
     if ("position" in data) {
       this.position = { ...data.position };
     }
+  }
+
+  get positionFlipped(): PointType {
+    return {
+      x: this.position.y,
+      y: this.position.x
+    };
   }
 
   connectTo(system: SystemModelInterface) {
