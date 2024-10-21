@@ -60,7 +60,7 @@ const isInRoutePlan = computed(() => {
   stroke-width: 0.5rem;
   stroke: hsl(180, 100%, 100%, 80%);
   filter: url(#blur1);
-  animation: 2s ease-in-out 0.1s infinite alternate strait-throb;
+  animation: 1s ease-in-out 0.1s infinite alternate strait-throb;
 }
 @keyframes strait-throb {
   from {
