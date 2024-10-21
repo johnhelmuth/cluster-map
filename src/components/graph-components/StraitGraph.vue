@@ -6,13 +6,16 @@ import type {RoutePlanType} from "@/types/RoutePlannerTypes";
 
 const props = defineProps<{
   strait: StraitModelInterface,
-  plan?: RoutePlanType
+  plan?: RoutePlanType,
+  /** @property {boolean} flipped - true if the orientation of the map is rotated 90 degrees. */
+  flipped?: boolean,
 }>();
 
-const systemAX = computed(() => props.strait.systemA.position.x );
-const systemAY = computed(() => props.strait.systemA.position.y );
-const systemBX = computed(() => props.strait.systemB.position.x );
-const systemBY = computed(() => props.strait.systemB.position.y );
+const systemAX = computed(() => props?.flipped ? props.strait.systemA.positionFlipped.x : props.strait.systemA.position.x );
+const systemAY = computed(() => props?.flipped ? props.strait.systemA.positionFlipped.y : props.strait.systemA.position.y );
+const systemBX = computed(() => props?.flipped ? props.strait.systemB.positionFlipped.x : props.strait.systemB.position.x );
+const systemBY = computed(() => props?.flipped ? props.strait.systemB.positionFlipped.y : props.strait.systemB.position.y );
+
 const isInRoutePlan = computed(() => {
   if (props.plan) {
     let lastSystem = null;

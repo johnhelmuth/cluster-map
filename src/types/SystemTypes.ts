@@ -31,6 +31,7 @@ export interface SystemModelInterface {
   aspects: Array<AspectType>;
   cluster: ClusterModelInterface;
   position: PointType;
+  positionFlipped: PointType;
   selected: boolean;
 
   connectTo(system: SystemModelInterface) : void;
