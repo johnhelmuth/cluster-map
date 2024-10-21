@@ -52,7 +52,6 @@ const appVersion = typeof __APP_VERSION !== "undefined" ? `v${__APP_VERSION}` : 
   padding-bottom: 1rem;
   background-color: var(--color-background-soft);
   border-radius: 1rem;
-  font-size: 2rem;
   border: .25px solid var(--color-background-lightest);
   box-shadow: inset -0.25rem -0.25rem 0.25rem #777,
   inset  0.25rem  0.25rem 0.25rem lightgrey;
@@ -61,12 +60,12 @@ const appVersion = typeof __APP_VERSION !== "undefined" ? `v${__APP_VERSION}` : 
 h1 {
   text-align: center;
   flex: 0 1 auto;
-  font-size: 3rem;
+  font-weight: bold;
 }
 h2 {
   text-align: center;
   flex: 0 1 auto;
-  font-size: 2rem;
+  font-weight: bold;
 }
 
 .content {
@@ -80,7 +79,7 @@ main {
 
 .players {
   flex: 1 1 auto;
-  margin: 1rem;
+  margin: 2rem auto;
 }
 
 footer {
@@ -92,6 +91,14 @@ footer {
   flex-direction: row;
   flex-flow: row nowrap;
   justify-content: space-between;
-  font-size: 1rem;
+  align-items: end;
+  font-size: .8rem;
+}
+footer span {
+  width: 48%;
+  text-align: left;
+}
+footer span.right {
+  text-align: right;
 }
 </style>

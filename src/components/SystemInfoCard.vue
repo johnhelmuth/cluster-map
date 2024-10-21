@@ -35,9 +35,6 @@
 
 <style scoped>
 
-h2 {
-  font-size: 1.5rem;
-}
 .selected h2 {
   font-weight: bold;
 }
@@ -56,7 +53,7 @@ h2 {
   box-shadow: inset  0.2rem  0.2rem 0.2rem grey,
               inset -0.2rem -0.2rem 0.2rem lightgrey;
   margin: 0.5rem 0;
-  padding: 0.75rem;
+  padding: 0.25rem 0.5rem;
 }
 .system-info-card.selected {
   box-shadow: inset -0.4rem -0.4rem 0.4rem grey,

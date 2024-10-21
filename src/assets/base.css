@@ -103,8 +103,12 @@ body {
     'Droid Sans',
     'Helvetica Neue',
     sans-serif;
-  font-size: 15px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: clamp(1rem, 1cqw, 1.5rem);
+}
+
+html {
+  font-size: clamp(1em, 1vw, 1.5em);
 }

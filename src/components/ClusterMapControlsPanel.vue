@@ -84,37 +84,6 @@ function planTrip() {
 
 <style scoped>
 
-h1 {
-  color: var(--color-heading);
-  border-radius: 0.5rem;
-  box-shadow: inset -0.1rem -0.1rem 0.1rem grey,
-              inset 0.1rem 0.1rem 0.1rem lightgrey;
-  padding: 0.5rem;
-  text-align: center;
-}
-.controls {
-  margin-top: 0.25rem;
-  display: flex;
-  flex-direction: row-reverse;
-}
-.controls button {
-  background-color: var(--color-background);
-  border: none;
-  border-radius: 0.25rem;
-  width: 5rem;
-  height: 1.5rem;
-  box-shadow: inset -0.1rem -0.1rem 0.1rem grey,
-  inset 0.1rem 0.1rem 0.1rem lightgrey;
-}
-.controls button:hover {
-  box-shadow:
-    inset 0.1rem 0.1rem 0.1rem grey,
-    inset -0.1rem -0.1rem 0.1rem lightgrey;
-}
-.panel-body {
-  margin-top: 0.25rem;
-  overflow-y: scroll;
-}
 .cluster-map-controls {
   border-radius: 0.5rem;
   padding: 0 1em;
@@ -130,5 +99,42 @@ h1 {
     padding: 0 0.25rem;
     margin-left: 0.5rem;
   }
+}
+
+h1 {
+  color: var(--color-heading);
+  border-radius: 0.5rem;
+  box-shadow: inset -0.1rem -0.1rem 0.1rem grey,
+              inset 0.1rem 0.1rem 0.1rem lightgrey;
+  padding: 0.5rem;
+  text-align: center;
+  font-size: .75rem;
+  font-weight: bold;
+
+}
+.controls {
+  margin-top: 0.25rem;
+  display: flex;
+  flex-direction: row-reverse;
+  font-size: .65rem;
+}
+.controls button {
+  background-color: var(--color-background);
+  border: none;
+  border-radius: 0.25rem;
+  width: 5rem;
+  height: 1.5rem;
+  box-shadow: inset -0.1rem -0.1rem 0.1rem grey,
+              inset 0.1rem 0.1rem 0.1rem lightgrey;
+}
+.controls button:hover {
+  box-shadow:
+    inset 0.1rem 0.1rem 0.1rem grey,
+    inset -0.1rem -0.1rem 0.1rem lightgrey;
+}
+.panel-body {
+  font-size: .75rem;
+  margin-top: 0.25rem;
+  overflow-y: scroll;
 }
 </style>

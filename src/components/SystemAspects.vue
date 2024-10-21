@@ -24,7 +24,6 @@ defineProps< {
   line-height: 1.3;
   font-weight: bold;
   font-style: italic;
-  font-size: medium;
   margin: 0.5rem auto;
 }
 </style>
