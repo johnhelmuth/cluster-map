@@ -26,7 +26,7 @@ console.log('props.plan: ', props.plan);
 
 <template>
   <div class="cluster-map-panel">
-    <svg width="100%" height="100%" viewBox="0 0 1000 750" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 1000 750" xmlns="http://www.w3.org/2000/svg">
       <filter id="blur1">
         <feGaussianBlur stdDeviation="3" />
       </filter>
@@ -46,6 +46,11 @@ console.log('props.plan: ', props.plan);
 <style scoped>
 
 .cluster-map-panel {
+  width: 100%;
+  height: 100%;
+}
+
+.cluster-map-panel svg {
   width: 100%;
   height: 100%;
 }
