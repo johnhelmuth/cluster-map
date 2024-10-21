@@ -7,7 +7,7 @@ import type {
   SystemIdType,
   SystemAttributesInterface,
   SystemModelInterface,
-  SystemModelDataType
+  SystemModelDataType, SystemAttributesKeyType
 } from "@/types/SystemTypes";
 import {SystemAttributesDefaults} from "@/types/SystemTypes"
 import type {PointType} from "@/types/GeometryTypes";
@@ -47,13 +47,14 @@ export default class SystemModel implements SystemModelInterface {
         this.id = data.id || '';
       }
     }
-    this.cluster.addSystem(this);
+    this.cluster.addSystem(this as SystemModelInterface);
   }
 
-  constructAttributes(data: SystemModelDataType) {
+  private constructAttributes(data: SystemModelDataType) {
     if ("attributes" in data) {
       const dataAttributes = data.attributes;
-      for (const attrib in SystemAttributesDefaults) {
+      let attrib : SystemAttributesKeyType;
+      for (attrib in SystemAttributesDefaults as SystemAttributesInterface) {
         if (attrib in dataAttributes) {
           this.attributes[attrib] = dataAttributes[attrib] as attributeValueType;
         }
@@ -61,20 +62,20 @@ export default class SystemModel implements SystemModelInterface {
     }
   }
 
-  constructAspects(data: SystemModelDataType) {
+  private constructAspects(data: SystemModelDataType) {
     if ("aspects" in data) {
       this.aspects = [...data.aspects];
     }
   }
 
-  constructPosition(data: SystemModelDataType) {
+  private constructPosition(data: SystemModelDataType) {
     if ("position" in data) {
-      this.position = { ...data.position};
+      this.position = { ...data.position };
     }
   }
 
   connectTo(system: SystemModelInterface) {
-    this.cluster.connectSystems(this, system);
+    this.cluster.connectSystems(this as SystemModelInterface, system);
   }
 
   setName(name: string) : string {
@@ -102,25 +103,23 @@ export default class SystemModel implements SystemModelInterface {
   }
 
   getConnections(): Array<StraitModelInterface> {
-    return this.cluster.getConnectionsForSystem(this);
+    return this.cluster.getConnectionsForSystem(this as SystemModelInterface);
   }
 
-  getConnectedSystems(): Array<SystemModelInterface> {
+  getConnectedSystems(): Array<SystemModelInterface> | undefined {
     const straits = this.getConnections();
     if (straits?.length) {
-      return straits.map(strait => {
-        if (strait.systemA.id === this.id) {
-          return strait.systemB;
-        }
-        if (strait.systemB.id === this.id) {
-          return strait.systemA;
-        }
-      }).filter(sys => sys);
+      const connectedSystems = straits
+        .map(strait => strait.getOtherSystem(this))
+        .filter(sys => !! sys);
+      if (!! connectedSystems && connectedSystems instanceof Array) {
+        return connectedSystems;
+      }
     }
     return [];
   }
 
-  getSelected() {
+  getSelected(): boolean {
     return this.selected;
   }
 

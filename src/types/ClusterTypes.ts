@@ -9,8 +9,8 @@
 import type { IdType} from "@/types/BasicTypes";
 import type { SystemIdType, SystemModelInterface} from "@/types/SystemTypes";
 import type {StraitModelInterface} from "@/types/StraitTypes";
-import {SystemModelDataType} from "@/types/SystemTypes";
-import {StraitModelDataType} from "@/types/StraitTypes";
+import type {SystemModelDataType} from "@/types/SystemTypes";
+import type {StraitModelDataType} from "@/types/StraitTypes";
 
 
 export type ClusterIdType = IdType;
@@ -20,7 +20,6 @@ export interface ClusterModelInterface {
   name: string;
   systemsMap: Map<SystemIdType, SystemModelInterface>;
   systems: Array<SystemModelInterface>;
-  selectedSystems: Array<SystemModelInterface>;
   straits: Array<StraitModelInterface>;
 
   getSystemByName(systemName: string) : SystemModelInterface | null;
@@ -28,8 +27,6 @@ export interface ClusterModelInterface {
   getSystemById(systemId: SystemIdType) : SystemModelInterface | null | undefined;
 
   getSystemsMap() : Map<SystemIdType, SystemModelInterface>;
-
-  getSystems() : Array<SystemModelInterface>;
 
   addSystem(system: SystemModelInterface): void;
 
@@ -39,8 +36,8 @@ export interface ClusterModelInterface {
 
   getConnectionsForSystem(system: SystemModelInterface) : Array<StraitModelInterface>;
 
-  importSystems(data: ClusterModelDataType) ;
-  importStraits(data: ClusterModelDataType);
+  importSystems(data: ClusterModelDataType) : void;
+  importStraits(data: ClusterModelDataType) : void;
 
 }
 
@@ -49,6 +46,6 @@ export type ClusterModelDataType = ClusterModelInterface |
     & Partial<Pick<ClusterModelInterface, "id">>
     & {
         systems?: Array<SystemModelDataType> | null,
-        straits?: Array<StraitModelDataType> | null
+        straits?: Array<StraitModelDataType> | Array<Array<SystemIdType>> | null
       }
   );

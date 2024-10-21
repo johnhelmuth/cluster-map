@@ -11,7 +11,7 @@ export class StraitModel implements StraitModelInterface {
     this.systemB = systemB;
   }
 
-  getOtherSystem(system: SystemModelInterface): StraitModelInterface | undefined {
+  getOtherSystem(system: SystemModelInterface): SystemModelInterface | undefined {
     if (this.systemA === system) {
       return this.systemB;
     }

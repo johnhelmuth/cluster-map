@@ -6,12 +6,12 @@ import {ref} from 'vue'
 
 import SystemGraph from "@/components/graph-components/SystemGraph.vue";
 import StraitGraph from "@/components/graph-components/StraitGraph.vue";
-import type {SystemModelInterface} from "@/types/SystemTypes";
+import type {SystemIdType, SystemModelInterface} from "@/types/SystemTypes";
 import type {RoutePlanType} from "@/types/RoutePlannerTypes";
 
 const props = defineProps<{
   cluster: ClusterModelInterface,
-  selectedSystems: Map<SystemId, { seq: Number, system: SystemModelInterface }>,
+  selectedSystems: Map<SystemIdType, { seq: Number, system: SystemModelInterface }>,
   plan?: RoutePlanType;
 }>();
 

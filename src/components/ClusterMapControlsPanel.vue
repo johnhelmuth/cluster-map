@@ -3,7 +3,7 @@
 <script setup lang="ts">
 
 import SystemInfoCard from "@/components/SystemInfoCard.vue";
-import type {SystemModelInterface} from "@/types/SystemTypes.js";
+import type {SystemIdType, SystemModelInterface} from "@/types/SystemTypes.js";
 import type {ClusterModelInterface} from "@/types/ClusterTypes";
 import type {RoutePlanType} from "@/types/RoutePlannerTypes";
 import {createRoutePlanner} from "@/utilities/RoutePlanner";
@@ -11,24 +11,27 @@ import {ref} from "vue";
 
 const props = defineProps<{
   cluster: ClusterModelInterface,
-  selectedSystems: Map<SystemId, { seq: Number, system: SystemModelInterface }>,
+  selectedSystems: Map<SystemIdType, { seq: Number, system: SystemModelInterface }>,
   plan?: RoutePlanType;
 }>();
 
 let systemInfoCardClosed = ref(true);
 
 const emit = defineEmits<{
-  "system-selected": (system: SystemModelInterface) => void;
-  "route-planned": (plan: RoutePlanType) => void;
+  "system-selected": [system: SystemModelInterface]
+  "route-planned": [plan: RoutePlanType | null];
 }>();
 
 function expandCards() {
   console.log('expandCards() clicked. systemInfoCardClosed.value: ', systemInfoCardClosed.value)
   systemInfoCardClosed.value = ! systemInfoCardClosed.value;
-  document.getElementById('accordion-button').innerText =
-    systemInfoCardClosed.value
-      ? 'Expand'
-      : 'Collapse';
+  const accordionEl = document.getElementById('accordion-button');
+  if (accordionEl) {
+    accordionEl.innerText =
+      systemInfoCardClosed.value
+        ? 'Expand'
+        : 'Collapse';
+  }
 }
 
 function selectSystem(system: SystemModelInterface) {

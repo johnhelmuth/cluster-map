@@ -1,6 +1,6 @@
 import type {ClusterModelInterface} from "@/types/ClusterTypes";
 import type {SystemModelInterface} from "@/types/SystemTypes";
-import type {RoutePlanBType, RoutePlannerInterface, RoutePlanType} from "@/types/RoutePlannerTypes";
+import type {RoutePlannerInterface, RoutePlanType} from "@/types/RoutePlannerTypes";
 
 export class RoutePlanner implements RoutePlannerInterface {
 
@@ -10,7 +10,7 @@ export class RoutePlanner implements RoutePlannerInterface {
     this.cluster = cluster;
   }
 
-  plan(systemA: SystemModelInterface, systemB: SystemModelInterface): RoutePlanType {
+  plan(systemA: SystemModelInterface, systemB: SystemModelInterface): RoutePlanType | null {
 
     const systemsMap = this.cluster.systemsMap;
 
@@ -19,16 +19,20 @@ export class RoutePlanner implements RoutePlannerInterface {
       || systemA === systemB
       || !systemsMap.has(systemA.id) || !systemsMap.has(systemB.id)
     ) {
-      return undefined;
+      return null;
     }
 
     /** Walk the straits between systemA and systemB gathering the list of straits in between, return the shortest list. */
-    const routePlans = this.findRoutes(systemA, systemB, []);
+    const routePlans = this.findRoutes(systemA, systemB, []) || [] as RoutePlanType[];
 
     console.log(`routePlans for ${systemA.name} to ${systemB.name}`, routePlans);
 
-    const {min, shortestPlan} = routePlans.reduce(({min, shortestPlan}, plan) => {
-      if (plan.length < min) {
+    type RoutePlanSortType = {
+      min: number,
+      shortestPlan: RoutePlanType | null,
+    };
+    const {min, shortestPlan} = routePlans.reduce(({min, shortestPlan} : RoutePlanSortType, plan : RoutePlanType) => {
+      if (plan && plan.length < min) {
         return {min: plan.length, shortestPlan: plan}
       }
       return {min, shortestPlan};
@@ -39,13 +43,12 @@ export class RoutePlanner implements RoutePlannerInterface {
     return shortestPlan;
   }
 
-  findRoutes(systemA: SystemModelInterface, systemB: SystemModelInterface, routePlan: RoutePlanBType): RoutePlanBType[] | undefined {
-    if (routePlan.includes(systemA)) {
+  findRoutes(systemA: SystemModelInterface, systemB: SystemModelInterface, routePlan: RoutePlanType): RoutePlanType[] | undefined {
+    if (routePlan?.includes(systemA)) {
       return undefined;
     }
     const newRoutePlans: Array<RoutePlanType> = [];
-    const connectedSystems = systemA.getConnectedSystems();
-    const connections = systemA.getConnections();
+    const connectedSystems = systemA.getConnectedSystems() || [] as Array<SystemModelInterface>;
     if (connectedSystems.includes(systemB)) {
       const newRoutePlan = [...routePlan, systemA, systemB] as RoutePlanType;
       newRoutePlans.push(newRoutePlan);

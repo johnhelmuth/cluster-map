@@ -51,7 +51,10 @@ export class ClusterModel implements ClusterModelInterface {
   }
 
   getSystemByName(systemName: string) : SystemModelInterface | null {
-    const matches = [...this.systemsMap.entries().filter(([_, system]) => system.name === systemName)];
+    const matches = [...this.systemsMap.entries()]
+      .filter(
+        ([_, system]) => system.name === systemName
+      );
     if (matches.length) {
       return matches[0][1];
     }
@@ -85,18 +88,18 @@ export class ClusterModel implements ClusterModelInterface {
 
   importSystems(data: ClusterModelDataType) {
     if ("systems" in data) {
-      for (const systemData of data.systems) {
+      for (const systemData of (data?.systems || [])) {
         const system = new SystemModel(this, systemData);
       }
     }
   }
 
   importStraits(data: ClusterModelDataType) {
-    if ("straits" in data && data.straits instanceof Array<StraitModelDataType>)
-    for (const straitData of data.straits) {
-      const systemA = this.getSystemById(straitData[0]);
+    if ("straits" in data && data.straits instanceof Array)
+    for (const straitData of data.straits as Array<Array<SystemIdType>>) {
+      const systemA = this.getSystemById(straitData[0] as SystemIdType);
       if (systemA) {
-        const systemB = this.getSystemById(straitData[1]);
+        const systemB = this.getSystemById(straitData[1] as SystemIdType);
         if (systemB) {
           this.connectSystems(systemA, systemB);
         }

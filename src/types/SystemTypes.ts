@@ -1,7 +1,7 @@
 import type { attributeValueType, IdType, AspectType} from "@/types/BasicTypes";
 import type {StraitModelInterface} from "@/types/StraitTypes";
 import type {ClusterModelInterface} from "@/types/ClusterTypes";
-import type { PointType } from "@types/GeometryTypes";
+import type { PointType } from "@/types/GeometryTypes";
 
 /**
  * System model types
@@ -39,9 +39,8 @@ export interface SystemModelInterface {
   setAspect(index: number, aspect: AspectType) : AspectType;
   addAspect(aspect: AspectType) : Number;
   getConnections(): Array<StraitModelInterface>;
-  getConnectedSystems(): Array<SystemModelInterface>;
+  getConnectedSystems(): Array<SystemModelInterface> | undefined;
   getSelected(): boolean;
-  setSelected(): void;
   toggleSelected(): void;
 }
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import type SystemAttributesInterface from "@/models/SystemModel";
+import type { SystemAttributesInterface } from "@/types/SystemTypes";
 import { attributesFormatted, formatAttribute } from '@/data/attributes-meta';
 import type {attributeFormatType} from "@/types/BasicTypes";
 

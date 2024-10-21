@@ -12,7 +12,7 @@ export interface StraitModelInterface {
 
   get id(): string;
 
-  getOtherSystem(system: SystemModelInterface): StraitModelInterface | undefined;
+  getOtherSystem(system: SystemModelInterface): SystemModelInterface | undefined;
 
   includes(system: SystemModelInterface): boolean;
 }

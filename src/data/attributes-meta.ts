@@ -1,8 +1,8 @@
-import type {SystemAttributesInterface, SystemAttributesKeyType} from "@/types/SystemTypes";
+import type {SystemAttributesInterface, SystemAttributesKeyType, SystemIdType} from "@/types/SystemTypes";
 import type {attributeFormatType, attributeValueType, attributeRatingMetaType} from "@/types/BasicTypes";
 import {SystemAttributesDefaults} from "@/types/SystemTypes";
 
-export const attributesMeta: { [SystemAttributesKeyType]: { name: string, abbrev: string } } = {
+export const attributesMeta = {
   "technology": {
     "name": "Technology",
     "abbrev": "T",
@@ -19,7 +19,7 @@ export const attributesMeta: { [SystemAttributesKeyType]: { name: string, abbrev
 
 // @TODO Move these into a JSON file or other persistence layer, so that they can be easily edited.
 
-export const attributeRatingDescriptors: { [SystemAttributesKeyType]: Map<attributeValueType, attributeRatingMetaType>} = {
+export const attributeRatingDescriptors = {
   "technology": new Map([
     [-4, { "name": "Stone age" }],
     [-3, { "name": "Metallurgy" }],
@@ -57,8 +57,8 @@ export const attributeRatingDescriptors: { [SystemAttributesKeyType]: Map<attrib
 
 // TODO: Refactor these to go into an SystemAttributesModel class
 export function formatAttribute(
-  attributeName: string,
-  attributeValue: SystemAttributesKeyType,
+  attributeName: SystemAttributesKeyType,
+  attributeValue: attributeValueType,
   format: attributeFormatType
 ) : string {
   switch (format) {
@@ -73,15 +73,19 @@ export function formatAttribute(
 }
 
 function formatAttributeLocal(
-  attributeName: string,
-  attributeValue: SystemAttributesKeyType,
+  attributeName: SystemAttributesKeyType,
+  attributeValue: attributeValueType,
   field: "name" | "abbrev",
-  delimiter: "" | ":"
+  delimiter: "" | ": "
 ): string {
-  return `${attributesMeta[attributeName][field]}${delimiter}${attributeValue}`;
+  if ( ["technology","environment","resources"].includes(attributeName)) {
+    const attributeMeta = attributesMeta[attributeName];
+    return `${attributeMeta[field]}${delimiter}${attributeValue}`;
+  }
+  throw new Error(`formatAttributeLocal() called with an invalid attribute name, ${attributeName}`);
 }
 
-function formatAttributeDetailed(attributeName: string, attributeValue: SystemAttributesKeyType): string {
+function formatAttributeDetailed(attributeName: SystemAttributesKeyType, attributeValue: attributeValueType ): string {
   const description = getAttributeDescription(attributeName, attributeValue);
   const formattedAttribute = formatAttribute(attributeName, attributeValue, "short");
   return formattedAttribute
@@ -90,18 +94,18 @@ function formatAttributeDetailed(attributeName: string, attributeValue: SystemAt
     : '');
 }
 
-export function getAttributeDescription(attributeName: string, attributeValue: SystemAttributesKeyType): string {
-  return attributeRatingDescriptors?.[attributeName].get(attributeValue)?.name;
+export function getAttributeDescription(attributeName: SystemAttributesKeyType, attributeValue: attributeValueType): string {
+  return attributeRatingDescriptors?.[attributeName].get(attributeValue)?.name || '';
 }
 
-export function getEnvironmentColor(attributeValue: SystemAttributesKeyType): string {
-  return attributeRatingDescriptors?.environment.get(attributeValue)?.color;
+export function getEnvironmentColor(attributeValue: attributeValueType): string {
+  return attributeRatingDescriptors?.environment.get(attributeValue)?.color || '';
 }
 
 export function attributesFormatted(attributes : SystemAttributesInterface, format:attributeFormatType ): string {
   const formattedAttributes = Object.keys(SystemAttributesDefaults)
     .map((attributeName) => {
-      const fa = formatAttribute(attributeName, attributes[attributeName], format)
+      const fa = formatAttribute(attributeName as SystemAttributesKeyType, attributes[attributeName as SystemAttributesKeyType], format)
       return fa;
     })
     .join(' ');
