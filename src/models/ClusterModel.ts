@@ -17,7 +17,7 @@ export class ClusterModel implements ClusterModelInterface {
   constructor(data?: ClusterModelDataType) {
     this.id = '';
     this.name = '';
-    this.systemsMap = new Map<string, SystemModelInterface>();
+    this.systemsMap = new Map<SystemIdType, SystemModelInterface>();
     this.straits = [];
     if (data) {
       this.importData(data);

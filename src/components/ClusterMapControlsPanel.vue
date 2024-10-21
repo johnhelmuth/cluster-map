@@ -10,7 +10,7 @@ import {createRoutePlanner} from "@/utilities/RoutePlanner";
 import {ref} from "vue";
 
 const props = defineProps<{
-  cluster: ClusterModelInterface,
+  cluster?: ClusterModelInterface | undefined,
   selectedSystems: Map<SystemIdType, { seq: Number, system: SystemModelInterface }>,
   plan?: RoutePlanType;
 }>();
@@ -19,7 +19,7 @@ let systemInfoCardClosed = ref(true);
 
 const emit = defineEmits<{
   "system-selected": [system: SystemModelInterface]
-  "route-planned": [plan: RoutePlanType | null];
+  "route-planned": [plan: RoutePlanType | undefined];
 }>();
 
 function expandCards() {
@@ -34,14 +34,17 @@ function expandCards() {
   }
 }
 
-function selectSystem(system: SystemModelInterface) {
+function selectSystem(system: SystemModelInterface | undefined) {
+  if (! system) {
+    return;
+  }
   system.toggleSelected();
   emit('system-selected', system);
   console.log('selectSystem() props.selectedSystems.value.size: ', props.selectedSystems.size);
   if (props.selectedSystems.size === 2) {
     planTrip();
   } else {
-    emit('route-planned', null);
+    emit('route-planned', undefined);
   }
 }
 
@@ -49,6 +52,9 @@ function planTrip() {
   console.log('planTrip()')
   const [systemA, systemB] = [...props.selectedSystems.values()].map(value => value.system);
   console.log('planTrip() [systemA, systemB]: ', [systemA, systemB]);
+  if (! props?.cluster) {
+    throw new Error("No cluster created in ClusterMapControlsPanel.");
+  }
   const routePlanner = createRoutePlanner(props.cluster);
   console.log('planTrip() routePlanner: ', routePlanner);
   const routePlan = routePlanner.plan(systemA, systemB);
@@ -60,12 +66,12 @@ function planTrip() {
 
 <template>
   <div class="cluster-map-controls">
-    <h1>{{ cluster.name ? cluster.name : "Cluster"}}</h1>
+    <h1>{{ cluster?.name ? cluster.name : "Cluster"}}</h1>
     <div class="controls">
       <button id="accordion-button" @click="expandCards">Expand</button>
     </div>
     <div class="panel-body">
-      <SystemInfoCard v-for="system in cluster.systems"
+      <SystemInfoCard v-if="!! cluster?.systems" v-for="system in cluster?.systems || [] as Array<SystemModelInterface | undefined>"
                       :system="system"
                       :key="system.id"
                       @selected="selectSystem"

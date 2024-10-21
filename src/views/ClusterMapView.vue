@@ -5,14 +5,16 @@ import ClusterMapPanel from "@/components/ClusterMapPanel.vue";
 import ClusterMapControlsPanel from "@/components/ClusterMapControlsPanel.vue";
 
 import {computed, inject, reactive, ref} from 'vue'
-import type {SystemModelInterface} from "@/types/SystemTypes";
+import type {SystemIdType, SystemModelInterface} from "@/types/SystemTypes";
 import type {RoutePlanType} from "@/types/RoutePlannerTypes";
 import type {ClusterModelInterface} from "@/types/ClusterTypes";
 
-const cluster: ClusterModelInterface = inject('cluster');
+const cluster: ClusterModelInterface | undefined = inject('cluster');
 
-const routePlan: RoutePlanType = ref(null);
-const selectedSystems = reactive(new Map<SystemId, { seq: Number, system: SystemModelInterface }>());
+const routePlan = ref(undefined as RoutePlanType | undefined);
+type SelectedSystemLogType = { seq: number, system: SystemModelInterface };
+
+const selectedSystems = reactive(new Map<SystemIdType, SelectedSystemLogType>());
 let selectedSequence = 0;
 
 console.log('selectedSystems: ', selectedSystems);
@@ -22,13 +24,15 @@ function systemSelected(system: SystemModelInterface) {
   console.log('ClusterMapView systemSelected() system: ', system);
   if (system.getSelected() && ! selectedSystems.has(system.id)) {
     if (selectedSystems.size > 1) {
-      const { max, lastSystemSelected } = [...selectedSystems.values()].reduce(({max, lastSystemSelected }, {seq, system}) => {
+      type LastSelectedRecord = { max: number, lastSystemSelected: SystemModelInterface | undefined };
+      const initialLastSelectedRecord : LastSelectedRecord = { max: -1, lastSystemSelected: undefined };
+      const { max, lastSystemSelected } = [...selectedSystems.values()].reduce(({max, lastSystemSelected }, {seq, system}: SelectedSystemLogType) => {
         if (seq > max) {
           return { max: seq, lastSystemSelected: system };
         }
         return { max, lastSystemSelected };
-      }, { max: -1, lastSystemSelected: undefined });
-      if (max !== -1) {
+      }, initialLastSelectedRecord);
+      if (max !== -1 && !! lastSystemSelected) {
         selectedSystems.delete(lastSystemSelected.id);
         lastSystemSelected.toggleSelected();
       }
@@ -41,7 +45,7 @@ function systemSelected(system: SystemModelInterface) {
   console.log('ClusterMapView systemSelected() selectedSystems: ', selectedSystems);
 }
 
-function routePlanned(plan: RoutePlanType) {
+function routePlanned(plan: RoutePlanType | undefined) {
   routePlan.value = plan;
 }
 
@@ -50,7 +54,7 @@ function routePlanned(plan: RoutePlanType) {
 <template>
   <Bezel>
     <template v-slot:display>
-      <ClusterMapPanel :cluster="cluster" :selected-systems="selectedSystems" :plan="routePlan"/>
+      <ClusterMapPanel v-if="cluster" :cluster="cluster" :selected-systems="selectedSystems" :plan="routePlan"/>
     </template>
     <template v-slot:controls>
       <ClusterMapControlsPanel

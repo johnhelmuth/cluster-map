@@ -6,6 +6,6 @@ export type RoutePlanType = Array<SystemModelInterface>;
 
 export interface RoutePlannerInterface {
   cluster: ClusterModelInterface;
-  plan(systemA: SystemModelInterface, systemB: SystemModelInterface): RoutePlanType | null ;
+  plan(systemA: SystemModelInterface, systemB: SystemModelInterface): RoutePlanType | undefined ;
 }
 

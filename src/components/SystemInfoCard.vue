@@ -1,23 +1,22 @@
 <script setup lang="ts">
 
-  import type SystemModelInterface from "@/models/SystemModel";
+  import type {SystemModelInterface} from "@/types/SystemTypes";
   import SystemAttributes from "@/components/SystemAttributes.vue";
   import SystemAspects from "@/components/SystemAspects.vue";
-  import type {SystemIdType} from "@/types/SystemTypes";
   import {computed} from "vue";
   import type {RoutePlanType} from "@/types/RoutePlannerTypes";
 
   const props = defineProps< {
-    system: SystemModelInterface,
+    system: SystemModelInterface | undefined,
     plan?: RoutePlanType;
     systemInfoCardClosed?: boolean
   }>();
 
   defineEmits< {
-    selected: [system: SystemModelInterface]
+    selected: [system: SystemModelInterface | undefined]
   } >();
 
-  const isSelected = computed(() => props.system.getSelected());
+  const isSelected = computed(() => (props.system?.getSelected() || false));
 
   // TODO: Move these into a settings structure modifiable by the user.
   const attributesFormat="detailed";
@@ -26,10 +25,10 @@
 
 <template>
   <div class="system-info-card accordion-control" :class="{ selected: isSelected }" @click="$emit('selected', system)">
-    <h2>{{ system.name }}</h2>
+    <h2>{{ system?.name || 'Unknown' }}</h2>
     <div class="system-info accordion" :class="{ open: ! systemInfoCardClosed }">
-      <SystemAttributes :attributes="system.attributes" :attributesFormat="attributesFormat"/>
-      <SystemAspects :aspects="system.aspects" />
+      <SystemAttributes :attributes="system?.attributes || undefined" :attributesFormat="attributesFormat"/>
+      <SystemAspects :aspects="system?.aspects || undefined" />
     </div>
   </div>
 </template>

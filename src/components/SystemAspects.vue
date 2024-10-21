@@ -3,13 +3,13 @@
 import type {AspectType} from "@/types/BasicTypes";
 
 defineProps< {
-  aspects: Array<AspectType>
+  aspects?: Array<AspectType>
 }>();
 </script>
 
 <template>
   <div class="system-aspects">
-    <div class="system-aspect" v-for="aspect in aspects">
+    <div class="system-aspect" v-for="aspect in aspects || []">
       {{ aspect }}
     </div>
   </div>

@@ -5,7 +5,7 @@ import { attributesFormatted, formatAttribute } from '@/data/attributes-meta';
 import type {attributeFormatType} from "@/types/BasicTypes";
 
 defineProps< {
-  attributes: SystemAttributesInterface,
+  attributes?: SystemAttributesInterface,
   attributesFormat: attributeFormatType,
 }>();
 
@@ -21,7 +21,7 @@ defineProps< {
     </div>
     <div class="system-attributes detailed">
       <ul>
-        <li v-for="( attribute, attr_name) in attributes" :key="attr_name">
+        <li v-for="( attribute, attr_name) in attributes || []" :key="attr_name">
           {{ formatAttribute(attr_name, attribute, "detailed")}}
         </li>
       </ul>

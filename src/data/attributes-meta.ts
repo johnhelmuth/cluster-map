@@ -102,10 +102,10 @@ export function getEnvironmentColor(attributeValue: attributeValueType): string 
   return attributeRatingDescriptors?.environment.get(attributeValue)?.color || '';
 }
 
-export function attributesFormatted(attributes : SystemAttributesInterface, format:attributeFormatType ): string {
+export function attributesFormatted(attributes : SystemAttributesInterface | undefined, format:attributeFormatType ): string {
   const formattedAttributes = Object.keys(SystemAttributesDefaults)
     .map((attributeName) => {
-      const fa = formatAttribute(attributeName as SystemAttributesKeyType, attributes[attributeName as SystemAttributesKeyType], format)
+      const fa = formatAttribute(attributeName as SystemAttributesKeyType, (attributes?.[attributeName as SystemAttributesKeyType] || 0), format)
       return fa;
     })
     .join(' ');
