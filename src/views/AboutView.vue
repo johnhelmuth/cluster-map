@@ -12,9 +12,9 @@ const appVersion = typeof __APP_VERSION !== "undefined" ? `v${__APP_VERSION}` : 
         <div class="about-box">
           <h1>About Cluster Map</h1>
           <main>
-            <p>Cluster Map is an attempt to dynamically capture the star system cluster information from my Space Opera RPG Game <em>In Dire Straits.</em></p>
+            <p>Cluster Map is an attempt to dynamically capture the star system cluster information from our Space Opera RPG Campaign <em>In Dire Straits.</em></p>
           </main>
-          <footer><span class="left">Version {{ appVersion }}</span><span class="right">Copyright John Helmuth 2024</span></footer>
+          <footer><span class="left">Version {{ appVersion }}</span><span class="right">&copy; John Helmuth and the In Dire Straits players 2024</span></footer>
         </div>
       </div>
     </template>
@@ -39,9 +39,11 @@ const appVersion = typeof __APP_VERSION !== "undefined" ? `v${__APP_VERSION}` : 
   flex-direction: column;
   justify-content: stretch;
   padding: 2rem;
+  padding-bottom: 1rem;
   background-color: var(--color-background-soft);
   border-radius: 1rem;
   font-size: 2rem;
+  overflow-y: scroll;
 }
 
 h1 {
@@ -60,7 +62,6 @@ main {
 
 footer {
   text-align: center;
-  margin: 1rem;
   min-height: 1rem;
   display: flex;
   flex-direction: row;
