@@ -4,10 +4,11 @@ import Bezel from "@/components/Bezel.vue"
 import ClusterMapPanel from "@/components/ClusterMapPanel.vue";
 import ClusterMapControlsPanel from "@/components/ClusterMapControlsPanel.vue";
 
-import {computed, inject, reactive, ref} from 'vue'
+import {inject, reactive, ref} from 'vue'
 import type {SystemIdType, SystemModelInterface} from "@/types/SystemTypes";
 import type {RoutePlanType} from "@/types/RoutePlannerTypes";
 import type {ClusterModelInterface} from "@/types/ClusterTypes";
+import {createRoutePlanner} from "@/utilities/RoutePlanner";
 
 const cluster: ClusterModelInterface | undefined = inject('cluster');
 
@@ -17,11 +18,8 @@ type SelectedSystemLogType = { seq: number, system: SystemModelInterface };
 const selectedSystems = reactive(new Map<SystemIdType, SelectedSystemLogType>());
 let selectedSequence = 0;
 
-console.log('selectedSystems: ', selectedSystems);
-console.log('selectedSequence: ', selectedSequence);
-
 function systemSelected(system: SystemModelInterface) {
-  console.log('ClusterMapView systemSelected() system: ', system);
+  system.toggleSelected();
   if (system.getSelected() && ! selectedSystems.has(system.id)) {
     if (selectedSystems.size > 1) {
       type LastSelectedRecord = { max: number, lastSystemSelected: SystemModelInterface | undefined };
@@ -43,10 +41,22 @@ function systemSelected(system: SystemModelInterface) {
     selectedSystems.delete(system.id);
   }
   console.log('ClusterMapView systemSelected() selectedSystems: ', selectedSystems);
+  planTrip();
 }
 
-function routePlanned(plan: RoutePlanType | undefined) {
-  routePlan.value = plan;
+function planTrip() {
+  console.log('ClusterMapView planTrip()')
+  console.log('ClusterMapView planTrip() selectedSystems.value.size: ', selectedSystems.size);
+  if (selectedSystems.size !== 2) {
+    routePlan.value = undefined;
+    return;
+  }
+  const [systemA, systemB] = [...selectedSystems.values()].map(value => value.system);
+  if (! cluster) {
+    throw new Error("No cluster created in ClusterMapControlsPanel.");
+  }
+  const routePlanner = createRoutePlanner(cluster);
+  routePlan.value = routePlanner.plan(systemA, systemB);
 }
 
 </script>
@@ -54,7 +64,13 @@ function routePlanned(plan: RoutePlanType | undefined) {
 <template>
   <Bezel>
     <template v-slot:display>
-      <ClusterMapPanel v-if="cluster" :cluster="cluster" :selected-systems="selectedSystems" :plan="routePlan"/>
+      <ClusterMapPanel
+        v-if="cluster"
+        :cluster="cluster"
+        :selected-systems="selectedSystems"
+        @system-selected="systemSelected"
+        :plan="routePlan"
+      />
     </template>
     <template v-slot:controls>
       <ClusterMapControlsPanel
@@ -62,7 +78,6 @@ function routePlanned(plan: RoutePlanType | undefined) {
         :selected-systems="selectedSystems"
         @system-selected="systemSelected"
         :plan="routePlan"
-        @route-planned="routePlanned"
       />
     </template>
   </Bezel>

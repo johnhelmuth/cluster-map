@@ -10,7 +10,11 @@ const props = defineProps< {
   plan?: RoutePlanType,
   /** @property {boolean} flipped - true if the orientation of the map is rotated 90 degrees. */
   flipped?: boolean,
-}>()
+}>();
+
+defineEmits< {
+  selected: [system: SystemModelInterface | undefined]
+} >();
 
 const radius = 80;
 const textHeight = 15;
@@ -32,7 +36,7 @@ const environmentColor = computed(() => getEnvironmentColor(props.system.attribu
 </script>
 
 <template>
-  <g id="system.id" :class="{ selected: isSelected}" >
+  <g id="system.id" :class="{ selected: isSelected}" @click="$emit('selected', system)" >
     <circle class="bgDisc" :cx="positionX" :cy="positionY" :r="bgDiscRadius"></circle>
     <circle v-if="rings > 3" class="ring fourthRing" :cx="positionX" :cy="positionY" :r="radius + (ringGap * 3)"></circle>
     <circle v-if="rings > 2" class="ring thirdRing" :cx="positionX" :cy="positionY" :r="radius + (ringGap * 2)"></circle>

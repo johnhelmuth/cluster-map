@@ -2,7 +2,7 @@
 
 import type {ClusterModelInterface} from "@/types/ClusterTypes.js";
 
-import {computed, ref} from 'vue'
+import {computed} from 'vue'
 
 import SystemGraph from "@/components/graph-components/SystemGraph.vue";
 import StraitGraph from "@/components/graph-components/StraitGraph.vue";
@@ -17,8 +17,17 @@ const props = defineProps<{
   plan?: RoutePlanType;
 }>();
 
-const systems = ref(props.cluster.systems);
-const straits = ref(props.cluster.straits);
+const emit = defineEmits<{
+  "system-selected": [system: SystemModelInterface];
+}>();
+
+function selectSystem(system: SystemModelInterface | undefined) {
+  if (! system) {
+    return;
+  }
+  emit('system-selected', system);
+}
+
 const boundingBox = computed(() => {
   return getBoundingBox(props.cluster.systems);
 });
@@ -52,14 +61,19 @@ const viewBoxFor90degrees = computed(() => {
     <SVGMap :class="orientation" :viewBox="viewBoxForAspectRatio">
 
       <template v-slot:straits>
-        <template v-for="strait in straits">
+        <template v-for="strait in cluster.straits">
           <StraitGraph :strait="strait" :plan="plan"/>
         </template>
       </template>
 
       <template v-slot:systems>
-        <template v-for="system in systems" :key="system.id" >
-          <SystemGraph :system="system" :id="system.id" :plan="plan"></SystemGraph>
+        <template v-for="system in cluster.systems" :key="system.id" >
+          <SystemGraph
+            :system="system"
+            :id="system.id"
+            @selected="selectSystem"
+            :plan="plan"
+          ></SystemGraph>
         </template>
       </template>
     </SVGMap>
@@ -68,14 +82,20 @@ const viewBoxFor90degrees = computed(() => {
     <SVGMap :class="orientationFlipped" :viewBox="viewBoxFor90degrees">
 
       <template v-slot:straits>
-        <template v-for="strait in straits">
+        <template v-for="strait in cluster.straits">
           <StraitGraph :strait="strait" :plan="plan" flipped />
         </template>
       </template>
 
       <template v-slot:systems>
-        <template v-for="system in systems" :key="system.id" >
-          <SystemGraph :system="system" :id="system.id" :plan="plan" flipped />
+        <template v-for="system in cluster.systems" :key="system.id" >
+          <SystemGraph
+            :system="system"
+            :id="system.id"
+            @selected="selectSystem"
+            :plan="plan"
+            flipped
+          />
         </template>
       </template>
     </SVGMap>
