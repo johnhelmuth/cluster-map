@@ -47,7 +47,7 @@ const isInRoutePlan = computed(() => {
 .strait line.main {
   stroke: var(--color-highlight);
   stroke-width: 0.75rem;
-  filter: url(#blur1);
+  filter: blur(3px);
 }
 
 .strait.in-route-plan line.main {
@@ -62,7 +62,7 @@ const isInRoutePlan = computed(() => {
   display: block;
   stroke-width: 0.5rem;
   stroke: hsl(180, 100%, 100%, 80%);
-  filter: url(#blur1);
+  filter: blur(3px);
   animation: 1s ease-in-out 0.1s infinite alternate strait-throb;
 }
 @keyframes strait-throb {
