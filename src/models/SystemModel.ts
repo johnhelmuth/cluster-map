@@ -133,4 +133,15 @@ export default class SystemModel implements SystemModelInterface {
   toggleSelected(): void {
     this.selected = ! this.selected;
   }
+
+  toJSON(key: string) : object {
+    console.log('SystemModel.toJSON() called with parameter key:', key);
+    return {
+      id: this.id,
+      name: this.name,
+      attributes: this.attributes,
+      aspects: this.aspects,
+      position: this.position,
+    }
+  }
 }

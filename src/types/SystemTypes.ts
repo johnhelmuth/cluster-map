@@ -43,6 +43,8 @@ export interface SystemModelInterface {
   getConnectedSystems(): Array<SystemModelInterface> | undefined;
   getSelected(): boolean;
   toggleSelected(): void;
+
+  toJSON(key: string): object;
 }
 
 export type SystemModelDataType = Omit<SystemModelInterface,"cluster"> | (Pick<SystemModelInterface, "name"> & Partial<Pick<SystemModelInterface, "id">>);

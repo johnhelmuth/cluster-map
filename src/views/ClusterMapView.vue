@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import Bezel from "@/components/Bezel.vue"
+import BezelLayout from "@/layouts/BezelLayout.vue"
 import ClusterMapPanel from "@/components/ClusterMapPanel.vue";
 import ClusterMapControlsPanel from "@/components/ClusterMapControlsPanel.vue";
 
@@ -62,7 +62,7 @@ function planTrip() {
 </script>
 
 <template>
-  <Bezel>
+  <BezelLayout>
     <template v-slot:display>
       <ClusterMapPanel
         v-if="cluster"
@@ -80,5 +80,5 @@ function planTrip() {
         :plan="routePlan"
       />
     </template>
-  </Bezel>
+  </BezelLayout>
 </template>

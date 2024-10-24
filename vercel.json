@@ -1,11 +1,15 @@
 {
   "rewrites": [
     {
+      "source": "/map",
+      "destination": "/index.html"
+    },
+    {
       "source": "/about",
       "destination": "/index.html"
     },
     {
-      "source": "/map",
+      "source": "/settings",
       "destination": "/index.html"
     }
   ]

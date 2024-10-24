@@ -39,6 +39,7 @@ export interface ClusterModelInterface {
   importSystems(data: ClusterModelDataType) : void;
   importStraits(data: ClusterModelDataType) : void;
 
+  toJSON(key: string) : object;
 }
 
 export type ClusterModelDataType = ClusterModelInterface |

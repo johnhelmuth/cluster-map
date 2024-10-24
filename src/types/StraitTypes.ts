@@ -15,6 +15,8 @@ export interface StraitModelInterface {
   getOtherSystem(system: SystemModelInterface): SystemModelInterface | undefined;
 
   includes(system: SystemModelInterface): boolean;
+
+  toJSON(key: string) : Array<string>;
 }
 
 export type StraitModelDataType = [SystemIdType, SystemIdType];

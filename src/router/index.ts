@@ -22,6 +22,12 @@ const router = createRouter({
       path: '/map',
       name: 'map',
       component: ClusterMapView,
+    },
+    {
+      path: '/settings',
+      name: 'settings',
+      // @ts-ignore
+      component:  () => import('@/views/SettingsView.vue'),
     }
 
   ],

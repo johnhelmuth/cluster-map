@@ -106,4 +106,14 @@ export class ClusterModel implements ClusterModelInterface {
       }
     }
   }
+
+  toJSON(key: string) : object {
+    console.log('ClusterModel.toJSON() called with parameter key:', key);
+    return {
+      id: this.id,
+      name: this.name,
+      systems: this.systems,
+      straits: this.straits,
+    }
+  }
 }

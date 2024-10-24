@@ -28,4 +28,12 @@ export class StraitModel implements StraitModelInterface {
     return (this.systemA === system || this.systemB === system);
   }
 
+  toJSON(key: string) : Array<string> {
+    console.log('StraitModel.toJSON() called with parameter key:', key);
+    return [
+      this.systemA.id,
+      this.systemB.id
+    ];
+  }
+
 }

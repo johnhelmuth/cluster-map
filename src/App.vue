@@ -17,6 +17,7 @@ provide('cluster', cluster);
     <nav>
       <RouterLink to="/map">Map</RouterLink>
       <RouterLink to="/about">About</RouterLink>
+      <RouterLink to="/settings">Settings</RouterLink>
     </nav>
   </header>
 
