@@ -50,3 +50,14 @@ export type ClusterModelDataType = ClusterModelInterface |
         straits?: Array<StraitModelDataType> | Array<Array<SystemIdType>> | null
       }
   );
+
+export interface ClustersModelInterface {
+  cluster: ClusterModelInterface;
+  clusters: Map<ClusterIdType, ClusterModelInterface>
+
+  addCluster(cluster: ClusterModelInterface) : void;
+  getClusterById(id: ClusterIdType) : ClusterModelInterface;
+  getClusterByName(name: string) : ClusterModelInterface;
+  selectClusterById(id: ClusterIdType): void;
+  selectClusterByName(name: string);
+}

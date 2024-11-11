@@ -8,6 +8,7 @@ export class RoutePlanner implements RoutePlannerInterface {
 
   constructor(cluster: ClusterModelInterface) {
     this.cluster = cluster;
+    console.log('this.cluster: ', this.cluster);
   }
 
   plan(systemA: SystemModelInterface, systemB: SystemModelInterface): RoutePlanType | undefined {

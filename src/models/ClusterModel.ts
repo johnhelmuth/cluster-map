@@ -4,9 +4,6 @@ import type { StraitModelInterface } from '@/types/StraitTypes';
 import type { ClusterModelInterface, ClusterIdType, ClusterModelDataType } from "@/types/ClusterTypes";
 import SystemModel from "@/models/SystemModel";
 import {StraitModel} from "@/models/StraitModel";
-import type {SystemModelDataType} from "@/types/SystemTypes";
-import type {StraitModelDataType} from "@/types/StraitTypes";
-
 export class ClusterModel implements ClusterModelInterface {
 
   id: ClusterIdType = '';

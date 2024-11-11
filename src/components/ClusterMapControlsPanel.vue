@@ -4,18 +4,22 @@
 
 import SystemInfoCard from "@/components/SystemInfoCard.vue";
 import type {SystemIdType, SystemModelInterface} from "@/types/SystemTypes.js";
-import type {ClusterModelInterface} from "@/types/ClusterTypes";
+import type {ClusterModelInterface, ClustersModelInterface} from "@/types/ClusterTypes";
 import type {RoutePlanType} from "@/types/RoutePlannerTypes";
-import {ref} from "vue";
+import {computed, ref} from "vue";
+import {useClustersStore} from "@/stores/ClustersStore";
 
-defineProps<{
+const {clusters} = useClustersStore() as ClustersModelInterface;
+console.log('clusters: ', clusters);
+
+const props = defineProps<{
   cluster?: ClusterModelInterface | undefined,
-  selectedSystems: Map<SystemIdType, { seq: Number, system: SystemModelInterface }>,
   plan?: RoutePlanType;
 }>();
-
+console.log('props: ', props);
 const emit = defineEmits<{
   "system-selected": [system: SystemModelInterface];
+  "cluster-selected": [cluster: ClusterModelInterface];
 }>();
 
 let systemInfoCardClosed = ref(true);
@@ -38,11 +42,32 @@ function selectSystem(system: SystemModelInterface | undefined) {
   emit('system-selected', system);
 }
 
+function clusterSelected(event: Event) {
+  console.log('clusterSelected() event: ', event);
+  console.log('clusterSelected() clusters.value: ', clusters);
+  console.log('clusterSelected() event.target.value: ', event.target.value);
+  const clusterId = event.target.value;
+  const newCluster = clusters.getClusterById(clusterId);
+  if (newCluster) {
+    emit('cluster-selected', newCluster);
+  }
+}
+
 </script>
 
 <template>
   <div class="cluster-map-controls">
     <h1>{{ cluster?.name ? cluster.name : "Cluster"}}</h1>
+    <select class="clusterSelect" @change="clusterSelected">
+      <option v-for="clusterItem in clusters.clusters"
+              :value="clusterItem.id"
+              :key="clusterItem.id"
+              :id="clusterItem.id"
+              :selected="clusterItem === clusters.cluster"
+      >
+        {{ clusterItem.name }}
+      </option>
+    </select>
     <div class="controls">
       <button id="accordion-button" @click="expandCards">Expand</button>
     </div>

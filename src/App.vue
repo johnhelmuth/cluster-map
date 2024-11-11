@@ -1,13 +1,7 @@
 <script setup lang="ts">
 
-import {provide, reactive} from 'vue';
-import { RouterLink, RouterView } from 'vue-router'
+import {RouterLink, RouterView} from 'vue-router'
 import LogoIcon from './components/icons/LogoIcon.vue'
-import {ClusterModel} from "@/models/ClusterModel";
-import clusterJson from "@/data/cluster.json";
-
-const cluster = reactive(new ClusterModel(clusterJson));
-provide('cluster', cluster);
 
 </script>
 
@@ -16,6 +10,7 @@ provide('cluster', cluster);
     <RouterLink to="/"><LogoIcon/></RouterLink>
     <nav>
       <RouterLink to="/map">Map</RouterLink>
+      <RouterLink to="/clusters" >Clusters</RouterLink>
       <RouterLink to="/about">About</RouterLink>
       <RouterLink to="/settings">Settings</RouterLink>
     </nav>
