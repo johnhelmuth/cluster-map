@@ -6,7 +6,7 @@ import SystemInfoCard from "@/components/SystemInfoCard.vue";
 import type {SystemIdType, SystemModelInterface} from "@/types/SystemTypes.js";
 import type {ClusterModelInterface, ClustersModelInterface} from "@/types/ClusterTypes";
 import type {RoutePlanType} from "@/types/RoutePlannerTypes";
-import {computed, ref} from "vue";
+import {ref} from "vue";
 import {useClustersStore} from "@/stores/ClustersStore";
 
 const {clusters} = useClustersStore() as ClustersModelInterface;

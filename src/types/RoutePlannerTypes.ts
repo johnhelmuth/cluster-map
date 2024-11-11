@@ -1,8 +1,9 @@
 import type {ClusterModelInterface} from "@/types/ClusterTypes";
 import type {SystemModelInterface} from "@/types/SystemTypes";
-import type {StraitModelInterface} from "@/types/StraitTypes";
+import type {Ref} from "vue";
 
 export type RoutePlanType = Array<SystemModelInterface>;
+export type RoutePlanRefType = Ref<RoutePlanType>;
 
 export interface RoutePlannerInterface {
   cluster: ClusterModelInterface;

@@ -1,13 +1,16 @@
-import type {SelectedSystemsListInterface} from "@/types/SystemsSelectedListTypes";
-import {SelectedSystemsList} from "@/models/SelectedSystemsList";
-import {reactive, ref} from "vue";
-import type {RoutePlanType} from "@/types/RoutePlannerTypes";
+import type {SelectedSystemsListInterface, SelectedSystemsServiceInterface} from "@/types/SystemsSelectedListTypes";
 
-const selectedSystemsList = reactive(new SelectedSystemsList());
-const routePlan = ref([] as RoutePlanType);
+import {SelectedSystemsService} from "@/models/SelectedSystemsService";
+import { RoutePlannerService } from "@/utilities/RoutePlannerService";
+import type {RoutePlannerServiceInterface} from "@/types/RoutePlannerServiceTypes";
+
+const selectedSystemsService = new SelectedSystemsService();
+
+const routePlannerService = new RoutePlannerService();
+
 export function useUserScopeStore() : {
-  selectedSystemsList: SelectedSystemsListInterface,
-  routePlan: RoutePlanType
+  routePlannerService: RoutePlannerServiceInterface,
+  selectedSystemsService: SelectedSystemsServiceInterface,
 } {
-  return { selectedSystemsList, routePlan };
+  return { routePlannerService, selectedSystemsService };
 }

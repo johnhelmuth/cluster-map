@@ -1,28 +1,38 @@
 <script setup lang="ts">
 
+import {computed} from "vue";
+
 import BezelLayout from "@/layouts/BezelLayout.vue"
 import ClusterMapPanel from "@/components/ClusterMapPanel.vue";
 import ClusterMapControlsPanel from "@/components/ClusterMapControlsPanel.vue";
 
-import type {RoutePlanType} from "@/types/RoutePlannerTypes";
+import type {RoutePlanRefType, RoutePlanType} from "@/types/RoutePlannerTypes";
 import {createRoutePlanner} from "@/utilities/RoutePlanner";
 import type {ClusterModelInterface, ClustersModelInterface} from "@/types/ClusterTypes";
 import {useClustersStore} from "@/stores/ClustersStore";
 import {useUserScopeStore} from "@/stores/UserScopeStore";
-import type {SelectedSystemsListInterface} from "@/types/SystemsSelectedListTypes";
+import type {SelectedSystemsServiceInterface} from "@/types/SystemsSelectedListTypes";
 
 const { clusters } = useClustersStore() as ClustersModelInterface;
-const { selectedSystemsList, routePlan } = useUserScopeStore() as { selectedSystemsList: SelectedSystemsListInterface, routePlan: RoutePlanType };
+const { routePlannerService, selectedSystemsService } = useUserScopeStore() as { routePlannerService: RoutePlannerServiceInterface, selectedSystemsService: SelectedSystemsServiceInterface };
 
 console.log('ClusterMapView.setup() clusters: ', clusters);
-console.log('ClusterMapView.setup() selectedSystemsList: ', selectedSystemsList);
+console.log('ClusterMapView.setup() selectedSystemsService: ', selectedSystemsService);
+
+const selectedSystemsList = computed(() => {
+  return selectedSystemsService.getSelectedSystemsForCluster(clusters.cluster);
+});
+
+const routePlan = computed((): RoutePlanRefType => {
+  return routePlannerService.getRoutePlanForCluster(clusters.cluster);
+});
 console.log('ClusterMapView.setup() routePlan: ', routePlan);
 
 function systemSelected(system: SystemModelInterface) {
   console.log('systemSelected() system: ', system);
-  console.log('systemSelected() selectedSystemsList: ', selectedSystemsList);
-  selectedSystemsList.selectSystem(system);
-  console.log('ClusterMapView systemSelected() selectedSystemsList: ', selectedSystemsList);
+  console.log('systemSelected() selectedSystemsList.value: ', selectedSystemsList.value);
+  selectedSystemsList.value.selectSystem(system);
+  console.log('ClusterMapView systemSelected() selectedSystemsList.value: ', selectedSystemsList.value);
   planTrip();
 }
 
@@ -34,15 +44,17 @@ function clusterSelected(newCluster: ClusterModelInterface) : void {
 
 function planTrip() {
   console.log('ClusterMapView planTrip()')
-  console.log('ClusterMapView planTrip() selectedSystems.value.maxSelected: ', selectedSystemsList.maxSelected);
-  console.log('ClusterMapView planTrip() [...selectedSystemsList.getSelectedSystemsForCluster(clusters.value.cluster).values()]: ',
-    [...selectedSystemsList.getSelectedSystemsForCluster(clusters.cluster).values()]
+  console.log('ClusterMapView planTrip() selectedSystems.value.maxSelected: ', selectedSystemsList.value.maxSelected);
+  console.log('ClusterMapView planTrip() [...selectedSystemsList.value.getSelectedSystemsForCluster(clusters.value.cluster).values()]: ',
+    [...selectedSystemsList.value.getSelectedSystemsForCluster(clusters.cluster).values()]
   );
-  if ( ! selectedSystemsList.maxSelected ) {
-    routePlan.value = undefined;
+
+  if ( ! selectedSystemsList.value.maxSelected ) {
+    routePlannerService.deleteRoutePlanForCluster(clusters.cluster);
     return;
   }
-  const [systemA, systemB] = [...selectedSystemsList.getSelectedSystemsForCluster(clusters.cluster).values()].map(value => value.system);
+  const routePlan = routePlannerService.getRoutePlanForCluster(clusters.cluster);
+  const [systemA, systemB] = [...selectedSystemsList.value.getSelectedSystemsForCluster(clusters.cluster).values()].map(value => value.system);
   console.log('planTrip() systemA: ', systemA);
   console.log('planTrip() systemB: ', systemB);
   if (! clusters.cluster) {

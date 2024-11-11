@@ -2,11 +2,11 @@
 
 import type {StraitModelInterface} from "@/types/StraitTypes";
 import {computed} from "vue";
-import type {RoutePlanType} from "@/types/RoutePlannerTypes";
+import type {RoutePlanRefType} from "@/types/RoutePlannerTypes";
 
 const props = defineProps<{
   strait: StraitModelInterface,
-  plan?: RoutePlanType,
+  plan?: RoutePlanRefType,
   /** @property {boolean} flipped - true if the orientation of the map is rotated 90 degrees. */
   flipped?: boolean,
 }>();
@@ -17,9 +17,9 @@ const systemBX = computed(() => props?.flipped ? props.strait.systemB.positionFl
 const systemBY = computed(() => props?.flipped ? props.strait.systemB.positionFlipped.y : props.strait.systemB.position.y );
 
 const isInRoutePlan = computed(() => {
-  if (props.plan) {
+  if (props.plan.value) {
     let lastSystem = null;
-    for (const system of props.plan) {
+    for (const system of props.plan.value) {
       if (lastSystem !== null) {
         if (props.strait.includes(lastSystem) && props.strait.includes(system)) {
           return true;

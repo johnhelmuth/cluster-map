@@ -9,10 +9,12 @@ const MAX_SELECTED_SYSTEMS_COUNT = 2;
 export class SelectedSystemsList implements SelectedSystemsListInterface {
 
   _selectedSystems : SelectedSystemMapType;
+  _cluster: ClusterModelInterface;
 
   static _selectedSequence = 0;
 
-  constructor() {
+  constructor(cluster: ClusterModelInterface) {
+    this._cluster = cluster;
     this._selectedSystems = new Map<SystemIdType, SelectedSystemLogType>() as SelectedSystemMapType;
   }
 
