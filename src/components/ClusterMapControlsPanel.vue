@@ -116,11 +116,13 @@ h1 {
 }
 h1 > select {
   border: none;
+  appearance: none;
   width: 100%;
   text-align: center;
   text-align: center;
   font-size: .75rem;
   font-weight: bold;
+  background: none;
 }
 
 .controls {
