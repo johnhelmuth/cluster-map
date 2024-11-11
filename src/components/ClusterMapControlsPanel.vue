@@ -57,17 +57,18 @@ function clusterSelected(event: Event) {
 
 <template>
   <div class="cluster-map-controls">
-    <h1>{{ cluster?.name ? cluster.name : "Cluster"}}</h1>
-    <select class="clusterSelect" @change="clusterSelected">
-      <option v-for="clusterItem in clusters.clusters"
-              :value="clusterItem.id"
-              :key="clusterItem.id"
-              :id="clusterItem.id"
-              :selected="clusterItem === clusters.cluster"
-      >
-        {{ clusterItem.name }}
-      </option>
-    </select>
+    <h1>
+      <select class="clusterSelect" @change="clusterSelected">
+        <option v-for="clusterItem in clusters.clusters"
+                :value="clusterItem.id"
+                :key="clusterItem.id"
+                :id="clusterItem.id"
+                :selected="clusterItem === clusters.cluster"
+        >
+          {{ clusterItem.name }}
+        </option>
+      </select>
+    </h1>
     <div class="controls">
       <button id="accordion-button" @click="expandCards">Expand</button>
     </div>
@@ -113,6 +114,15 @@ h1 {
   font-weight: bold;
 
 }
+h1 > select {
+  border: none;
+  width: 100%;
+  text-align: center;
+  text-align: center;
+  font-size: .75rem;
+  font-weight: bold;
+}
+
 .controls {
   margin-top: 0.25rem;
   display: flex;
