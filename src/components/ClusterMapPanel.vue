@@ -60,9 +60,6 @@ const viewBoxFor90degrees = computed(() => {
 
     <!-- Use this SVG if the aspect ratio matches the positions in the data. -->
     <SVGMap :class="orientation" :viewBox="viewBoxForAspectRatio" >
-      <circle class="center" cx="500" cy="375" r="30"/>
-      <text class="center" x="500" y="375">Center</text>
-<!--      <rect x="0" y="0" width="1000" height="750" stroke="red" fill="none"></rect>-->
       <template v-slot:straits>
         <template v-for="strait in cluster.straits">
           <StraitGraph :strait="strait" :plan="plan"/>
