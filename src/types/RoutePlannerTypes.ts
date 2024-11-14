@@ -7,6 +7,6 @@ export type RoutePlanRefType = Ref<RoutePlanType>;
 
 export interface RoutePlannerInterface {
   cluster: ClusterModelInterface;
-  plan(systemA: SystemModelInterface, systemB: SystemModelInterface): RoutePlanType | undefined ;
+  plan(systemA: SystemModelInterface, systemB: SystemModelInterface): RoutePlanType | undefined;
 }
 

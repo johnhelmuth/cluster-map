@@ -17,7 +17,7 @@ const systemBX = computed(() => props?.flipped ? props.strait.systemB.positionFl
 const systemBY = computed(() => props?.flipped ? props.strait.systemB.positionFlipped.y : props.strait.systemB.position.y );
 
 const isInRoutePlan = computed(() => {
-  if (props.plan.value) {
+  if (props.plan?.value) {
     let lastSystem = null;
     for (const system of props.plan.value) {
       if (lastSystem !== null) {

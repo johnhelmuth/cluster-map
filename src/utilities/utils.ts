@@ -1,5 +1,6 @@
 import type {SystemModelInterface} from "@/types/SystemTypes.js";
 import type {PointType} from "@/types/GeometryTypes.js";
+import type {ClustersModelDataType} from "@/types/ClusterTypes";
 
 export function getBoundingBox(systems: SystemModelInterface[]) : {
   upperLeft: PointType;
@@ -25,4 +26,12 @@ export function getBoundingBox(systems: SystemModelInterface[]) : {
     }
   });
   return { upperLeft, lowerRight };
+}
+
+export function isClustersModelDataType(data : object | ClustersModelDataType) : data is ClustersModelDataType {
+  const hasCurrentClusterId = ((data as ClustersModelDataType)?.currentClusterId !== undefined);
+  return hasCurrentClusterId
+    && typeof (data as ClustersModelDataType).currentClusterId === 'string'
+    && (data as ClustersModelDataType).clusters !== undefined
+    && ((data as ClustersModelDataType).clusters?.length === 0 || (data as ClustersModelDataType).clusters?.length > 0)
 }

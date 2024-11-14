@@ -52,15 +52,15 @@ export type ClusterModelDataType = ClusterModelInterface |
   );
 
 export interface ClustersModelInterface {
-  cluster: ClusterModelInterface;
-  clusters: Map<ClusterIdType, ClusterModelInterface>
+  cluster: ClusterModelInterface | undefined;
+  clusters: Array<ClusterModelInterface>;
 
-  parseClustersData(clustersData: ClustersModelDataType | undefined)
+  parseClustersData(clustersData: ClustersModelDataType | undefined) : void;
   addCluster(cluster: ClusterModelInterface) : void;
-  getClusterById(id: ClusterIdType) : ClusterModelInterface;
-  getClusterByName(name: string) : ClusterModelInterface;
+  getClusterById(id: ClusterIdType) : ClusterModelInterface | undefined;
+  getClusterByName(name: string) : ClusterModelInterface | undefined;
   selectClusterById(id: ClusterIdType): void;
-  selectClusterByName(name: string);
+  selectClusterByName(name: string) : void;
   toJSON(key: string) : object
 }
 

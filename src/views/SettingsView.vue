@@ -4,9 +4,10 @@ import InfoPageLayout from "@/layouts/InfoPageLayout.vue";
 import { useFileDialog } from '@vueuse/core';
 
 import { useClustersStore } from "@/stores/ClustersStore";
-import type {ClustersModelDataType} from "@/types/ClusterTypes";
+import type {ClusterIdType, ClustersModelDataType} from "@/types/ClusterTypes";
 import {useUserScopeStore} from "@/stores/UserScopeStore";
 import {ref, computed, watch, type Ref} from "vue";
+import {isClustersModelDataType} from "@/utilities/utils";
 
 const {clusters} = useClustersStore();
 const {routePlannerService, selectedSystemsService} = useUserScopeStore();
@@ -15,13 +16,13 @@ const { files, open, reset, onCancel, onChange } = useFileDialog({
   accept: 'application/json', // Set to accept only JSON files
 })
 
-const importFile:File = ref(null);
+const importFile:Ref<File|null> = ref(null);
 console.log('SettingsView.setup() importFile.value: ', importFile.value)
 
-const importedData: Ref<object> = ref({});
+const importedData: Ref<ClustersModelDataType | object> = ref({});
 
 watch(importFile, async () => {
-  let importedJSON: string = undefined;
+  let importedJSON: string | undefined = undefined;
   if (importFile.value) {
     try {
       importedJSON = await importFile.value.text();
@@ -40,22 +41,27 @@ watch(importFile, async () => {
 const fileSelected = computed(() => !! importFile.value);
 
 const importedClustersStats = computed(() => {
-  const stats = {
-    numClusters: null,
-    numSystems: null,
-    currentClusterId: null,
-    currentClusterName: null,
+  const stats : {
+    numClusters?: number,
+    numSystems?: number,
+    currentClusterId?: ClusterIdType,
+    currentClusterName?: string,
+  } = {
+    numClusters: undefined,
+    numSystems: undefined,
+    currentClusterId: undefined,
+    currentClusterName: undefined,
   };
-  if (importedData.value) {
-    const importedDataRaw = importedData.value;
+  if (importedData.value && isClustersModelDataType(importedData.value)) {
+    const importedDataRaw : ClustersModelDataType = importedData.value;
     console.log('importedClusterStats getter importedDataRaw: ', importedDataRaw);
     if (importedDataRaw?.clusters && importedDataRaw?.clusters.hasOwnProperty('length')) {
       stats.numClusters = importedDataRaw.clusters.length;
-      let systemCount = null;
+      let systemCount = 0;
       for (const cluster of importedDataRaw.clusters) {
         console.log('importedDataRaw cluster: ', cluster);
         if (cluster?.systems && cluster.systems.hasOwnProperty('length') && cluster.systems.length) {
-          systemCount += cluster.systems.length;
+          systemCount += (cluster.systems.length || 0);
         }
       }
       stats.numSystems = systemCount;
@@ -91,9 +97,9 @@ function downloadJSON(data : any, filename: string) {
   document.body.removeChild(element);
 }
 
-function updateClusters(data: ClustersModelDataType | undefined) {
+function updateClusters(data: ClustersModelDataType | object) {
   console.log('updateClusters().');
-  if (data && data?.currentClusterId && data?.clusters?.length > 0) {
+  if (data && isClustersModelDataType(data)) {
     console.log('updateClusters() routePlannerService: ', routePlannerService);
     console.log('updateClusters() selectedSystemsService: ', selectedSystemsService);
     console.log('updateClusters() data: ', data);
@@ -145,7 +151,7 @@ function cancelImport() {
             <p>Import or export data for all clusters from or to JSON</p>
             <div class="control-group control-group-grid data-import-export">
               <div>
-                <button type="button" class="import-data" :class="fileSelected ? 'file-selected' : ''" :disabled="fileSelected" @click="open">
+                <button type="button" class="import-data" :class="fileSelected ? 'file-selected' : ''" :disabled="fileSelected" @click="open()">
                   <div class="action" >Import</div>
                 </button>
               </div>

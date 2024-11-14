@@ -9,7 +9,7 @@ import type {RoutePlanRefType} from "@/types/RoutePlannerTypes";
 import {ref} from "vue";
 import {useClustersStore} from "@/stores/ClustersStore";
 
-const {clusters} = useClustersStore() as ClustersModelInterface;
+const {clusters} = useClustersStore();
 console.log('clusters: ', clusters);
 
 const props = defineProps<{
@@ -43,10 +43,9 @@ function selectSystem(system: SystemModelInterface | undefined) {
 }
 
 function clusterSelected(event: Event) {
-  console.log('clusterSelected() event: ', event);
-  console.log('clusterSelected() clusters.value: ', clusters);
-  console.log('clusterSelected() event.target.value: ', event.target.value);
-  const clusterId = event.target.value;
+  const targetSelect = event.target as HTMLSelectElement;
+  const clusterId = targetSelect.value;
+  console.log('clusterId: ', clusterId);
   const newCluster = clusters.getClusterById(clusterId);
   if (newCluster) {
     emit('cluster-selected', newCluster);

@@ -4,8 +4,9 @@ import type {SystemAttributesInterface, SystemIdType, SystemModelInterface} from
 import {ClusterModel} from "@/models/ClusterModel";
 import type {AspectType, attributeValueType} from "@/types/BasicTypes";
 import SystemModel from "@/models/SystemModel";
+import type {PointType} from "@/types/GeometryTypes.js";
 
-function getRandomIntInclusive(min, max) {
+function getRandomIntInclusive(min: number, max: number) {
   const minCeiled = Math.ceil(min);
   const maxFloored = Math.floor(max);
   return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled); // The maximum is inclusive and the minimum is inclusive
@@ -17,7 +18,7 @@ export function rollDice(): attributeValueType {
     const diceRoll = getRandomIntInclusive(-1, 1);
     total += diceRoll;
   }
-  return total;
+  return total as attributeValueType;
 }
 
 function slipstreamGuarantee(systems: Array<{id: string, name: string, attributes: SystemAttributesInterface}>) {
@@ -73,14 +74,14 @@ function mapDimensions() {
   const radius = 80;
   const borderX = radius;
   const borderY = radius;
-  const center: Point = {
+  const center: PointType = {
     x: width / 2,
     y: height / 2,
   }
   return { columns, rows, width, height, cellWidth, cellHeight, radius, borderX, borderY, center };
 }
 
-function getPosition1(index: number, numPoints: number): Point {
+function getPosition1(index: number, numPoints: number): PointType {
 
   const {cellWidth, cellHeight, radius} = mapDimensions();
 
@@ -98,7 +99,7 @@ function getPosition1(index: number, numPoints: number): Point {
   }
 }
 
-function getPosition2(index: number, numPoints: number) : Point {
+function getPosition2(index: number, numPoints: number) : PointType {
   const {width, height, radius, borderX, borderY} = mapDimensions();
 
   const randWidth = floor(width - 2*borderX);
@@ -110,7 +111,7 @@ function getPosition2(index: number, numPoints: number) : Point {
   return {x, y}
 }
 
-function getPosition3(index: number, numPoints: number) : Point {
+function getPosition3(index: number, numPoints: number) : PointType {
   const {width, height, borderX, borderY, center} = mapDimensions();
   console.log({width, height, borderX, borderY, center});
 
@@ -125,11 +126,11 @@ function getPosition3(index: number, numPoints: number) : Point {
   return {x, y}
 }
 
-function getPosition(index: number, numPoints: number): Point {
+function getPosition(index: number, numPoints: number): PointType {
   return getPosition3(index, numPoints);
 }
 
-export default function createCluster(id: ClusterIdType, name: string, numberSystems?: number) {
+export default function createCluster(id: ClusterIdType, name: string, numberSystems: number = 9) {
 
   if (! id) {
     id = getRandomIntInclusive(1000,9999).toString(16)
@@ -139,7 +140,7 @@ export default function createCluster(id: ClusterIdType, name: string, numberSys
   }
   const newCluster = new ClusterModel({id, name});
 
-  const systemsData: Array<{id: string, name: string, attributes: SystemAttributesInterface}> = [];
+  const systemsData: Array<{id: string, name: string, attributes: SystemAttributesInterface, position: PointType}> = [];
   for (let i = 0; i < numberSystems; i++) {
     const id: SystemIdType = String.fromCharCode(65+i ) + (1024 + floor(random() * 1024)).toString(16);
     const name: string = "System " + (i*10 + floor(random()*10)).toString();

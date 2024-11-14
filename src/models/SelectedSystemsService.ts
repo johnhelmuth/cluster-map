@@ -11,7 +11,7 @@ export class SelectedSystemsService implements SelectedSystemsServiceInterface {
     this._selectedSystemsForCluster = new Map<ClusterIdType, SelectedSystemsListInterface>();
   }
 
-  getSelectedSystemsForCluster(cluster: ClusterModelInterface) : SelectedSystemsListInterface {
+  getSelectedSystemsForCluster(cluster: ClusterModelInterface) : SelectedSystemsListInterface | undefined {
     if (this._selectedSystemsForCluster.has(cluster.id)) {
       return this._selectedSystemsForCluster.get(cluster.id);
     }

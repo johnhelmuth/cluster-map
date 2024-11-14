@@ -1,34 +1,35 @@
 <script setup lang="ts">
 
-import {computed} from "vue";
 
 import BezelLayout from "@/layouts/BezelLayout.vue"
 import ClusterMapPanel from "@/components/ClusterMapPanel.vue";
 import ClusterMapControlsPanel from "@/components/ClusterMapControlsPanel.vue";
 
-import type {RoutePlanRefType, RoutePlanType} from "@/types/RoutePlannerTypes";
 import {createRoutePlanner} from "@/utilities/RoutePlanner";
 import type {ClusterModelInterface, ClustersModelInterface} from "@/types/ClusterTypes";
 import {useClustersStore} from "@/stores/ClustersStore";
 import {useUserScopeStore} from "@/stores/UserScopeStore";
-import type {SelectedSystemsServiceInterface} from "@/types/SystemsSelectedListTypes";
+import type {SelectedSystemsListInterface, SelectedSystemsServiceInterface} from "@/types/SystemsSelectedListTypes";
+import type {RoutePlannerServiceInterface} from "@/types/RoutePlannerServiceTypes";
+import type {SystemModelInterface} from "@/types/SystemTypes";
 
-const { clusters } = useClustersStore() as ClustersModelInterface;
+const { clusters } = useClustersStore();
 const { routePlannerService, selectedSystemsService } = useUserScopeStore() as { routePlannerService: RoutePlannerServiceInterface, selectedSystemsService: SelectedSystemsServiceInterface };
 
 console.log('ClusterMapView.setup() clusters: ', clusters);
 console.log('ClusterMapView.setup() selectedSystemsService: ', selectedSystemsService);
 
-const selectedSystemsList = computed(() => {
-  return selectedSystemsService.getSelectedSystemsForCluster(clusters.cluster);
-});
-
 function systemSelected(system: SystemModelInterface) {
   console.log('systemSelected() system: ', system);
-  console.log('systemSelected() selectedSystemsList.value: ', selectedSystemsList.value);
-  selectedSystemsList.value.selectSystem(system);
-  console.log('ClusterMapView systemSelected() selectedSystemsList.value: ', selectedSystemsList.value);
-  planTrip();
+  if (clusters.cluster) {
+    const selectedSystemsList = selectedSystemsService.getSelectedSystemsForCluster(clusters.cluster);
+    console.log('systemSelected() selectedSystemsList: ', selectedSystemsList);
+    if (selectedSystemsList) {
+      selectedSystemsList.selectSystem(system);
+      console.log('ClusterMapView systemSelected() selectedSystemsList: ', selectedSystemsList);
+      planTrip(selectedSystemsList);
+    }
+  }
 }
 
 function clusterSelected(newCluster: ClusterModelInterface) : void {
@@ -37,27 +38,33 @@ function clusterSelected(newCluster: ClusterModelInterface) : void {
   console.log('ClusterMapView.clusterSelected() 2 clusters: ', clusters);
 }
 
-function planTrip() {
+function planTrip(selectedSystemsList : SelectedSystemsListInterface) {
   console.log('ClusterMapView planTrip()')
-  console.log('ClusterMapView planTrip() selectedSystems.value.maxSelected: ', selectedSystemsList.value.maxSelected);
-  console.log('ClusterMapView planTrip() [...selectedSystemsList.value.getSelectedSystemsForCluster(clusters.value.cluster).values()]: ',
-    [...selectedSystemsList.value.getSelectedSystemsForCluster(clusters.cluster).values()]
-  );
+  console.log('ClusterMapView planTrip() selectedSystems.maxSelected: ', selectedSystemsList.maxSelected);
+  console.log('ClusterMapView planTrip() selectedSystemsList.selectedSystems: ',selectedSystemsList.selectedSystems);
 
-  if ( ! selectedSystemsList.value.maxSelected ) {
-    routePlannerService.deleteRoutePlanForCluster(clusters.cluster);
-    return;
+  if (clusters.cluster) {
+    if ( ! selectedSystemsList.maxSelected ) {
+      routePlannerService.deleteRoutePlanForCluster(clusters.cluster);
+      return;
+    }
+    const routePlan = routePlannerService.getRoutePlanForCluster(clusters.cluster);
+    if ( ! routePlan) {
+      return;
+    }
+    const [systemA, systemB] = selectedSystemsList.selectedSystems;
+    console.log('planTrip() systemA: ', systemA);
+    console.log('planTrip() systemB: ', systemB);
+    if (! clusters.cluster) {
+      throw new Error("No cluster created in ClusterMapControlsPanel.");
+    }
+    console.log('planTrip() clusters.cluster: ', clusters.cluster);
+    const routePlanner = createRoutePlanner(clusters.cluster);
+    const routePlanRaw = routePlanner.plan(systemA, systemB);
+    if (routePlanRaw) {
+      routePlan.value = routePlanRaw;
+    }
   }
-  const routePlan = routePlannerService.getRoutePlanForCluster(clusters.cluster);
-  const [systemA, systemB] = [...selectedSystemsList.value.getSelectedSystemsForCluster(clusters.cluster).values()].map(value => value.system);
-  console.log('planTrip() systemA: ', systemA);
-  console.log('planTrip() systemB: ', systemB);
-  if (! clusters.cluster) {
-    throw new Error("No cluster created in ClusterMapControlsPanel.");
-  }
-  console.log('planTrip() clusters.cluster: ', clusters.cluster);
-  const routePlanner = createRoutePlanner(clusters.cluster);
-  routePlan.value = routePlanner.plan(systemA, systemB);
 }
 
 </script>

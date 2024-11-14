@@ -14,9 +14,15 @@ export class RoutePlannerService implements RoutePlannerServiceInterface {
     this._routePlans = new Map<ClusterIdType, RoutePlanRefType>();
   }
 
-  getRoutePlanForCluster(cluster: ClusterModelInterface) : RoutePlanRefType {
+  getRoutePlanForCluster(cluster: ClusterModelInterface | undefined) : RoutePlanRefType | undefined {
+    if (! cluster) {
+      return undefined;
+    }
     if (this._routePlans.has(cluster.id)) {
-      return this._routePlans.get(cluster.id);
+      const routePlan = this._routePlans.get(cluster.id);
+      if (routePlan) {
+        return routePlan;
+      }
     }
     const routePlan = ref([] as RoutePlanType);
     this._routePlans.set(cluster.id, routePlan);
@@ -25,7 +31,9 @@ export class RoutePlannerService implements RoutePlannerServiceInterface {
 
   deleteRoutePlanForCluster(cluster: ClusterModelInterface) : void {
     const routePlan = this.getRoutePlanForCluster(cluster);
-    routePlan.value = undefined;
+    if (routePlan) {
+      routePlan.value = [];
+    }
   }
 
   deleteAllRoutePlans() : void {

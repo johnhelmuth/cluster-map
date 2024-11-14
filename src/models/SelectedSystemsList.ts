@@ -18,6 +18,12 @@ export class SelectedSystemsList implements SelectedSystemsListInterface {
     this._selectedSystems = new Map<SystemIdType, SelectedSystemLogType>() as SelectedSystemMapType;
   }
 
+  get selectedSystems(): Array<SystemModelInterface> {
+    return [...this._selectedSystems.values()].map(selectedSystemLog => {
+      return selectedSystemLog.system
+    });
+  }
+
   get size() {
     return this._selectedSystems.size;
   }
@@ -53,17 +59,5 @@ export class SelectedSystemsList implements SelectedSystemsListInterface {
     } else if (this._selectedSystems.has(system.id)) {
       this._selectedSystems.delete(system.id);
     }
-  }
-
-  getSelectedSystemsForCluster(cluster: ClusterModelInterface) : SelectedSystemMapType {
-    const systemsArray = [...this._selectedSystems.entries()]
-      .filter(([systemId, {system}]) => {
-        return system.cluster === cluster;
-      });
-    console.log('SelectedSystemsList.getSelectedSystemsForCluster() systemsArray: ', systemsArray);
-    const systemsForCluster
-      = new Map<SystemIdType, SelectedSystemMapType>(systemsArray);
-    console.log('SelectedSystemsList.getSelectedSystemsForCluster() systemsForCluster: ', systemsForCluster);
-    return systemsForCluster;
   }
 }

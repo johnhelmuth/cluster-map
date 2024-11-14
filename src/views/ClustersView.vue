@@ -14,7 +14,7 @@ import createCluster from "@/utilities/ClusterGenerator";
 function addCluster(event: Event) {
   const newCluster = createCluster('', '', 9);
   console.log('clusters: ', clusters);
-  const notUnique = !! clusters.selectClusterById(newCluster.id);
+  const notUnique = !! clusters.getClusterById(newCluster.id);
   console.log('newCluster: ', newCluster);
   console.log('notUnique: ', notUnique);
   if (! notUnique) {
@@ -23,13 +23,17 @@ function addCluster(event: Event) {
 }
 
 function selectCluster(event: Event) {
-  console.log('event.target.id: ', event.target.id);
-  const selectedCluster = clusters.getClusterById(event.target.id);
-  console.log('selectedCluster: ', selectedCluster);
-  console.log('clusters.value.cluster: ', clusters.cluster);
-  if (selectedCluster !== clusters.cluster) {
-    console.log('new cluster selected.');
-    clusters.cluster = selectedCluster;
+  const clusterElement = event.target as HTMLElement;
+  if (clusterElement?.id) {
+    const selectedClusterId = clusterElement.id;
+    console.log('selectedClusterId: ', selectedClusterId);
+    const selectedCluster = clusters.getClusterById(selectedClusterId);
+    console.log('selectedCluster: ', selectedCluster);
+    console.log('clusters.cluster: ', clusters.cluster);
+    if (selectedCluster !== clusters.cluster) {
+      console.log('new cluster selected.');
+      clusters.cluster = selectedCluster;
+    }
   }
 }
 
