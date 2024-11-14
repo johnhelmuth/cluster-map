@@ -27,4 +27,9 @@ export class RoutePlannerService implements RoutePlannerServiceInterface {
     const routePlan = this.getRoutePlanForCluster(cluster);
     routePlan.value = undefined;
   }
+
+  deleteAllRoutePlans() : void {
+    this._routePlans.clear();
+  }
+
 }

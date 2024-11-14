@@ -23,11 +23,6 @@ const selectedSystemsList = computed(() => {
   return selectedSystemsService.getSelectedSystemsForCluster(clusters.cluster);
 });
 
-const routePlan = computed((): RoutePlanRefType => {
-  return routePlannerService.getRoutePlanForCluster(clusters.cluster);
-});
-console.log('ClusterMapView.setup() routePlan: ', routePlan);
-
 function systemSelected(system: SystemModelInterface) {
   console.log('systemSelected() system: ', system);
   console.log('systemSelected() selectedSystemsList.value: ', selectedSystemsList.value);
@@ -74,7 +69,7 @@ function planTrip() {
         v-if="clusters.cluster"
         :cluster="clusters.cluster"
         @system-selected="systemSelected"
-        :plan="routePlan"
+        :plan="routePlannerService.getRoutePlanForCluster(clusters.cluster)"
       />
     </template>
     <template v-slot:controls>
@@ -82,7 +77,7 @@ function planTrip() {
         :cluster="clusters.cluster"
         @system-selected="systemSelected"
         @cluster-selected="clusterSelected"
-        :plan="routePlan"
+        :plan="routePlannerService.getRoutePlanForCluster(clusters.cluster)"
       />
     </template>
   </BezelLayout>

@@ -6,8 +6,7 @@ import clusterJson from "@/data/cluster.json";
 import type {ClustersModelInterface} from "@/types/ClusterTypes";
 
 // TODO: Actually get this from persistent storage instead of from the codebase.
-const clusterFromData = new ClusterModel(clusterJson);
-const clusters: ClustersModelInterface = reactive(new ClustersModel({currentClusterId: clusterFromData.id, clusters: [clusterFromData]}));
+const clusters: ClustersModelInterface = reactive(new ClustersModel({currentClusterId: clusterJson.id, clusters: [clusterJson]}));
 
 export function useClustersStore() : { clusters: ClustersModelInterface } {
   return { clusters };

@@ -1,4 +1,10 @@
-import type {ClusterIdType, ClusterModelInterface, ClustersModelInterface} from "@/types/ClusterTypes";
+import type {
+  ClusterIdType, ClusterModelDataType,
+  ClusterModelInterface,
+  ClustersModelDataType,
+  ClustersModelInterface
+} from "@/types/ClusterTypes";
+import {ClusterModel} from "@/models/ClusterModel";
 
 
 export class ClustersModel implements ClustersModelInterface {
@@ -7,12 +13,16 @@ export class ClustersModel implements ClustersModelInterface {
 
   constructor(data: Array<ClusterModelInterface>) {
     this._clusters = new Map<ClusterIdType, ClusterModelInterface>();
-    if (data && data?.clusters?.length > 0) {
-      for (const cluster of data.clusters as Array<ClusterModelInterface>) {
-        // @TODO: parse raw JSON data here?
-        this._clusters.set(cluster.id, cluster);
+    this.parseClustersData(data);
+  }
+
+  parseClustersData(clustersData: ClustersModelDataType | undefined) {
+    this._clusters.clear();
+    if (clustersData && clustersData?.clusters?.length > 0) {
+      for (const clusterData of clustersData.clusters as Array<ClusterModelDataType>) {
+        this._clusters.set(clusterData.id, new ClusterModel(clusterData));
       }
-      if ((! data?.currentClusterId || data.currentClusterId === "")) {
+      if ((! clustersData?.currentClusterId || clustersData.currentClusterId === "")) {
         if (this._clusters.size > 0) {
           const firstCluster = [...this.clusters][0];
           if (firstCluster) {
@@ -20,7 +30,7 @@ export class ClustersModel implements ClustersModelInterface {
           }
         }
       } else {
-        const selectedCluster = this.getClusterById(data.currentClusterId);
+        const selectedCluster = this.getClusterById(clustersData.currentClusterId);
         if (selectedCluster) {
           this._cluster = selectedCluster;
         }
@@ -40,7 +50,7 @@ export class ClustersModel implements ClustersModelInterface {
   }
 
   get clusters() {
-    return this._clusters.values();
+    return [...this._clusters.values()];
   }
 
   addCluster(newCluster: ClusterModelInterface) : void {
@@ -67,5 +77,12 @@ export class ClustersModel implements ClustersModelInterface {
     if (selectedCluster) {
       this._cluster = selectedCluster;
     }
+  }
+
+  toJSON(key: string): object {
+    return {
+      currentClusterId: this.cluster.id,
+      clusters: [...this._clusters.values()]
+    };
   }
 }

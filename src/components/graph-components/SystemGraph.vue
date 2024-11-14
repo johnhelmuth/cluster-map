@@ -3,11 +3,11 @@
 import type {SystemModelInterface} from "@/types/SystemTypes";
 import {computed} from "vue";
 import {attributesFormatted, getEnvironmentColor} from "@/data/attributes-meta";
-import type {RoutePlanType} from "@/types/RoutePlannerTypes";
+import type {RoutePlanRefType} from "@/types/RoutePlannerTypes";
 
 const props = defineProps< {
   system: SystemModelInterface,
-  plan?: RoutePlanType,
+  plan?: RoutePlanRefType,
   /** @property {boolean} flipped - true if the orientation of the map is rotated 90 degrees. */
   flipped?: boolean,
 }>();

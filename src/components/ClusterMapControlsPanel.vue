@@ -5,7 +5,7 @@
 import SystemInfoCard from "@/components/SystemInfoCard.vue";
 import type {SystemIdType, SystemModelInterface} from "@/types/SystemTypes.js";
 import type {ClusterModelInterface, ClustersModelInterface} from "@/types/ClusterTypes";
-import type {RoutePlanType} from "@/types/RoutePlannerTypes";
+import type {RoutePlanRefType} from "@/types/RoutePlannerTypes";
 import {ref} from "vue";
 import {useClustersStore} from "@/stores/ClustersStore";
 
@@ -14,7 +14,7 @@ console.log('clusters: ', clusters);
 
 const props = defineProps<{
   cluster?: ClusterModelInterface | undefined,
-  plan?: RoutePlanType;
+  plan?: RoutePlanRefType;
 }>();
 console.log('props: ', props);
 const emit = defineEmits<{

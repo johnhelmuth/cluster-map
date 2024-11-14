@@ -14,4 +14,5 @@ export interface SelectedSystemsListInterface {
 
 export interface SelectedSystemsServiceInterface {
   getSelectedSystemsForCluster(cluster: ClusterModelInterface) : SelectedSystemsListInterface;
+  deleteAllSelectedSystems() : void;
 }

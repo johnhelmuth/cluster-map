@@ -92,13 +92,14 @@ export class ClusterModel implements ClusterModelInterface {
   }
 
   importStraits(data: ClusterModelDataType) {
-    if ("straits" in data && data.straits instanceof Array)
-    for (const straitData of data.straits as Array<Array<SystemIdType>>) {
-      const systemA = this.getSystemById(straitData[0] as SystemIdType);
-      if (systemA) {
-        const systemB = this.getSystemById(straitData[1] as SystemIdType);
-        if (systemB) {
-          this.connectSystems(systemA, systemB);
+    if ("straits" in data && data.straits instanceof Array) {
+      for (const straitData of data.straits as Array<Array<SystemIdType>>) {
+        const systemA = this.getSystemById(straitData[0] as SystemIdType);
+        if (systemA) {
+          const systemB = this.getSystemById(straitData[1] as SystemIdType);
+          if (systemB) {
+            this.connectSystems(systemA, systemB);
+          }
         }
       }
     }

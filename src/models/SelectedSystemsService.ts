@@ -20,4 +20,8 @@ export class SelectedSystemsService implements SelectedSystemsServiceInterface {
     return selectedSystemsList;
   }
 
+  deleteAllSelectedSystems() : void {
+    this._selectedSystemsForCluster.clear();
+  }
+
 }

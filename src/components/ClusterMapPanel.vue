@@ -6,14 +6,14 @@ import {computed} from 'vue'
 
 import SystemGraph from "@/components/graph-components/SystemGraph.vue";
 import StraitGraph from "@/components/graph-components/StraitGraph.vue";
-import type {SystemIdType, SystemModelInterface} from "@/types/SystemTypes";
-import type {RoutePlanType} from "@/types/RoutePlannerTypes";
+import type {SystemModelInterface} from "@/types/SystemTypes";
+import type {RoutePlanRefType} from "@/types/RoutePlannerTypes";
 import { getBoundingBox } from '@/utilities/utils';
 import SVGMap from "@/components/SVGMap.vue";
 
 const props = defineProps<{
   cluster: ClusterModelInterface,
-  plan?: RoutePlanType;
+  plan?: RoutePlanRefType;
 }>();
 
 const emit = defineEmits<{

@@ -4,11 +4,11 @@
   import SystemAttributes from "@/components/SystemAttributes.vue";
   import SystemAspects from "@/components/SystemAspects.vue";
   import {computed} from "vue";
-  import type {RoutePlanType} from "@/types/RoutePlannerTypes";
+  import type {RoutePlanRefType} from "@/types/RoutePlannerTypes";
 
   const props = defineProps< {
     system: SystemModelInterface | undefined,
-    plan?: RoutePlanType;
+    plan?: RoutePlanRefType;
     systemInfoCardClosed?: boolean
   }>();
 

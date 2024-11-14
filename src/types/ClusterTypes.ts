@@ -55,9 +55,16 @@ export interface ClustersModelInterface {
   cluster: ClusterModelInterface;
   clusters: Map<ClusterIdType, ClusterModelInterface>
 
+  parseClustersData(clustersData: ClustersModelDataType | undefined)
   addCluster(cluster: ClusterModelInterface) : void;
   getClusterById(id: ClusterIdType) : ClusterModelInterface;
   getClusterByName(name: string) : ClusterModelInterface;
   selectClusterById(id: ClusterIdType): void;
   selectClusterByName(name: string);
+  toJSON(key: string) : object
+}
+
+export type ClustersModelDataType = {
+  currentClusterId: ClusterIdType,
+  clusters: Array<ClusterModelDataType>
 }
