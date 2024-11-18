@@ -8,7 +8,7 @@ const emit = defineEmits<{
   (e: 'close'): void
 }>()
 
-const { debug, mapStyle, straightStraits, clusterOrientation } = useMapStyles();
+const { debug, mapStyle, straightStraits } = useMapStyles();
 
 </script>
 
@@ -25,9 +25,6 @@ const { debug, mapStyle, straightStraits, clusterOrientation } = useMapStyles();
       <div v-for="styleData in mapViewStyleLabels">
         <label><input type="radio" :value="styleData.key" name="mapStyle" v-model="mapStyle" style="margin-right: 1rem;"/>{{styleData.label}}</label>
       </div>
-      <h2>Cluster Orientation</h2>
-      <label><input type="radio" name="clusterOrientation" value="landscape" v-model="clusterOrientation" style="margin-right: 1rem;"/>Landscape</label>
-      <label><input type="radio" name="clusterOrientation" value="portrait" v-model="clusterOrientation" style="margin-right: 1rem;"/>Portrait</label>
       <h2>Others</h2>
       <label><input type="checkbox" name="straightStraits" v-model="straightStraits" style="margin-right: 1rem;"/>Straight straits</label>
       <label><input type="checkbox" name="debug" v-model="debug" style="margin-right: 1rem;"/>Enable debug</label>

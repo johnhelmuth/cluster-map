@@ -5,13 +5,12 @@ import {computed} from "vue";
 import {attributesFormatted, getEnvironmentColor} from "@/data/attributes-meta";
 import type {RoutePlanRefType} from "@/types/RoutePlannerTypes";
 import {systemRadiusByStyleAndNumberOfSystems} from "@/utilities/ClusterGenerator";
-import type {ClusterOrientationType, MapViewStylesType} from "@/types/BasicTypes";
+import type {MapViewStylesType} from "@/types/BasicTypes";
 
 const props = defineProps< {
   system: SystemModelInterface,
   plan?: RoutePlanRefType,
   mapStyle?: MapViewStylesType | undefined,
-  clusterOrientation?: ClusterOrientationType | undefined,
 }>();
 
 defineEmits< {

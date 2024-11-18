@@ -7,7 +7,7 @@ import type {ClusterModelInterface} from "@/types/ClusterTypes";
 import type {RoutePlanRefType} from "@/types/RoutePlannerTypes";
 import type {SystemModelInterface} from "@/types/SystemTypes";
 import {useMapStyles} from "@/utilities/useMapStyles";
-const { mapStyle, clusterOrientation } = useMapStyles();
+const { mapStyle } = useMapStyles();
 
 defineProps<{
   cluster: ClusterModelInterface,
@@ -43,7 +43,6 @@ function selectSystem(system: SystemModelInterface | undefined) {
         <SystemGraph
           :system="system"
           :mapStyle="mapStyle"
-          :cluster-orientation="clusterOrientation"
           :id="system.id"
           @selected="selectSystem"
           :plan="plan"

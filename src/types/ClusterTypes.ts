@@ -23,7 +23,6 @@ export interface ClusterModelInterface {
   straits: Array<StraitModelInterface>;
   numSystems: number;
   mapStyle: MapViewStylesType;
-  clusterOrientation: ClusterOrientationType;
 
   getSystemByName(systemName: string) : SystemModelInterface | null;
 
@@ -48,7 +47,7 @@ export interface ClusterModelInterface {
    */
   getStraitsInSystemOrder() : Map<SystemIdType, Array<StraitModelInterface>>;
 
-  setMapViewParams(mapStyle: MapViewStylesType, clusterOrientation: ClusterOrientationType) : void;
+  setMapViewParams(mapStyle: MapViewStylesType) : void;
 
   importSystems(data: ClusterModelDataType) : void;
   importStraits(data: ClusterModelDataType) : void;

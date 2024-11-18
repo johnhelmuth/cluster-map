@@ -17,7 +17,7 @@ const emit = defineEmits<{
   "system-selected": [system: SystemModelInterface];
 }>();
 
-const { mapStyle, straightStraits, debug, mapViewTypeModal, clusterOrientation } = useMapViewStyleModal();
+const { mapStyle, straightStraits, debug, mapViewTypeModal } = useMapViewStyleModal();
 
 function selectSystem(system: SystemModelInterface | undefined) {
   if (! system) {
@@ -38,7 +38,6 @@ function mapView() {
     <SVGClusterGraph :cluster="cluster" :plan="plan" @system-selected="selectSystem" :debug="debug" :straight-straits="straightStraits" />
     <FontAwesomeIcon class="map-control" :icon="faEye" @click="mapView"/>
     <p v-if="debug">{{ mapStyle }}</p>
-    <p v-if="debug">{{ clusterOrientation }}</p>
   </div>
 
 </template>

@@ -82,23 +82,20 @@ export default class SystemModel implements SystemModelInterface {
   get position() {
     switch (this.cluster.mapStyle) {
       case 'circular':
-        return this.orientatePosition(getPositionCircular(this.index, this.cluster.numSystems));
+        return getPositionCircular(this.index, this.cluster.numSystems);
       case 'data':
       default:
-        return this.orientatePosition(this._position);
+        return this._position;
     }
   }
 
   orientatePosition(position: PointType) : PointType {
-    if (this.cluster.clusterOrientation === 'portrait') {
-      const {center} = getMapDimensions();
-      const rotationAngle = Math.PI / 2
-      const transPos = { x: center.x - position.x, y: center.y - position.y };
-      const x = transPos.x * Math.cos(rotationAngle) - transPos.y * Math.sin(rotationAngle) + center.x;
-      const y = transPos.y * Math.cos(rotationAngle) + transPos.x * Math.sin(rotationAngle) + center.y;
-      return { x, y };
-    }
-    return position;
+    const {center} = getMapDimensions();
+    const rotationAngle = Math.PI / 2
+    const transPos = { x: center.x - position.x, y: center.y - position.y };
+    const x = transPos.x * Math.cos(rotationAngle) - transPos.y * Math.sin(rotationAngle) + center.x;
+    const y = transPos.y * Math.cos(rotationAngle) + transPos.x * Math.sin(rotationAngle) + center.y;
+    return { x, y };
   }
 
   get index() {

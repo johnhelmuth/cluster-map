@@ -16,11 +16,11 @@ import {useMapStyles} from "@/utilities/useMapStyles";
 import {watch} from "vue";
 
 const { clusters } = useClustersStore();
-const { mapStyle, clusterOrientation } = useMapStyles();
+const { mapStyle } = useMapStyles();
 const { routePlannerService, selectedSystemsService } = useUserScopeStore() as { routePlannerService: RoutePlannerServiceInterface, selectedSystemsService: SelectedSystemsServiceInterface };
 
-watch([clusters, mapStyle, clusterOrientation], () => {
-  clusters.cluster?.setMapViewParams(mapStyle.value, clusterOrientation.value)
+watch([clusters, mapStyle], () => {
+  clusters.cluster?.setMapViewParams(mapStyle.value)
 });
 
 function systemSelected(system: SystemModelInterface) {

@@ -110,13 +110,8 @@ export class ClusterModel implements ClusterModelInterface {
     return this._mapStyle;
   }
 
-  get clusterOrientation() {
-    return this._clusterOrientation;
-  }
-
-  setMapViewParams(mapStyle: MapViewStylesType, clusterOrientation: ClusterOrientationType) : void {
+  setMapViewParams(mapStyle: MapViewStylesType) : void {
     this._mapStyle = mapStyle;
-    this._clusterOrientation = clusterOrientation;
   }
 
   importData(data: ClusterModelDataType) {
