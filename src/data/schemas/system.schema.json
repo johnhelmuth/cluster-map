@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://in-dire-straits.space/data/schemas/system.schema.json",
+  "title": "System",
+  "description": "A description of a star system in a Role Playing Game.",
+  "type": "object",
+  "properties": {
+    "type": {
+      "description": "The type of thingy the data describes, 'system'.",
+      "type": "string"
+    },
+    "schemaVersion": {
+      "description": "The version of the schema for the data.",
+      "type": "string",
+      "const": "1"
+    },
+    "id": {
+      "description": "Unique identifier for the system.",
+      "type": "string"
+    },
+    "name": {
+      "description": "The name of the system.",
+      "type": "string"
+    },
+    "attributes": {
+      "description": "",
+      "type": "object",
+      "properties": {
+        "technology": {
+          "description": "The rating for the Technology level of the system, range -4 to 4.",
+          "type": "integer",
+          "minimum": -4,
+          "maximum": 4
+        },
+        "environment": {
+          "description": "The rating for the Environment level of the system, range -4 to 4.",
+          "type": "integer",
+          "minimum": -4,
+          "maximum": 4
+        },
+        "resources": {
+          "description": "The rating for the Resources level of the system, range -4 to 4.",
+          "type": "integer",
+          "minimum": -4,
+          "maximum": 4
+        }
+      },
+      "required": [
+        "technology",
+        "environment",
+        "resources"
+      ]
+    },
+    "aspects": {
+      "description": "The Aspects that are short descriptive phrases capturing what is true and interesting about the system.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "position": {
+      "description": "The position of the system on the cluster map.",
+      "type": "object",
+      "properties": {
+        "x": {
+          "description": "The position of the system along the X axis (horizontal) of the map.",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1000
+        },
+        "y": {
+          "description": "The position of the system along the Y axis (vertical) of the map.",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1000
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ]
+    }
+  },
+  "required": [
+    "type",
+    "schemaVersion",
+    "id",
+    "name",
+    "attributes",
+    "aspects",
+    "position"
+  ]
+}

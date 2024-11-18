@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://in-dire-straits.space/data/schemas/cluster.schema.json",
+  "title": "Cluster",
+  "description": "A group of star systems and their connections in a Role Playing Game.",
+  "type": "object",
+  "properties": {
+    "type": {
+      "description": "The type of thingy the data describes, 'cluster'.",
+      "type": "string"
+    },
+    "schemaVersion": {
+      "description": "The version of the schema for the data.",
+      "type": "string",
+      "const": "1"
+    },
+    "id": {
+      "description": "Unique identifier for the cluster.",
+      "type": "string"
+    },
+    "name": {
+      "description": "The name of the cluster.",
+      "type": "string"
+    },
+    "systems": {
+      "description": "A list of systems in the cluster.",
+      "type": "array",
+      "items": {
+        "$ref": "https://in-dire-straits.space/data/schemas/system.schema.json"
+      }
+    },
+    "straits": {
+      "description": "A list of connections between systems in the cluster.",
+      "type": "array",
+      "items": {
+        "$ref": "https://in-dire-straits.space/data/schemas/strait.schema.json"
+      }
+    }
+  },
+  "required": [ "type", "schemaVersion", "id", "name" ]
+}

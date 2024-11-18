@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://in-dire-straits.space/data/schemas/cluster.schema.json",
+  "title": "Strait",
+  "description": "A strait is an FTL connection between two star systems in a Role Playing Game.",
+  "type": "object",
+  "properties": {
+    "type": {
+      "description": "The type of thingy the data describes, 'strait'.",
+      "type": "string"
+    },
+    "schemaVersion": {
+      "description": "The version of the schema for the data.",
+      "type": "string",
+      "const": "1"
+    },
+    "systems": {
+      "description": "The id property of the 2 systems this strait connects.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 2,
+      "maxItems": 2
+    }
+  },
+  "required": [ "type", "schemaVersion", "systems" ]
+}

@@ -21,7 +21,9 @@ export interface StraitModelInterface {
 
   straitParameters(index : number) : { straitLength: number, straitNormalAngle: number, straitMidPoint : PointType, controlPoint: PointType };
 
-  toJSON(key: string) : Array<string>;
+  toJSON(key: string) : object;
 }
 
-export type StraitModelDataType = [SystemIdType, SystemIdType];
+export type StraitModelDataType = {
+  systems: Array<SystemIdType>
+};

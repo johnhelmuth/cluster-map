@@ -15,6 +15,7 @@ import {
   getMapDimensions,
   getPositionCircular
 } from "@/utilities/ClusterGenerator";
+import {SCHEMA_VERSION} from "@/constants";
 
 export default class SystemModel implements SystemModelInterface {
   id: SystemIdType;
@@ -159,6 +160,8 @@ export default class SystemModel implements SystemModelInterface {
 
   toJSON(key: string) : object {
     return {
+      "type": "system",
+      schemaVersion: SCHEMA_VERSION,
       id: this.id,
       name: this.name,
       attributes: this.attributes,

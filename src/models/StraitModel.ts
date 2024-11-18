@@ -1,6 +1,7 @@
 import type {StraitModelInterface} from "@/types/StraitTypes";
 import type {SystemModelInterface} from "@/types/SystemTypes";
 import type {PointType} from "@/types/GeometryTypes";
+import {SCHEMA_VERSION} from "@/constants";
 
 export class StraitModel implements StraitModelInterface {
 
@@ -63,11 +64,15 @@ export class StraitModel implements StraitModelInterface {
   }
 
 
-  toJSON(key: string) : Array<string> {
-    return [
-      this.systemA.id,
-      this.systemB.id
-    ];
+  toJSON(key: string) : object {
+    return {
+      "type": "strait",
+      schemaVersion: SCHEMA_VERSION,
+      systems: [
+        this.systemA.id,
+        this.systemB.id
+      ]
+  };
   }
 
 }

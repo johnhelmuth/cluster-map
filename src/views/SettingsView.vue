@@ -8,6 +8,7 @@ import type {ClusterIdType, ClustersModelDataType} from "@/types/ClusterTypes";
 import {useUserScopeStore} from "@/stores/UserScopeStore";
 import {ref, computed, watch, type Ref} from "vue";
 import {isClustersModelDataType} from "@/utilities/utils";
+import { getParseClusters } from "@/utilities/importValidator";
 
 const {clusters} = useClustersStore();
 const {routePlannerService, selectedSystemsService} = useUserScopeStore();
@@ -19,20 +20,9 @@ const { files, open, reset, onCancel, onChange } = useFileDialog({
 const importFile:Ref<File|null> = ref(null);
 
 const importedData: Ref<ClustersModelDataType | object> = ref({});
+const importError: Ref<string | undefined> = ref(undefined);
 
-watch(importFile, async () => {
-  let importedJSON: string | undefined = undefined;
-  if (importFile.value) {
-    try {
-      importedJSON = await importFile.value.text();
-      importedData.value = JSON.parse(importedJSON);
-    } catch (err) {
-      console.error(err);
-    }
-  } else {
-    importedData.value = {}
-  }
-});
+const parseClusters = getParseClusters();
 
 
 const fileSelected = computed(() => !! importFile.value);
@@ -103,19 +93,54 @@ onChange((files) => {
   if (files) {
     importFile.value = files[0];
   }
+  importError.value = undefined;
 })
 
 function applyImport() {
   updateClusters(importedData.value);
-  importedData.value = {};
-  importFile.value = null;
+  resetImports();
   reset();
 }
 
 function cancelImport() {
-  importFile.value = null;
+  resetImports();
   reset();
 }
+
+function resetImports() {
+  importedData.value = {};
+  importFile.value = null;
+  // TODO: Implement a global popup/toaster component to handle this type of error.
+  setTimeout((() => importError.value = undefined), 7000);
+}
+
+watch(importFile, async () => {
+  let importedJSON: string | undefined = undefined;
+  if (importFile.value) {
+    try {
+      importedJSON = await importFile.value.text();
+      const parsedClusters = parseClusters(importedJSON);
+      if (parsedClusters.valid) {
+        importedData.value = parsedClusters.value as ClustersModelDataType;
+        importError.value = undefined;
+      } else {
+        throw new Error(parsedClusters.error);
+      }
+    } catch (err) {
+      console.error(err);
+      if (err instanceof Object && "message" in err && typeof err.message === "string") {
+        importError.value = err.message;
+      } else if (typeof err === "string") {
+        importError.value = err;
+      } else {
+        importError.value = "Unknown error during import of clusters.";
+      }
+      resetImports();
+    }
+  } else {
+    resetImports();
+  }
+});
 
 </script>
 
@@ -149,7 +174,7 @@ function cancelImport() {
             <div class="control-group">
               <div class="import-actions">
                 <h3>Import file</h3>
-                <div v-if="importFile" class="import-file-apply">
+                <div v-if="importFile && importedData && ! importError" class="import-file-apply">
                   <ul class="note">
                     <li>{{ importFile.name }}</li>
                     <li>{{ importFile.type }}</li>
@@ -170,7 +195,8 @@ function cancelImport() {
                     </button>
                   </div>
                 </div>
-                <div v-else="importFile" class="note">Imported file information will appear here.</div>
+                <div v-else-if="importError" class="error">{{importError}}</div>
+                <div v-else class="note">Imported file information will appear here.</div>
               </div>
             </div>
           </section>
@@ -233,5 +259,9 @@ button .action {
   font-weight: bold;
 }
 
+.error {
+  color: red;
+  font-weight: bold;
+}
 
 </style>

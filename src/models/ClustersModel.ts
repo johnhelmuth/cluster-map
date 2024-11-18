@@ -5,6 +5,7 @@ import type {
   ClustersModelInterface
 } from "@/types/ClusterTypes";
 import {ClusterModel} from "@/models/ClusterModel";
+import {SCHEMA_VERSION} from "@/constants";
 
 
 export class ClustersModel implements ClustersModelInterface {
@@ -86,6 +87,8 @@ export class ClustersModel implements ClustersModelInterface {
 
   toJSON(key: string): object {
     return {
+      type: "clusters",
+      schemaVersion: SCHEMA_VERSION,
       currentClusterId: this.cluster?.id || '',
       clusters: [...this._clusters.values()]
     };

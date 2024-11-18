@@ -1,10 +1,12 @@
 
 import type { SystemIdType, SystemModelInterface } from '@/types/SystemTypes';
-import type { StraitModelInterface } from '@/types/StraitTypes';
+import type {StraitModelDataType, StraitModelInterface} from '@/types/StraitTypes';
 import type { ClusterModelInterface, ClusterIdType, ClusterModelDataType } from "@/types/ClusterTypes";
 import SystemModel from "@/models/SystemModel";
 import {StraitModel} from "@/models/StraitModel";
 import type {ClusterOrientationType, MapViewStylesType} from "@/types/BasicTypes";
+import {SCHEMA_VERSION} from "@/constants";
+
 export class ClusterModel implements ClusterModelInterface {
 
   id: ClusterIdType = '';
@@ -132,10 +134,10 @@ export class ClusterModel implements ClusterModelInterface {
 
   importStraits(data: ClusterModelDataType) {
     if ("straits" in data && data.straits instanceof Array) {
-      for (const straitData of data.straits as Array<Array<SystemIdType>>) {
-        const systemA = this.getSystemById(straitData[0] as SystemIdType);
+      for (const straitData of data.straits as Array<StraitModelDataType>) {
+        const systemA = this.getSystemById(straitData.systems[0] as SystemIdType);
         if (systemA) {
-          const systemB = this.getSystemById(straitData[1] as SystemIdType);
+          const systemB = this.getSystemById(straitData.systems[1] as SystemIdType);
           if (systemB) {
             this.connectSystems(systemA, systemB);
           }
@@ -146,6 +148,8 @@ export class ClusterModel implements ClusterModelInterface {
 
   toJSON(key: string) : object {
     return {
+      type: "cluster",
+      schemaVersion: SCHEMA_VERSION,
       id: this.id,
       name: this.name,
       systems: this.systems,

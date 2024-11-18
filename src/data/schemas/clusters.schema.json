@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://in-dire-straits.space/data/schemas/clusters.schema.json",
+  "title": "Clusters",
+  "description": "A dataset of all of the clusters of star systems in a Role Playing Game.",
+  "type": "object",
+  "properties": {
+    "type": {
+      "description": "The type of thingy the data describes, 'clusters'.",
+      "type": "string"
+    },
+    "schemaVersion": {
+      "description": "The version of the schema for the data.",
+      "type": "string",
+      "const": "1"
+    },
+    "currentClusterId": {
+      "description": "The ID of the cluster that is currently being viewed.",
+      "type": "string"
+    },
+    "clusters": {
+      "description": "The list of clusters in the dataset.",
+      "type": "array",
+      "items": {
+        "description": "A cluster in the dataset.",
+        "$ref": "https://in-dire-straits.space/data/schemas/cluster.schema.json"
+      }
+    }
+  },
+  "required": [ "clusters" ]
+}

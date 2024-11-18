@@ -1,0 +1,242 @@
+{
+  "type": "cluster",
+  "schemaVersion": "1",
+  "id": "1652",
+  "name": "Cluster 1652",
+  "systems": [
+    {
+      "type": "system",
+      "schemaVersion": "1",
+      "id": "A738",
+      "name": "System 9",
+      "attributes": {
+        "technology": -1,
+        "environment": -2,
+        "resources": 2
+      },
+      "aspects": [],
+      "position": {
+        "x": 795,
+        "y": 374.99999999999994
+      }
+    },
+    {
+      "type": "system",
+      "schemaVersion": "1",
+      "id": "B7a7",
+      "name": "System 10",
+      "attributes": {
+        "technology": 2,
+        "environment": 0,
+        "resources": -1
+      },
+      "aspects": [],
+      "position": {
+        "x": 708.5965004500315,
+        "y": 166.40349954996844
+      }
+    },
+    {
+      "type": "system",
+      "schemaVersion": "1",
+      "id": "C65b",
+      "name": "System 21",
+      "attributes": {
+        "technology": 0,
+        "environment": 0,
+        "resources": 1
+      },
+      "aspects": [],
+      "position": {
+        "x": 499.99999999999994,
+        "y": 80
+      }
+    },
+    {
+      "type": "system",
+      "schemaVersion": "1",
+      "id": "D7d5",
+      "name": "System 37",
+      "attributes": {
+        "technology": -2,
+        "environment": 1,
+        "resources": 0
+      },
+      "aspects": [],
+      "position": {
+        "x": 291.40349954996844,
+        "y": 166.4034995499685
+      }
+    },
+    {
+      "type": "system",
+      "schemaVersion": "1",
+      "id": "E5ba",
+      "name": "System 48",
+      "attributes": {
+        "technology": -2,
+        "environment": -2,
+        "resources": 2
+      },
+      "aspects": [],
+      "position": {
+        "x": 205,
+        "y": 375.00000000000006
+      }
+    },
+    {
+      "type": "system",
+      "schemaVersion": "1",
+      "id": "F584",
+      "name": "System 58",
+      "attributes": {
+        "technology": -1,
+        "environment": 0,
+        "resources": -3
+      },
+      "aspects": [],
+      "position": {
+        "x": 291.4034995499685,
+        "y": 583.5965004500315
+      }
+    },
+    {
+      "type": "system",
+      "schemaVersion": "1",
+      "id": "G6c8",
+      "name": "System 60",
+      "attributes": {
+        "technology": -1,
+        "environment": 1,
+        "resources": -1
+      },
+      "aspects": [],
+      "position": {
+        "x": 500,
+        "y": 670
+      }
+    },
+    {
+      "type": "system",
+      "schemaVersion": "1",
+      "id": "H6c9",
+      "name": "System 71",
+      "attributes": {
+        "technology": 1,
+        "environment": -3,
+        "resources": 2
+      },
+      "aspects": [],
+      "position": {
+        "x": 708.5965004500315,
+        "y": 583.5965004500315
+      }
+    }
+  ],
+  "straits": [
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "A738",
+        "B7a7"
+      ]
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "A738",
+        "C65b"
+      ]
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "A738",
+        "D7d5"
+      ]
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "B7a7",
+        "C65b"
+      ]
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "B7a7",
+        "E5ba"
+      ]
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "C65b",
+        "D7d5"
+      ]
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "C65b",
+        "F584"
+      ]
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "C65b",
+        "G6c8"
+      ]
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "D7d5",
+        "E5ba"
+      ]
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "E5ba",
+        "F584"
+      ]
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "E5ba",
+        "H6c9"
+      ]
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "F584",
+        "G6c8"
+      ]
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "G6c8",
+        "H6c9"
+      ]
+    }
+  ]
+}
