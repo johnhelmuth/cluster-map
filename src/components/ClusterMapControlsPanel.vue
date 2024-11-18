@@ -2,37 +2,33 @@
 
 <script setup lang="ts">
 
+import {ref} from "vue";
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import {faPlus, faMinus} from '@fortawesome/free-solid-svg-icons';
 import SystemInfoCard from "@/components/SystemInfoCard.vue";
-import type {SystemIdType, SystemModelInterface} from "@/types/SystemTypes.js";
+import type {SystemModelInterface} from "@/types/SystemTypes.js";
 import type {ClusterModelInterface, ClustersModelInterface} from "@/types/ClusterTypes";
 import type {RoutePlanRefType} from "@/types/RoutePlannerTypes";
-import {ref} from "vue";
 import {useClustersStore} from "@/stores/ClustersStore";
 
 const {clusters} = useClustersStore();
-console.log('clusters: ', clusters);
 
-const props = defineProps<{
+defineProps<{
   cluster?: ClusterModelInterface | undefined,
   plan?: RoutePlanRefType;
 }>();
-console.log('props: ', props);
+
 const emit = defineEmits<{
   "system-selected": [system: SystemModelInterface];
   "cluster-selected": [cluster: ClusterModelInterface];
 }>();
 
-let systemInfoCardClosed = ref(true);
+const systemInfoCardClosed = ref(true);
+const expandCollapseIcon = ref(faPlus);
 
 function expandCards() {
   systemInfoCardClosed.value = ! systemInfoCardClosed.value;
-  const accordionEl = document.getElementById('accordion-button');
-  if (accordionEl) {
-    accordionEl.innerText =
-      systemInfoCardClosed.value
-        ? 'Expand'
-        : 'Collapse';
-  }
+  expandCollapseIcon.value = systemInfoCardClosed.value ? faPlus : faMinus;
 }
 
 function selectSystem(system: SystemModelInterface | undefined) {
@@ -45,7 +41,6 @@ function selectSystem(system: SystemModelInterface | undefined) {
 function clusterSelected(event: Event) {
   const targetSelect = event.target as HTMLSelectElement;
   const clusterId = targetSelect.value;
-  console.log('clusterId: ', clusterId);
   const newCluster = clusters.getClusterById(clusterId);
   if (newCluster) {
     emit('cluster-selected', newCluster);
@@ -69,7 +64,7 @@ function clusterSelected(event: Event) {
       </select>
     </h1>
     <div class="controls">
-      <button id="accordion-button" @click="expandCards">Expand</button>
+      <FontAwesomeIcon id="accordion-button" class="button-icon accordion-button" @click="expandCards" :icon="expandCollapseIcon"/>
     </div>
     <div class="panel-body">
       <SystemInfoCard v-if="!! cluster?.systems" v-for="system in cluster?.systems || [] as Array<SystemModelInterface | undefined>"
@@ -118,7 +113,6 @@ h1 > select {
   appearance: none;
   width: 100%;
   text-align: center;
-  text-align: center;
   font-size: .75rem;
   font-weight: bold;
   background: none;
@@ -127,8 +121,12 @@ h1 > select {
 .controls {
   margin-top: 0.25rem;
   display: flex;
-  flex-direction: row-reverse;
-  font-size: .65rem;
+  flex-direction: row;
+  font-size: 1rem;
+  justify-content: flex-end;
+}
+.controls .button-icon {
+  margin: 0.25rem 0.5rem;
 }
 .controls button {
   background-color: var(--color-background);
@@ -144,6 +142,7 @@ h1 > select {
     inset 0.1rem 0.1rem 0.1rem grey,
     inset -0.1rem -0.1rem 0.1rem lightgrey;
 }
+
 .panel-body {
   font-size: .75rem;
   margin-top: 0.25rem;

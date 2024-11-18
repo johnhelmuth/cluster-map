@@ -4,12 +4,15 @@ import type { StraitModelInterface } from '@/types/StraitTypes';
 import type { ClusterModelInterface, ClusterIdType, ClusterModelDataType } from "@/types/ClusterTypes";
 import SystemModel from "@/models/SystemModel";
 import {StraitModel} from "@/models/StraitModel";
+import type {ClusterOrientationType, MapViewStylesType} from "@/types/BasicTypes";
 export class ClusterModel implements ClusterModelInterface {
 
   id: ClusterIdType = '';
   name: string = '';
   systemsMap: Map<SystemIdType, SystemModelInterface>;
   straits: Array<StraitModelInterface>;
+  _mapStyle: MapViewStylesType = 'data';
+  _clusterOrientation: ClusterOrientationType = 'landscape';
 
   constructor(data?: ClusterModelDataType) {
     this.id = '';
@@ -62,12 +65,31 @@ export class ClusterModel implements ClusterModelInterface {
     return this.systemsMap.get(systemId);
   }
 
-  getConnectionsForSystem(system: SystemModelInterface) : Array<StraitModelInterface> {
+  getSystemIndex(systemId: SystemIdType) : number {
+    return this.systems.findIndex((system: SystemModelInterface) => system.id === systemId);
+  }
+
+  getStraitsBySystem(system: SystemModelInterface) : Array<StraitModelInterface> {
     const straits = this.straits.filter((strait) => strait.systemA.id === system.id || strait.systemB.id === system.id);
     if (straits?.length) {
       return straits;
     }
     return [];
+  }
+
+  /**
+   * @see ClusterModelInterface
+   */
+  getStraitsInSystemOrder() : Map<SystemIdType, Array<StraitModelInterface>> {
+    const systemStraitMap = new Map<SystemIdType, Array<StraitModelInterface>>();
+    const straitsCapturedList : Array<StraitModelInterface> = [];
+    for (const [systemId, system] of this.systemsMap) {
+      const straitsBySystem = this.getStraitsBySystem(system)
+        .filter((strait) => (!straitsCapturedList.includes(strait)));
+      systemStraitMap.set(systemId, straitsBySystem);
+      straitsCapturedList.push(...straitsBySystem);
+    }
+    return systemStraitMap;
   }
 
   getSystemsMap() : Map<SystemIdType, SystemModelInterface> {
@@ -76,6 +98,23 @@ export class ClusterModel implements ClusterModelInterface {
 
   get systems() : Array<SystemModelInterface> {
     return [...this.systemsMap.entries()].map(([key, system]) => system);
+  }
+
+  get numSystems() {
+    return this.systemsMap.size;
+  }
+
+  get mapStyle() {
+    return this._mapStyle;
+  }
+
+  get clusterOrientation() {
+    return this._clusterOrientation;
+  }
+
+  setMapViewParams(mapStyle: MapViewStylesType, clusterOrientation: ClusterOrientationType) : void {
+    this._mapStyle = mapStyle;
+    this._clusterOrientation = clusterOrientation;
   }
 
   importData(data: ClusterModelDataType) {
@@ -106,7 +145,6 @@ export class ClusterModel implements ClusterModelInterface {
   }
 
   toJSON(key: string) : object {
-    console.log('ClusterModel.toJSON() called with parameter key:', key);
     return {
       id: this.id,
       name: this.name,

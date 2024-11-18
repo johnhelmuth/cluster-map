@@ -6,7 +6,7 @@
  * The SystemModelInterface includes a StraitModelInterface shaped object for each of the systems it connects to.
  * These StraitModelInterface objects are shared between the 2 SystemModelInterface objects it connects.
  */
-import type { IdType} from "@/types/BasicTypes";
+import type {ClusterOrientationType, IdType, MapViewStylesType} from "@/types/BasicTypes";
 import type { SystemIdType, SystemModelInterface} from "@/types/SystemTypes";
 import type {StraitModelInterface} from "@/types/StraitTypes";
 import type {SystemModelDataType} from "@/types/SystemTypes";
@@ -21,10 +21,15 @@ export interface ClusterModelInterface {
   systemsMap: Map<SystemIdType, SystemModelInterface>;
   systems: Array<SystemModelInterface>;
   straits: Array<StraitModelInterface>;
+  numSystems: number;
+  mapStyle: MapViewStylesType;
+  clusterOrientation: ClusterOrientationType;
 
   getSystemByName(systemName: string) : SystemModelInterface | null;
 
   getSystemById(systemId: SystemIdType) : SystemModelInterface | null | undefined;
+
+  getSystemIndex(systemId: SystemIdType) : number;
 
   getSystemsMap() : Map<SystemIdType, SystemModelInterface>;
 
@@ -34,7 +39,16 @@ export interface ClusterModelInterface {
 
   areConnected(systemA: SystemModelInterface, systemB: SystemModelInterface) : boolean
 
-  getConnectionsForSystem(system: SystemModelInterface) : Array<StraitModelInterface>;
+  getStraitsBySystem(system: SystemModelInterface) : Array<StraitModelInterface>;
+
+  /**
+   * Gets the straits in cluster in order of the systems.
+   *
+   * @returns Map<SystemIdType, Array<StraitModelInterface>>
+   */
+  getStraitsInSystemOrder() : Map<SystemIdType, Array<StraitModelInterface>>;
+
+  setMapViewParams(mapStyle: MapViewStylesType, clusterOrientation: ClusterOrientationType) : void;
 
   importSystems(data: ClusterModelDataType) : void;
   importStraits(data: ClusterModelDataType) : void;

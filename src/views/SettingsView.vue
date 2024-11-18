@@ -17,7 +17,6 @@ const { files, open, reset, onCancel, onChange } = useFileDialog({
 })
 
 const importFile:Ref<File|null> = ref(null);
-console.log('SettingsView.setup() importFile.value: ', importFile.value)
 
 const importedData: Ref<ClustersModelDataType | object> = ref({});
 
@@ -26,9 +25,7 @@ watch(importFile, async () => {
   if (importFile.value) {
     try {
       importedJSON = await importFile.value.text();
-      console.log('importedJSON', importedJSON);
       importedData.value = JSON.parse(importedJSON);
-      console.log('importedData.value: ', importedData.value);
     } catch (err) {
       console.error(err);
     }
@@ -54,12 +51,10 @@ const importedClustersStats = computed(() => {
   };
   if (importedData.value && isClustersModelDataType(importedData.value)) {
     const importedDataRaw : ClustersModelDataType = importedData.value;
-    console.log('importedClusterStats getter importedDataRaw: ', importedDataRaw);
     if (importedDataRaw?.clusters && importedDataRaw?.clusters.hasOwnProperty('length')) {
       stats.numClusters = importedDataRaw.clusters.length;
       let systemCount = 0;
       for (const cluster of importedDataRaw.clusters) {
-        console.log('importedDataRaw cluster: ', cluster);
         if (cluster?.systems && cluster.systems.hasOwnProperty('length') && cluster.systems.length) {
           systemCount += (cluster.systems.length || 0);
         }
@@ -78,7 +73,6 @@ const importedClustersStats = computed(() => {
 });
 
 function exportData(e : Event) {
-  console.log('exportData() click.');
   downloadJSON(clusters, 'clusters.json');
 }
 
@@ -98,28 +92,20 @@ function downloadJSON(data : any, filename: string) {
 }
 
 function updateClusters(data: ClustersModelDataType | object) {
-  console.log('updateClusters().');
   if (data && isClustersModelDataType(data)) {
-    console.log('updateClusters() routePlannerService: ', routePlannerService);
-    console.log('updateClusters() selectedSystemsService: ', selectedSystemsService);
-    console.log('updateClusters() data: ', data);
-    console.log('updateClusters() clusters: ', clusters);
     routePlannerService.deleteAllRoutePlans();
     selectedSystemsService.deleteAllSelectedSystems();
     clusters.parseClustersData(data);
-    console.log('updateClusters() clusters: ', clusters);
   }
 }
 
 onChange((files) => {
-  console.log('import changed: files: ', files);
   if (files) {
     importFile.value = files[0];
   }
 })
 
 function applyImport() {
-  console.log('Apply import clicked.');
   updateClusters(importedData.value);
   importedData.value = {};
   importFile.value = null;
@@ -127,7 +113,6 @@ function applyImport() {
 }
 
 function cancelImport() {
-  console.log('Cancel import clicked.');
   importFile.value = null;
   reset();
 }

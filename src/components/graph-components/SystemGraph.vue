@@ -4,31 +4,40 @@ import type {SystemModelInterface} from "@/types/SystemTypes";
 import {computed} from "vue";
 import {attributesFormatted, getEnvironmentColor} from "@/data/attributes-meta";
 import type {RoutePlanRefType} from "@/types/RoutePlannerTypes";
+import {systemRadiusByStyleAndNumberOfSystems} from "@/utilities/ClusterGenerator";
+import type {ClusterOrientationType, MapViewStylesType} from "@/types/BasicTypes";
 
 const props = defineProps< {
   system: SystemModelInterface,
   plan?: RoutePlanRefType,
-  /** @property {boolean} flipped - true if the orientation of the map is rotated 90 degrees. */
-  flipped?: boolean,
+  mapStyle?: MapViewStylesType | undefined,
+  clusterOrientation?: ClusterOrientationType | undefined,
 }>();
 
 defineEmits< {
   selected: [system: SystemModelInterface | undefined]
 } >();
 
-const radius = 80;
-const textHeight = 15;
-const ringGap = 6;
+const textHeight = 12;
+const ringGap = 5;
 const bgDiscGap = 3;
 
-const positionX = computed(() => props?.flipped ? props.system.positionFlipped.x : props.system.position.x);
-const positionY = computed(() => props?.flipped ? props.system.positionFlipped.y : props.system.position.y);
+const positionX = computed(() => props.system.position.x);
+const positionY = computed(() => props.system.position.y);
 const attributes = computed(() => attributesFormatted(props.system.attributes, "short"));
 const isSelected = computed(() => props.system.getSelected());
 
+const radius = computed(() => {
+  if (props?.mapStyle) {
+    return systemRadiusByStyleAndNumberOfSystems(props.mapStyle, props.system.cluster.numSystems);
+  }
+  return 80;
+});
+
 const rings = computed( () => props.system.attributes.technology > 1 ? props.system.attributes.technology : 1);
+
 const bgDiscRadius = computed(() => {
-  return radius + (ringGap * (rings.value-1)) + bgDiscGap;
+  return radius.value + (ringGap * (rings.value-1)) + bgDiscGap;
 });
 
 const environmentColor = computed(() => getEnvironmentColor(props.system.attributes.environment));
@@ -42,8 +51,20 @@ const environmentColor = computed(() => getEnvironmentColor(props.system.attribu
     <circle v-if="rings > 2" class="ring thirdRing" :cx="positionX" :cy="positionY" :r="radius + (ringGap * 2)"></circle>
     <circle v-if="rings > 1" class="ring secondRing" :cx="positionX" :cy="positionY" :r="radius + (ringGap)"></circle>
     <circle class="ring firstRing" :cx="positionX" :cy="positionY" :r="radius"></circle>
-    <text class="system-name" :x="positionX" :y="positionY - textHeight">{{ system.name }}</text>
-    <text class="system-attributes" :x="positionX" :y="positionY + textHeight">{{ attributes }}</text>
+    <text class="system-name"
+          :x="positionX"
+          :y="positionY - textHeight"
+          :textLength="radius*2-(ringGap*4)"
+          lengthAdjust="spacingAndGlyphs"
+    >
+      {{ system.name }}
+    </text>
+    <text class="system-attributes"
+          :x="positionX"
+          :y="positionY + textHeight"
+    >
+      {{ attributes }}
+    </text>
   </g>
 </template>
 
@@ -69,15 +90,15 @@ circle.bgDisc {
   fill: var(--color-background)
 }
 text {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   text-anchor: middle;
   dominant-baseline: middle;
 }
 .selected text.system-name {
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   font-weight: bold;
 }
 text.system-attributes {
-  font-size: .9rem;
+  font-size: 0.75rem;
 }
 </style>

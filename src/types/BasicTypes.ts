@@ -12,4 +12,12 @@ export type attributeFormatType = "short" | "long" | "detailed";
 export type attributeRatingMetaType = {
   name: string,
   color?: string
-;}
+};
+
+export type MapViewStylesType = 'data' | 'circular';
+export const mapViewStyleLabels = [
+  {key: 'data', label: 'Layout from data'},
+  {key: 'circular', label: 'Circular Layout'},
+];
+
+export type ClusterOrientationType = 'landscape' | 'portrait';

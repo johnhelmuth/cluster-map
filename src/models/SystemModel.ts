@@ -1,4 +1,4 @@
-import type {AspectType, attributeValueType} from '@/types/BasicTypes';
+import type {AspectType, attributeValueType, MapViewStylesType} from '@/types/BasicTypes';
 import {attributeValues} from '@/types/BasicTypes';
 import type {StraitModelInterface} from "@/types/StraitTypes";
 import type {ClusterModelInterface} from "@/types/ClusterTypes";
@@ -11,6 +11,10 @@ import type {
 } from "@/types/SystemTypes";
 import {SystemAttributesDefaults} from "@/types/SystemTypes"
 import type {PointType} from "@/types/GeometryTypes";
+import {
+  getMapDimensions,
+  getPositionCircular
+} from "@/utilities/ClusterGenerator";
 
 export default class SystemModel implements SystemModelInterface {
   id: SystemIdType;
@@ -18,7 +22,7 @@ export default class SystemModel implements SystemModelInterface {
   attributes: SystemAttributesInterface;
   aspects: Array<AspectType>;
   cluster: ClusterModelInterface;
-  position: PointType;
+  _position: PointType;
   selected: boolean;
 
   /**
@@ -36,7 +40,7 @@ export default class SystemModel implements SystemModelInterface {
     this.name = 'Unknown system name';
     this.attributes = {...SystemAttributesDefaults};
     this.aspects = [];
-    this.position = { x: 500, y: 500 };
+    this._position = { x: 500, y: 500 };
     this.selected = false;
     if (data) {
       this.name = data.name;
@@ -70,15 +74,34 @@ export default class SystemModel implements SystemModelInterface {
 
   private constructPosition(data: SystemModelDataType) {
     if ("position" in data) {
-      this.position = { ...data.position };
+      this._position = { ...data.position };
     }
   }
 
-  get positionFlipped(): PointType {
-    return {
-      x: this.position.y,
-      y: this.position.x
-    };
+  get position() {
+    switch (this.cluster.mapStyle) {
+      case 'circular':
+        return this.orientatePosition(getPositionCircular(this.index, this.cluster.numSystems));
+      case 'data':
+      default:
+        return this.orientatePosition(this._position);
+    }
+  }
+
+  orientatePosition(position: PointType) : PointType {
+    if (this.cluster.clusterOrientation === 'portrait') {
+      const {center} = getMapDimensions();
+      const rotationAngle = Math.PI / 2
+      const transPos = { x: center.x - position.x, y: center.y - position.y };
+      const x = transPos.x * Math.cos(rotationAngle) - transPos.y * Math.sin(rotationAngle) + center.x;
+      const y = transPos.y * Math.cos(rotationAngle) + transPos.x * Math.sin(rotationAngle) + center.y;
+      return { x, y };
+    }
+    return position;
+  }
+
+  get index() {
+    return this.cluster.getSystemIndex(this.id);
   }
 
   connectTo(system: SystemModelInterface) {
@@ -110,7 +133,7 @@ export default class SystemModel implements SystemModelInterface {
   }
 
   getConnections(): Array<StraitModelInterface> {
-    return this.cluster.getConnectionsForSystem(this as SystemModelInterface);
+    return this.cluster.getStraitsBySystem(this as SystemModelInterface);
   }
 
   getConnectedSystems(): Array<SystemModelInterface> | undefined {
@@ -135,13 +158,12 @@ export default class SystemModel implements SystemModelInterface {
   }
 
   toJSON(key: string) : object {
-    console.log('SystemModel.toJSON() called with parameter key:', key);
     return {
       id: this.id,
       name: this.name,
       attributes: this.attributes,
       aspects: this.aspects,
-      position: this.position,
+      position: this._position,
     }
   }
 }

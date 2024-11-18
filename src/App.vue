@@ -2,6 +2,8 @@
 
 import {RouterLink, RouterView} from 'vue-router'
 import LogoIcon from './components/icons/LogoIcon.vue'
+import { ModalsContainer } from 'vue-final-modal'
+
 
 </script>
 
@@ -18,6 +20,7 @@ import LogoIcon from './components/icons/LogoIcon.vue'
 
   <RouterView class="content"/>
   <footer></footer>
+  <ModalsContainer />
 </template>
 
 <style scoped>

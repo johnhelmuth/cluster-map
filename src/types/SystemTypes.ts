@@ -1,4 +1,4 @@
-import type { attributeValueType, IdType, AspectType} from "@/types/BasicTypes";
+import type {attributeValueType, IdType, AspectType, MapViewStylesType} from "@/types/BasicTypes";
 import type {StraitModelInterface} from "@/types/StraitTypes";
 import type {ClusterModelInterface} from "@/types/ClusterTypes";
 import type { PointType } from "@/types/GeometryTypes";
@@ -31,8 +31,8 @@ export interface SystemModelInterface {
   aspects: Array<AspectType>;
   cluster: ClusterModelInterface;
   position: PointType;
-  positionFlipped: PointType;
   selected: boolean;
+  index: number;
 
   connectTo(system: SystemModelInterface) : void;
   setName(name: string) : string;

@@ -2,11 +2,11 @@
 import type { ClusterIdType, ClusterModelInterface } from "@/types/ClusterTypes";
 import type {SystemAttributesInterface, SystemIdType, SystemModelInterface} from "@/types/SystemTypes";
 import {ClusterModel} from "@/models/ClusterModel";
-import type {AspectType, attributeValueType} from "@/types/BasicTypes";
+import type {attributeValueType, MapViewStylesType} from "@/types/BasicTypes";
 import SystemModel from "@/models/SystemModel";
 import type {PointType} from "@/types/GeometryTypes.js";
 
-function getRandomIntInclusive(min: number, max: number) {
+export function getRandomIntInclusive(min: number, max: number) {
   const minCeiled = Math.ceil(min);
   const maxFloored = Math.floor(max);
   return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled); // The maximum is inclusive and the minimum is inclusive
@@ -59,61 +59,53 @@ function getNextOpenSystem(index: number, cluster: ClusterModelInterface): Syste
   }
 }
 
-const floor = Math.floor;
-const random = Math.random;
-const cos = Math.cos;
-const sin = Math.sin;
+const { floor, random, cos, sin, PI, max, min } = Math;
 
-function mapDimensions() {
-  const columns = 3;
-  const rows = 3;
+const systemSizeMap = {
+  data: [
+    { threshold: Number.MAX_SAFE_INTEGER, radius: 80},
+  ],
+  circular: [
+    { threshold: 8, radius: 80 },
+    { threshold: 10, radius: 70 },
+    { threshold: 15, radius: 40 },
+    { threshold: Number.MAX_SAFE_INTEGER, radius: 20},
+  ],
+  linear: [
+    { threshold: 6, radius: 80 },
+    { threshold: 10, radius: 25 },
+    { threshold: 15, radius: 20 },
+    { threshold: Number.MAX_SAFE_INTEGER, radius: 10},
+  ],
+};
+
+export function systemRadiusByStyleAndNumberOfSystems(mapStyle: MapViewStylesType, numSystems: number): number {
+  const {baseRadius} = getMapDimensions();
+
+  for (const {threshold, radius} of systemSizeMap[mapStyle]) {
+    if (numSystems <= threshold) {
+      return radius;
+    }
+  }
+  return baseRadius;
+}
+
+export function getMapDimensions() {
+
   const width = 1000;
   const height = 750;
-  const cellWidth = floor(width / columns);
-  const cellHeight = floor(height / rows);
-  const radius = 80;
-  const borderX = radius;
-  const borderY = radius;
+  const baseRadius = 80;
+  const borderX = baseRadius;
+  const borderY = baseRadius;
   const center: PointType = {
     x: width / 2,
     y: height / 2,
   }
-  return { columns, rows, width, height, cellWidth, cellHeight, radius, borderX, borderY, center };
+  return { width, height, baseRadius, borderX, borderY, center };
 }
 
-function getPosition1(index: number, numPoints: number): PointType {
-
-  const {cellWidth, cellHeight, radius} = mapDimensions();
-
-  const cX = floor(cellWidth / 2);
-  const cY = floor (cellHeight / 2)
-
-  const col = index % 3;
-  const row = floor(index / 3);
-  const jitterX = floor(radius / 4)
-  const jitterY = floor(radius / 4)
-
-  return {
-    x: cellWidth * col + cX + floor(random() * jitterX),
-    y: cellHeight * row + cY + floor(random() * jitterY),
-  }
-}
-
-function getPosition2(index: number, numPoints: number) : PointType {
-  const {width, height, radius, borderX, borderY} = mapDimensions();
-
-  const randWidth = floor(width - 2*borderX);
-  const randHeight = floor(height - 2*borderY);
-
-  const x = getRandomIntInclusive(borderX, randWidth);
-  const y = getRandomIntInclusive(borderY, randHeight);
-
-  return {x, y}
-}
-
-function getPosition3(index: number, numPoints: number) : PointType {
-  const {width, height, borderX, borderY, center} = mapDimensions();
-  console.log({width, height, borderX, borderY, center});
+export function getPositionCircular(index: number, numPoints: number) : PointType {
+  const {width, height, borderX, borderY, center} = getMapDimensions();
 
   const systemsRadius = Math.min(width, height)/2 - Math.min(borderX, borderY);
 
@@ -122,12 +114,26 @@ function getPosition3(index: number, numPoints: number) : PointType {
   const x = cos(angle) * systemsRadius + center.x;
   const y = sin(angle) * systemsRadius + center.y;
 
-  console.log(systemsRadius, angle, x, y)
   return {x, y}
 }
 
-function getPosition(index: number, numPoints: number): PointType {
-  return getPosition3(index, numPoints);
+// TODO: get this to work reasonably. Punch it into SystemModel.position() getter to work on it.
+// export function getPositionLinear(index: number, numPoints: number) : PointType {
+//
+//   const {width, height, borderX, borderY, center} = getMapDimensions();
+//
+//   const radius = systemRadiusByStyleAndNumberOfSystems('linear', numPoints);
+//
+//   const perSystem = (width - borderX) / numPoints;
+//
+//   const x = borderX/2 + index * (max(perSystem, radius));
+//   const y = center.y;
+//
+//   return {x, y}
+// }
+
+function getPosition(index: number, numSystems: number): PointType {
+  return getPositionCircular(index, numSystems);
 }
 
 export default function createCluster(id: ClusterIdType, name: string, numberSystems: number = 9) {
@@ -177,10 +183,6 @@ export default function createCluster(id: ClusterIdType, name: string, numberSys
       }
     }
   }
-
-  // const system = new SystemModel(newCluster, {id, name: name, attributes});
-  console.log('createCluster() newCluster', newCluster);
-  console.log('createCluster() newCluster.straits.length: ', newCluster.straits.length);
   return newCluster;
 }
 
@@ -208,5 +210,4 @@ function testRollDice() {
   for (const [roll, count] of histogram.entries()) {
     otherGrandTotal += (roll * count);
   }
-  console.log(grandTotal, otherGrandTotal, histogram);
 }
