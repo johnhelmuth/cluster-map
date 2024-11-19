@@ -8,7 +8,6 @@ export class RoutePlanner implements RoutePlannerInterface {
 
   constructor(cluster: ClusterModelInterface) {
     this.cluster = cluster;
-    console.log('this.cluster: ', this.cluster);
   }
 
   plan(systemA: SystemModelInterface, systemB: SystemModelInterface): RoutePlanType | undefined {
@@ -26,8 +25,6 @@ export class RoutePlanner implements RoutePlannerInterface {
     /** Walk the straits between systemA and systemB gathering the list of straits in between, return the shortest list. */
     const routePlans = this.findRoutes(systemA, systemB, []) || [] as RoutePlanType[];
 
-    console.log(`routePlans for ${systemA.name} to ${systemB.name}`, routePlans);
-
     type RoutePlanSortType = {
       min: number,
       shortestPlan: RoutePlanType | undefined,
@@ -38,8 +35,6 @@ export class RoutePlanner implements RoutePlannerInterface {
       }
       return {min, shortestPlan};
     }, {min: Number.MAX_SAFE_INTEGER, shortestPlan: undefined});
-
-    console.log('{min, shortestPlan}', {min, shortestPlan});
 
     return shortestPlan;
   }

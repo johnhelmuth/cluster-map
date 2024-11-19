@@ -53,9 +53,7 @@ export class SelectedSystemsList implements SelectedSystemsListInterface {
         }
       }
       SelectedSystemsList._selectedSequence++;
-      console.log('SelectedSystemsList.selectSystem() SelectedSystemsList._selectedSequence: ', SelectedSystemsList._selectedSequence);
       this._selectedSystems.set(system.id, { seq: SelectedSystemsList._selectedSequence, system });
-      console.log('SelectedSystemsList.selectSystem() this._selectedSystems: ', this._selectedSystems);
     } else if (this._selectedSystems.has(system.id)) {
       this._selectedSystems.delete(system.id);
     }

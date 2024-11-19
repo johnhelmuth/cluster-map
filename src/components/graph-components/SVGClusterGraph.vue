@@ -23,7 +23,6 @@ const emit = defineEmits<{
 }>();
 
 const shouldRotate = computed(() => {
-  console.log('shouldRotate getter() props.rotateCluster: ', props?.rotateCluster);
   if (props?.rotateCluster) {
     return true;
   }
