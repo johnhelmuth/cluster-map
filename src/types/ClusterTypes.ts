@@ -6,7 +6,7 @@
  * The SystemModelInterface includes a StraitModelInterface shaped object for each of the systems it connects to.
  * These StraitModelInterface objects are shared between the 2 SystemModelInterface objects it connects.
  */
-import type {ClusterOrientationType, IdType, MapViewStylesType} from "@/types/BasicTypes";
+import type {BoundingBoxType, ClusterOrientationType, IdType, MapViewStylesType} from "@/types/BasicTypes";
 import type { SystemIdType, SystemModelInterface} from "@/types/SystemTypes";
 import type {StraitModelInterface} from "@/types/StraitTypes";
 import type {SystemModelDataType} from "@/types/SystemTypes";
@@ -23,6 +23,9 @@ export interface ClusterModelInterface {
   straits: Array<StraitModelInterface>;
   numSystems: number;
   mapStyle: MapViewStylesType;
+  boundingBox: BoundingBoxType;
+  aspectRatio: number;
+  orientation: ClusterOrientationType;
 
   getSystemByName(systemName: string) : SystemModelInterface | null;
 

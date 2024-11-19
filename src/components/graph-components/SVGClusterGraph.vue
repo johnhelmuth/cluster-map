@@ -7,18 +7,28 @@ import type {ClusterModelInterface} from "@/types/ClusterTypes";
 import type {RoutePlanRefType} from "@/types/RoutePlannerTypes";
 import type {SystemModelInterface} from "@/types/SystemTypes";
 import {useMapStyles} from "@/utilities/useMapStyles";
+import {computed} from "vue";
 const { mapStyle } = useMapStyles();
 
-defineProps<{
+const props = defineProps<{
   cluster: ClusterModelInterface,
   plan?: RoutePlanRefType,
   debug: boolean,
-  straightStraits: boolean
+  straightStraits: boolean,
+  rotateCluster?: boolean
 }>();
 
 const emit = defineEmits<{
   systemSelected: [system: SystemModelInterface | undefined]
 }>();
+
+const shouldRotate = computed(() => {
+  console.log('shouldRotate getter() props.rotateCluster: ', props?.rotateCluster);
+  if (props?.rotateCluster) {
+    return true;
+  }
+  return false;
+});
 
 function selectSystem(system: SystemModelInterface | undefined) {
   if (! system) {
@@ -30,11 +40,15 @@ function selectSystem(system: SystemModelInterface | undefined) {
 </script>
 
 <template>
-  <SVGMap class="landscape" viewBox="0 0 1000 750" >
+  <SVGMap viewBox="0 0 1000 750" :class="shouldRotate ? 'is-rotating' : ''">
     <template v-slot:straits>
       <template v-for="[systemId, straits] in cluster.getStraitsInSystemOrder()">
         <template v-for="(strait, index) in straits" :key="index">
-          <StraitGraph :strait="strait" :plan="plan" :index="index" :data-systemId="systemId" :debug="debug" :straightStraits="straightStraits" />
+          <StraitGraph :strait="strait" :plan="plan" :index="index"
+                       :data-systemId="systemId"
+                       :debug="debug" :straightStraits="straightStraits"
+                       :should-rotate="shouldRotate"
+          />
         </template>
       </template>
     </template>
@@ -46,6 +60,7 @@ function selectSystem(system: SystemModelInterface | undefined) {
           :id="system.id"
           @selected="selectSystem"
           :plan="plan"
+          :should-rotate="shouldRotate"
         ></SystemGraph>
       </template>
     </template>

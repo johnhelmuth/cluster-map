@@ -1,3 +1,4 @@
+import type {PointType} from "@/types/GeometryTypes";
 
 export type attributeValueType = -4 | -3 | -2 | -1 | 0 | 1 | 2 | 3 | 4;
 
@@ -20,4 +21,15 @@ export const mapViewStyleLabels = [
   {key: 'circular', label: 'Circular Layout'},
 ];
 
-export type ClusterOrientationType = 'landscape' | 'portrait';
+export type ClusterOrientationType = 'portrait' | 'square' | 'landscape';
+
+export type BoundingBoxType = {
+  upperLeft: PointType;
+  lowerRight: PointType;
+};
+
+export type PositionThing = {
+  position: PointType;
+};
+
+export type PositionThingList = Array<PositionThing>;

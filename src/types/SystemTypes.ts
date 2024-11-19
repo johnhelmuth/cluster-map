@@ -43,6 +43,7 @@ export interface SystemModelInterface {
   getConnectedSystems(): Array<SystemModelInterface> | undefined;
   getSelected(): boolean;
   toggleSelected(): void;
+  rotatePosition() : PointType
 
   toJSON(key: string): object;
 }

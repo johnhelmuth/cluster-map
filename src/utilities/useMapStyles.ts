@@ -1,5 +1,5 @@
-import {ref, defineEmits, watch } from "vue";
-import type {ClusterOrientationType, MapViewStylesType} from "@/types/BasicTypes";
+import {ref } from "vue";
+import type {MapViewStylesType} from "@/types/BasicTypes";
 
 const debug = ref(false);
 const mapStyle = ref('data' as MapViewStylesType);

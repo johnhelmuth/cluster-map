@@ -89,10 +89,10 @@ export default class SystemModel implements SystemModelInterface {
     }
   }
 
-  orientatePosition(position: PointType) : PointType {
+  rotatePosition() : PointType {
     const {center} = getMapDimensions();
     const rotationAngle = Math.PI / 2
-    const transPos = { x: center.x - position.x, y: center.y - position.y };
+    const transPos = { x: center.x - this.position.x, y: center.y - this.position.y };
     const x = transPos.x * Math.cos(rotationAngle) - transPos.y * Math.sin(rotationAngle) + center.x;
     const y = transPos.y * Math.cos(rotationAngle) + transPos.x * Math.sin(rotationAngle) + center.y;
     return { x, y };

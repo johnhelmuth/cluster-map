@@ -11,6 +11,7 @@ const props = defineProps< {
   system: SystemModelInterface,
   plan?: RoutePlanRefType,
   mapStyle?: MapViewStylesType | undefined,
+  shouldRotate: boolean,
 }>();
 
 defineEmits< {
@@ -21,8 +22,8 @@ const textHeight = 12;
 const ringGap = 5;
 const bgDiscGap = 3;
 
-const positionX = computed(() => props.system.position.x);
-const positionY = computed(() => props.system.position.y);
+const positionX = computed(() => props.shouldRotate ? props.system.rotatePosition().x : props.system.position.x);
+const positionY = computed(() => props.shouldRotate ? props.system.rotatePosition().y : props.system.position.y);
 const attributes = computed(() => attributesFormatted(props.system.attributes, "short"));
 const isSelected = computed(() => props.system.getSelected());
 

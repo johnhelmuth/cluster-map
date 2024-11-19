@@ -4,8 +4,9 @@ import type {StraitModelDataType, StraitModelInterface} from '@/types/StraitType
 import type { ClusterModelInterface, ClusterIdType, ClusterModelDataType } from "@/types/ClusterTypes";
 import SystemModel from "@/models/SystemModel";
 import {StraitModel} from "@/models/StraitModel";
-import type {ClusterOrientationType, MapViewStylesType} from "@/types/BasicTypes";
+import type {BoundingBoxType, ClusterOrientationType, MapViewStylesType} from "@/types/BasicTypes";
 import {SCHEMA_VERSION} from "@/constants";
+import {getBoundingBox} from "@/utilities/utils";
 
 export class ClusterModel implements ClusterModelInterface {
 
@@ -108,6 +109,36 @@ export class ClusterModel implements ClusterModelInterface {
 
   get mapStyle() {
     return this._mapStyle;
+  }
+
+  get boundingBox() : BoundingBoxType {
+    return getBoundingBox(this.systems);
+  }
+
+  /**
+   * The Aspect Ratio is the ratio of the width to the height, calculated like width / height.
+   *
+   */
+  get aspectRatio() : number {
+    const { upperLeft: ul, lowerRight: lr} = this.boundingBox;
+    const width = Math.abs(lr.x - ul.x);
+    const height = Math.abs(lr.y - ul.y);
+    if (height === 0.0) {
+      return NaN;
+    }
+    return width / height;
+  }
+
+  get orientation() : ClusterOrientationType {
+    if (isNaN(this.aspectRatio)) {
+      return 'square'; // Who knows?
+    }
+    if (this.aspectRatio >= 0.8 && 1.2 >= this.aspectRatio) {
+      return 'square';
+    } else if (this.aspectRatio < 0.8) {
+      return 'portrait';
+    }
+    return 'landscape';
   }
 
   setMapViewParams(mapStyle: MapViewStylesType) : void {

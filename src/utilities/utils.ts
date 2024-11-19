@@ -1,17 +1,15 @@
 import type {SystemModelInterface} from "@/types/SystemTypes.js";
 import type {PointType} from "@/types/GeometryTypes.js";
 import type {ClustersModelDataType} from "@/types/ClusterTypes";
+import type {BoundingBoxType, ClusterOrientationType, PositionThing, PositionThingList} from "@/types/BasicTypes";
 
-export function getBoundingBox(systems: SystemModelInterface[]) : {
-  upperLeft: PointType;
-  lowerRight: PointType;
-} {
+export function getBoundingBox(things: PositionThingList) : BoundingBoxType {
 
   const upperLeft: PointType = { x: Number.MAX_SAFE_INTEGER, y: Number.MAX_SAFE_INTEGER };
   const lowerRight: PointType = { x: Number.MIN_SAFE_INTEGER, y: Number.MIN_SAFE_INTEGER }
 
-  systems.forEach((system: SystemModelInterface) => {
-    const { x, y } = system.position;
+  things.forEach((thing: PositionThing) => {
+    const { x, y } = thing.position;
     if (upperLeft.x > x) {
       upperLeft.x = x;
     }
@@ -26,6 +24,16 @@ export function getBoundingBox(systems: SystemModelInterface[]) : {
     }
   });
   return { upperLeft, lowerRight };
+}
+
+export function oppositeOrientation(orientation: ClusterOrientationType) : ClusterOrientationType {
+  switch (orientation) {
+    case 'landscape':
+      return 'portrait';
+    case 'portrait':
+      return 'landscape';
+  }
+  return orientation;
 }
 
 export function isClustersModelDataType(data : object | ClustersModelDataType) : data is ClustersModelDataType {

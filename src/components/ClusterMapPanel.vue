@@ -7,6 +7,8 @@ import type {SystemModelInterface} from "@/types/SystemTypes";
 import type {RoutePlanRefType} from "@/types/RoutePlannerTypes";
 import {useMapViewStyleModal} from "@/components/Modals/useMapViewStyleModal";
 import SVGClusterGraph from "@/components/graph-components/SVGClusterGraph.vue";
+import {computed} from "vue";
+import {oppositeOrientation} from "@/utilities/utils";
 
 const props = defineProps<{
   cluster: ClusterModelInterface,
@@ -18,6 +20,10 @@ const emit = defineEmits<{
 }>();
 
 const { mapStyle, straightStraits, debug, mapViewTypeModal } = useMapViewStyleModal();
+
+const otherOrientation = computed(() => {
+  return oppositeOrientation(props.cluster.orientation);
+});
 
 function selectSystem(system: SystemModelInterface | undefined) {
   if (! system) {
@@ -35,7 +41,10 @@ function mapView() {
 <template>
   <div class="cluster-map-panel">
     <!-- Use this SVG if the aspect ratio matches the positions in the data. -->
-    <SVGClusterGraph :cluster="cluster" :plan="plan" @system-selected="selectSystem" :debug="debug" :straight-straits="straightStraits" />
+    <SVGClusterGraph :class="cluster.orientation" :cluster="cluster" :plan="plan" @system-selected="selectSystem" :debug="debug" :straight-straits="straightStraits"  />
+    <SVGClusterGraph
+      v-if="cluster.orientation !== 'square' && mapStyle !== 'circular'"
+      :class="otherOrientation" :cluster="cluster" :plan="plan" @system-selected="selectSystem" :debug="debug" :straight-straits="straightStraits" :rotate-cluster="true"/>
     <FontAwesomeIcon class="map-control" :icon="faEye" @click="mapView"/>
     <p v-if="debug">{{ mapStyle }}</p>
   </div>
@@ -48,6 +57,8 @@ function mapView() {
   width: 100%;
   height: 100%;
   position: relative;
+  container-type: size;
+  container-name: map-panel;
 }
 
 .cluster-map-panel svg {
@@ -55,6 +66,25 @@ function mapView() {
   height: 100%;
   display: block;
 }
+
+.cluster-map-panel svg.landscape {
+  display: block;
+}
+
+.cluster-map-panel svg.portrait {
+  display: none;
+}
+
+@container map-panel (orientation: portrait) {
+  .cluster-map-panel svg.landscape {
+    display: none;
+  }
+
+  .cluster-map-panel svg.portrait {
+    display: block;
+  }
+}
+
 
 .cluster-map-panel svg.map-control {
   color: white;

@@ -12,14 +12,15 @@ const props = defineProps<{
   index: number,
   debug: boolean,
   straightStraits: boolean,
+  shouldRotate: boolean,
 }>();
 
 const { mapStyle } = useMapStyles();
 
-const systemAX = computed(() => props.strait.systemA.position.x );
-const systemAY = computed(() => props.strait.systemA.position.y );
-const systemBX = computed(() => props.strait.systemB.position.x );
-const systemBY = computed(() => props.strait.systemB.position.y );
+const systemAX = computed(() => props.shouldRotate ? props.strait.systemA.rotatePosition().x : props.strait.systemA.position.x );
+const systemAY = computed(() => props.shouldRotate ? props.strait.systemA.rotatePosition().y : props.strait.systemA.position.y );
+const systemBX = computed(() => props.shouldRotate ? props.strait.systemB.rotatePosition().x : props.strait.systemB.position.x );
+const systemBY = computed(() => props.shouldRotate ? props.strait.systemB.rotatePosition().y : props.strait.systemB.position.y );
 
 const isInRoutePlan = computed(() => {
   if (props.plan?.value) {
