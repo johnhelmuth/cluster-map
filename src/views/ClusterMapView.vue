@@ -15,17 +15,17 @@ import type {SystemModelInterface} from "@/types/SystemTypes";
 import {useMapStyles} from "@/utilities/useMapStyles";
 import {watch} from "vue";
 
-const { clusters } = useClustersStore();
+const clustersStore = useClustersStore();
 const { mapStyle } = useMapStyles();
 const { routePlannerService, selectedSystemsService } = useUserScopeStore() as { routePlannerService: RoutePlannerServiceInterface, selectedSystemsService: SelectedSystemsServiceInterface };
 
-watch([clusters, mapStyle], () => {
-  clusters.cluster?.setMapViewParams(mapStyle.value)
+watch([clustersStore.clusters, mapStyle], () => {
+  clustersStore.clusters.cluster?.setMapViewParams(mapStyle.value)
 });
 
 function systemSelected(system: SystemModelInterface) {
-  if (clusters.cluster) {
-    const selectedSystemsList = selectedSystemsService.getSelectedSystemsForCluster(clusters.cluster);
+  if (clustersStore.clusters.cluster) {
+    const selectedSystemsList = selectedSystemsService.getSelectedSystemsForCluster(clustersStore.clusters.cluster);
     if (selectedSystemsList) {
       selectedSystemsList.selectSystem(system);
       planTrip(selectedSystemsList);
@@ -34,25 +34,25 @@ function systemSelected(system: SystemModelInterface) {
 }
 
 function clusterSelected(newCluster: ClusterModelInterface) : void {
-  clusters.cluster = newCluster;
+  clustersStore.clusters.cluster = newCluster;
 }
 
 function planTrip(selectedSystemsList : SelectedSystemsListInterface) {
 
-  if (clusters.cluster) {
+  if (clustersStore.clusters.cluster) {
     if ( ! selectedSystemsList.maxSelected ) {
-      routePlannerService.deleteRoutePlanForCluster(clusters.cluster);
+      routePlannerService.deleteRoutePlanForCluster(clustersStore.clusters.cluster);
       return;
     }
-    const routePlan = routePlannerService.getRoutePlanForCluster(clusters.cluster);
+    const routePlan = routePlannerService.getRoutePlanForCluster(clustersStore.clusters.cluster);
     if ( ! routePlan) {
       return;
     }
     const [systemA, systemB] = selectedSystemsList.selectedSystems;
-    if (! clusters.cluster) {
+    if (! clustersStore.clusters.cluster) {
       throw new Error("No cluster created in ClusterMapControlsPanel.");
     }
-    const routePlanner = createRoutePlanner(clusters.cluster);
+    const routePlanner = createRoutePlanner(clustersStore.clusters.cluster);
     const routePlanRaw = routePlanner.plan(systemA, systemB);
     if (routePlanRaw) {
       routePlan.value = routePlanRaw;
@@ -66,18 +66,18 @@ function planTrip(selectedSystemsList : SelectedSystemsListInterface) {
   <BezelLayout>
     <template v-slot:display>
       <ClusterMapPanel
-        v-if="clusters.cluster"
-        :cluster="clusters.cluster"
+        v-if="clustersStore.clusters.cluster"
+        :cluster="clustersStore.clusters.cluster"
         @system-selected="systemSelected"
-        :plan="routePlannerService.getRoutePlanForCluster(clusters.cluster)"
+        :plan="routePlannerService.getRoutePlanForCluster(clustersStore.clusters.cluster)"
       />
     </template>
     <template v-slot:controls>
       <ClusterMapControlsPanel
-        :cluster="clusters.cluster"
+        :cluster="clustersStore.clusters.cluster"
         @system-selected="systemSelected"
         @cluster-selected="clusterSelected"
-        :plan="routePlannerService.getRoutePlanForCluster(clusters.cluster)"
+        :plan="routePlannerService.getRoutePlanForCluster(clustersStore.clusters.cluster)"
       />
     </template>
   </BezelLayout>

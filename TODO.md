@@ -30,6 +30,8 @@
       ~~* Mark each of the versions as "landscape" or "portrait".~~
       ~~* Use a container query to choose which of the 2 versions need to be displayed, either the landscape or the portrait
       version.~~
+* TODO: add persistence layer, first cut just use LocalStorage
+  * Only store `clusters` data.
 * TODO: Connect clusters.
   * Render cluster straits different from system straits, and leading off to the nearest edge of cluster map.
   * Implement a scaled out map view showing all clusters and their connections? 
@@ -37,7 +39,6 @@
   * Support trip planning across clusters using the cluster straits.
   * Implement a setting to control whether cluster connections for auto-generating clusters should be created. (e.g. 
     when on, new clusters get connected to the existing clusters randomly.)
-* TODO: add persistence layer, first cut just use LocalStorage
 * TODO: auto-layout for cluster map. Maybe just make the map editable.
   * Partially done with autogenerate new clusters feature.  Need to rework that code
     to be able to choose either the locations stored in the cluster data, or different algorithmic views of

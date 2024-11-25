@@ -1,19 +1,18 @@
 
 <script setup lang="ts">
 
-import type {ClusterModelInterface, ClustersModelInterface} from "@/types/ClusterTypes";
 
 import {useClustersStore} from "@/stores/ClustersStore";
 
-const {clusters} = useClustersStore() as { clusters: ClustersModelInterface };
+const clustersStore = useClustersStore();
 
 import createCluster, {getRandomIntInclusive} from "@/utilities/ClusterGenerator";
 
 function addCluster(event: Event) {
   const newCluster = createCluster('', '', getRandomIntInclusive(4, 9));
-  const notUnique = !! clusters.getClusterById(newCluster.id);
+  const notUnique = !! clustersStore.clusters.getClusterById(newCluster.id);
   if (! notUnique) {
-    clusters.addCluster(newCluster);
+    clustersStore.clusters.addCluster(newCluster);
   }
 }
 
@@ -21,9 +20,9 @@ function selectCluster(event: Event) {
   const clusterElement = event.target as HTMLElement;
   if (clusterElement?.id) {
     const selectedClusterId = clusterElement.id;
-    const selectedCluster = clusters.getClusterById(selectedClusterId);
-    if (selectedCluster !== clusters.cluster) {
-      clusters.cluster = selectedCluster;
+    const selectedCluster = clustersStore.clusters.getClusterById(selectedClusterId);
+    if (selectedCluster !== clustersStore.clusters.cluster) {
+      clustersStore.clusters.cluster = selectedCluster;
     }
   }
 }
@@ -36,7 +35,7 @@ function selectCluster(event: Event) {
     <div class="note">TODO: Implement something better looking here.</div>
     <div class="add-action"><button class="action" @click="addCluster">Add new Cluster</button></div>
     <ul class="clusters-list">
-      <li class="clusters-list-item" :class="aCluster === clusters.cluster ? 'selected-cluster' : ''" v-for="aCluster in clusters.clusters" :key="aCluster.id" :id="aCluster.id" @click="selectCluster">
+      <li class="clusters-list-item" :class="aCluster === clustersStore.clusters.cluster ? 'selected-cluster' : ''" v-for="aCluster in clustersStore.clusters.clusters" :key="aCluster.id" :id="aCluster.id" @click="selectCluster">
           {{ aCluster.id }} - {{ aCluster.name }}
       </li>
     </ul>

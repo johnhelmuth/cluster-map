@@ -10,7 +10,7 @@ import {ref, computed, watch, type Ref} from "vue";
 import {isClustersModelDataType} from "@/utilities/utils";
 import { getParseClusters } from "@/utilities/importValidator";
 
-const {clusters} = useClustersStore();
+const clustersStore = useClustersStore();
 const {routePlannerService, selectedSystemsService} = useUserScopeStore();
 
 const { files, open, reset, onCancel, onChange } = useFileDialog({
@@ -63,7 +63,7 @@ const importedClustersStats = computed(() => {
 });
 
 function exportData(e : Event) {
-  downloadJSON(clusters, 'clusters.json');
+  downloadJSON(clustersStore.clusters, 'clusters.json');
 }
 
 function downloadJSON(data : any, filename: string) {
@@ -85,7 +85,7 @@ function updateClusters(data: ClustersModelDataType | object) {
   if (data && isClustersModelDataType(data)) {
     routePlannerService.deleteAllRoutePlans();
     selectedSystemsService.deleteAllSelectedSystems();
-    clusters.parseClustersData(data);
+    clustersStore.clusters.parseClustersData(data);
   }
 }
 
