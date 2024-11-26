@@ -8,7 +8,7 @@ const emit = defineEmits<{
   (e: 'close'): void
 }>()
 
-const { debug, mapStyle, straightStraits } = useMapStyles();
+const mapStylesStore = useMapStyles();
 
 </script>
 
@@ -23,11 +23,11 @@ const { debug, mapStyle, straightStraits } = useMapStyles();
     <div class="content">
       <h2>System Layout</h2>
       <div v-for="styleData in mapViewStyleLabels">
-        <label><input type="radio" :value="styleData.key" name="mapStyle" v-model="mapStyle" style="margin-right: 1rem;"/>{{styleData.label}}</label>
+        <label><input type="radio" :value="styleData.key" name="mapStyle" v-model="mapStylesStore.mapStyle" style="margin-right: 1rem;"/>{{styleData.label}}</label>
       </div>
       <h2>Others</h2>
-      <label><input type="checkbox" name="straightStraits" v-model="straightStraits" style="margin-right: 1rem;"/>Straight straits</label>
-      <label><input type="checkbox" name="debug" v-model="debug" style="margin-right: 1rem;"/>Enable debug</label>
+      <label><input type="checkbox" name="straightStraits" v-model="mapStylesStore.straightStraits" style="margin-right: 1rem;"/>Straight straits</label>
+      <label><input type="checkbox" name="debug" v-model="mapStylesStore.debug" style="margin-right: 1rem;"/>Enable debug</label>
     </div>
     <button @click="emit('close')">
       Close

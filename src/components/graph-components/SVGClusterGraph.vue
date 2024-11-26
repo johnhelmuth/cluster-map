@@ -8,7 +8,7 @@ import type {RoutePlanRefType} from "@/types/RoutePlannerTypes";
 import type {SystemModelInterface} from "@/types/SystemTypes";
 import {useMapStyles} from "@/utilities/useMapStyles";
 import {computed} from "vue";
-const { mapStyle } = useMapStyles();
+const mapStylesStore = useMapStyles();
 
 const props = defineProps<{
   cluster: ClusterModelInterface,
@@ -55,7 +55,7 @@ function selectSystem(system: SystemModelInterface | undefined) {
       <template v-for="system in cluster.systems" :key="system.id" >
         <SystemGraph
           :system="system"
-          :mapStyle="mapStyle"
+          :mapStyle="mapStylesStore.mapStyle"
           :id="system.id"
           @selected="selectSystem"
           :plan="plan"

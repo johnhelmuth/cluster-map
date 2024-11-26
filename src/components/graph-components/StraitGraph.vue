@@ -15,7 +15,7 @@ const props = defineProps<{
   shouldRotate: boolean,
 }>();
 
-const { mapStyle } = useMapStyles();
+const mapStylesStore = useMapStyles();
 
 const systemAX = computed(() => props.shouldRotate ? props.strait.systemA.rotatePosition().x : props.strait.systemA.position.x );
 const systemAY = computed(() => props.shouldRotate ? props.strait.systemA.rotatePosition().y : props.strait.systemA.position.y );
@@ -43,7 +43,7 @@ const path = computed(() => {
 
   const { width, height, borderX, borderY } = getMapDimensions();
 
-  const radius = systemRadiusByStyleAndNumberOfSystems(mapStyle.value, numSystems);
+  const radius = systemRadiusByStyleAndNumberOfSystems(mapStylesStore.mapStyle, numSystems);
 
   const straitParams = props.strait.straitParameters(props.index);
   const {straitLength} = straitParams;

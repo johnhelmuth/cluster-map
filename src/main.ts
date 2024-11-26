@@ -24,6 +24,20 @@ watch(
     localStorage.setItem("pinia.cluster-map.clusters", JSON.stringify(state.clusters));
   },
   { deep: true }
-)
+);
+
+// TODO : Figure out how to do this in useMapStyles.ts, too... possibly have to do a pinia plugin or a composable?
+watch(
+  pinia.state,
+  (state) => {
+    const mapStyles = state.mapStyles
+    const debug = mapStyles.debug;
+    const mapStyle = mapStyles.mapStyle;
+    const straightStraits = mapStyles.straightStraits;
+    localStorage.setItem("pinia.cluster-map.mapStyles", JSON.stringify({ debug, mapStyle, straightStraits }));
+  },
+  { deep: true }
+);
+
 
 app.mount('#app')

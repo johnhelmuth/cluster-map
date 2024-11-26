@@ -9,8 +9,11 @@ import {useUserScopeStore} from "@/stores/UserScopeStore";
 import {ref, computed, watch, type Ref} from "vue";
 import {isClustersModelDataType} from "@/utilities/utils";
 import { getParseClusters } from "@/utilities/importValidator";
+import {useMapStyles} from "@/utilities/useMapStyles";
 
 const clustersStore = useClustersStore();
+const mapStylesStore = useMapStyles();
+
 const {routePlannerService, selectedSystemsService} = useUserScopeStore();
 
 const { files, open, reset, onCancel, onChange } = useFileDialog({
@@ -86,6 +89,7 @@ function updateClusters(data: ClustersModelDataType | object) {
     routePlannerService.deleteAllRoutePlans();
     selectedSystemsService.deleteAllSelectedSystems();
     clustersStore.clusters.parseClustersData(data);
+    clustersStore.clusters.cluster?.setMapViewParams(mapStylesStore.mapStyle)
   }
 }
 

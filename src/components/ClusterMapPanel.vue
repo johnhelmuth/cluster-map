@@ -19,7 +19,7 @@ const emit = defineEmits<{
   "system-selected": [system: SystemModelInterface];
 }>();
 
-const { mapStyle, straightStraits, debug, mapViewTypeModal } = useMapViewStyleModal();
+const { mapStylesStore, mapViewTypeModal } = useMapViewStyleModal();
 
 const otherOrientation = computed(() => {
   return oppositeOrientation(props.cluster.orientation);
@@ -40,13 +40,15 @@ function mapView() {
 
 <template>
   <div class="cluster-map-panel">
-    <!-- Use this SVG if the aspect ratio matches the positions in the data. -->
-    <SVGClusterGraph :class="cluster.orientation" :cluster="cluster" :plan="plan" @system-selected="selectSystem" :debug="debug" :straight-straits="straightStraits"  />
+    <!-- TODO: Move the 2 sets of systems/straits into a single SVG file and use CSS to
+          show/hide the SVG group (<g>) tags as appropriate. Then see about doing a SVG transition between the two
+          groups.
+    . -->
+    <SVGClusterGraph :class="cluster.orientation" :cluster="cluster" :plan="plan" @system-selected="selectSystem" :debug="mapStylesStore.debug" :straight-straits="mapStylesStore.straightStraits"  />
     <SVGClusterGraph
-      v-if="cluster.orientation !== 'square' && mapStyle !== 'circular'"
-      :class="otherOrientation" :cluster="cluster" :plan="plan" @system-selected="selectSystem" :debug="debug" :straight-straits="straightStraits" :rotate-cluster="true"/>
+      v-if="cluster.orientation !== 'square' && mapStylesStore.mapStyle !== 'circular'"
+      :class="otherOrientation" :cluster="cluster" :plan="plan" @system-selected="selectSystem" :debug="mapStylesStore.debug" :straight-straits="mapStylesStore.straightStraits" :rotate-cluster="true"/>
     <FontAwesomeIcon class="map-control" :icon="faEye" @click="mapView"/>
-    <p v-if="debug">{{ mapStyle }}</p>
   </div>
 
 </template>

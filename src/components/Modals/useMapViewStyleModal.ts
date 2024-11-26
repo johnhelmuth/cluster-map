@@ -1,12 +1,11 @@
-import {ref} from "vue";
-import type {MapViewStylesType} from "@/types/BasicTypes";
 import {useModal} from "vue-final-modal";
 import {useMapStyles} from "@/utilities/useMapStyles";
 import MapClusterStyleModal from "@/components/Modals/MapClusterStyleModal.vue";
 
-const { mapStyle, debug, straightStraits  } = useMapStyles();
 
 export function useMapViewStyleModal() {
+
+  const mapStylesStore = useMapStyles();
 
   const mapViewTypeModal = useModal({
     component: MapClusterStyleModal,
@@ -17,5 +16,5 @@ export function useMapViewStyleModal() {
     },
   });
 
-  return { mapStyle, debug, straightStraits, mapViewTypeModal };
+  return { mapStylesStore, mapViewTypeModal };
 }
