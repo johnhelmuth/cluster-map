@@ -33,6 +33,7 @@
 * ~~TODO: add persistence layer, first cut just use LocalStorage~~
   * ~~Only store `clusters` data.~~
   * ~~Also stored mapStyles data. Will put clusters into server-side storage, but not mapStyles, until we get users.~~
+* ~~TODO: Move Vue watch() calls that push pinia stores data to LocalStorage into the store definition file instead of main.ts.~~
 * TODO: Connect clusters.
   * Render cluster straits different from system straits, and leading off to the nearest edge of cluster map.
   * Implement a scaled out map view showing all clusters and their connections? 
