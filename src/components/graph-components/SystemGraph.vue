@@ -5,7 +5,8 @@ import {computed} from "vue";
 import {attributesFormatted, getEnvironmentColor} from "@/data/attributes-meta";
 import type {RoutePlanRefType} from "@/types/RoutePlannerTypes";
 import {systemRadiusByStyleAndNumberOfSystems} from "@/utilities/ClusterGenerator";
-import type {MapViewStylesType} from "@/types/BasicTypes";
+import {type MapViewStylesType} from "@/types/BasicTypes";
+import {rotatePosition} from "@/utilities/utils";
 
 const props = defineProps< {
   system: SystemModelInterface,
@@ -22,8 +23,11 @@ const textHeight = 12;
 const ringGap = 5;
 const bgDiscGap = 3;
 
-const positionX = computed(() => props.shouldRotate ? props.system.rotatePosition().x : props.system.position.x);
-const positionY = computed(() => props.shouldRotate ? props.system.rotatePosition().y : props.system.position.y);
+const sysPos = computed(() => {
+  const position = props.system.getPosition(props.mapStyle);
+  return props.shouldRotate ? rotatePosition(position) : position;
+});
+
 const attributes = computed(() => attributesFormatted(props.system.attributes, "short"));
 const isSelected = computed(() => props.system.getSelected());
 
@@ -46,22 +50,22 @@ const environmentColor = computed(() => getEnvironmentColor(props.system.attribu
 
 <template>
   <g id="system.id" :class="{ selected: isSelected}" @click="$emit('selected', system)" >
-    <circle class="bgDisc" :cx="positionX" :cy="positionY" :r="bgDiscRadius"></circle>
-    <circle v-if="rings > 3" class="ring fourthRing" :cx="positionX" :cy="positionY" :r="radius + (ringGap * 3)"></circle>
-    <circle v-if="rings > 2" class="ring thirdRing" :cx="positionX" :cy="positionY" :r="radius + (ringGap * 2)"></circle>
-    <circle v-if="rings > 1" class="ring secondRing" :cx="positionX" :cy="positionY" :r="radius + (ringGap)"></circle>
-    <circle class="ring firstRing" :cx="positionX" :cy="positionY" :r="radius"></circle>
+    <circle class="bgDisc" :cx="sysPos.x" :cy="sysPos.y" :r="bgDiscRadius"></circle>
+    <circle v-if="rings > 3" class="ring fourthRing" :cx="sysPos.x" :cy="sysPos.y" :r="radius + (ringGap * 3)"></circle>
+    <circle v-if="rings > 2" class="ring thirdRing" :cx="sysPos.x" :cy="sysPos.y" :r="radius + (ringGap * 2)"></circle>
+    <circle v-if="rings > 1" class="ring secondRing" :cx="sysPos.x" :cy="sysPos.y" :r="radius + (ringGap)"></circle>
+    <circle class="ring firstRing" :cx="sysPos.x" :cy="sysPos.y" :r="radius"></circle>
     <text class="system-name"
-          :x="positionX"
-          :y="positionY - textHeight"
+          :x="sysPos.x"
+          :y="sysPos.y - textHeight"
           :textLength="radius*2-(ringGap*4)"
           lengthAdjust="spacingAndGlyphs"
     >
       {{ system.name }}
     </text>
     <text class="system-attributes"
-          :x="positionX"
-          :y="positionY + textHeight"
+          :x="sysPos.x"
+          :y="sysPos.y + textHeight"
     >
       {{ attributes }}
     </text>

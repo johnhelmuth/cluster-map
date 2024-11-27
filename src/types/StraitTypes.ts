@@ -1,5 +1,6 @@
 import type {SystemIdType, SystemModelInterface} from "@/types/SystemTypes";
 import type {PointType} from "@/types/GeometryTypes";
+import type {MapViewStylesType} from "@/types/BasicTypes";
 
 /**
  * Strait model types
@@ -19,7 +20,7 @@ export interface StraitModelInterface {
 
   getStraitIndex() : number;
 
-  straitParameters(index : number) : { straitLength: number, straitNormalAngle: number, straitMidPoint : PointType, controlPoint: PointType };
+  straitParameters(index : number, mapStyle: MapViewStylesType) : { straitLength: number, straitNormalAngle: number, straitMidPoint : PointType, controlPoint: PointType };
 
   toJSON(key: string) : object;
 }

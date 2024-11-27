@@ -2,6 +2,7 @@ import type {SystemModelInterface} from "@/types/SystemTypes.js";
 import type {PointType} from "@/types/GeometryTypes.js";
 import type {ClustersModelDataType} from "@/types/ClusterTypes";
 import type {BoundingBoxType, ClusterOrientationType, PositionThing, PositionThingList} from "@/types/BasicTypes";
+import {getMapDimensions} from "@/utilities/ClusterGenerator";
 
 export function getBoundingBox(things: PositionThingList) : BoundingBoxType {
 
@@ -34,6 +35,15 @@ export function oppositeOrientation(orientation: ClusterOrientationType) : Clust
       return 'landscape';
   }
   return orientation;
+}
+
+export function rotatePosition(position : PointType) : PointType {
+  const {center} = getMapDimensions();
+  const rotationAngle = Math.PI / 2
+  const transPos = { x: center.x - position.x, y: center.y - position.y };
+  const x = transPos.x * Math.cos(rotationAngle) - transPos.y * Math.sin(rotationAngle) + center.x;
+  const y = transPos.y * Math.cos(rotationAngle) + transPos.x * Math.sin(rotationAngle) + center.y;
+  return { x, y };
 }
 
 export function isClustersModelDataType(data : object | ClustersModelDataType) : data is ClustersModelDataType {

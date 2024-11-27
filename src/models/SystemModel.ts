@@ -23,7 +23,7 @@ export default class SystemModel implements SystemModelInterface {
   attributes: SystemAttributesInterface;
   aspects: Array<AspectType>;
   cluster: ClusterModelInterface;
-  _position: PointType;
+  position: PointType;
   selected: boolean;
 
   /**
@@ -41,7 +41,7 @@ export default class SystemModel implements SystemModelInterface {
     this.name = 'Unknown system name';
     this.attributes = {...SystemAttributesDefaults};
     this.aspects = [];
-    this._position = { x: 500, y: 500 };
+    this.position = { x: 500, y: 500 };
     this.selected = false;
     if (data) {
       this.name = data.name;
@@ -75,31 +75,22 @@ export default class SystemModel implements SystemModelInterface {
 
   private constructPosition(data: SystemModelDataType) {
     if ("position" in data) {
-      this._position = { ...data.position };
+      this.position = { ...data.position };
     }
-  }
-
-  get position() {
-    switch (this.cluster.mapStyle) {
-      case 'circular':
-        return getPositionCircular(this.index, this.cluster.numSystems);
-      case 'data':
-      default:
-        return this._position;
-    }
-  }
-
-  rotatePosition() : PointType {
-    const {center} = getMapDimensions();
-    const rotationAngle = Math.PI / 2
-    const transPos = { x: center.x - this.position.x, y: center.y - this.position.y };
-    const x = transPos.x * Math.cos(rotationAngle) - transPos.y * Math.sin(rotationAngle) + center.x;
-    const y = transPos.y * Math.cos(rotationAngle) + transPos.x * Math.sin(rotationAngle) + center.y;
-    return { x, y };
   }
 
   get index() {
     return this.cluster.getSystemIndex(this.id);
+  }
+
+  getPosition(mapStyle: MapViewStylesType | undefined) : PointType {
+    switch (mapStyle) {
+      case 'circular':
+        return getPositionCircular(this.index, this.cluster.numSystems);
+      case 'data':
+      default:
+        return this.position;
+    }
   }
 
   connectTo(system: SystemModelInterface) {
@@ -163,7 +154,7 @@ export default class SystemModel implements SystemModelInterface {
       name: this.name,
       attributes: this.attributes,
       aspects: this.aspects,
-      position: this._position,
+      position: this.position,
     }
   }
 }

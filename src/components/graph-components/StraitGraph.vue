@@ -5,6 +5,7 @@ import {computed} from "vue";
 import type {RoutePlanRefType} from "@/types/RoutePlannerTypes";
 import {getMapDimensions, systemRadiusByStyleAndNumberOfSystems} from "@/utilities/ClusterGenerator";
 import {useMapStyles} from "@/utilities/useMapStyles";
+import {rotatePosition} from "@/utilities/utils";
 
 const props = defineProps<{
   strait: StraitModelInterface,
@@ -17,10 +18,15 @@ const props = defineProps<{
 
 const mapStylesStore = useMapStyles();
 
-const systemAX = computed(() => props.shouldRotate ? props.strait.systemA.rotatePosition().x : props.strait.systemA.position.x );
-const systemAY = computed(() => props.shouldRotate ? props.strait.systemA.rotatePosition().y : props.strait.systemA.position.y );
-const systemBX = computed(() => props.shouldRotate ? props.strait.systemB.rotatePosition().x : props.strait.systemB.position.x );
-const systemBY = computed(() => props.shouldRotate ? props.strait.systemB.rotatePosition().y : props.strait.systemB.position.y );
+const sysAPos = computed(() => {
+  const position = props.strait.systemA.getPosition(mapStylesStore.mapStyle);
+  return props.shouldRotate ? rotatePosition(position) : position;
+})
+const sysBPos = computed(() => {
+  const position = props.strait.systemB.getPosition(mapStylesStore.mapStyle);
+  return props.shouldRotate ? rotatePosition(position) : position;
+})
+
 
 const isInRoutePlan = computed(() => {
   if (props.plan?.value) {
@@ -45,38 +51,38 @@ const path = computed(() => {
 
   const radius = systemRadiusByStyleAndNumberOfSystems(mapStylesStore.mapStyle, numSystems);
 
-  const straitParams = props.strait.straitParameters(props.index);
+  const straitParams = props.strait.straitParameters(props.index, mapStylesStore.mapStyle);
   const {straitLength} = straitParams;
   const pathType = (props.straightStraits ? 'straight' : 'arc') as 'straight' | 'arc' | 'curved' ;
   const curveRadius = Math.min(width, height) / 2 - Math.min(borderX, borderY);
 
-  let straitPath = `M ${systemAX.value} ${systemAY.value} `;
+  let straitPath = `M ${sysAPos.value.x} ${sysAPos.value.y} `;
 
   if (pathType === 'straight' || straitLength < radius) {
-    straitPath += `L ${systemBX.value} ${systemBY.value}`;
+    straitPath += `L ${sysBPos.value.x} ${sysBPos.value.y}`;
 
   } else if (pathType === 'curved') {
 
     const { controlPoint } = straitParams;
 
-    straitPath += `Q ${controlPoint.x} ${controlPoint.y}, ${systemBX.value} ${systemBY.value}`;
+    straitPath += `Q ${controlPoint.x} ${controlPoint.y}, ${sysBPos.value.x} ${sysBPos.value.y}`;
   } else if (pathType === 'arc') {
 
     const xAxisRotation = 0;
     const largeArcFlag = 0;
     const sweepFlag = (props.index % 2 === 0) ? 0 : 1;
 
-    straitPath += `A ${curveRadius} ${curveRadius} ${xAxisRotation} ${largeArcFlag} ${sweepFlag} ${systemBX.value} ${systemBY.value}`;
+    straitPath += `A ${curveRadius} ${curveRadius} ${xAxisRotation} ${largeArcFlag} ${sweepFlag} ${sysBPos.value.x} ${sysBPos.value.y}`;
   }
   return straitPath;
 });
 
 const midPoint = computed(() => {
-  return props.strait.straitParameters(props.index).straitMidPoint;
+  return props.strait.straitParameters(props.index, mapStylesStore.mapStyle).straitMidPoint;
 });
 
 const controlPoint = computed(() => {
-  return props.strait.straitParameters(props.index).controlPoint;
+  return props.strait.straitParameters(props.index, mapStylesStore.mapStyle).controlPoint;
 })
 
 </script>
@@ -84,9 +90,7 @@ const controlPoint = computed(() => {
 <template>
 
   <g class="strait" :class="{'in-route-plan' : isInRoutePlan}" :id="strait.id" :data-index="index">
-<!--    <line v-if="debug" class="main" :x1="systemAX" :y1="systemAY" :x2="systemBX" :y2="systemBY"></line>-->
-<!--    <line v-if="debug" class="selected" :x1="systemAX" :y1="systemAY" :x2="systemBX" :y2="systemBY"></line>-->
-    <line v-if="debug" :x1="systemAX" :y1="systemAY" :x2="systemBX" :y2="systemBY" fill="none" stroke="purple" stroke-width="5px"></line>
+    <line v-if="debug" :x1="sysAPos.x" :y1="sysAPos.y" :x2="sysBPos.x" :y2="sysBPos.y" fill="none" stroke="purple" stroke-width="5px"></line>
     <line v-if="debug" :x1="midPoint.x" :y1="midPoint.y" :x2="controlPoint.x" :y2="controlPoint.y" fill="none" stroke="yellow" stroke-width="5px"></line>
     <path class="main" :d="path" fill="none"/>
     <path class="selected" :d="path" fill="none"/>

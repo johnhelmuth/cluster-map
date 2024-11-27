@@ -2,6 +2,7 @@ import type {StraitModelInterface} from "@/types/StraitTypes";
 import type {SystemModelInterface} from "@/types/SystemTypes";
 import type {PointType} from "@/types/GeometryTypes";
 import {SCHEMA_VERSION} from "@/constants";
+import type {MapViewStylesType} from "@/types/BasicTypes";
 
 export class StraitModel implements StraitModelInterface {
 
@@ -34,10 +35,10 @@ export class StraitModel implements StraitModelInterface {
     return this.systemA.cluster.straits.indexOf(this);
   }
 
-  straitParameters(index : number) : { straitLength: number, straitNormalAngle: number, straitMidPoint : PointType, controlPoint: PointType } {
+  straitParameters(index : number, mapStyle: MapViewStylesType) : { straitLength: number, straitNormalAngle: number, straitMidPoint : PointType, controlPoint: PointType } {
 
-    const a = this.systemA.position;
-    const b = this.systemB.position;
+    const a = this.systemA.getPosition(mapStyle);
+    const b = this.systemB.getPosition(mapStyle);
     const systemRadius = 80;
 
     let direction = (index % 2 === 0 ? 1 : -1); // 1: counterclockwise, -1: clockwise

@@ -39,11 +39,11 @@ export interface SystemModelInterface {
   setAttribute(attribute: keyof SystemAttributesInterface, value: attributeValueType) : void;
   setAspect(index: number, aspect: AspectType) : AspectType;
   addAspect(aspect: AspectType) : Number;
+  getPosition(mapStyle: MapViewStylesType | undefined) : PointType;
   getConnections(): Array<StraitModelInterface>;
   getConnectedSystems(): Array<SystemModelInterface> | undefined;
   getSelected(): boolean;
   toggleSelected(): void;
-  rotatePosition() : PointType
 
   toJSON(key: string): object;
 }

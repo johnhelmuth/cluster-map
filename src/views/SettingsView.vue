@@ -89,7 +89,6 @@ function updateClusters(data: ClustersModelDataType | object) {
     routePlannerService.deleteAllRoutePlans();
     selectedSystemsService.deleteAllSelectedSystems();
     clustersStore.clusters.parseClustersData(data);
-    clustersStore.clusters.cluster?.setMapViewParams(mapStylesStore.mapStyle)
   }
 }
 

@@ -20,6 +20,7 @@ export const mapViewStyleLabels = [
   {key: 'data', label: 'Layout from data'},
   {key: 'circular', label: 'Circular Layout'},
 ];
+export const MAP_VIEW_STYLES_DEFAULT = 'data';
 
 export type ClusterOrientationType = 'portrait' | 'square' | 'landscape';
 

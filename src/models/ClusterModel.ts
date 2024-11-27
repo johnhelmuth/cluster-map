@@ -4,7 +4,7 @@ import type {StraitModelDataType, StraitModelInterface} from '@/types/StraitType
 import type { ClusterModelInterface, ClusterIdType, ClusterModelDataType } from "@/types/ClusterTypes";
 import SystemModel from "@/models/SystemModel";
 import {StraitModel} from "@/models/StraitModel";
-import type {BoundingBoxType, ClusterOrientationType, MapViewStylesType} from "@/types/BasicTypes";
+import type {BoundingBoxType, ClusterOrientationType} from "@/types/BasicTypes";
 import {SCHEMA_VERSION} from "@/constants";
 import {getBoundingBox} from "@/utilities/utils";
 
@@ -14,8 +14,6 @@ export class ClusterModel implements ClusterModelInterface {
   name: string = '';
   systemsMap: Map<SystemIdType, SystemModelInterface>;
   straits: Array<StraitModelInterface>;
-  _mapStyle: MapViewStylesType = 'data';
-  _clusterOrientation: ClusterOrientationType = 'landscape';
 
   constructor(data?: ClusterModelDataType) {
     this.id = '';
@@ -107,10 +105,6 @@ export class ClusterModel implements ClusterModelInterface {
     return this.systemsMap.size;
   }
 
-  get mapStyle() {
-    return this._mapStyle;
-  }
-
   get boundingBox() : BoundingBoxType {
     return getBoundingBox(this.systems);
   }
@@ -139,10 +133,6 @@ export class ClusterModel implements ClusterModelInterface {
       return 'portrait';
     }
     return 'landscape';
-  }
-
-  setMapViewParams(mapStyle: MapViewStylesType) : void {
-    this._mapStyle = mapStyle;
   }
 
   importData(data: ClusterModelDataType) {

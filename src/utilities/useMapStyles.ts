@@ -1,14 +1,14 @@
 import {ref} from "vue";
 import {defineStore} from 'pinia';
 
-import type {MapViewStylesType} from "@/types/BasicTypes";
+import {MAP_VIEW_STYLES_DEFAULT, type MapViewStylesType} from "@/types/BasicTypes";
 
 export const useMapStyles = defineStore(
   "mapStyles",
   () => {
 
     const debug = ref(false);
-    const mapStyle = ref('data' as MapViewStylesType);
+    const mapStyle = ref(MAP_VIEW_STYLES_DEFAULT as MapViewStylesType);
     const straightStraits = ref(true);
 
     const mapStylesDataFromLC = localStorage.getItem("pinia.cluster-map.mapStyles");

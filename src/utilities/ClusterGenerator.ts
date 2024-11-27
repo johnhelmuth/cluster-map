@@ -2,7 +2,7 @@
 import type { ClusterIdType, ClusterModelInterface } from "@/types/ClusterTypes";
 import type {SystemAttributesInterface, SystemIdType, SystemModelInterface} from "@/types/SystemTypes";
 import {ClusterModel} from "@/models/ClusterModel";
-import type {attributeValueType, MapViewStylesType} from "@/types/BasicTypes";
+import {type attributeValueType, MAP_VIEW_STYLES_DEFAULT, type MapViewStylesType} from "@/types/BasicTypes";
 import SystemModel from "@/models/SystemModel";
 import type {PointType} from "@/types/GeometryTypes.js";
 
@@ -79,10 +79,10 @@ const systemSizeMap = {
   ],
 };
 
-export function systemRadiusByStyleAndNumberOfSystems(mapStyle: MapViewStylesType, numSystems: number): number {
+export function systemRadiusByStyleAndNumberOfSystems(mapStyle: MapViewStylesType | undefined, numSystems: number): number {
   const {baseRadius} = getMapDimensions();
 
-  for (const {threshold, radius} of systemSizeMap[mapStyle]) {
+  for (const {threshold, radius} of systemSizeMap[mapStyle || MAP_VIEW_STYLES_DEFAULT]) {
     if (numSystems <= threshold) {
       return radius;
     }

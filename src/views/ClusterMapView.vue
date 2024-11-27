@@ -12,16 +12,9 @@ import {useUserScopeStore} from "@/stores/UserScopeStore";
 import type {SelectedSystemsListInterface, SelectedSystemsServiceInterface} from "@/types/SystemsSelectedListTypes";
 import type {RoutePlannerServiceInterface} from "@/types/RoutePlannerServiceTypes";
 import type {SystemModelInterface} from "@/types/SystemTypes";
-import {useMapStyles} from "@/utilities/useMapStyles";
-import {watch} from "vue";
 
 const clustersStore = useClustersStore();
-const mapStylesStore = useMapStyles();
 const { routePlannerService, selectedSystemsService } = useUserScopeStore() as { routePlannerService: RoutePlannerServiceInterface, selectedSystemsService: SelectedSystemsServiceInterface };
-
-watch([clustersStore.clusters, mapStylesStore], () => {
-  clustersStore.clusters.cluster?.setMapViewParams(mapStylesStore.mapStyle)
-});
 
 function systemSelected(system: SystemModelInterface) {
   if (clustersStore.clusters.cluster) {
