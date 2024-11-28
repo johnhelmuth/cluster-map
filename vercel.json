@@ -9,6 +9,10 @@
       "destination": "/index.html"
     },
     {
+      "source": "/clusters",
+      "destination": "/index.html"
+    },
+    {
       "source": "/settings",
       "destination": "/index.html"
     }
