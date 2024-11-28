@@ -43,8 +43,8 @@
     when on, new clusters get connected to the existing clusters randomly.)
 * TODO: auto-layout for cluster map. Maybe just make the map editable.
   * Partially done with autogenerate new clusters feature.  Need to rework that code
-    to be able to choose either the locations stored in the cluster data, or different algorithmic views of
-    the current cluster, like a straight line view, a circle view. Possibly implement a force directed
+    ~~to be able to choose either the locations stored in the cluster data, or~~ different algorithmic views of
+    the current cluster, like a straight line view, ~~a circle view~~. Possibly implement a force directed
     graph algorithm.
 * TODO: 3D positions of systems, imported from real world near space astronomical data, per
   * https://www.projectrho.com/starmap.html
