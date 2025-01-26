@@ -2,14 +2,15 @@
 
 import {useClustersStore} from "~/stores/use-clusters-store";
 import {createCluster} from "~/utils/cluster-generator";
+import {useUniversesStore} from "~/stores/use-universes-store";
 
-const clustersStore = useClustersStore();
+const universesStore = useUniversesStore();
 
 function addCluster(event: Event) {
   const newCluster = createCluster('', '', getRandomIntInclusive(4, 9));
-  const notUnique = !! clustersStore.clusters.getClusterById(newCluster.id);
+  const notUnique = !! universesStore.value.universe.getClusterById(newCluster.id);
   if (! notUnique) {
-    clustersStore.clusters.addCluster(newCluster);
+    universesStore.value.universe.addCluster(newCluster);
   }
 }
 
@@ -17,9 +18,9 @@ function selectCluster(event: Event) {
   const clusterElement = event.target as HTMLElement;
   if (clusterElement?.id) {
     const selectedClusterId = clusterElement.id;
-    const selectedCluster = clustersStore.clusters.getClusterById(selectedClusterId);
-    if (selectedCluster !== clustersStore.clusters.cluster) {
-      clustersStore.clusters.cluster = selectedCluster;
+    const selectedCluster = universesStore.value.universe.getClusterById(selectedClusterId);
+    if (selectedCluster !== universesStore.value.universe.cluster) {
+      universesStore.value.universe.cluster = selectedCluster;
     }
   }
 }
@@ -48,6 +49,22 @@ function selectCluster(event: Event) {
       <div class="clusters-settings-panel">
         <ClustersSettingsPanel />
       </div>
+
+    <div class="universe-view">
+      <div class="note">Click on a cluster in the list to select.</div>
+      <div class="note">TODO: Implement something better looking here.</div>
+      <div class="add-action"><button class="action" @click="addCluster">Add new Cluster</button></div>
+      <ul class="universe-list">
+        <li class="universe-list-item"
+            :class="aCluster === universesStore.universe.cluster ? 'selected-cluster' : ''"
+            v-for="aCluster in universesStore.universe.clusters"
+            :key="aCluster.id"
+            :id="aCluster.id"
+            @click="selectCluster"
+        >
+          {{ aCluster.id }} - {{ aCluster.name }}
+        </li>
+      </ul>
     </div>
   </InfoPage>
 </template>

@@ -1,5 +1,5 @@
 import type {PointType} from "@/types/GeometryTypes.js";
-import type {ClustersModelDataType} from "@/types/ClusterTypes";
+import type {UniverseModelDataType} from "@/types/ClusterTypes";
 import type {BoundingBoxType, ClusterOrientationType, PositionThing, PositionThingList} from "@/types/BasicTypes";
 import {getMapDimensions} from "~/utils/cluster-generator";
 
@@ -47,10 +47,10 @@ export function rotatePosition(position : PointType) : PointType {
   return { x, y };
 }
 
-export function isClustersModelDataType(data : object | ClustersModelDataType) : data is ClustersModelDataType {
-  const hasCurrentClusterId = ((data as ClustersModelDataType)?.currentClusterId !== undefined);
+export function isUniverseModelDataType(data : object | UniverseModelDataType) : data is UniverseModelDataType {
+  const hasCurrentClusterId = ((data as UniverseModelDataType)?.currentClusterId !== undefined);
   return hasCurrentClusterId
-    && typeof (data as ClustersModelDataType).currentClusterId === 'string'
-    && (data as ClustersModelDataType).clusters !== undefined
-    && ((data as ClustersModelDataType).clusters?.length === 0 || (data as ClustersModelDataType).clusters?.length > 0)
+    && typeof (data as UniverseModelDataType).currentClusterId === 'string'
+    && (data as UniverseModelDataType).clusters !== undefined
+    && ((data as UniverseModelDataType).clusters?.length === 0 || (data as UniverseModelDataType).clusters?.length > 0)
 }

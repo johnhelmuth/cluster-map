@@ -5,8 +5,8 @@ export type MapStylesStoreKeyType = keyof MapStylesStoreType;
 
 export function useMapStyles(): MapStylesStoreType {
 
-    const debug = false;
-    const mapStyle = MAP_VIEW_STYLES_DEFAULT as MapViewStylesType;
+    const debug = useState<boolean>(() => false);
+    const mapStyle = useState<MapViewStylesType>(() => MAP_VIEW_STYLES_DEFAULT as MapViewStylesType);
 
     return reactive({debug, mapStyle});
 }

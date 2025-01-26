@@ -2,9 +2,9 @@
 
 * ~~TODO: add map of cluster to display panel.~~
 * ~~TODO: make cluster map image responsive.~~ 
-* ~~TODO: import and export clusters using JSON files.~~
-* ~~TODO: Autogenerate new clusters~~
-* ~~TODO: Add new clusters, systems, connect systems.~~
+* ~~TODO: import and export universe using JSON files.~~
+* ~~TODO: Autogenerate new universe~~
+* ~~TODO: Add new universe, systems, connect systems.~~
 * ~~TODO: Implement JSON schema validation for imported / exported data files.~~
 * ~~TODO: be able to rotate orientation of map.~~ 
   ~~* Currently commented out code to do this as it was problematic and needs to be revisted.~~
@@ -31,18 +31,18 @@
       ~~* Use a container query to choose which of the 2 versions need to be displayed, either the landscape or the portrait
       version.~~
 * ~~TODO: add persistence layer, first cut just use LocalStorage~~
-  * ~~Only store `clusters` data.~~
-  * ~~Also stored mapStyles data. Will put clusters into server-side storage, but not mapStyles, until we get users.~~
+  * ~~Only store `universe` data.~~
+  * ~~Also stored mapStyles data. Will put universe into server-side storage, but not mapStyles, until we get users.~~
 * ~~TODO: Move Vue watch() calls that push pinia stores data to LocalStorage into the store definition file instead of main.ts.~~
-* TODO: Connect clusters.
+* TODO: Connect universe.
   * Render cluster straits different from system straits, and leading off to the nearest edge of cluster map.
-  * Implement a scaled out map view showing all clusters and their connections? 
-  * Use that map to navigate between clusters?
-  * Support trip planning across clusters using the cluster straits.
-  * Implement a setting to control whether cluster connections for auto-generating clusters should be created. (e.g. 
-    when on, new clusters get connected to the existing clusters randomly.)
+  * Implement a scaled out map view showing all universe and their connections? 
+  * Use that map to navigate between universe?
+  * Support trip planning across universe using the cluster straits.
+  * Implement a setting to control whether cluster connections for auto-generating universe should be created. (e.g. 
+    when on, new universe get connected to the existing universe randomly.)
 * TODO: auto-layout for cluster map. Maybe just make the map editable.
-  * Partially done with autogenerate new clusters feature.  Need to rework that code
+  * Partially done with autogenerate new universe feature.  Need to rework that code
     ~~to be able to choose either the locations stored in the cluster data, or~~ different algorithmic views of
     the current cluster, like a straight line view, ~~a circle view~~. Possibly implement a force directed
     graph algorithm.

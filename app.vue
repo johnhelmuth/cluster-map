@@ -1,6 +1,16 @@
 <script setup lang="ts">
 
-import {ModalsContainer} from 'vue-final-modal'
+import { ModalsContainer } from 'vue-final-modal'
+import {useUniversesStore} from "~/stores/use-universes-store";
+
+const universesStore = useUniversesStore();
+
+onMounted(() => {
+  const logLabel = import.meta.client ? 'CLIENT: ' : 'SERVER: ';
+  console.log(`${logLabel}app.vue onMounted() universesStore `, universesStore);
+  console.log(`${logLabel}app.vue onMounted() universesStore.universe `, universesStore.universe);
+  console.log(`${logLabel}app.vue onMounted() universesStore.universes `, universesStore.universes);
+});
 
 const router = useRouter();
 const route = useRoute();
@@ -19,6 +29,7 @@ const route = useRoute();
         <NuxtLink to="/rules-and-systems">Rules & Systems</NuxtLink>
         <NuxtLink to="/search">Search</NuxtLink>
         <NuxtLink to="/map">Map</NuxtLink>
+        <NuxtLink to="/universe" >Universe</NuxtLink>
         <NuxtLink to="/clusters">Clusters</NuxtLink>
         <NuxtLink to="/settings">Settings</NuxtLink>
         <NuxtLink to="/about">About</NuxtLink>
