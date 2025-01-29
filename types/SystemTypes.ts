@@ -27,6 +27,7 @@ export type SystemIdType = IdType;
 export interface SystemModelInterface {
   id: SystemIdType;
   name: string;
+  url: string;
   attributes: SystemAttributesInterface;
   aspects: Array<AspectType>;
   cluster: ClusterModelInterface;

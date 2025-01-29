@@ -23,12 +23,12 @@ const expandCollapseIcon = ref(iconExpandedName);
 const systemInfoCardClosed = ref(true);
 
 function expandCards() {
-  systemInfoCardClosed.value = ! systemInfoCardClosed.value;
+  systemInfoCardClosed.value = !systemInfoCardClosed.value;
   expandCollapseIcon.value = systemInfoCardClosed.value ? iconExpandedName : iconCollapsedName;
 }
 
 function selectSystem(system: SystemModelInterface | undefined) {
-  if (! system) {
+  if (!system) {
     return;
   }
   emit('system-selected', system);
@@ -60,10 +60,12 @@ function clusterSelected(event: Event) {
       </select>
     </h1>
     <div class="controls">
-      <Icon id="accordion-button" class="button-icon accordion-button" @click="expandCards" :name="expandCollapseIcon"/>
+      <Icon id="accordion-button" class="button-icon accordion-button" @click="expandCards"
+            :name="expandCollapseIcon"/>
     </div>
     <div class="panel-body">
-      <SystemInfoCard v-if="!! cluster?.systems" v-for="system in cluster?.systems || [] as Array<SystemModelInterface | undefined>"
+      <SystemInfoCard v-if="!! cluster?.systems"
+                      v-for="system in cluster?.systems || [] as Array<SystemModelInterface | undefined>"
                       :system="system"
                       :key="system.id"
                       @selected="selectSystem"

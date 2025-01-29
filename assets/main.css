@@ -2,7 +2,7 @@
 
 #app {
   font-weight: normal;
-  padding: 0 2rem;
+  padding: 0 1cqw;
   min-height: 100vh;
 
   display: flex;
@@ -27,12 +27,6 @@ a {
   a:hover {
     color: var(--color-action-text);
     background-color: var(--color-action-background);
-  }
-}
-
-@media (max-width: 1024px) {
-  #app {
-    padding: 0 1rem;
   }
 }
 

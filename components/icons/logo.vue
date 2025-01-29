@@ -68,8 +68,6 @@
 <style scoped>
 
 .logo {
-  /*display: inline;*/
-  margin: 0 2rem 0 0;
   height: 2rem;
   width: 2rem;
 }

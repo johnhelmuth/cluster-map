@@ -19,6 +19,7 @@ import {SCHEMA_VERSION} from "@/constants";
 export default class SystemModel implements SystemModelInterface {
   id: SystemIdType;
   name: string;
+  url: string;
   attributes: SystemAttributesInterface;
   aspects: Array<AspectType>;
   cluster: ClusterModelInterface;
@@ -38,6 +39,7 @@ export default class SystemModel implements SystemModelInterface {
     this.cluster = cluster;
     this.id = '';
     this.name = 'Unknown system name';
+    this.url = '';
     this.attributes = {...SystemAttributesDefaults};
     this.aspects = [];
     this.position = { x: 500, y: 500 };
@@ -49,6 +51,9 @@ export default class SystemModel implements SystemModelInterface {
       this.constructPosition(data);
       if ("id" in data) {
         this.id = data.id || '';
+      }
+      if ("url" in data) {
+        this.url = data.url;
       }
     }
     this.cluster.addSystem(this as SystemModelInterface);

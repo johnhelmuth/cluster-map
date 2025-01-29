@@ -17,11 +17,18 @@ const isSelected = computed(() => (props.system?.getSelected() || false));
 // TODO: Move these into a settings structure modifiable by the user.
 const attributesFormat="detailed";
 
+onMounted(() => {
+  console.log('SystemInfoCard.onMounted() props.system: ', props.system);
+})
+
 </script>
 
 <template>
   <div class="system-info-card accordion-control" :class="{ selected: isSelected }" @click="$emit('selected', system)">
-    <h2>{{ system?.name || 'Unknown' }}</h2>
+    <h2>
+      <span v-if="system?.url"><NuxtLink :to="system.url">{{ system?.name || 'Unknown' }}</NuxtLink></span>
+      <span v-else>{{ system?.name || 'Unknown' }}</span>
+    </h2>
     <div class="system-info accordion" :class="{ open: ! systemInfoCardClosed }">
       <SystemAttributes :attributes="system?.attributes || undefined" :attributesFormat="attributesFormat"/>
       <SystemAspects :aspects="system?.aspects || undefined" />
@@ -56,6 +63,5 @@ const attributesFormat="detailed";
   inset  0.4rem  0.4rem 0.4rem lightgrey;
   background-color: var(--color-background);
 }
-
 
 </style>

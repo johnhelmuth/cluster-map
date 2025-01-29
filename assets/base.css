@@ -22,6 +22,14 @@
   --vt-c-green-mute: hsl(120 80% 75%);
   --vt-c-green-lightest: hsl(120 85% 80%);
 
+  --vt-c-amber-dark: hsl(45 64% 15% / 100);
+  --vt-c-amber-dull: hsl(45 90% 25% / 100);
+  --vt-c-amber: hsl(45 50% 50%);
+  --vt-c-amber-soft: hsl(45 70% 67%);
+  --vt-c-amber-mute: hsl(45 80% 75%);
+  --vt-c-amber-lightest: hsl(45 85% 80%);
+  --vt-c-amber-brightest: hsl(45 90% 95%);
+
   --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
   --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
   --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);
@@ -40,17 +48,25 @@
   --color-background-mute: var(--vt-c-white-mute);
   --color-background-lightest: var(--vt-c-white-lightest);
 
+  --color-background-inverted: var(--vt-c-black);
+  --color-background-inverted-mute: var(--vt-c-black-mute);
+
   --color-border: var(--vt-c-divider-light-2);
   --color-border-hover: var(--vt-c-divider-light-1);
+  --color-border-inverted: var(--vt-c-amber-dull);
+  --color-border-hover-inverted: var(--vt-c-amber-dull);
 
   --color-heading: var(--vt-c-text-light-1);
   --color-text: var(--vt-c-text-light-1);
+  --color-text-inverted: var(--vt-c-amber-brightest);
 
   --section-gap: 160px;
 
   --color-action-background: var(--vt-c-green);
+  --color-action-background-inverted: var(--vt-c-amber-dark);
   --color-action-hover: var(--vt-c-green-lightest);
   --color-action-text: var(--vt-c-text-light-1);
+  --color-action-text-inverted: var(--vt-c-amber-lightest);
 
   --color-highlight: var(--vt-c-indigo-lightest);
 }

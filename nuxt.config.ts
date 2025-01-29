@@ -11,8 +11,27 @@ export default defineNuxtConfig({
         }
     ],
 
+    content: {
+        build: {
+            markdown: {
+                toc: {
+                    depth: 2,
+                    searchDepth: 2,
+                },
+            }
+        },
+        renderer: {
+            anchorLinks: true,
+        }
+    },
+
     css: ['~/assets/main.css', 'vue-final-modal/style.css'],
 
-    modules: ['@nuxt/icon', '@vue-final-modal/nuxt', '@vueuse/nuxt'],
+    modules: [
+        '@nuxt/icon',
+        '@vue-final-modal/nuxt',
+        '@vueuse/nuxt',
+        '@nuxt/content',
+    ],
 
 })

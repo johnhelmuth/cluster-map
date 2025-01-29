@@ -1,6 +1,20 @@
 <script setup lang="ts">
 
-import { ModalsContainer } from 'vue-final-modal'
+import {ModalsContainer} from 'vue-final-modal'
+
+const router = useRouter();
+
+onMounted(() => {
+  console.log('app mounted. router.options: ', router.options)
+})
+
+const isActive = ref(false);
+
+function toggleMenu() {
+  isActive.value = !isActive.value;
+}
+
+
 
 </script>
 
@@ -9,23 +23,26 @@ import { ModalsContainer } from 'vue-final-modal'
     <NuxtRouteAnnouncer/>
 
     <header>
-      <NuxtLink to="/"><Logo/></NuxtLink>
+      <NuxtLink to="/">
+        <Logo/>
+      </NuxtLink>
       <nav>
+        <NuxtLink to="/tatterpedia">Tatterpedia</NuxtLink>
+        <NuxtLink to="/rules-and-systems">Rules & Systems</NuxtLink>
         <NuxtLink to="/map">Map</NuxtLink>
-        <NuxtLink to="/clusters" >Clusters</NuxtLink>
-        <NuxtLink to="/about">About</NuxtLink>
-        <NuxtLink to="/settings">Settings</NuxtLink>
       </nav>
+      <BurgerMenu :isActive="isActive" @toggleMenu="toggleMenu" class="on-right">
+        <NuxtLink to="/clusters">Clusters</NuxtLink>
+        <NuxtLink to="/settings">Settings</NuxtLink>
+        <NuxtLink to="/about">About</NuxtLink>
+      </BurgerMenu>
     </header>
     <NuxtPage class="content"/>
-    <footer></footer>
-    <ModalsContainer />
-
+    <ModalsContainer/>
   </div>
 </template>
 
 <style>
-
 
 header {
   line-height: 1.5;
@@ -33,6 +50,10 @@ header {
   flex: 0 1 auto;
   display: flex;
   place-items: center;
+}
+
+header :last-child {
+  margin-left: auto;
 }
 
 .content {
