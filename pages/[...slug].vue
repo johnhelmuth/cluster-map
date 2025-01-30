@@ -35,7 +35,7 @@ useServerSeoMeta({
   description: data?.value?.description
 });
 
-function expandToc() {
+function toggleToc() {
   tocExpanded.value = !tocExpanded.value;
 }
 
@@ -53,7 +53,7 @@ function expandToc() {
     <ContentRenderer v-if="data" :value="data"/>
     <div v-else>Page not found</div>
     <template v-slot:sidepanel>
-      <TableOfContents v-if="data?.body?.toc?.length > 1 || route.path !== '/tatterpedia'" :toc="data?.body?.toc" :isExpanded="tocExpanded" @expand-toc="expandToc"/>
+      <TableOfContents v-if="data?.body?.toc?.length > 1 || route.path !== '/tatterpedia'" :toc="data?.body?.toc" :isExpanded="tocExpanded" @toggle-toc="toggleToc"/>
     </template>
   </InfoPage>
 </template>

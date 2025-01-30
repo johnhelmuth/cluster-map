@@ -10,13 +10,28 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  "expand-toc": [];
+  "toggle-toc": [];
 }>();
 
 const tocIconName = 'material-symbols:toc-rounded';
 
-function expandToc() {
-  emit('expand-toc');
+function toggleToc() {
+  emit('toggle-toc');
+}
+
+/**
+ * Handle the scroll behavior when an item on the table of contents
+ * menu is clicked.
+ *
+ * @param e
+ */
+function tocItemClicked(e) {
+  const href = e.currentTarget.href;
+  const hashElement = document.querySelector(href);
+  if (hashElement) {
+    hashElement.scrollIntoView({behavior: 'smooth'});
+  }
+  toggleToc();
 }
 
 onMounted(() => {
@@ -27,15 +42,15 @@ onMounted(() => {
 
 <template>
   <div :class='{"table-of-contents-container": true, "is-expanded": isExpanded}'>
-    <Icon class="expand-toc" @click="expandToc"
+    <Icon class="expand-toc" @click="toggleToc"
           :name="tocIconName"/>
     <ul class="table-of-contents" v-show="isExpanded">
       <li><NuxtLink v-if="route.path !== '/tatterpedia'" to="/tatterpedia"><strong>Back to home</strong></NuxtLink></li>
       <li v-if="toc?.links?.length > 1" v-for="link of toc?.links">
-        <NuxtLink :href="'#' + link.id">{{ link.text }}</NuxtLink>
+        <a :href="'#' + link.id">{{ link.text }}</a>
         <ul class="table-of-contents-2" v-if="link.children">
           <li v-for="childLink of link.children">
-            <NuxtLink :href="'#' + childLink.id">{{ childLink.text}}</NuxtLink>
+            <a :href="'#' + childLink.id" @click="tocItemClicked">{{ childLink.text}}</a>
           </li>
         </ul>
       </li>
@@ -67,6 +82,7 @@ onMounted(() => {
 
 }
 
+/* TODO: Add animation to slide the table of contents into view. */
 .table-of-contents-container.is-expanded .table-of-contents {
   display: block;
 }
