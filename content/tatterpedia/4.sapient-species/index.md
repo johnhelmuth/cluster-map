@@ -1,5 +1,10 @@
 ---
 title: Species of Known Space
+description: An index of Sapient Species from across known space.
+extra-nav-links:
+  pre:
+    - text: Pick random species
+      handler-tag: pick-random
 ---
 
 ## Invicta Swarm

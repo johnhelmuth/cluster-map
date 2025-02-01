@@ -3,10 +3,12 @@
 import type {Toc} from "@nuxtjs/mdc";
 
 const route = useRoute();
+const router = useRouter();
 
 const props = defineProps<{
   isExpanded: boolean,
   toc: Toc | undefined
+  extraNavLinks?: { pre: Array<{ text: string, 'handler-tag': string }> } | undefined
 }>();
 
 const emit = defineEmits<{
@@ -27,17 +29,42 @@ function toggleToc() {
  */
 function tocItemClicked(e) {
   const href = e.currentTarget.href;
+  scrollToHeader(href);
+  toggleToc();
+}
+
+function scrollToHeader(href: string) {
   const hashElement = document.querySelector(href);
   if (hashElement) {
     hashElement.scrollIntoView({behavior: 'smooth'});
   }
-  toggleToc();
 }
 
-onMounted(() => {
-  console.log('TableOfContents.onMounted() props.toc: ', props.toc);
-  console.log('TableOfContents.onMounted() route.path: ', route.path);
-})
+function handleExtraNavPreLink(preLink: { text: string, 'handler-tag': string }, fromList: Toc): void {
+  // TODO: Move this into something isolated from this component (a composable? a nuxt module?) to handle this behavior
+  //       and allow other components to use this, and to define, load, and handle plugins to other types of extra links.
+  switch (preLink['handler-tag']) {
+    case 'pick-random':
+      const linkTo = pickRandomFromList(fromList);
+      if (linkTo?.id) {
+        const linkToUri = `#${linkTo.id}`;
+        router.push(linkToUri);
+        scrollToHeader(linkToUri)
+      }
+      break;
+  }
+}
+
+function pickRandomFromList(fromList) : string {
+  if (fromList?.length > 0) {
+    // TODO Write utility function to return a random element from an array.
+    const randomItemIdx = Math.floor(Math.random() * fromList.length);
+    if (fromList[randomItemIdx]) {
+      return fromList[randomItemIdx];
+    }
+  }
+}
+
 </script>
 
 <template>
@@ -46,6 +73,9 @@ onMounted(() => {
           :name="tocIconName"/>
     <ul class="table-of-contents" v-show="isExpanded">
       <li><NuxtLink v-if="route.path !== '/tatterpedia'" to="/tatterpedia"><strong>Back to home</strong></NuxtLink></li>
+      <li v-if="extraNavLinks?.pre?.length" v-for="preLink of extraNavLinks?.pre">
+        <a @click.stop="handleExtraNavPreLink(preLink, toc?.links)"><strong>{{ preLink.text}}</strong></a>
+      </li>
       <li v-if="toc?.links?.length > 1" v-for="link of toc?.links">
         <a :href="'#' + link.id">{{ link.text }}</a>
         <ul class="table-of-contents-2" v-if="link.children">

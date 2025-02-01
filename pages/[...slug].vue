@@ -13,12 +13,16 @@ const {data} = await useAsyncData(route.path, async () => {
             .first()
         ;
       }
-      console.log('[...slug].vue data.body.toc: ', data.body.toc);
+      // console.log('[...slug].vue after queryCollection() resolved. data: ', data);
       return data;
     }
 );
 
 const tocExpanded=ref(false);
+
+const extraNavLinks = computed(() => {
+  return data?.value?.['extra-nav-links'];
+});
 
 onMounted(() => {
   if (route.hash) {
@@ -27,7 +31,6 @@ onMounted(() => {
       hashElement.scrollIntoView({behavior: 'smooth'});
     }
   }
-  console.log('[...slug].vue tocExpanded: ', tocExpanded);
 });
 
 useServerSeoMeta({
@@ -53,7 +56,13 @@ function toggleToc() {
     <ContentRenderer v-if="data" :value="data"/>
     <div v-else>Page not found</div>
     <template v-slot:sidepanel>
-      <TableOfContents v-if="data?.body?.toc?.length > 1 || route.path !== '/tatterpedia'" :toc="data?.body?.toc" :isExpanded="tocExpanded" @toggle-toc="toggleToc"/>
+      <TableOfContents
+          v-if="data?.body?.toc?.length > 1 || route.path !== '/tatterpedia'"
+          :toc="data?.body?.toc"
+          :extraNavLinks="extraNavLinks"
+          :isExpanded="tocExpanded"
+          @toggle-toc="toggleToc"
+      />
     </template>
   </InfoPage>
 </template>
