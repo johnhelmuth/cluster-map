@@ -4,7 +4,7 @@ title: Factions
 
 ### Science Foundation
 
-Independent from any local or cluster government(s), the **Science
+Independent of any local or cluster government(s), the **Science
 Foundation** is the premiere scientific professional scientific
 organization in the cluster, a non-profit devoted to promoting quality
 scientific research. It oversees a hierarchy of per-world member
@@ -16,7 +16,7 @@ barely aware of others, even within smaller clusters like the local
 cluster. Some researchers rely on funding from various military
 organizations, and others rely on public funding.
 
--   Dr. Crimini - the cluster's foremost Theoretical Biologist from
+-   [Dr. Crimini](/tatterpedia/faces#dr-crimini) - the cluster's foremost Theoretical Biologist from
     Bane's Edge. A powerful figure in the Science Foundation.
 
   -   Like most sciences, Biology as a field has itself evolved over
@@ -59,8 +59,8 @@ strait parameters for free as part of the benefits of membership.
 
 ### Vat Clones Organization
 
-There is a shadowy organization that produces [[Vat
-Clones]{.underline}](#bkbx91adyfl1) and hires them out as mercenaries.
+There is a shadowy organization that produces [Vat
+Clones](/tatterpedia/sapient-species#vat-clones) and hires them out as mercenaries.
 Most people have no idea how you would go about hiring new vat clones,
 but they keep showing up in the wars that spring up across known space.
 
@@ -71,3 +71,8 @@ There are rumours that there is a group of people, the *Banesian
 Underground* on Bane's Eye who work against the current government, that
 they consider to be illegitimate and fascist. These rumours are
 suppressed by Bane's Eye operatives whenever they crop up.
+
+### Kel-Azaan Resistance
+
+A coalition of distant interstellar civilizations on the far side of known space
+who fought against the [Invicta Swarm](/tatterpedia/sapient-species#invicta-swarm) expansion in the last decade or so.

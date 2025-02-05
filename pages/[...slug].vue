@@ -13,7 +13,6 @@ const {data} = await useAsyncData(route.path, async () => {
             .first()
         ;
       }
-      // console.log('[...slug].vue after queryCollection() resolved. data: ', data);
       return data;
     }
 );
@@ -51,13 +50,13 @@ function toggleToc() {
       use-inner-inset
       sidepanel-overlay
       :sidepanelExpanded="tocExpanded"
-      sidepanelWidthRems="50"
+      sidepanelWidthRems="25"
   >
     <ContentRenderer v-if="data" :value="data"/>
     <div v-else>Page not found</div>
     <template v-slot:sidepanel>
       <TableOfContents
-          v-if="data?.body?.toc?.length > 1 || route.path !== '/tatterpedia'"
+          v-if="(data?.body?.toc?.links?.length || 0) > 0 && route.path !== '/tatterpedia'"
           :toc="data?.body?.toc"
           :extraNavLinks="extraNavLinks"
           :isExpanded="tocExpanded"

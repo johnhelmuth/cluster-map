@@ -146,6 +146,16 @@ h1 {
   padding: 0.25rem 0.5rem;
 }
 
+.info-content :deep(blockquote) {
+  margin-left: 2rem;
+  margin-right: 2rem;
+  background-color: var(--color-background-lightest);
+  color: var(--color-text-inverted-lightest);
+  font-style: italic;
+  padding: 1rem;
+  border-radius: 0.75rem;
+}
+
 .info-content :deep(> div) {
   flex-basis: 90%;
 }

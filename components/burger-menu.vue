@@ -144,6 +144,7 @@ button:focus {
   position: absolute;
   top: calc(var(--burger-menu-button-height) + 1.5rem);
   right: 1rem;
+  z-index: 1000;
 
   box-shadow: inset -0.1rem -0.1rem 0.1rem grey,
               inset 0.1rem 0.1rem 0.1rem lightgrey;

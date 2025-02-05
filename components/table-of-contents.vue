@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import type {Toc} from "@nuxtjs/mdc";
+import type {Toc, TocLink} from "@nuxtjs/mdc";
 
 const route = useRoute();
 const router = useRouter();
@@ -40,7 +40,7 @@ function scrollToHeader(href: string) {
   }
 }
 
-function handleExtraNavPreLink(preLink: { text: string, 'handler-tag': string }, fromList: Toc): void {
+function handleExtraNavPreLink(preLink: { text: string, 'handler-tag': string }, fromList: TocLink[]): void {
   // TODO: Move this into something isolated from this component (a composable? a nuxt module?) to handle this behavior
   //       and allow other components to use this, and to define, load, and handle plugins to other types of extra links.
   switch (preLink['handler-tag']) {
@@ -55,7 +55,7 @@ function handleExtraNavPreLink(preLink: { text: string, 'handler-tag': string },
   }
 }
 
-function pickRandomFromList(fromList) : string {
+function pickRandomFromList(fromList: TocLink[]): TocLink | undefined {
   if (fromList?.length > 0) {
     // TODO Write utility function to return a random element from an array.
     const randomItemIdx = Math.floor(Math.random() * fromList.length);
@@ -74,9 +74,9 @@ function pickRandomFromList(fromList) : string {
     <ul class="table-of-contents" v-show="isExpanded">
       <li><NuxtLink v-if="route.path !== '/tatterpedia'" to="/tatterpedia"><strong>Back to home</strong></NuxtLink></li>
       <li v-if="extraNavLinks?.pre?.length" v-for="preLink of extraNavLinks?.pre">
-        <a @click.stop="handleExtraNavPreLink(preLink, toc?.links)"><strong>{{ preLink.text}}</strong></a>
+        <a @click.stop="handleExtraNavPreLink(preLink, (toc?.links || []))"><strong>{{ preLink.text}}</strong></a>
       </li>
-      <li v-if="toc?.links?.length > 1" v-for="link of toc?.links">
+      <li v-if="(toc?.links?.length || 0) > 1" v-for="link of toc?.links">
         <a :href="'#' + link.id">{{ link.text }}</a>
         <ul class="table-of-contents-2" v-if="link.children">
           <li v-for="childLink of link.children">

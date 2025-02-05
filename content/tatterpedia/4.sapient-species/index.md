@@ -70,9 +70,9 @@ sense of the space around them.
 
 A species that lost their home world and now lives in a flotilla of
 ships in open space. Their biology and environment requirements are such
-that it\'s unlikely (if not impossible) for them to colonize a new world
+that it's unlikely (if not impossible) for them to colonize a new world
 and/or build more than small structures. Correspondingly, no one knows
-what they really look like, because they\'re always in fully sealed
+what they really look like, because they're always in fully sealed
 suits when outside of the safe environment of their ships.
 
 Individuals can and do leave the Flotilla, so they do interact with
@@ -82,15 +82,15 @@ world, and of their hubris that caused it. Now there is a strong
 cultural push toward humility and \"not rocking the boat\".
 
 The Flotilla moves nomadically from cluster to cluster every decade or
-two, but while they\'re around they try to establish trade relations
+two, but while they're around they try to establish trade relations
 with the locals systems, usually trading technology for the raw
 resources they need.
 
 While more open and advanced systems find them to be great to establish
-relationships with (the Flotilla\'s presence is usually a boost to
-economies), there are also plenty of folks who don\'t trust that the
-Flotilla\'s kindness is genuine. They think that the Flotilla is just
-waiting for the right moment to start taking worlds. They also don\'t
+relationships with (the Flotilla's presence is usually a boost to
+economies), there are also plenty of folks who don't trust that the
+Flotilla's kindness is genuine. They think that the Flotilla is just
+waiting for the right moment to start taking worlds. They also don't
 believe that hiding their appearance makes them untrustworthy, and think
 their "environmental constraints" are just a cover story.
 
@@ -119,48 +119,48 @@ units for some polity or another, fighting in local land wars, usually,
 occasionally as space marines, boarding enemy ships to take control of
 them, et cetera. They all look alike, they mostly act alike.
 
-> *This is your first time working with military grown vat clones,
-> isn\'t it?*
+> This is your first time working with military grown vat clones,
+> isn't it?
 >
-> *Yeah, don\'t let their folksy manners throw you off. They may have
-> strong emotions, but they usually don\'t show it. At best you\'ll get
+> Yeah, don't let their folksy manners throw you off. They may have
+> strong emotions, but they usually don't show it. At best you'll get
 > a slight frown or a pleasant smirk. There just is no changing their
-> seemingly friendly laid back demeanor. That\'s about as much intensity
-> you\'ll get from them, but they\'ll give you their all. Drill
-> seargants have given up yelling at recruits because of them.*
+> seemingly friendly laid back demeanor. That's about as much intensity
+> you'll get from them, but they'll give you their all. Drill
+> seargants have given up yelling at recruits because of them.
 >
-> *Vat clones would give you the spacesuit off their back while they\'re
-> using it with a slight smile forever frozen on their face. Don\'t
+> Vat clones would give you the spacesuit off their back while they're
+> using it with a slight smile forever frozen on their face. Don't
 > screw anyone over with them present, even another vat clone. They will
 > put you in your place, even if you out-rank them, and most everyone
-> out-ranks them.*
+> out-ranks them.
 >
-> *It\'s said that they all look and act like Lee Majors. Who was Lee
+> It's said that they all look and act like Lee Majors. Who was Lee
 > Majors? Not much is known about him, but he was one of the first
 > ancient Earth spacers. He once survived a crash that shredded his
-> craft, and he just stood up and walked it off. That\'s about all
-> that\'s known of him.*
+> craft, and he just stood up and walked it off. That's about all
+> that's known of him.
 >
-> *They worship the idea of that man.*
+> They worship the idea of that man.
 >
-> *They claim that they have individual personalities. It\'s true, but
-> it\'s going to take most people longer to see it. People make
-> assumptions about vat clones, and they\'re usually right- until
-> they\'re not.*
->
-> *They\'re almost everywhere. They\'re ubiquitous. Yeah, I know I just
+> They claim that they have individual personalities. It's true, but
+> it's going to take most people longer to see it. People make
+> assumptions about vat clones, and they're usually right - until
+> they're not.
+> 
+> They're almost everywhere. They're ubiquitous. Yeah, I know I just
 > repeated myself. They serve. They grow older. They finish their tours.
 > They transition to civilian life. They even sometimes get married and
 > have kids, though a lot of people worry about how this weakens the
 > whole genetic diversity thing. They may even fix that with gene
-> therapy. They\'re happiest when they\'re helping out. They don\'t much
-> care for promotions or being promoted with maybe an exception or two.*
+> therapy. They're happiest when they're helping out. They don't much
+> care for promotions or being promoted with maybe an exception or two.
 >
-> *They like to hang out in vat clone bars.*
+> They like to hang out in vat clone bars.
 
 ## Cronstak
 
-Sapients who looks like a three legged mongoose with vestigial, furry
+Sapients who looks like a three-legged mongoose with vestigial, furry
 wings, and 3 arms that end in 6 fingered hands, including 2 opposable
 thumbs.
 
@@ -205,6 +205,8 @@ them.
 
 ## So'enela
 
+![Picture of a male alien So'enela with brightly colored wings.](/images/banes-eye-space-navy-admiral.png){align="right"  caption="Bane's Eye Space Navy Admiral So'enela."}
+
 7' tall, lanky, bilateral symmetry, bipedal, 2 wings. Long face with
 large eyes, large pointy ears, and a small black nose. They have 2 arms
 with 5 fingered hands. They also have a tentacle below each of their
@@ -224,10 +226,7 @@ plainer colors usually matching their body fur.
 
 They mate for life. The females lay a single clutch of 5-10 eggs, and
 the males keep them warm and raise the surviving young while the females
-typically provide food and maintain the homes. ![So\'enela from the
-Bane\'s Eye Space Navy, Admiral\'s
-uniform.](media/image1.png){width="1.9687292213473315in"
-height="1.9687292213473315in"}
+typically provide food and maintain the homes.
 
 Although So'enela are found all over both the local and neighboring
 clusters, they are the majority(and dominant) sapient species on Bane's

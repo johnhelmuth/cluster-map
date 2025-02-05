@@ -59,6 +59,7 @@
   --color-heading: var(--vt-c-text-light-1);
   --color-text: var(--vt-c-text-light-1);
   --color-text-inverted: var(--vt-c-amber-brightest);
+  --color-text-inverted-lightest: var(--vt-c-amber-dark);
 
   --section-gap: 160px;
 
