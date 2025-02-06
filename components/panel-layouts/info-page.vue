@@ -4,9 +4,6 @@ const props = defineProps<{
   page_title: string,
   maxWidthRems?: string,
   useInnerInset?: boolean,
-  sidepanelOverlay?: boolean,
-  sidepanelExpanded?: boolean,
-  sidepanelWidthRems?: string,
 }>();
 
 const realMaxWidth = computed(() => {
@@ -17,17 +14,6 @@ const realMaxWidth = computed(() => {
   }
 });
 
-const realSidepanelWidth = computed(() => {
-  if (!! props.sidepanelWidthRems) {
-    return `${props.sidepanelWidthRems}rem`;
-  } else {
-    return "25rem";
-  }
-});
-
-onMounted(() => {
-  console.log('InfoPage onMounted() props.sidepanelExpanded: ', props.sidepanelExpanded);
-});
 
 </script>
 
@@ -39,9 +25,6 @@ onMounted(() => {
           <h1>{{ page_title }}</h1>
           <div :class='{"info-content": true, "inset-shadow": useInnerInset}'>
             <slot>Default page contents</slot>
-            <div v-if="$slots.sidepanel" :class='{ "info-sidepanel-container": true, "sidepanel-overlay": sidepanelOverlay, "sidepanel-expanded": sidepanelExpanded }'>
-              <slot name="sidepanel"></slot>
-            </div>
           </div>
           <InfoFooter/>
         </div>
@@ -85,8 +68,6 @@ h1 {
 .info-content {
   overflow-y: scroll;
   flex: 2 1 auto;
-  display: flex;
-  flex-direction: row;
 }
 
 
@@ -158,15 +139,5 @@ h1 {
 
 .info-content :deep(> div) {
   flex-basis: 90%;
-}
-
-.info-content .info-sidepanel-container {
-  flex-basis: 20%;
-  width: v-bind('realSidepanelWidth');
-}
-
-.info-content .info-sidepanel-container.sidepanel-overlay {
-  position: sticky;
-  inset: 0;
 }
 </style>

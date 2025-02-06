@@ -69,8 +69,6 @@ function pickRandomFromList(fromList: TocLink[]): TocLink | undefined {
 
 <template>
   <div :class='{"table-of-contents-container": true, "is-expanded": isExpanded}'>
-    <Icon class="expand-toc" @click="toggleToc"
-          :name="tocIconName"/>
     <ul class="table-of-contents" v-show="isExpanded">
       <li><NuxtLink v-if="route.path !== '/tatterpedia'" to="/tatterpedia"><strong>Back to home</strong></NuxtLink></li>
       <li v-if="extraNavLinks?.pre?.length" v-for="preLink of extraNavLinks?.pre">
@@ -85,6 +83,8 @@ function pickRandomFromList(fromList: TocLink[]): TocLink | undefined {
         </ul>
       </li>
     </ul>
+    <Icon class="expand-toc" @click="toggleToc"
+          :name="tocIconName"/>
   </div>
 </template>
 
@@ -94,22 +94,23 @@ function pickRandomFromList(fromList: TocLink[]): TocLink | undefined {
   display: flex;
   flex-direction: column;
   border: 1px solid transparent;
-}
-.table-of-contents-container .table-of-contents {
-  display: none;
-  background-color: var(--color-background-inverted-mute);
-  border: 1px solid var(--color-border-inverted);
+  align-items: flex-end;
 }
 
 .table-of-contents-container .table-of-contents {
+  display: none;
+  position: fixed;
+  background-color: var(--color-background-inverted-mute);
+  border: 1px solid var(--color-border-inverted);
+  padding-top: 2.5rem;
   padding-left: 1.25rem;
 }
 
 .expand-toc {
+  position: fixed;
   font-size: 2.5em;
   font-weight: bolder;
   align-self: flex-end;
-
 }
 
 /* TODO: Add animation to slide the table of contents into view. */

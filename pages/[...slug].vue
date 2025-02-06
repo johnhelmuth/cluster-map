@@ -46,23 +46,17 @@ function toggleToc() {
 <template>
   <InfoPage
       :page_title="data?.title || ''"
-      max-width-rems="90"
       use-inner-inset
-      sidepanel-overlay
-      :sidepanelExpanded="tocExpanded"
-      sidepanelWidthRems="25"
   >
+    <TableOfContents
+        v-if="(data?.body?.toc?.links?.length || 0) > 0 && route.path !== '/tatterpedia'"
+        :toc="data?.body?.toc"
+        :extraNavLinks="extraNavLinks"
+        :isExpanded="tocExpanded"
+        @toggle-toc="toggleToc"
+    />
     <ContentRenderer v-if="data" :value="data"/>
     <div v-else>Page not found</div>
-    <template v-slot:sidepanel>
-      <TableOfContents
-          v-if="(data?.body?.toc?.links?.length || 0) > 0 && route.path !== '/tatterpedia'"
-          :toc="data?.body?.toc"
-          :extraNavLinks="extraNavLinks"
-          :isExpanded="tocExpanded"
-          @toggle-toc="toggleToc"
-      />
-    </template>
   </InfoPage>
 </template>
 
