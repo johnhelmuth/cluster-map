@@ -1,5 +1,5 @@
 {
-  "id": "in-dire-straits-sapients",
+  "slug": "in-dire-straits-sapients",
   "title": "In Dire Straits Sapients",
   "value-type": "url",
   "values": [
@@ -37,7 +37,7 @@
       "id": "5",
       "name": "Cronstak",
       "value": "/tatterpedia/sapient-species#cronstak",
-      "weight": 1
+      "weight": 4
     },
     {
       "id": "6",
@@ -67,7 +67,7 @@
       "id": "10",
       "name": "Humans",
       "value": "/tatterpedia/sapient-species#humans",
-      "weight": 1
+      "weight": 2
     }
   ]
 }

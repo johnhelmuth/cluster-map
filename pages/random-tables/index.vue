@@ -2,13 +2,14 @@
 
 import type {
   RandomChoiceItemThresholdType,
-  RandomChoiceItemType, RandomTableType,
+  RandomChoiceItemType, RandomTableType, RandomValueType,
   ResultsLine
 } from "~/types/RandomTableTypes";
+import RandomResultLog from "~/components/random-result-log.vue";
 
 const resultsLog = ref<ResultsLine[]>([]);
 
-const {data} = await useAsyncData('random-tables', async () => {
+const {data} = await useAsyncData('random-tables-list', async () => {
   console.log('/random-tables.vue getting all random-tables.');
   let data = await queryCollection('randomTables').all();
   console.log('/random-tables.vue all random-tables data: ', data);
@@ -19,7 +20,7 @@ onMounted(() => {
   console.log('/random-tables.vue onMounted data.value: ', data.value);
 });
 
-function rollOnTable(table: RandomTableType): { choice: RandomChoiceItemThresholdType | undefined, selectedIndex: number } {
+function rollOnTable(table: RandomTableType): { choice: RandomChoiceItemThresholdType | undefined, selectedIndex: number, totalWeight: number, valueType: RandomValueType } {
 
   console.log('random-tables.vue rollOnTable() table: ', table);
   let totalWeight = 0;
@@ -38,15 +39,16 @@ function rollOnTable(table: RandomTableType): { choice: RandomChoiceItemThreshol
     }
   }
   console.log('random-tables.vue rollOnTable() selected choice: ', choice);
-  return {choice, selectedIndex};
+  return {choice, selectedIndex, totalWeight, valueType : table['value-type']};
 }
 
 function clickedToRoll(evt: Event) {
   if (data.value?.length && evt.target?.id) {
     const table = data.value.find((tbl:any) => tbl?.meta?.body?.id === evt.target?.id);
     if (table) {
-      const { choice, selectedIndex } = rollOnTable(table);
-      resultsLog.value.push({timestamp: Date.now(), choice, selectedIndex});
+      const { choice, selectedIndex, totalWeight, valueType } = rollOnTable(table);
+      resultsLog.value.push({ timestamp: Date.now(), choice, selectedIndex, totalWeight, valueType });
+      console.log('random-tables.vue clickedToRoll() resultsLog: ', resultsLog);
     }
   }
 }
@@ -59,43 +61,41 @@ function clickedToRoll(evt: Event) {
     <li v-if="! data">No random tables to list</li>
     <li v-for="table of data">
       <div v-if="table?.meta?.body">
-        <button @click="clickedToRoll" :id="table.meta.body.id">Pick One</button> - {{ table.meta.body.title }}
+        <div>
+          <p>{{ table.meta.body.title }}</p>
+          <button @click="clickedToRoll" :id="table.meta.body.id">Pick One</button>
+        </div>
       </div>
     </li>
   </ul>
   <hr>
   <div>
     <h2>Results</h2>
-    <div v-for="line of resultsLog" class="result-line">
-      <RandomResultLine :line="line" />
-    </div>
+    <RandomResultLog :log="resultsLog" />
   </div>
 </template>
 
 <style scoped>
 
-.result-line {
-  border: 1px solid red;
-}
-
 ul.tables-nav {
   list-style-type: none;
-
-}
-ul.tables-nav > li {
-  display: block;
-}
-
-.smol-flexbox-grid {
   --min: 10ch;
   --gap: 1rem;
 
   display: flex;
   flex-wrap: wrap;
   gap: var(--gap);
+
 }
 
-.smol-flexbox-grid > * {
+ul.tables-nav > li {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 5rem;
   flex: 1 1 var(--min);
 }
+
+
 </style>
