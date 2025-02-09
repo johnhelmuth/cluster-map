@@ -76,3 +76,7 @@ suppressed by Bane's Eye operatives whenever they crop up.
 
 A coalition of distant interstellar civilizations on the far side of known space
 who fought against the [Invicta Swarm](/tatterpedia/sapient-species#invicta-swarm) expansion in the last decade or so.
+
+### Tepchania Institute of Technology
+
+A prestigious engineering university on [Tepchania](places#tepchania). Informally known as TIT.

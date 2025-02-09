@@ -19,24 +19,24 @@ Will: **Good (+3)**
 
 ### Dr. Kynon Barick
 
-Engineering professor at the Tepchania Institute of Technology. Trusted
-by Dr. Indira Attenborough, sapientologist.
+Engineering professor at the [Tepchania Institute of Technology](factions#tepchania-institute-of-technology). Trusted
+by [Dr. Indira Attenborough, sapientologist](faces#dr-indira-attenborough).
 
 ### Dr. Phineas Collinston
 
 A physicist who did his doctoral thesis on Slipstream Space. Currently
 on mission to Luxia to examine unusual gravitational signatures there,
-on the Science Foundation Deep Space Research Vessel *Silver Minnow*.
+on the [Science Foundation Deep Space Research Vessel *Silver Minnow*](ships#science-foundation-deep-space-research-vessel-silver-minnow).
 
 ### Lieutenant Craln
 
-Human Executive officer of the ZSN destroyer *Tenacious*.
+Human Executive officer of the [ZSN destroyer *Tenacious*](ships#zerzi-space-navy-destroyer-tenacious).
 
 ### Dr. Crimini
 
 The cluster's foremost Theoretical Biologist. He is from Bane's Edge,
-and operates out of there. He is a powerful figure in the Science
-Foundation. He is not a fan of Steve Irwin.
+and operates out of there. He is a powerful figure in the [Science
+Foundation](factions#science-foundation). He is not a fan of Steve Irwin.
 
 ### Ozar Crivvain
 
@@ -50,7 +50,7 @@ covered by his fur.
 ### Pirate Queen Ramekin Finch
 
 No one knows if this person actually exists, but if she does, she is the
-Captain of the heavily armed pirate ship *A Single Red Eye*. She and her
+Captain of the heavily armed pirate ship [*A Single Red Eye*](ships#a-single-red-eye). She and her
 crew, who she calls her Finchmen, have reportedly taken merchant ships
 in all the systems of the local cluster except for Bane's Eye.
 
