@@ -1,0 +1,67 @@
+{
+  "id": "in-dire-straits-systems",
+  "title": "In Dire Straits Systems",
+  "value-type": "url",
+  "values": [
+    {
+      "id": "0",
+      "name": "Averax",
+      "value": "/tatterpedia/places/star-systems/avarax",
+      "weight": 1
+    },
+    {
+      "id": "1",
+      "name": "Willful",
+      "value": "/tatterpedia/places/star-systems/willful",
+      "weight": 1
+    },
+    {
+      "id": "2",
+      "name": "Bane's Eye",
+      "value": "/tatterpedia/places/star-systems/banes-eye",
+      "weight": 1
+    },
+    {
+      "id": "3",
+      "name": "Dragongull's Cry",
+      "value": "/tatterpedia/places/star-systems/dragongulls-cry",
+      "weight": 1
+    },
+    {
+      "id": "4",
+      "name": "Dalderana",
+      "value": "/tatterpedia/places/star-systems/dalderana",
+      "weight": 1
+    },
+    {
+      "id": "5",
+      "name": "Concordist",
+      "value": "/tatterpedia/places/star-systems/concordist",
+      "weight": 1
+    },
+    {
+      "id": "6",
+      "name": "Golden Seed",
+      "value": "/tatterpedia/places/star-systems/golden-seed",
+      "weight": 1
+    },
+    {
+      "id": "7",
+      "name": "Ceti Daenia",
+      "value": "/tatterpedia/places/star-systems/ceti-daenia",
+      "weight": 1
+    },
+    {
+      "id": "8",
+      "name": "Zerzi",
+      "value": "/tatterpedia/places/star-systems/zerzi",
+      "weight": 1
+    },
+    {
+      "id": "9",
+      "name": "Luxia",
+      "value": "/tatterpedia/places/star-systems/luxia",
+      "weight": 1
+    }
+  ]
+}

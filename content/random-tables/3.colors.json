@@ -1,0 +1,87 @@
+{
+  "id": "colors",
+  "title": "Colors",
+  "value-type": "color",
+  "values": [
+    {
+      "id": "0",
+      "name": "White",
+      "value": "#FFFFFF"
+    },
+    {
+      "id": "1",
+      "name": "Silver",
+      "value": "#C0C0C0"
+    },
+    {
+      "id": "2",
+      "name": "Gray",
+      "value": "#808080"
+    },
+    {
+      "id": "3",
+      "name": "Black",
+      "value": "#000000"
+    },
+    {
+      "id": "4",
+      "name": "Red",
+      "value": "#FF0000"
+    },
+    {
+      "id": "5",
+      "name": "Maroon",
+      "value": "#800000"
+    },
+    {
+      "id": "6",
+      "name": "Yellow",
+      "value": "#FFFF00"
+    },
+    {
+      "id": "7",
+      "name": "Olive",
+      "value": "#808000"
+    },
+    {
+      "id": "8",
+      "name": "Lime",
+      "value": "#00FF00"
+    },
+    {
+      "id": "9",
+      "name": "Green",
+      "value": "#008000"
+    },
+    {
+      "id": "10",
+      "name": "Aqua",
+      "value": "#00FFFF"
+    },
+    {
+      "id": "11",
+      "name": "Teal",
+      "value": "#008080"
+    },
+    {
+      "id": "12",
+      "name": "Blue",
+      "value": "#0000FF"
+    },
+    {
+      "id": "13",
+      "name": "Navy",
+      "value": "#0000F0"
+    },
+    {
+      "id": "14",
+      "name": "Fuchsia",
+      "value": "#FF00FF"
+    },
+    {
+      "id": "15",
+      "name": "Purple",
+      "value": "#800080"
+    }
+  ]
+}

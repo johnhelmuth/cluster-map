@@ -1,0 +1,73 @@
+{
+  "id": "in-dire-straits-sapients",
+  "title": "In Dire Straits Sapients",
+  "value-type": "url",
+  "values": [
+    {
+      "id": "0",
+      "name": "Invicta Swarm",
+      "value": "/tatterpedia/sapient-species#invicta-swarm",
+      "weight": 1
+    },
+    {
+      "id": "1",
+      "name": "Grulvax",
+      "value": "/tatterpedia/sapient-species#grulvax",
+      "weight": 1
+    },
+    {
+      "id": "2",
+      "name": "The Flotilla",
+      "value": "/tatterpedia/sapient-species#the-flotilla",
+      "weight": 1
+    },
+    {
+      "id": "3",
+      "name": "The Calcoran Schools",
+      "value": "/tatterpedia/sapient-species#the-calcoran-schools",
+      "weight": 1
+    },
+    {
+      "id": "4",
+      "name": "Vat Clones",
+      "value": "/tatterpedia/sapient-species#vat-clones",
+      "weight": 1
+    },
+    {
+      "id": "5",
+      "name": "Cronstak",
+      "value": "/tatterpedia/sapient-species#cronstak",
+      "weight": 1
+    },
+    {
+      "id": "6",
+      "name": "Bearbles",
+      "value": "/tatterpedia/sapient-species#bearbles",
+      "weight": 1
+    },
+    {
+      "id": "7",
+      "name": "Bontions",
+      "value": "/tatterpedia/sapient-species#bontions",
+      "weight": 1
+    },
+    {
+      "id": "8",
+      "name": "Ohlzor",
+      "value": "/tatterpedia/sapient-species#ohlzor",
+      "weight": 1
+    },
+    {
+      "id": "9",
+      "name": "So'enela",
+      "value": "/tatterpedia/sapient-species#soenela",
+      "weight": 1
+    },
+    {
+      "id": "10",
+      "name": "Humans",
+      "value": "/tatterpedia/sapient-species#humans",
+      "weight": 1
+    }
+  ]
+}

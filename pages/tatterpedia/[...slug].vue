@@ -3,12 +3,12 @@
 const route = useRoute()
 
 const {data} = await useAsyncData(route.path, async () => {
-      console.log('/[...slug].vue searching for route.path: ', route.path);
-      let data = await queryCollection('content').path(route.path).first();
+      console.log('/tatterpedia/[...slug].vue searching for route.path: ', route.path);
+      let data = await queryCollection('tatterpedia').path(route.path).first();
       if (!data) {
         // Look up first content in directory, because there's no index.md.
         const pathExpression = [route.path, (route.path.endsWith('/') ? '' : '/'), '%'].join('');
-        data = await queryCollection('content')
+        data = await queryCollection('tatterpedia')
             .where('path', 'LIKE', pathExpression)
             .first()
         ;
