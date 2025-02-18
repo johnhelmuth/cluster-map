@@ -46,7 +46,7 @@ function toggleToc() {
 <template>
   <InfoPage
       :page_title="data?.title || ''"
-      use-inner-inset
+      content-style="tatterpedia"
   >
     <TableOfContents
         v-if="(data?.body?.toc?.links?.length || 0) > 0 && route.path !== '/tatterpedia'"

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+  <style>
+      :root {
+          font-size: 48px;
+          background-color: lightgray;
+          --molgri-width: 60vw;
+          --molgri-height: 40vw;
+          --hatch-border-width: calc(var(--molgri-height) * 0.02);
+      }
+      body {
+          padding: 0;
+          margin: 0;
+      }
+      #app {
+          margin-top: calc((100cqh - var(--molgri-height)) / 2);
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+          grid-gap: var(--hatch-border-width);
+          align-items: center;
+      }
+      .zoom-in-out-container {
+          overflow: clip;
+          background-color: #b6b6b6;
+          margin: 0;
+          margin-left: 20cqw;
+          padding: 0;
+          border: var(--hatch-border-width) solid grey;
+          border-radius: calc(var(--molgri-height) / 3.5);
+      }
+      .zoom-in-out-container.open {
+          background-color: lightgray;
+      }
+      .hatch-control-panel {
+          width: calc(var(--molgri-height) * 0.20);
+      }
+      .zoom-in-out-container img {
+          margin: 0;
+          padding: 0;
+          width: calc(var(--molgri-width) - var(--hatch-border-width));
+          height: var(--molgri-height);
+          transform: scale(0);
+      }
+      .zoom-in-out-container.zoom-in-out {
+          background: radial-gradient(ellipse at center, red 0%, red 35%, black 90%);
+      }
+      .zoom-in-out-container.zoom-in-out img {
+          animation: 0.1s linear infinite alternate zoom-in-out;
+      }
+      @keyframes zoom-in-out {
+          from {
+              transform: scale(1);
+              opacity: 0.25;
+          }
+          to {
+              transform: scale(2);
+              opacity: 1;
+          }
+      }
+  </style>
+</head>
+<body>
+<div id="app">
+  <div class="zoom-in-out-container">
+    <img class="molgri-img" src="images/Molgri.jpg" alt="Molgri">
+  </div>
+  <img class="hatch-control-panel" src="images/hatch-control-panel.svg" alt="Hatch Control Panel">
+</div>
+<script type="text/javascript">
+  const imgContainer = document.querySelector('.zoom-in-out-container');
+  const hatchControl = document.querySelector('.hatch-control-panel');
+  const animTime = 2000;
+  const mogriRoarAudio = new Audio();
+  if (mogriRoarAudio.canPlayType("audio/ogg")) {
+    mogriRoarAudio.setAttribute("src", "/audio/mogri-roar-loudly-193229.ogg")
+  }
+  function openHatch() {
+    mogriRoarAudio.play();
+    imgContainer.classList.toggle('zoom-in-out');
+    setTimeout(
+      () => imgContainer.classList.toggle('zoom-in-out'),
+      animTime
+    );
+  }
+  hatchControl.addEventListener('click', openHatch);
+  imgContainer.addEventListener('click', openHatch);
+</script>
+</body>
+</html>

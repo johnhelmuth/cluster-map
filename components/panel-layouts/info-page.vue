@@ -1,9 +1,11 @@
 <script setup lang="ts">
 
+import type {InfoPageBackgroundStyles} from "~/types/UITypes";
+
 const props = defineProps<{
-  page_title: string,
+  page_title?: string,
   maxWidthRems?: string,
-  useInnerInset?: boolean,
+  contentStyle?: InfoPageBackgroundStyles,
 }>();
 
 const realMaxWidth = computed(() => {
@@ -14,6 +16,40 @@ const realMaxWidth = computed(() => {
   }
 });
 
+const useInnerInset = computed(() => {
+  let innerInset = false;
+  switch (props.contentStyle) {
+    case 'video':
+    case 'tatterpedia':
+      innerInset = true;
+      break;
+  }
+  return innerInset;
+});
+
+const infoContent = computed(() => {
+  let isContent = false;
+  switch (props.contentStyle) {
+    case 'tatterpedia':
+      isContent = true;
+      break;
+  }
+  return isContent;
+});
+
+const infoVideo = computed(() => {
+  let isVideo = false;
+  switch (props.contentStyle) {
+    case 'video':
+      isVideo = true;
+      break;
+  }
+  return isVideo;
+});
+
+onMounted(() => {
+  console.log('InfoPage.onMounted() props: ', props);
+})
 
 </script>
 
@@ -22,8 +58,12 @@ const realMaxWidth = computed(() => {
     <template v-slot:controls >
       <div class="info-panel">
         <div class="info-box">
-          <h1>{{ page_title }}</h1>
-          <div :class='{"info-content": true, "inset-shadow": useInnerInset}'>
+          <h1 v-if="page_title">{{ page_title }}</h1>
+          <div :class='{
+            "info-content": infoContent,
+            "info-video": infoVideo,
+            "inset-shadow": useInnerInset,
+          }'>
             <slot>Default page contents</slot>
           </div>
           <InfoFooter/>
@@ -49,7 +89,7 @@ const realMaxWidth = computed(() => {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  padding: 1rem 1.5rem .25rem;
+  padding: 1rem 1.5rem 0.25rem;
 
   background-color: var(--color-background-soft);
   border-radius: 1rem;
@@ -139,5 +179,19 @@ h1 {
 
 .info-content :deep(> div) {
   flex-basis: 90%;
+}
+
+.info-video {
+  overflow: clip;
+  flex: 2 1 auto;
+}
+
+.info-video.inset-shadow {
+  border-radius: 0.5rem;
+  border: .25px solid var(--color-background-lightest);
+  box-shadow: inset -0.25rem -0.25rem 0.25rem lightgrey,
+  inset 0.25rem  0.25rem 0.25rem #777;
+  background-color: var(--color-background-inverted);
+  color: var(--color-text-inverted);
 }
 </style>

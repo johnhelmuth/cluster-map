@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg"
+     style="background: transparent; background-color: transparent; color-scheme: light dark;"
+     xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="231px" height="152px" viewBox="-0.5 -0.5 231 152">
+    <defs/>
+    <g>
+        <g data-cell-id="0">
+            <g data-cell-id="1">
+                <g data-cell-id="GfhgB01RC_1_lYckA-kg-34">
+                    <g/>
+                    <g data-cell-id="GfhgB01RC_1_lYckA-kg-1">
+                        <g style="filter: drop-shadow(light-dark(rgba(0, 0, 0, 0.25), rgba(237, 237, 237, 0.25)) 2px 3px 2px);">
+                            <rect x="4" y="4" width="220" height="140" rx="5.6" ry="5.6" fill="#a3a3a3" stroke="none"
+                                  pointer-events="all" style="fill: light-dark(rgb(163, 163, 163), rgb(26, 26, 26));"/>
+                        </g>
+                    </g>
+                    <g data-cell-id="GfhgB01RC_1_lYckA-kg-2">
+                        <g style="filter: drop-shadow(light-dark(rgba(0, 0, 0, 0.25), rgba(237, 237, 237, 0.25)) 2px 3px 2px);">
+                            <rect x="14" y="14" width="200" height="120" fill="#eeeeee" stroke="none"
+                                  pointer-events="all"
+                                  style="fill: light-dark(rgb(238, 238, 238), rgb(238, 238, 238));"/>
+                        </g>
+                    </g>
+                    <g data-cell-id="GfhgB01RC_1_lYckA-kg-3">
+                        <g style="filter: drop-shadow(light-dark(rgba(0, 0, 0, 0.25), rgba(237, 237, 237, 0.25)) 1px 2px 1px);">
+                            <rect x="24" y="24" width="90" height="100" rx="13.5" ry="13.5" fill="#a3a3a3" stroke="none"
+                                  pointer-events="all"
+                                  style="fill: light-dark(rgb(163, 163, 163), rgb(163, 163, 163));"/>
+                        </g>
+                    </g>
+                    <g data-cell-id="GfhgB01RC_1_lYckA-kg-4">
+                        <g style="filter: drop-shadow(light-dark(rgba(0, 0, 0, 0.25), rgba(237, 237, 237, 0.25)) 1px 2px 1px);">
+                            <rect x="124" y="24" width="80" height="100" rx="12" ry="12" fill="#a3a3a3" stroke="none"
+                                  pointer-events="all"
+                                  style="fill: light-dark(rgb(163, 163, 163), rgb(163, 163, 163));"/>
+                        </g>
+                    </g>
+                    <g data-cell-id="GfhgB01RC_1_lYckA-kg-5">
+                        <g style="filter: drop-shadow(light-dark(rgba(0, 0, 0, 0.25), rgba(237, 237, 237, 0.25)) 2px 2px 0px);">
+                            <rect x="34" y="39" width="20" height="20" fill="#ffffff" stroke="none" pointer-events="all"
+                                  style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212));"/>
+                        </g>
+                    </g>
+                    <g data-cell-id="GfhgB01RC_1_lYckA-kg-9">
+                        <g style="filter: drop-shadow(light-dark(rgba(0, 0, 0, 0.25), rgba(237, 237, 237, 0.25)) 2px 2px 0px);">
+                            <rect x="34" y="67" width="20" height="20" fill="#ffffff" stroke="none" pointer-events="all"
+                                  style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212));"/>
+                        </g>
+                    </g>
+                    <g data-cell-id="GfhgB01RC_1_lYckA-kg-12">
+                        <g style="filter: drop-shadow(light-dark(rgba(0, 0, 0, 0.25), rgba(237, 237, 237, 0.25)) 2px 2px 0px);">
+                            <rect x="34" y="94" width="20" height="20" fill="#ffffff" stroke="none" pointer-events="all"
+                                  style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212));"/>
+                        </g>
+                    </g>
+                    <g data-cell-id="GfhgB01RC_1_lYckA-kg-15">
+                        <g style="filter: drop-shadow(light-dark(rgba(0, 0, 0, 0.25), rgba(237, 237, 237, 0.25)) 2px 2px 0px);">
+                            <rect x="59" y="39.5" width="20" height="20" fill="#ffffff" stroke="none"
+                                  pointer-events="all"
+                                  style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212));"/>
+                        </g>
+                    </g>
+                    <g data-cell-id="GfhgB01RC_1_lYckA-kg-16">
+                        <g style="filter: drop-shadow(light-dark(rgba(0, 0, 0, 0.25), rgba(237, 237, 237, 0.25)) 2px 2px 0px);">
+                            <rect x="59" y="67.5" width="20" height="20" fill="#ffffff" stroke="none"
+                                  pointer-events="all"
+                                  style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212));"/>
+                        </g>
+                    </g>
+                    <g data-cell-id="GfhgB01RC_1_lYckA-kg-18">
+                        <g style="filter: drop-shadow(light-dark(rgba(0, 0, 0, 0.25), rgba(237, 237, 237, 0.25)) 2px 2px 0px);">
+                            <rect x="84" y="39.5" width="20" height="20" fill="#ffffff" stroke="none"
+                                  pointer-events="all"
+                                  style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212));"/>
+                        </g>
+                    </g>
+                    <g data-cell-id="GfhgB01RC_1_lYckA-kg-19">
+                        <g style="filter: drop-shadow(light-dark(rgba(0, 0, 0, 0.25), rgba(237, 237, 237, 0.25)) 2px 2px 0px);">
+                            <rect x="84" y="67.5" width="20" height="20" fill="#ffffff" stroke="none"
+                                  pointer-events="all"
+                                  style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212));"/>
+                        </g>
+                    </g>
+                    <g data-cell-id="GfhgB01RC_1_lYckA-kg-21">
+                        <g style="filter: drop-shadow(light-dark(rgba(0, 0, 0, 0.25), rgba(237, 237, 237, 0.25)) 2px 2px 0px);">
+                            <rect x="59" y="94" width="45" height="20" fill="#ffffff" stroke="none" pointer-events="all"
+                                  style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212));"/>
+                        </g>
+                    </g>
+                    <g data-cell-id="GfhgB01RC_1_lYckA-kg-33">
+                        <g/>
+                        <g data-cell-id="GfhgB01RC_1_lYckA-kg-25">
+                            <g>
+                                <ellipse cx="164" cy="71.5" rx="32.5" ry="32.5" fill="#ffffff" stroke="#7a7a7a"
+                                         pointer-events="all"
+                                         style="fill: light-dark(#ffffff, var(--ge-dark-color, #121212)); stroke: light-dark(rgb(122, 122, 122), rgb(122, 122, 122));"/>
+                            </g>
+                        </g>
+                        <g data-cell-id="GfhgB01RC_1_lYckA-kg-29">
+                            <g>
+                                <path d="M 164 55.25 C 172.26 55.25 179.21 61.45 180.14 69.65 C 181.08 77.86 175.72 85.46 167.67 87.33 C 159.62 89.2 151.46 84.73 148.69 76.95 C 145.92 69.16 149.43 60.54 156.85 56.91"
+                                      fill="none" stroke="#3a5431" stroke-width="30" stroke-miterlimit="10"
+                                      pointer-events="all"
+                                      style="stroke: light-dark(rgb(58, 84, 49), rgb(58, 84, 49));"/>
+                            </g>
+                        </g>
+                        <g data-cell-id="GfhgB01RC_1_lYckA-kg-26">
+                            <g>
+                                <ellipse cx="164" cy="71.5" rx="4.0625" ry="4.0625" fill="#e51400" stroke="none"
+                                         pointer-events="all"
+                                         style="fill: light-dark(rgb(229, 20, 0), rgb(229, 20, 0));"/>
+                            </g>
+                        </g>
+                        <g data-cell-id="GfhgB01RC_1_lYckA-kg-28">
+                            <g style="filter: drop-shadow(light-dark(rgba(0, 0, 0, 0.25), rgba(237, 237, 237, 0.25)) 2px 3px 2px);">
+                                <path d="M 162.82 73.63 L 166.82 71.63 L 150.28 43.42 Z" fill="#000000" stroke="#000000"
+                                      stroke-width="0.5" stroke-linejoin="round" stroke-miterlimit="10"
+                                      pointer-events="all"
+                                      style="fill: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); stroke: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));"/>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

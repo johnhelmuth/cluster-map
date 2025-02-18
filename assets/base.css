@@ -70,6 +70,23 @@
   --color-action-text-inverted: var(--vt-c-amber-lightest);
 
   --color-highlight: var(--vt-c-indigo-lightest);
+
+  --metallic-background:  linear-gradient(
+          45deg,
+          #999 5%,
+          #fff 10%,
+          #ccc 30%,
+          #ddd 50%,
+          #ccc 70%,
+          #fff 80%,
+          #999 95%
+  );
+  --metallic-background-soft:  linear-gradient(
+          45deg,
+          #f00 0%,
+          #d00 50%,
+          #f00 100%,
+  );
 }
 
 @media (prefers-color-scheme: dark) {
