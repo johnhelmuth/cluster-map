@@ -1,5 +1,6 @@
 ---
 title: Faces
+description: A list of non player characters (NPCs) in the game.
 ---
 
 ### Dr. Indira Attenborough
@@ -71,7 +72,7 @@ seen in ages.
 
 ### Taedala Suda
 
-Bontian owner / operator / bartender of the only bar on Cuthbert
+Bontion owner / operator / bartender of the only bar on Cuthbert
 Station. She and [Ozar Crivvain](#ozar-crivvain) are partners.
 
 ### Saisar Thoth

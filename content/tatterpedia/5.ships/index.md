@@ -1,6 +1,11 @@
 ---
 title: Ships
+
 ---
+
+A list of known space ships in the game.
+
+<!--more-->
 
 ## Dire Straits
 

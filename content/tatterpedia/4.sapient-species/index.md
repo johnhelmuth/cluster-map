@@ -52,8 +52,7 @@ single Drone. How this Princess is being used is not yet established.)
 ## Grulvax
 
 The Grulvax are a sapient species that is unknown in all of known space,
-aside from one individual, Jithal, currently engineer on the ship *In
-Dire Straits*.
+aside from one individual, Jithal, currently engineer on the ship *Dire Straits*.
 
 They have four arms, a head with no eyes, and a snake-like lower body.
 Because they can communicate with other members of their species without

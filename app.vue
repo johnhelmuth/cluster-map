@@ -3,6 +3,7 @@
 import {ModalsContainer} from 'vue-final-modal'
 
 const router = useRouter();
+const route = useRoute();
 
 onMounted(() => {
   console.log('app mounted. router.options: ', router.options)
@@ -14,8 +15,6 @@ function toggleMenu() {
   isActive.value = !isActive.value;
 }
 
-
-
 </script>
 
 <template>
@@ -23,20 +22,19 @@ function toggleMenu() {
     <NuxtRouteAnnouncer/>
 
     <header>
-      <NuxtLink to="/">
-        <Logo/>
-      </NuxtLink>
-      <nav>
+      <NuxtLink to="/"><Logo/></NuxtLink>
+      <SearchDropdown v-if="route.path !== '/search'" />
+      <BurgerMenu :isActive="isActive" @toggleMenu="toggleMenu" class="on-right">
         <NuxtLink to="/tatterpedia">Tatterpedia</NuxtLink>
         <NuxtLink to="/rules-and-systems">Rules & Systems</NuxtLink>
+        <NuxtLink to="/search">Search</NuxtLink>
         <NuxtLink to="/map">Map</NuxtLink>
-      </nav>
-      <BurgerMenu :isActive="isActive" @toggleMenu="toggleMenu" class="on-right">
         <NuxtLink to="/clusters">Clusters</NuxtLink>
         <NuxtLink to="/settings">Settings</NuxtLink>
         <NuxtLink to="/about">About</NuxtLink>
       </BurgerMenu>
     </header>
+
     <NuxtPage class="content"/>
     <ModalsContainer/>
   </div>
@@ -50,10 +48,17 @@ header {
   flex: 0 1 auto;
   display: flex;
   place-items: center;
+  justify-content: flex-end;
+  text-align: left;
+  font-size: 1rem;
+  padding: 0.5rem 0;
 }
 
-header :last-child {
-  margin-left: auto;
+header > * {
+  margin-left: 1rem;
+}
+header :first-child {
+  margin-right: auto;
 }
 
 .content {

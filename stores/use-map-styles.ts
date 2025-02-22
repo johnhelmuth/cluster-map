@@ -1,6 +1,6 @@
 import {MAP_VIEW_STYLES_DEFAULT, type MapViewStylesType} from "~/types/BasicTypes";
 
-export function useMapStyles(): { debug: boolean, mapStyle: MapViewStylesType, straightStrait: boolean } {
+export function useMapStyles(): { debug: boolean, mapStyle: MapViewStylesType, straightStraits: boolean } {
 
     const debug = false;
     const mapStyle = MAP_VIEW_STYLES_DEFAULT as MapViewStylesType;

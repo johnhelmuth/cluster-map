@@ -1,8 +1,9 @@
 ---
 title: Tatterpedia
+description: 
 ---
-
-TODO: Implement search engine here.
+The friendly interface to all knowledge in known space.
+<!--more-->
 
 ## List of pages
 

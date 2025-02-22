@@ -70,6 +70,12 @@
   --color-action-text-inverted: var(--vt-c-amber-lightest);
 
   --color-highlight: var(--vt-c-indigo-lightest);
+
+  --layers-content: 1;
+  --layers-bezel: 90;
+  --layers-controls-ink: 99;
+  --layers-search: 500;
+  --layers-navigation: 1000;
 }
 
 @media (prefers-color-scheme: dark) {

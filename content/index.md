@@ -4,6 +4,7 @@ title: In Dire Straits
 
 *In Dire Straits* is a Space Opera RPG campaign created and played by the In Dire Straits players using the Fate Core
 System ruleset.
+<!--more-->
 
 [Tatterpedia](/tatterpedia)
 

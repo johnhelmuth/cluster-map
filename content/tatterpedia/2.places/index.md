@@ -1,5 +1,6 @@
 ---
 title: Places
+description: A list of locations in the game, including star systems, space stations, cities, and businesses.
 ---
 
 ## Local Cluster

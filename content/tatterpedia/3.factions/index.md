@@ -1,5 +1,6 @@
 ---
 title: Factions
+description: A list of factions in the game.
 ---
 
 ### Science Foundation

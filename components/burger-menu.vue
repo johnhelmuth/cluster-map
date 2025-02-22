@@ -46,7 +46,7 @@ function toggleActive() {
 @property --burger-menu-list-width {
   syntax: "<length>";
   inherits: true;
-  initial-value: 150px;
+  initial-value: 200px;
 }
 
 #burger {
@@ -83,7 +83,7 @@ function toggleActive() {
   height: var(--burger-menu-button-height);
   width: var(--burger-menu-button-width);
   display: block;
-  z-index: 99;
+  z-index: var(--layers-controls-ink);
   border: 0;
   border-radius: 0;
   background-color: transparent;
@@ -138,13 +138,13 @@ button:focus {
 .burger-menu-list {
   background-color: var(--color-background);
   width: var(--burger-menu-list-width);
-  text-align: center;
+  text-align: left;
   display: flex;
   flex-direction: column;
   position: absolute;
   top: calc(var(--burger-menu-button-height) + 1.5rem);
   right: 1rem;
-  z-index: 1000;
+  z-index: var(--layers-navigation);
 
   box-shadow: inset -0.1rem -0.1rem 0.1rem grey,
               inset 0.1rem 0.1rem 0.1rem lightgrey;
