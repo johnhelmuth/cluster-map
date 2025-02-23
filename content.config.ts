@@ -5,7 +5,7 @@ export default defineContentConfig({
     collections: {
         content: defineCollection({
             type: 'page',
-            source: '**/*.md',
+            source: 'https://github.com/johnhelmuth/in-dire-straits-content',
             schema: z.object({
                 'extra-nav-links': z.object({
                     'pre': z.array(
