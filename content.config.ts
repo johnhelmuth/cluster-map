@@ -5,7 +5,11 @@ export default defineContentConfig({
     collections: {
         content: defineCollection({
             type: 'page',
-            source: 'https://github.com/johnhelmuth/in-dire-straits-content',
+            source: {
+                include: '**/*',
+                repository: 'https://github.com/johnhelmuth/in-dire-straits-content/tree/main',
+                authToken: process.env.GH_TOKEN,
+            },
             schema: z.object({
                 'extra-nav-links': z.object({
                     'pre': z.array(
