@@ -1,14 +1,13 @@
 <script setup lang="ts">
 
 import {useContentSearch} from "~/stores/use-content-search";
+import {useModalStateStore} from "~/stores/use-modal-state-store";
 
 const route = useRoute();
 const router = useRouter();
 const {getSearchResults} = await useContentSearch();
 
-const emit = defineEmits<{
-  "toggle-results": any;
-}>();
+const { setCurrentOpenModal, closeModal } = useModalStateStore('searchResultsDropdown', closeResults);
 
 /**
  * isNavigating is a flag used to note when navigating away from a page that
@@ -31,6 +30,8 @@ router.beforeEach((to, from) => {
     searchQueryParam.value = '';
   }
 });
+
+const resultsAreActive = ref(false);
 
 const urlQueryParam = route?.query?.search?.toString() || '';
 const searchQueryParam = ref(urlQueryParam);
@@ -55,16 +56,31 @@ const hasQueryValue = computed(() => !!searchQueryParam.value);
 
 const resultObj = computed(() => getSearchResults(toValue(searchQueryParam), 5));
 
+watch (resultObj, showResults);
+
 function showResults() {
-  if (hasQueryValue.value) {
-    emit('toggle-results');
-  } else {
-    emit('toggle-results');
+  if (resultObj.value?.results) {
+    if (! resultsAreActive.value) {
+      openResults();
+    }
+  } else if (resultsAreActive.value) {
+    closeResults();
   }
 }
 
 function clearQuery() {
   searchQueryParam.value = '';
+  closeResults();
+}
+
+function openResults() {
+  setCurrentOpenModal();
+  resultsAreActive.value = true;
+}
+
+function closeResults() {
+  resultsAreActive.value = false;
+  closeModal();
 }
 
 function keyDown(event: KeyboardEvent) {
@@ -88,8 +104,8 @@ function keyDown(event: KeyboardEvent) {
     <div class="search-form">
       <input type="text"
              v-model="searchQueryParam"
-             @change="showResults"
              @keydown="keyDown"
+             @focus="showResults"
              placeholder="Search...">
       <Icon id="clear-search-button"
             class="button-icon"
@@ -103,7 +119,7 @@ function keyDown(event: KeyboardEvent) {
             :search="searchQueryParam"
             :results="resultObj.results"
             :hasMore="resultObj.more"
-            :class="{ 'active': hasQueryValue }"
+            :class="{ 'active': resultsAreActive && hasQueryValue }"
             is-embedded
         />
       </Transition>
@@ -123,6 +139,9 @@ function keyDown(event: KeyboardEvent) {
 
 .search-panel .search-form {
   display: inline-block;
+}
+.search-panel .search-form input {
+  anchor-name: --search-form-input;
 }
 
 .search-panel .button-icon {

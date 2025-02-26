@@ -63,8 +63,11 @@ ul:has(.search-entry) {
   box-shadow: inset -0.2rem -0.2rem 0.2rem grey,
   inset 0.2rem 0.2rem 0.2rem lightgrey;
   position: absolute;
+  position-anchor: --search-form-input;
   right: 3.5rem;
+  right: calc(anchor(right) - 0.5rem);
   top: 3rem;
+  top: calc(anchor(bottom) + 0.125rem);
 }
 
 .search-list.embedded.active {

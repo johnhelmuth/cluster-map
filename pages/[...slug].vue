@@ -17,8 +17,6 @@ const {data} = await useAsyncData(route.path, async () => {
     }
 );
 
-const tocExpanded=ref(false);
-
 const extraNavLinks = computed(() => {
   return data?.value?.['extra-nav-links'];
 });
@@ -37,10 +35,6 @@ useServerSeoMeta({
   description: data?.value?.description
 });
 
-function toggleToc() {
-  tocExpanded.value = !tocExpanded.value;
-}
-
 </script>
 
 <template>
@@ -52,8 +46,6 @@ function toggleToc() {
         v-if="(data?.body?.toc?.links?.length || 0) > 0 && route.path !== '/tatterpedia'"
         :toc="data?.body?.toc"
         :extraNavLinks="extraNavLinks"
-        :isExpanded="tocExpanded"
-        @toggle-toc="toggleToc"
     />
     <ContentRenderer v-if="data" :value="data"/>
     <div v-else>Page not found</div>

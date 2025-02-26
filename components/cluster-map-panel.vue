@@ -4,6 +4,7 @@ import type { ClusterModelInterface } from "~/types/ClusterTypes.js";
 import type { SystemModelInterface } from "~/types/SystemTypes";
 import type { RoutePlanRefType } from "~/types/RoutePlannerTypes";
 import {useMapStyles} from "~/stores/use-map-styles";
+import {useModalStateStore} from "~/stores/use-modal-state-store";
 
 const props = defineProps<{
   cluster?: ClusterModelInterface | undefined,
@@ -13,6 +14,8 @@ const props = defineProps<{
 const emit = defineEmits<{
   "system-selected": [system: SystemModelInterface];
 }>();
+
+const { setCurrentOpenModal, closeModal } = useModalStateStore('clusterStyleModal', mapViewClosed);
 
 const mapStylesStore = useMapStyles();
 
@@ -32,6 +35,7 @@ function selectSystem(system: SystemModelInterface | undefined) {
 }
 
 function mapView() {
+  setCurrentOpenModal();
   showMapView.value = true;
 }
 
@@ -45,6 +49,7 @@ function mapViewChanged(newMapViewStyles) {
 
 function mapViewClosed() {
   showMapView.value = false;
+  closeModal();
 }
 
 </script>

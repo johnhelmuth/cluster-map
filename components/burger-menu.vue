@@ -1,16 +1,20 @@
 <script setup lang="ts">
 
-const props = defineProps<{
-  isActive: boolean,
-}>();
+import {useModalStateStore} from "~/stores/use-modal-state-store";
 
-const emit = defineEmits<{
-  "toggle-menu": [];
-}>();
+const { setCurrentOpenModal, closeModal } = useModalStateStore('burgerMenu', toggleActive);
+
+const isActive = ref(false);
 
 function toggleActive() {
-  emit('toggle-menu');
+  isActive.value = !isActive.value;
+  if (isActive.value) {
+    setCurrentOpenModal();
+  } else {
+    closeModal();
+  }
 }
+
 </script>
 
 <template>

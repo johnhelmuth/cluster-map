@@ -9,12 +9,6 @@ onMounted(() => {
   console.log('app mounted. router.options: ', router.options)
 })
 
-const isActive = ref(false);
-
-function toggleMenu() {
-  isActive.value = !isActive.value;
-}
-
 </script>
 
 <template>
@@ -24,7 +18,7 @@ function toggleMenu() {
     <header>
       <NuxtLink to="/"><Logo/></NuxtLink>
       <SearchDropdown v-if="route.path !== '/search'" />
-      <BurgerMenu :isActive="isActive" @toggleMenu="toggleMenu" class="on-right">
+      <BurgerMenu class="on-right">
         <NuxtLink to="/tatterpedia">Tatterpedia</NuxtLink>
         <NuxtLink to="/rules-and-systems">Rules & Systems</NuxtLink>
         <NuxtLink to="/search">Search</NuxtLink>

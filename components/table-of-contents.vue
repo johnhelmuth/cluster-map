@@ -1,24 +1,29 @@
 <script setup lang="ts">
 
 import type {Toc, TocLink} from "@nuxtjs/mdc";
+import {useModalStateStore} from "~/stores/use-modal-state-store";
 
 const route = useRoute();
 const router = useRouter();
 
+const { setCurrentOpenModal, closeModal } = useModalStateStore('tableOfContentsMenu', toggleToc);
+
 const props = defineProps<{
-  isExpanded: boolean,
   toc: Toc | undefined
   extraNavLinks?: { pre: Array<{ text: string, 'handler-tag': string }> } | undefined
 }>();
 
-const emit = defineEmits<{
-  "toggle-toc": [];
-}>();
-
 const tocIconName = 'material-symbols:toc-rounded';
 
+const isExpanded=ref(false);
+
 function toggleToc() {
-  emit('toggle-toc');
+  isExpanded.value = !isExpanded.value;
+  if (isExpanded.value) {
+    setCurrentOpenModal();
+  } else {
+    closeModal();
+  }
 }
 
 /**
@@ -27,9 +32,11 @@ function toggleToc() {
  *
  * @param e
  */
-function tocItemClicked(e) {
-  const href = e.currentTarget.href;
-  scrollToHeader(href);
+function tocItemClicked(e: Event) {
+  const target = e.currentTarget;
+  if (target instanceof HTMLAnchorElement && target.href) {
+    scrollToHeader(target.href);
+  }
   toggleToc();
 }
 
