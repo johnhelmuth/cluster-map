@@ -57,10 +57,11 @@ watch(localMapStyles, (newMapStyles) => {
   display: flex;
   flex-direction: column;
   padding: .5rem 2rem 1rem;
-  background: #fff;
+  background: var(--color-background);
   border-radius: 0.5rem;
   width: 20rem;
   contain: layout paint;
+  border: 1px solid var(--color-border);
 }
 .dynamic-modal-content h2 {
   font-size: 1.375rem;

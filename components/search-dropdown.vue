@@ -142,10 +142,12 @@ function keyDown(event: KeyboardEvent) {
 }
 .search-panel .search-form input {
   anchor-name: --search-form-input;
+  background-color: var(--color-background-soft);
+  color: var(--color-text);
 }
 
 .search-panel .button-icon {
-  color: black;
+  color: var(--color-text);
   height: 1.5rem;
   width: 1.5rem;
   position: relative;

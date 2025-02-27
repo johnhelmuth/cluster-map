@@ -21,6 +21,13 @@ a {
   padding: 3px;
 }
 
+.button-icon, button {
+  color: var(--color-text);
+  background: var(--color-background);
+}
+
+
+
 @media (hover: hover) {
   a:hover {
     color: var(--color-action-text);

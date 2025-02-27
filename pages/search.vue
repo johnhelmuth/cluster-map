@@ -45,6 +45,11 @@ watch(searchQueryParam, (newQuery) => {
   padding: 2rem;
 }
 
+.search-form input {
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
 ul:has(.search-entry) {
   padding: 0;
   margin: 0;
