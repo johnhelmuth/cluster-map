@@ -107,10 +107,10 @@ function pickRandomFromList(fromList: TocLink[]): TocLink | undefined {
 .table-of-contents-container .table-of-contents {
   display: none;
   position: fixed;
-  background-color: var(--color-background-inverted-mute);
-  border: 1px solid var(--color-border-inverted);
-  padding-top: 2.5rem;
-  padding-left: 1.25rem;
+  background-color: var(--color-background-mute);
+  border: 1px solid var(--color-border);
+  padding: 2.5rem 1rem 1rem;
+  list-style: none;
 }
 
 .expand-toc {

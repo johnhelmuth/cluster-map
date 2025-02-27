@@ -3,30 +3,30 @@
 const props = defineProps<{
   page_title: string,
   maxWidthRems?: string,
-  useInnerInset?: boolean,
+  includeFooter?: boolean,
+  useNoInset?: boolean,
 }>();
 
 const realMaxWidth = computed(() => {
-  if (!! props.maxWidthRems) {
+  if (!!props.maxWidthRems) {
     return `${props.maxWidthRems}rem`;
   } else {
     return "80rem";
   }
 });
 
-
 </script>
 
 <template>
   <Bezels>
-    <template v-slot:controls >
+    <template v-slot:controls>
       <div class="info-panel">
         <div class="info-box">
           <h1>{{ page_title }}</h1>
-          <div :class='{"info-content": true, "inset-shadow": useInnerInset}'>
+          <div :class='{"info-content": true, "no-inset-shadow": useNoInset}'>
             <slot>Default page contents</slot>
           </div>
-          <InfoFooter/>
+          <InfoFooter v-if="includeFooter"/>
         </div>
       </div>
     </template>
@@ -43,19 +43,13 @@ const realMaxWidth = computed(() => {
 }
 
 .info-box {
+  container-type: inline-size;
   flex: 0 1 auto;
   width: 100%;
   max-width: v-bind('realMaxWidth');
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  padding: 1rem 1.5rem .25rem;
-
-  background-color: var(--color-background-soft);
-  border-radius: 1rem;
-  border: .25px solid var(--color-background-lightest);
-  box-shadow: inset -0.25rem -0.25rem 0.25rem #777,
-  inset  0.25rem  0.25rem 0.25rem lightgrey;
 }
 
 h1 {
@@ -68,22 +62,22 @@ h1 {
 .info-content {
   overflow-y: scroll;
   flex: 2 1 auto;
-}
-
-
-.info-content.inset-shadow {
+  background-color: var(--color-background-soft);
   border-radius: 0.5rem;
   border: .25px solid var(--color-background-lightest);
-  box-shadow: inset -0.25rem -0.25rem 0.25rem lightgrey,
-  inset 0.25rem  0.25rem 0.25rem #777;
+  box-shadow: inset -0.125rem -0.125rem 0.125rem lightgrey,
+  inset 0.125rem 0.125rem 0.125rem #777;
   padding: 1rem;
-  background-color: var(--color-background-inverted);
-  color: var(--color-text-inverted);
+}
+
+.info-content.no-inset-shadow {
+  box-shadow: none;
 }
 
 .info-content h1, .info-content h2, .info-content h3, .info-content h4, .info-content h5, .info-content h6 {
   font-weight: bolder;
 }
+
 .info-content :deep(h1),
 .info-content :deep(h2),
 .info-content :deep(h3),
@@ -98,9 +92,11 @@ h1 {
   font-weight: bolder;
   text-decoration: underline;
 }
+
 .info-content :deep(p) {
   margin-bottom: 1rem;
 }
+
 .info-content.inset-shadow :deep(a) {
   color: var(--color-action-text-inverted);
 }
@@ -108,6 +104,7 @@ h1 {
 .info-content.inset-shadow :deep(hr) {
   border-color: var(--color-border-inverted);
 }
+
 .info-content :deep(table), .info-content :deep(table tr td), .info-content :deep(table tr th) {
   border-collapse: collapse;
   border: 1px solid var(--color-border);

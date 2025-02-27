@@ -15,15 +15,13 @@
 
 <style scoped>
 
-
-
 .bezel {
+  --bezel-bottom-border: 5rem;
+  --bezel-height: calc(100cqh - var(--bezel-bottom-border));
   border-radius: 0.5rem;
   display: grid;
   grid-template-columns: 3fr 1fr;
-  align-items: stretch;
   padding: 0;
-  height: calc(100cqh - 3rem);
 }
 
 @media (max-width: 1024px) {
@@ -41,9 +39,10 @@
 }
 
 .bezel-panel {
-  height: calc(100cqh - 5rem);
   border-radius: 0.5rem;
+  height: var(--bezel-height);
 }
+
 @media (max-width: 1024px) {
   .bezel-panel {
     border-radius: 0.25rem;
@@ -52,10 +51,10 @@
 
 .bezel-panel.display-slot {
   padding: 0.5rem;
-  box-shadow: inset -0.25rem -0.25rem 0.25rem #777,
-  inset  0.25rem  0.25rem 0.25rem lightgrey;
+  box-shadow:
+      inset -0.25rem -0.25rem 0.25rem #777,
+      inset  0.25rem  0.25rem 0.25rem lightgrey;
   background-color: var(--vt-c-black-mute);
-  height: calc(100cqh - 5rem);
   border-radius: 0.5rem;
 }
 

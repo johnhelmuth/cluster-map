@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <InfoPage page_title="About Cluster Map" max-width-rems="30">
+  <InfoPage page_title="About Cluster Map" max-width-rems="30" include-footer>
     <main>
       <p>This site is an attempt to be used for the storage and reference for everything from our Space Opera RPG
         Campaign <em>In Dire Straits.</em></p>

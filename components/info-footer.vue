@@ -24,11 +24,10 @@ footer {
   flex-direction: row;
   flex-flow: row nowrap;
   justify-content: space-between;
-  align-items: end;
-  font-size: .8rem;
-  margin-top: .8rem;
-  margin-left: -0.8rem;
-  margin-right: -0.8rem;
+  align-items: center;
+  font-size: clamp(.5rem, 3cqw, 1rem);
+  padding-top: .8rem;
+  padding-bottom: .8rem;
 }
 footer span {
   text-align: left;
@@ -39,6 +38,13 @@ footer span.right {
   text-align: right;
   width: max-content;
   flex: 0 1 auto;
+}
+
+@media (max-width: 303px) {
+  footer span {
+    width: auto;
+    height: auto;
+  }
 }
 
 </style>
