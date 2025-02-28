@@ -3,6 +3,7 @@
 import {useClustersStore} from "~/stores/use-clusters-store";
 import type {ClusterModelInterface} from "~/types/ClusterTypes";
 import type {RoutePlanRefType} from "~/types/RoutePlannerTypes";
+import type {SystemModelInterface} from "~/types/SystemTypes";
 
 const clustersStore = useClustersStore();
 
@@ -114,6 +115,7 @@ h1 > select {
   font-size: .75rem;
   font-weight: bold;
   background: none;
+  color: var(--color-heading);
 }
 
 .controls {

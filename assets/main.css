@@ -21,7 +21,7 @@ a {
   padding: 3px;
 }
 
-.button-icon, button {
+button {
   color: var(--color-text);
   background: var(--color-background);
 }
