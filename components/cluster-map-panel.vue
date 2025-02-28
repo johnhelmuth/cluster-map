@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 
-import type { ClusterModelInterface } from "~/types/ClusterTypes.js";
-import type { SystemModelInterface } from "~/types/SystemTypes";
-import type { RoutePlanRefType } from "~/types/RoutePlannerTypes";
-import {useMapStyles} from "~/stores/use-map-styles";
+import type {ClusterModelInterface} from "~/types/ClusterTypes.js";
+import type {SystemModelInterface} from "~/types/SystemTypes";
+import type {RoutePlanRefType} from "~/types/RoutePlannerTypes";
+import {type MapStylesStoreKeyType, type MapStylesStoreType, useMapStyles} from "~/stores/use-map-styles";
 import {useModalStateStore} from "~/stores/use-modal-state-store";
 
 const props = defineProps<{
@@ -15,7 +15,7 @@ const emit = defineEmits<{
   "system-selected": [system: SystemModelInterface];
 }>();
 
-const { setCurrentOpenModal, closeModal } = useModalStateStore('clusterStyleModal', mapViewClosed);
+const {setCurrentOpenModal, closeModal} = useModalStateStore('clusterStyleModal', mapViewClosed);
 
 const mapStylesStore = useMapStyles();
 
@@ -24,11 +24,11 @@ const showMapView = ref(false);
 const isDebug = computed(() => mapStylesStore.debug);
 
 const otherOrientation = computed(() => {
-  return oppositeOrientation(props.cluster.orientation);
+  return oppositeOrientation(props?.cluster?.orientation || 'portrait');
 });
 
 function selectSystem(system: SystemModelInterface | undefined) {
-  if (! system) {
+  if (!system) {
     return;
   }
   emit('system-selected', system);
@@ -39,9 +39,10 @@ function mapView() {
   showMapView.value = true;
 }
 
-function mapViewChanged(newMapViewStyles) {
-  for (const propName of ['debug', 'mapStyle', 'straightStraits']) {
+function mapViewChanged(newMapViewStyles: MapStylesStoreType) {
+  for (const propName of ['debug', 'mapStyle', 'straightStraits'] as Array<MapStylesStoreKeyType>) {
     if (newMapViewStyles.hasOwnProperty(propName)) {
+      // @ts-ignore - I don't know why I get a complaint about mapStylesStore[propname].
       mapStylesStore[propName] = newMapViewStyles[propName];
     }
   }
@@ -60,16 +61,18 @@ function mapViewClosed() {
           show/hide the SVG group (<g>) tags as appropriate. Then see about doing a SVG transition between the two
           groups.
     . -->
-    <SVGClusterGraph :class="[cluster.orientation, mapStylesStore.mapStyle]"
-                     :cluster="cluster"
-                     :plan="plan"
-                     @system-selected="selectSystem"
-                     :debug="isDebug"
-                     :mapStyle="mapStylesStore.mapStyle"
-                     :straight-straits="mapStylesStore.straightStraits"
+    <SVGClusterGraph
+        v-if="cluster"
+        :class="[cluster?.orientation, mapStylesStore.mapStyle]"
+        :cluster="cluster"
+        :plan="plan"
+        @system-selected="selectSystem"
+        :debug="isDebug"
+        :mapStyle="mapStylesStore.mapStyle"
+        :straight-straits="mapStylesStore.straightStraits"
     />
     <SVGClusterGraph
-        v-if="cluster.orientation !== 'square' && mapStylesStore.mapStyle !== 'circular'"
+        v-if="cluster && cluster.orientation !== 'square'"
         :class="[otherOrientation, mapStylesStore.mapStyle]"
         :cluster="cluster"
         :plan="plan"

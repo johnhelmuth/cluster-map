@@ -127,9 +127,9 @@ export class ClusterModel implements ClusterModelInterface {
     if (isNaN(this.aspectRatio)) {
       return 'square'; // Who knows?
     }
-    if (this.aspectRatio >= 0.8 && 1.2 >= this.aspectRatio) {
+    if (this.aspectRatio >= 0.9 && 1.1 >= this.aspectRatio) {
       return 'square';
-    } else if (this.aspectRatio < 0.8) {
+    } else if (this.aspectRatio < 0.9) {
       return 'portrait';
     }
     return 'landscape';
