@@ -1,6 +1,7 @@
 <script setup lang="ts">
 
 import {useContentSearch} from "~/stores/use-content-search";
+import {onBeforeRouteUpdate} from "#vue-router";
 
 const route = useRoute();
 const router = useRouter();
@@ -28,13 +29,11 @@ watch(searchQueryParam, (newQuery) => {
 
 <template>
   <InfoPage page_title="Search">
-    <div class="search-panel">
-      <div class="search-form"><input type="text" v-model="searchQueryParam" placeholder="Search..."></div>
-      <SearchResults
-          :search="searchQueryParam"
-          :results="resultsObj.results"
-      />
-    </div>
+    <div class="search-form"><input type="text" v-model="searchQueryParam" placeholder="Search..."></div>
+    <SearchResults
+        :search="searchQueryParam"
+        :results="resultsObj.results"
+    />
   </InfoPage>
 
 </template>
@@ -42,12 +41,20 @@ watch(searchQueryParam, (newQuery) => {
 <style scoped>
 
 .search-form {
-  padding: 2rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .search-form input {
   background-color: var(--color-background);
   color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: 0.25rem;
+  line-height: 1.5;
+  padding: 0.25rem 0.5rem;
+  box-shadow:
+      inset 0.05rem 0.05rem 0.1rem grey,
+      inset -0.05rem -0.05rem 0.1rem lightgrey;
 }
 
 ul:has(.search-entry) {

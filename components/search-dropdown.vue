@@ -144,6 +144,14 @@ function keyDown(event: KeyboardEvent) {
   anchor-name: --search-form-input;
   background-color: var(--color-background-soft);
   color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: 0.25rem;
+  line-height: 1.5;
+  padding: 0.25rem 0.5rem;
+
+  box-shadow:
+      inset 0.05rem 0.05rem 0.1rem grey,
+      inset -0.05rem -0.05rem 0.1rem lightgrey;
 }
 
 .search-panel .button-icon {
