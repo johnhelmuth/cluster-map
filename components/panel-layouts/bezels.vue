@@ -16,7 +16,10 @@
 <style scoped>
 
 .bezel {
-  --bezel-bottom-border: 5rem;
+  /*
+   * These numbers are just fudged until I got tired of trying combinations; they are good enough for now.
+   */
+  --bezel-bottom-border: max(4.5rem, 6cqw);
   --bezel-height: calc(100cqh - var(--bezel-bottom-border));
   border-radius: 0.5rem;
   display: grid;
