@@ -52,6 +52,7 @@ watch(localMapStyles, (newMapStyles) => {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: var(--layers-navigation);
 }
 .dynamic-modal-content {
   display: flex;
