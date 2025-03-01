@@ -17,10 +17,6 @@ const isSelected = computed(() => (props.system?.getSelected() || false));
 // TODO: Move these into a settings structure modifiable by the user.
 const attributesFormat="detailed";
 
-onMounted(() => {
-  console.log('SystemInfoCard.onMounted() props.system: ', props.system);
-})
-
 </script>
 
 <template>

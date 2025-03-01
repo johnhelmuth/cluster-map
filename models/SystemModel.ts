@@ -12,8 +12,9 @@ import type {
 import {SystemAttributesDefaults} from "@/types/SystemTypes"
 import type {PointType} from "@/types/GeometryTypes";
 import {
-  getPositionCircular
+  getPositionCircular, getPositionLinear
 } from "~/utils/cluster-generator";
+import { rotatePosition } from "~/utils/utils";
 import {SCHEMA_VERSION} from "@/constants";
 
 export default class SystemModel implements SystemModelInterface {
@@ -87,13 +88,15 @@ export default class SystemModel implements SystemModelInterface {
     return this.cluster.getSystemIndex(this.id);
   }
 
-  getPosition(mapStyle: MapViewStylesType | undefined) : PointType {
+  getPosition(mapStyle: MapViewStylesType | undefined, rotate: boolean) : PointType {
     switch (mapStyle) {
       case 'circular':
-        return getPositionCircular(this.index, this.cluster.numSystems);
+        return getPositionCircular(this.index, this.cluster.numSystems, rotate);
+      case 'linear':
+        return getPositionLinear(this.index, this.cluster.numSystems, rotate);
       case 'data':
       default:
-        return this.position;
+        return rotate ? rotatePosition(this.position) : this.position;
     }
   }
 
@@ -134,7 +137,7 @@ export default class SystemModel implements SystemModelInterface {
     if (straits?.length) {
       const connectedSystems = straits
         .map(strait => strait.getOtherSystem(this))
-        .filter(sys => !! sys);
+        .filter(sys => !! sys) as Array<SystemModelInterface>;
       if (!! connectedSystems && connectedSystems instanceof Array) {
         return connectedSystems;
       }

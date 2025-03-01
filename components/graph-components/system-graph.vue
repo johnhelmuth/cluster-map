@@ -3,6 +3,7 @@
 import type {SystemModelInterface} from "@/types/SystemTypes";
 import type {RoutePlanRefType} from "@/types/RoutePlannerTypes";
 import {type MapViewStylesType} from "@/types/BasicTypes";
+import {rotatePosition} from "~/utils/utils";
 
 const props = defineProps<{
   system: SystemModelInterface,
@@ -11,20 +12,20 @@ const props = defineProps<{
   shouldRotate: boolean,
 }>();
 
-defineEmits< {
+defineEmits<{
   selected: [system: SystemModelInterface | undefined]
-} >();
+}>();
 
-const textHeight = 12;
+const showInfoInside = computed(() => {
+  return props.mapStyle !== 'linear';
+})
 const ringGap = 5;
 const bgDiscGap = 3;
 
 const sysPos = computed(() => {
-  const position = props.system.getPosition(props.mapStyle);
-  return props.shouldRotate ? rotatePosition(position) : position;
+  return props.system.getPosition(props.mapStyle, props.shouldRotate);
 });
 
-const attributes = computed(() => attributesFormatted(props.system.attributes, "short"));
 const isSelected = computed(() => props.system.getSelected());
 
 const radius = computed(() => {
@@ -34,10 +35,22 @@ const radius = computed(() => {
   return 80;
 });
 
-const rings = computed( () => props.system.attributes.technology > 1 ? props.system.attributes.technology : 1);
+const maxStraitRadius = computed(() => {
+  if (props?.mapStyle && props?.system) {
+    const direction = props?.shouldRotate ? 'right' : 'left';
+    return Math.max(props.system.cluster.maxStraitRadius(props.mapStyle, radius.value, direction) * 0.40, radius.value);
+  }
+  return 80;
+});
+
+watch(radius, () => {
+  console.log('radius: ', radius.value)
+})
+
+const rings = computed(() => props.system.attributes.technology > 1 ? props.system.attributes.technology : 1);
 
 const bgDiscRadius = computed(() => {
-  return radius.value + (ringGap * (rings.value-1)) + bgDiscGap;
+  return radius.value + (ringGap * (rings.value - 1)) + bgDiscGap;
 });
 
 const environmentColor = computed(() => getEnvironmentColor(props.system.attributes.environment));
@@ -45,26 +58,23 @@ const environmentColor = computed(() => getEnvironmentColor(props.system.attribu
 </script>
 
 <template>
-  <g id="system.id" :class="{ selected: isSelected}" @click="$emit('selected', system)" >
+  <g :id="'system-' + system.id" :class="{ selected: isSelected}" @click="$emit('selected', system)">
     <circle class="bgDisc" :cx="sysPos.x" :cy="sysPos.y" :r="bgDiscRadius"></circle>
     <circle v-if="rings > 3" class="ring fourthRing" :cx="sysPos.x" :cy="sysPos.y" :r="radius + (ringGap * 3)"></circle>
     <circle v-if="rings > 2" class="ring thirdRing" :cx="sysPos.x" :cy="sysPos.y" :r="radius + (ringGap * 2)"></circle>
     <circle v-if="rings > 1" class="ring secondRing" :cx="sysPos.x" :cy="sysPos.y" :r="radius + (ringGap)"></circle>
     <circle class="ring firstRing" :cx="sysPos.x" :cy="sysPos.y" :r="radius"></circle>
-    <text class="system-name"
-          :x="sysPos.x"
-          :y="sysPos.y - textHeight"
-          :textLength="radius*2-(ringGap*4)"
-          lengthAdjust="spacingAndGlyphs"
-    >
-      {{ system.name }}
-    </text>
-    <text class="system-attributes"
-          :x="sysPos.x"
-          :y="sysPos.y + textHeight"
-    >
-      {{ attributes }}
-    </text>
+    <SystemInfoGraph v-if="showInfoInside" :system="system" :x="sysPos.x" :y="sysPos.y"
+                     :textLength="radius*2-(ringGap*4)"/>
+    <SystemInfoPlateGraph
+        v-else
+        :should-rotate="shouldRotate"
+        :system="system" :x="sysPos.x"
+        :y="sysPos.y"
+        :radius="radius"
+        :maxStraitRadius="maxStraitRadius"
+        :textLength="radius*2-(ringGap*4)"
+    />
   </g>
 </template>
 
@@ -81,24 +91,14 @@ circle.ring {
   stroke: var(--color-highlight);
   stroke-width: 0.2rem;
 }
+
 .selected circle.ring {
   stroke: var(--color-action-background);
   stroke-width: 0.3rem;
 }
+
 circle.bgDisc {
   stroke: none;
   fill: var(--color-background)
-}
-text {
-  font-size: 1.1rem;
-  text-anchor: middle;
-  dominant-baseline: middle;
-}
-.selected text.system-name {
-  font-size: 1.1rem;
-  font-weight: bold;
-}
-text.system-attributes {
-  font-size: 0.75rem;
 }
 </style>

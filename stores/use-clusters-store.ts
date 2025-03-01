@@ -4,13 +4,15 @@
 import {ClustersModel} from "~/models/ClustersModel";
 import clusterJsonDLC from "~/data/clusters/cluster-DLC.json";
 import clusterJson1652 from "~/data/clusters/cluster-1652.json";
+import clusterJson2Systems from "~/data/clusters/cluster-3.json";
 import type {ClustersModelInterface} from "~/types/ClusterTypes";
 
 const defaultClustersData = {
     currentClusterId: clusterJsonDLC.id,
     clusters: [
         clusterJsonDLC,
-        clusterJson1652
+        clusterJson1652,
+        clusterJson2Systems
     ]
 };
 

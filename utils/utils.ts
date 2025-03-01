@@ -37,11 +37,13 @@ export function oppositeOrientation(orientation: ClusterOrientationType) : Clust
 }
 
 export function rotatePosition(position : PointType) : PointType {
-  const {center} = getMapDimensions();
+  const {center, centerPortrait} = getMapDimensions();
   const rotationAngle = Math.PI / 2
+  const translateDiff = { x: center.x - centerPortrait.x, y: center.y - centerPortrait.y };
   const transPos = { x: center.x - position.x, y: center.y - position.y };
-  const x = transPos.x * Math.cos(rotationAngle) - transPos.y * Math.sin(rotationAngle) + center.x;
-  const y = transPos.y * Math.cos(rotationAngle) + transPos.x * Math.sin(rotationAngle) + center.y;
+  const x = transPos.x * Math.cos(rotationAngle) - transPos.y * Math.sin(rotationAngle) + center.x - translateDiff.x;
+  const y = transPos.y * Math.cos(rotationAngle) + transPos.x * Math.sin(rotationAngle) + center.y - translateDiff.y;
+
   return { x, y };
 }
 

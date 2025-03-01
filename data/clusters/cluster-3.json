@@ -1,0 +1,82 @@
+{
+  "type": "cluster",
+  "schemaVersion": "1",
+  "id": "2-system-cluster",
+  "name": "A Cluster with 3 Systems",
+  "systems": [
+    {
+      "type": "system",
+      "schemaVersion": "1",
+      "id": "A739",
+      "name": "System 3",
+      "attributes": {
+        "technology": -1,
+        "environment": 0,
+        "resources": 3
+      },
+      "aspects": [],
+      "position": {
+        "x": 795,
+        "y": 374.99999999999994
+      }
+    },
+    {
+      "type": "system",
+      "schemaVersion": "1",
+      "id": "B749",
+      "name": "System 17",
+      "attributes": {
+        "technology": 2,
+        "environment": 0,
+        "resources": 1
+      },
+      "aspects": [],
+      "position": {
+        "x": 499.99999999999994,
+        "y": 80
+      }
+    },
+    {
+      "type": "system",
+      "schemaVersion": "1",
+      "id": "C566",
+      "name": "System 27",
+      "attributes": {
+        "technology": 1,
+        "environment": -1,
+        "resources": 2
+      },
+      "aspects": [],
+      "position": {
+        "x": 205,
+        "y": 375.00000000000006
+      }
+    }
+  ],
+  "straits": [
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "A739",
+        "B749"
+      ]
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "A739",
+        "B749"
+      ]
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "A739",
+        "C566"
+      ]
+    }
+  ]
+}

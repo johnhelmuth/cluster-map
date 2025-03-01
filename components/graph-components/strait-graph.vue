@@ -2,8 +2,8 @@
 
 import type {StraitModelInterface} from "@/types/StraitTypes";
 import type {RoutePlanRefType} from "@/types/RoutePlannerTypes";
-import {useMapStyles} from "~/stores/use-map-styles";
 import type {MapViewStylesType} from "~/types/BasicTypes";
+import {systemRadiusByStyleAndNumberOfSystems} from '~/utils/cluster-generator'
 
 const props = defineProps<{
   strait: StraitModelInterface,
@@ -16,12 +16,10 @@ const props = defineProps<{
 }>();
 
 const sysAPos = computed(() => {
-  const position = props.strait.systemA.getPosition(props.mapStyle);
-  return props.shouldRotate ? rotatePosition(position) : position;
+  return props.strait.systemA.getPosition(props.mapStyle, props.shouldRotate);
 })
 const sysBPos = computed(() => {
-  const position = props.strait.systemB.getPosition(props.mapStyle);
-  return props.shouldRotate ? rotatePosition(position) : position;
+  return props.strait.systemB.getPosition(props.mapStyle, props.shouldRotate);
 })
 
 const isInRoutePlan = computed(() => {
@@ -39,63 +37,65 @@ const isInRoutePlan = computed(() => {
   return false;
 });
 
+
+const numSystems = computed(() => props.strait.systemA.cluster.numSystems);
+
+const radius = computed(() => systemRadiusByStyleAndNumberOfSystems(props.mapStyle, numSystems.value));
+
+const straitParams = computed(() => props.strait.straitParameters(props.index, props.mapStyle, props.shouldRotate, radius.value, props.straightStraits));
+
 const path = computed(() => {
 
-  const numSystems = props.strait.systemA.cluster.numSystems;
-
-  const { width, height, borderX, borderY } = getMapDimensions();
-
-  const radius = systemRadiusByStyleAndNumberOfSystems(props.mapStyle, numSystems);
-
-  const straitParams = props.strait.straitParameters(props.index, props.mapStyle);
-  const {straitLength} = straitParams;
-  const pathType = (props.straightStraits ? 'straight' : 'arc') as 'straight' | 'arc' | 'curved' ;
-  const curveRadius = Math.min(width, height) / 2 - Math.min(borderX, borderY);
+  const {straitLength, quadControlPoint, cubicControlPoint1, cubicControlPoint2, pathType, curveRadius } = straitParams.value;
 
   let straitPath = `M ${sysAPos.value.x} ${sysAPos.value.y} `;
 
-  if (pathType === 'straight' || straitLength < radius) {
+  console.log('computed path: pathType: ', pathType);
+  if (pathType === 'straight' || straitLength < radius.value) {
     straitPath += `L ${sysBPos.value.x} ${sysBPos.value.y}`;
 
   } else if (pathType === 'curved') {
-
-    const { controlPoint } = straitParams;
-
-    straitPath += `Q ${controlPoint.x} ${controlPoint.y}, ${sysBPos.value.x} ${sysBPos.value.y}`;
+    const useQuadratic = false;
+    if (useQuadratic) {
+      straitPath += `Q ${quadControlPoint.x} ${quadControlPoint.y}, ${sysBPos.value.x} ${sysBPos.value.y}`;
+    } else {
+      straitPath += `C ${cubicControlPoint1.x} ${cubicControlPoint1.y}, ${cubicControlPoint2.x} ${cubicControlPoint2.y}, ${sysBPos.value.x} ${sysBPos.value.y}`;
+    }
   } else if (pathType === 'arc') {
-
     const xAxisRotation = 0;
     const largeArcFlag = 0;
-    const sweepFlag = (props.index % 2 === 0) ? 0 : 1;
+    const sweepFlag = 0; // (props.index % 2 === 0) ? 0 : 1;
 
+    console.log('computed path: curveRadius: ', curveRadius);
     straitPath += `A ${curveRadius} ${curveRadius} ${xAxisRotation} ${largeArcFlag} ${sweepFlag} ${sysBPos.value.x} ${sysBPos.value.y}`;
   }
   return straitPath;
 });
 
 const midPoint = computed(() => {
-  return props.strait.straitParameters(props.index, props.mapStyle).straitMidPoint;
+  return straitParams.value.straitMidPoint;
 });
-
-const controlPoint = computed(() => {
-  return props.strait.straitParameters(props.index, props.mapStyle).controlPoint;
-})
 
 </script>
 
 <template>
 
   <g class="strait" :class="{'in-route-plan' : isInRoutePlan }" :id="strait.id" :data-index="index">
-    <line v-if="debug" :x1="sysAPos.x" :y1="sysAPos.y" :x2="sysBPos.x" :y2="sysBPos.y" fill="none" stroke="purple" stroke-width="5px"></line>
-    <line v-if="debug" :x1="midPoint.x" :y1="midPoint.y" :x2="controlPoint.x" :y2="controlPoint.y" fill="none" stroke="yellow" stroke-width="5px"></line>
     <path class="main" :d="path" fill="none"/>
     <path class="selected" :d="path" fill="none"/>
-    <circle v-if="debug" :cx="midPoint.x" :cy="midPoint.y" r="5" fill="pink"/>
-    <circle v-if="debug" :cx="controlPoint.x" :cy="controlPoint.y" r="5" fill="red"/>
-    <text v-if="debug" :x="midPoint.x" :y="midPoint.y" stroke="white">{{index}}</text>
-    <text v-if="debug" :x="midPoint.x+20" :y="midPoint.y+20" stroke="white">{{(index % 2 === 0 ? 1 : -1)}}</text>
+    <template v-if="debug">
+      <circle :cx="midPoint.x" :cy="midPoint.y" r="5" fill="pink"/>
+      <circle :cx="straitParams.quadControlPoint.x" :cy="straitParams.quadControlPoint.y" r="5" fill="red"/>
+      <circle :cx="straitParams.cubicControlPoint1.x" :cy="straitParams.cubicControlPoint1.y" r="5" fill="red"/>
+      <circle :cx="straitParams.cubicControlPoint2.x" :cy="straitParams.cubicControlPoint2.y" r="5" fill="red"/>
+      <line :x1="sysAPos.x" :y1="sysAPos.y" :x2="sysBPos.x" :y2="sysBPos.y" fill="none" stroke="purple" stroke-width="5px" stroke-opacity="0.5"></line>
+      <line :x1="midPoint.x" :y1="midPoint.y" :x2="straitParams.quadControlPoint.x" :y2="straitParams.quadControlPoint.y" fill="none" stroke="yellow" stroke-width="5px" stroke-opacity="0.5"></line>
+      <line :x1="sysAPos.x" :y1="sysAPos.y" :x2="straitParams.cubicControlPoint1.x" :y2="straitParams.cubicControlPoint1.y" fill="none" stroke="orange" stroke-width="5px" stroke-opacity="0.5"></line>
+      <line :x1="sysBPos.x" :y1="sysBPos.y" :x2="straitParams.cubicControlPoint2.x" :y2="straitParams.cubicControlPoint2.y" fill="none" stroke="orange" stroke-width="5px" stroke-opacity="0.5"></line>
+      <text :x="midPoint.x" :y="midPoint.y" stroke="white">{{index}}</text>
+      <text :x="midPoint.x+20" :y="midPoint.y+20" stroke="white">{{(strait.getDrawDirection(mapStyle))}}</text>
+    </template>
   </g>
-
 </template>
 
 <style scoped>

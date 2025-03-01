@@ -2,7 +2,12 @@
 import type { ClusterIdType, ClusterModelInterface } from "@/types/ClusterTypes";
 import type {SystemAttributesInterface, SystemIdType, SystemModelInterface} from "@/types/SystemTypes";
 import {ClusterModel} from "@/models/ClusterModel";
-import {type attributeValueType, MAP_VIEW_STYLES_DEFAULT, type MapViewStylesType} from "@/types/BasicTypes";
+import {
+  type attributeValueType,
+  type ClusterOrientationType,
+  MAP_VIEW_STYLES_DEFAULT,
+  type MapViewStylesType
+} from "@/types/BasicTypes";
 import SystemModel from "@/models/SystemModel";
 import type {PointType} from "@/types/GeometryTypes.js";
 
@@ -72,8 +77,9 @@ const systemSizeMap = {
     { threshold: Number.MAX_SAFE_INTEGER, radius: 20},
   ],
   linear: [
-    { threshold: 6, radius: 80 },
-    { threshold: 10, radius: 25 },
+    { threshold: 3, radius: 80 },
+    { threshold: 6, radius: 50 },
+    { threshold: 11, radius: 30 },
     { threshold: 15, radius: 20 },
     { threshold: Number.MAX_SAFE_INTEGER, radius: 10},
   ],
@@ -100,38 +106,74 @@ export function getMapDimensions() {
     x: width / 2,
     y: height / 2,
   }
-  return { width, height, baseRadius, borderX, borderY, center };
+  // noinspection JSSuspiciousNameCombination
+  const centerPortrait = {
+    x: center.y,
+    y: center.x,
+  };
+  return { width, height, baseRadius, borderX, borderY, center, centerPortrait };
 }
 
-export function getPositionCircular(index: number, numPoints: number) : PointType {
-  const {width, height, borderX, borderY, center} = getMapDimensions();
+export function circularGraphSystemsRadius(): number {
+  const {width, height, borderX, borderY} = getMapDimensions();
+  return calcCircularGraphSystemsRadius(width, height, borderX, borderY);
+}
 
-  const systemsRadius = Math.min(width, height)/2 - Math.min(borderX, borderY);
+function calcCircularGraphSystemsRadius(width: number, height: number, borderX: number, borderY: number): number {
+  return Math.min(width, height)/2 - Math.min(borderX, borderY)
+}
+
+export function getPositionCircular(index: number, numPoints: number, rotate = false) : PointType {
+  const {width, height, borderX, borderY, center, centerPortrait} = getMapDimensions();
+
+  const systemsRadius = calcCircularGraphSystemsRadius(width, height, borderX, borderY);
 
   const angle = (numPoints - index) * (Math.PI*2)/numPoints
 
-  const x = cos(angle) * systemsRadius + center.x;
-  const y = sin(angle) * systemsRadius + center.y;
+  const translateDiff = ! rotate ? { x: 0, y: 0 } : { x: center.x - centerPortrait.x, y: center.y - centerPortrait.y };
+
+  const x = cos(angle) * systemsRadius + center.x - translateDiff.x;
+  const y = sin(angle) * systemsRadius + center.y - translateDiff.y;
 
   return {x, y}
 }
 
-// TODO: get this to work reasonably. Punch it into SystemModel.position() getter to work on it.
-// export function getPositionLinear(index: number, numPoints: number) : PointType {
-//
-//   const {width, height, borderX, borderY, center} = getMapDimensions();
-//
-//   const radius = systemRadiusByStyleAndNumberOfSystems('linear', numPoints);
-//
-//   const perSystem = (width - borderX) / numPoints;
-//
-//   const x = borderX/2 + index * (max(perSystem, radius));
-//   const y = center.y;
-//
-//   return {x, y}
-// }
+/**
+ * Get the position of a system on a linear style map.
+ *
+ * @param index {number} - The index of the system to be mapped, 0 to numPoints - 1.
+ * @param numPoints {number} - The total number of systems to be mapped.
+ */
+export function getPositionLinear(index: number, numPoints: number, rotate = false) : PointType {
 
-function getPosition(index: number, numSystems: number): PointType {
+  const {width, height, borderX, borderY, center} = getMapDimensions();
+
+  let x, y;
+  const perSystem = (width / numPoints);
+
+  if (! rotate) {
+
+    x = (perSystem / 2 + index * perSystem);
+    y = center.y;
+
+  } else {
+
+    // noinspection JSSuspiciousNameCombination
+    x = center.y;
+    y = (perSystem / 2 + index * perSystem);
+  }
+
+  return {x, y}
+}
+
+/**
+ * Get a default position for a new system in a new cluster.
+ *
+ * @param index {number} - The index of the system to be mapped, 0 to numPoints - 1.
+ * @param numPoints {number} - The total number of systems to be mapped.
+ * @param orientation {ClusterOrientationType} - which way the map is oriented.
+ */
+function getPosition(index: number, numSystems: number, orientation = 'square' as ClusterOrientationType): PointType {
   return getPositionCircular(index, numSystems);
 }
 

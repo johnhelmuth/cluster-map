@@ -8,7 +8,7 @@
  */
 import type {BoundingBoxType, ClusterOrientationType, IdType, MapViewStylesType} from "@/types/BasicTypes";
 import type { SystemIdType, SystemModelInterface} from "@/types/SystemTypes";
-import type {StraitModelInterface} from "@/types/StraitTypes";
+import type {DrawDirectionType, StraitModelInterface} from "@/types/StraitTypes";
 import type {SystemModelDataType} from "@/types/SystemTypes";
 import type {StraitModelDataType} from "@/types/StraitTypes";
 
@@ -48,6 +48,9 @@ export interface ClusterModelInterface {
    * @returns Map<SystemIdType, Array<StraitModelInterface>>
    */
   getStraitsInSystemOrder() : Map<SystemIdType, Array<StraitModelInterface>>;
+
+
+  maxStraitRadius(mapStyle: MapViewStylesType, radius: number, direction: DrawDirectionType) : number;
 
   importSystems(data: ClusterModelDataType) : void;
   importStraits(data: ClusterModelDataType) : void;

@@ -23,8 +23,18 @@ const showMapView = ref(false);
 
 const isDebug = computed(() => mapStylesStore.debug);
 
+const clusterOrientation = computed(() => {
+  switch (mapStylesStore.mapStyle) {
+    case 'linear':
+    case 'circular':
+      return 'landscape';
+    case 'data':
+      return props?.cluster?.orientation || 'landscape';
+  }
+});
+
 const otherOrientation = computed(() => {
-  return oppositeOrientation(props?.cluster?.orientation || 'portrait');
+  return oppositeOrientation(clusterOrientation.value);
 });
 
 function selectSystem(system: SystemModelInterface | undefined) {
@@ -63,7 +73,7 @@ function mapViewClosed() {
     . -->
     <SVGClusterGraph
         v-if="cluster"
-        :class="[cluster?.orientation, mapStylesStore.mapStyle]"
+        :class="[clusterOrientation, mapStylesStore.mapStyle]"
         :cluster="cluster"
         :plan="plan"
         @system-selected="selectSystem"
@@ -72,7 +82,7 @@ function mapViewClosed() {
         :straight-straits="mapStylesStore.straightStraits"
     />
     <SVGClusterGraph
-        v-if="cluster && cluster.orientation !== 'square'"
+        v-if="cluster"
         :class="[otherOrientation, mapStylesStore.mapStyle]"
         :cluster="cluster"
         :plan="plan"
