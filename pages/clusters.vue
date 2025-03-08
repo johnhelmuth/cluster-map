@@ -28,27 +28,39 @@ function selectCluster(event: Event) {
 
 <template>
   <InfoPage page_title="Clusters">
-
-    <div class="clusters-view">
-      <div class="note">Click on a cluster in the list to select.</div>
-      <div class="note">TODO: Implement something better looking here.</div>
-      <div class="add-action"><button class="action" @click="addCluster">Add new Cluster</button></div>
-      <ul class="clusters-list">
-        <li class="clusters-list-item"
-            :class="aCluster === clustersStore.clusters.cluster ? 'selected-cluster' : ''"
-            v-for="aCluster in clustersStore.clusters.clusters"
-            :key="aCluster.id"
-            :id="aCluster.id"
-            @click="selectCluster"
-        >
-          {{ aCluster.id }} - {{ aCluster.name }}
-        </li>
-      </ul>
+    <div class="clusters-page">
+      <div class="clusters-view">
+        <div class="note">Click on a cluster in the list to select.</div>
+        <div class="note">TODO: Implement something better looking here.</div>
+        <div class="add-action"><button class="action" @click="addCluster">Add new Cluster</button></div>
+        <ul class="clusters-list">
+          <li class="clusters-list-item"
+              :class="aCluster === clustersStore.clusters.cluster ? 'selected-cluster' : ''"
+              v-for="aCluster in clustersStore.clusters.clusters"
+              :key="aCluster.id"
+              :id="aCluster.id"
+              @click="selectCluster"
+          >
+            {{ aCluster.id }} - {{ aCluster.name }}
+          </li>
+        </ul>
+      </div>
+      <div class="clusters-settings-panel">
+        <ClustersSettingsPanel />
+      </div>
     </div>
   </InfoPage>
 </template>
 
 <style scoped>
+
+.clusters-page {
+  display: grid;
+  grid-template-columns: 1fr 25rem;
+  container: clusters-page / size;
+}
+
+
 li.selected-cluster {
   font-weight: bold;
 }
