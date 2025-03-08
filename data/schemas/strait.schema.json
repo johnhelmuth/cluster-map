@@ -22,6 +22,11 @@
       },
       "minItems": 2,
       "maxItems": 2
+    },
+    "direction": {
+      "description": "Which direction to curve the strait when drawn, 'clockwise', 'center', or 'counterclockwise'",
+      "type": "string",
+      "enum": ["clockwise", "center", "counterclockwise"]
     }
   },
   "required": [ "type", "schemaVersion", "systems" ]

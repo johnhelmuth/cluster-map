@@ -5,10 +5,6 @@ import {ModalsContainer} from 'vue-final-modal'
 const router = useRouter();
 const route = useRoute();
 
-onMounted(() => {
-  console.log('app mounted. router.options: ', router.options)
-})
-
 </script>
 
 <template>

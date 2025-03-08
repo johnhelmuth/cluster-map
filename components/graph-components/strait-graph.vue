@@ -50,7 +50,6 @@ const path = computed(() => {
 
   let straitPath = `M ${sysAPos.value.x} ${sysAPos.value.y} `;
 
-  console.log('computed path: pathType: ', pathType);
   if (pathType === 'straight' || straitLength < radius.value) {
     straitPath += `L ${sysBPos.value.x} ${sysBPos.value.y}`;
 
@@ -66,7 +65,6 @@ const path = computed(() => {
     const largeArcFlag = 0;
     const sweepFlag = 0; // (props.index % 2 === 0) ? 0 : 1;
 
-    console.log('computed path: curveRadius: ', curveRadius);
     straitPath += `A ${curveRadius} ${curveRadius} ${xAxisRotation} ${largeArcFlag} ${sweepFlag} ${sysBPos.value.x} ${sysBPos.value.y}`;
   }
   return straitPath;

@@ -36,7 +36,7 @@ export interface ClusterModelInterface {
 
   addSystem(system: SystemModelInterface): void;
 
-  connectSystems(systemA: SystemModelInterface, systemB: SystemModelInterface) : void;
+  connectSystems(systemA: SystemModelInterface, systemB: SystemModelInterface) : StraitModelInterface|undefined;
 
   areConnected(systemA: SystemModelInterface, systemB: SystemModelInterface) : boolean
 

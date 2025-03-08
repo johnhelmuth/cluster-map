@@ -1,11 +1,11 @@
 <script setup lang="ts">
 
 import {useClustersStore} from "~/stores/use-clusters-store";
+import {createCluster} from "~/utils/cluster-generator";
 
 const clustersStore = useClustersStore();
 
 function addCluster(event: Event) {
-  console.log('addCluster()');
   const newCluster = createCluster('', '', getRandomIntInclusive(4, 9));
   const notUnique = !! clustersStore.clusters.getClusterById(newCluster.id);
   if (! notUnique) {
@@ -56,10 +56,9 @@ function selectCluster(event: Event) {
 
 .clusters-page {
   display: grid;
-  grid-template-columns: 1fr 25rem;
+  grid-template-columns: 3fr 1fr;
   container: clusters-page / size;
 }
-
 
 li.selected-cluster {
   font-weight: bold;

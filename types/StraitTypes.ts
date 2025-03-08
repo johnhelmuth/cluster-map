@@ -2,7 +2,7 @@ import type {SystemIdType, SystemModelInterface} from "@/types/SystemTypes";
 import type {PointType} from "@/types/GeometryTypes";
 import type {MapViewStylesType} from "@/types/BasicTypes";
 
-export type DrawDirectionType = 'left' | 'center' | 'right';
+export type DrawDirectionType = 'clockwise' | 'center' | 'counterclockwise';
 
 /**
  * Strait model types
@@ -47,5 +47,6 @@ export interface StraitModelInterface {
 }
 
 export type StraitModelDataType = {
-  systems: Array<SystemIdType>
+  systems: Array<SystemIdType>,
+  direction?: DrawDirectionType,
 };

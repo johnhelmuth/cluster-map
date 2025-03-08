@@ -151,13 +151,13 @@ watch(importFile, async () => {
 
 <template>
   <div class="clusters-settings-panel">
-    <section class="import-export">
-      <h3>Import / Export
-        <Icon class="button-icon accordion-button" @click="expandPanel"
+    <section class="import-export accordion-control">
+      <h3 @click="expandPanel">Import / Export
+        <Icon class="button-icon accordion-button"
               :name="expandCollapseIcon"/>
       </h3>
-      <div class="accordion-panel" :class="{ open: ! importPanelClosed}">
-        <p>Import or export data for all clusters from or to JSON</p>
+      <div class="accordion-panel note" :class="{ open: ! importPanelClosed}">
+        <p>Import/export data for all clusters from or to JSON</p>
         <div class="control-group control-group-grid data-import-export">
           <div>
             <button type="button" class="import-data" :class="fileSelected ? 'file-selected' : ''"
@@ -173,7 +173,7 @@ watch(importFile, async () => {
         </div>
         <div class="control-group">
           <div class="import-actions">
-            <h3>Import file</h3>
+            <h4>Import file</h4>
             <div v-if="importFile && importedData && ! importError" class="import-file-apply">
               <ul class="note">
                 <li>{{ importFile.name }}</li>
@@ -220,9 +220,11 @@ watch(importFile, async () => {
   width: 100%;
 }
 
-h3 {
+section.accordion-control h3 {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0;
 }
 
 .accordion-panel {
@@ -252,6 +254,10 @@ h3 {
 
 button .action {
   font-weight: bold;
+}
+
+.note {
+  font-size: 0.75rem;
 }
 
 .error {

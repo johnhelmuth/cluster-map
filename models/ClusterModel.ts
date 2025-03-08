@@ -26,7 +26,6 @@ export class ClusterModel implements ClusterModelInterface {
                 this.id = data.id || '';
             }
             this.name = data.name;
-            console.log('ClusterModel.constructor() this: ', this);
         } else {
             this.id = '';
             this.name = 'Unknown cluster name';
@@ -37,11 +36,12 @@ export class ClusterModel implements ClusterModelInterface {
         this.systemsMap.set(system.id, system);
     }
 
-    connectSystems(systemA: SystemModelInterface, systemB: SystemModelInterface): void {
+    connectSystems(systemA: SystemModelInterface, systemB: SystemModelInterface): StraitModelInterface|undefined {
         if (!this.areConnected(systemA, systemB)) {
             const strait = new StraitModel(systemA, systemB);
             this.straits.push(strait);
             this.calculateStraitsCurveDirections();
+            return strait;
         }
     }
 
@@ -96,10 +96,13 @@ export class ClusterModel implements ClusterModelInterface {
      *
      *     A curve moving towards b counterclockwise would move to the right of a straight line between a and b.
      *     A curve moving towards b clockwise would move to the left of a straight line between a and b.
+     *
+     *   Use strait lines ('center') unless it is recorded in the data for the cluster.
      */
     calculateStraitsCurveDirectionsData() {
         for (const strait of this.straits) {
-            strait.setDrawDirection('center', 'data');
+            let direction = strait.getDrawDirection('data') || 'center';
+            strait.setDrawDirection(direction, 'data');
         }
     }
 
@@ -110,6 +113,10 @@ export class ClusterModel implements ClusterModelInterface {
      *
      *     A curve moving towards b counterclockwise would move to the right of a straight line between a and b.
      *     A curve moving towards b clockwise would move to the left of a straight line between a and b.
+     *
+     *   The curve between system A to system B in the left half of the circle from system A, should
+     *   curve to the left, that is clockwise.  If system B is in the right half of the circle from system A,
+     *   the line should curve to the right, which is counterclockwise.
      */
     calculateStraitsCurveDirectionsCircular() {
         for (const [systemId, straits] of this.getStraitsInSystemOrder()) {
@@ -122,9 +129,9 @@ export class ClusterModel implements ClusterModelInterface {
                     const origSystemIndex = this.getSystemIndex(strait.systemA.id);
                     const destSystemRelIndex = this.getSystemIndex(strait.systemB.id) - origSystemIndex;
                     if (destSystemRelIndex <= midSystemIndex && straitIndex !== 0) {
-                        direction = 'left'
+                        direction = 'clockwise'
                     } else {
-                        direction = 'right'
+                        direction = 'counterclockwise'
                     }
                     strait.setDrawDirection(direction, 'circular');
                     straitIndex++;
@@ -140,69 +147,68 @@ export class ClusterModel implements ClusterModelInterface {
      *
      *     A curve moving towards b counterclockwise would move to the right of a straight line between a and b.
      *     A curve moving towards b clockwise would move to the left of a straight line between a and b.
+     *
+     *   Pick which direction a line between 2 systems should curve based on how many lines already exit
+     *   on that side of the line from previous system's connections.  Clockwise lines will be to the left
+     *   of a straight line, and counterclockwise will be to the right, assuming you are facing from the earlier
+     *   systems to the later systems. The first connection between a system and the next system is always in the
+     *   middle (or center.)
      */
     calculateStraitsCurveDirectionsLinear() {
-        const ssIndexMap = [] as
-            Array<
-                {
-                    drawnToLeft: number,
-                    drawnToRight: number,
-                }
-            >;
-        const emptyDrawCounts = {
-            drawnToLeft: 0, drawnToRight: 0,
+        type DirectionCounts = {
+            drawnClockwise: number,
+            drawnCounterclockwise: number,
+        };
+        const ssIndexMap = [] as Array<DirectionCounts>;
+        const emptyDrawCounts: DirectionCounts = {
+            drawnClockwise: 0, drawnCounterclockwise: 0,
         };
         for (let systemIdx = 0; systemIdx < this.numSystems; systemIdx++) {
-            ssIndexMap.push({ ...emptyDrawCounts });
+            ssIndexMap.push({...emptyDrawCounts});
         }
         const mapStyle = 'linear' as MapViewStylesType;
-        console.log('ClusterModel.calculateStraitsCurveDirectionsLinear() ssIndexMap: ', ssIndexMap);
 
-        let lastDrawnToLeft = false;
+        let lastDrawClockwise = false;
         for (const [systemId, straits] of this.getStraitsInSystemOrder()) {
             const systemAIndex = this.getSystemIndex(systemId);
             let drawnToLeft = 0;
             let drawnToRight = 0;
             for (let currSysIdx = systemAIndex; currSysIdx < ssIndexMap.length; currSysIdx++) {
-                drawnToLeft += ssIndexMap[currSysIdx].drawnToLeft;
-                drawnToRight += ssIndexMap[currSysIdx].drawnToRight;
+                drawnToLeft += ssIndexMap[currSysIdx].drawnClockwise;
+                drawnToRight += ssIndexMap[currSysIdx].drawnCounterclockwise;
             }
-            console.log('ClusterModel.calculateStraitsCurveDirectionsLinear() drawnToLeft: ', drawnToLeft);
-            console.log('ClusterModel.calculateStraitsCurveDirectionsLinear() drawnToRight: ', drawnToRight);
             if (straits.length) {
                 straits[0].setDrawDirection('center', mapStyle);
                 if (straits.length > 1) {
                     if (drawnToLeft < drawnToRight) {
-                        lastDrawnToLeft = true;
+                        lastDrawClockwise = true;
                     } else if (drawnToLeft > drawnToRight) {
-                        lastDrawnToLeft = false;
+                        lastDrawClockwise = false;
                     } else {
-                        lastDrawnToLeft = ! lastDrawnToLeft;
+                        lastDrawClockwise = !lastDrawClockwise;
                     }
-                    straits[1].setDrawDirection(lastDrawnToLeft ? 'left' : 'right', mapStyle);
+                    straits[1].setDrawDirection(lastDrawClockwise ? 'clockwise' : 'counterclockwise', mapStyle);
                     if (straits.length > 2) {
-                        straits[2].setDrawDirection(lastDrawnToLeft ? 'left' : 'right', mapStyle);
+                        straits[2].setDrawDirection(lastDrawClockwise ? 'clockwise' : 'counterclockwise', mapStyle);
                     }
                 }
 
                 for (const strait of straits) {
-                    console.log('ClusterModel.calculateStraitsCurveDirectionsLinear() lastDrawnToLeft: ', lastDrawnToLeft);
                     const systemBIndex = this.getSystemIndex(strait.systemB.id);
                     for (let currSysIdx = systemAIndex; currSysIdx <= systemBIndex; currSysIdx++) {
-                        if (strait.getDrawDirection(mapStyle) === 'right') {
-                            ssIndexMap[currSysIdx].drawnToRight ++;
-                        } else if (strait.getDrawDirection(mapStyle) === 'left') {
-                            ssIndexMap[currSysIdx].drawnToLeft ++;
+                        const direction = strait.getDrawDirection(mapStyle);
+                        if (direction === 'counterclockwise') {
+                            ssIndexMap[currSysIdx].drawnCounterclockwise++;
+                        } else if (direction === 'clockwise') {
+                            ssIndexMap[currSysIdx].drawnClockwise++;
                         }
                     }
                 }
             }
         }
-        console.log('ClusterModel.calculateStraitsCurveDirectionsLinear() this.getStraitsInSystemOrder(): ', this.getStraitsInSystemOrder());
     }
 
-    maxStraitRadius(mapStyle: MapViewStylesType, radius: number, direction: DrawDirectionType) : number {
-        // TODO calculate the max radius outside the system and straits graph. Used to position external system info plate.
+    maxStraitRadius(mapStyle: MapViewStylesType, radius: number, direction: DrawDirectionType): number {
         let maxStraitRadius = 0;
         for (const [, straits] of this.getStraitsInSystemOrder()) {
             let straitIndex = 0;
@@ -216,7 +222,6 @@ export class ClusterModel implements ClusterModelInterface {
                 straitIndex++;
             }
         }
-        console.log('ClusterModel.maxStraitRadius() maxStraitRadius: ', maxStraitRadius);
         return maxStraitRadius;
     }
 
@@ -297,7 +302,10 @@ export class ClusterModel implements ClusterModelInterface {
                 if (systemA) {
                     const systemB = this.getSystemById(straitData.systems[1] as SystemIdType);
                     if (systemB) {
-                        this.connectSystems(systemA, systemB);
+                        const strait = this.connectSystems(systemA, systemB);
+                        if (strait && straitData?.direction) {
+                            strait.setDrawDirection(straitData.direction, 'data');
+                        }
                     }
                 }
             }

@@ -10,7 +10,6 @@ export async function useContentSearch() {
         () => queryCollectionSearchSections('content')
     );
 
-    console.log('useContentSearch() data: ', data);
     const miniSearch = new MiniSearch({
         fields: ['title', 'content', 'description'],
         storeFields: ['title', 'content', 'description'],
@@ -37,7 +36,6 @@ export async function useContentSearch() {
             results: [] as SearchResult[],
             more: false,
         }
-        console.log('getSearchResults() result: ', result);
         if (returnOnly < 1) {
             returnValue.results = result;
             return returnValue;

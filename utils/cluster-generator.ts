@@ -206,7 +206,8 @@ export function createCluster(id: ClusterIdType, name: string, numberSystems: nu
 
   for (const [index, system] of systems.entries()) {
     if (index < systems.length-1) {
-      newCluster.connectSystems(system, systems[index+1]);
+      const strait = newCluster.connectSystems(system, systems[index+1]);
+      strait?.setDrawDirection('center', 'data');
     } else {
       break;
     }
@@ -214,13 +215,15 @@ export function createCluster(id: ClusterIdType, name: string, numberSystems: nu
     if (connectionsRoll >= 0) {
       const nextSystemToLink = getNextOpenSystem(index+1, newCluster);
       if (nextSystemToLink && connectionsRoll >= 0) {
-        newCluster.connectSystems(system, nextSystemToLink);
+        const strait = newCluster.connectSystems(system, nextSystemToLink);
+        strait?.setDrawDirection('center', 'data');
       }
     }
     if (connectionsRoll > 0) {
       const nextSystemToLink = getNextOpenSystem(index+1, newCluster);
-      if (nextSystemToLink && connectionsRoll > 0) {
-        newCluster.connectSystems(system, nextSystemToLink);
+      if (nextSystemToLink) {
+        const strait = newCluster.connectSystems(system, nextSystemToLink);
+        strait?.setDrawDirection('center', 'data');
       }
     }
   }

@@ -60,7 +60,8 @@
       "systems": [
         "A739",
         "B749"
-      ]
+      ],
+      "direction": "counterclockwise"
     },
     {
       "type": "strait",
@@ -74,9 +75,19 @@
       "type": "strait",
       "schemaVersion": "1",
       "systems": [
+        "B749",
+        "C566"
+      ],
+      "direction": "counterclockwise"
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
         "A739",
         "C566"
-      ]
+      ],
+      "direction": "clockwise"
     }
   ]
 }

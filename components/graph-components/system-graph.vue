@@ -43,10 +43,6 @@ const maxStraitRadius = computed(() => {
   return 80;
 });
 
-watch(radius, () => {
-  console.log('radius: ', radius.value)
-})
-
 const rings = computed(() => props.system.attributes.technology > 1 ? props.system.attributes.technology : 1);
 
 const bgDiscRadius = computed(() => {

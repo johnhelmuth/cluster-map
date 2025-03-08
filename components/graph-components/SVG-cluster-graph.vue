@@ -18,10 +18,6 @@ const emit = defineEmits<{
   systemSelected: [system: SystemModelInterface | undefined]
 }>();
 
-watch(props, (newProps) => {
-  console.log('newProps: ', newProps);
-})
-
 const shouldRotate = computed(() => {
   if (props?.rotateCluster) {
     return true;

@@ -99,15 +99,13 @@ export class StraitModel implements StraitModelInterface {
             direction === 'center'
                 ? 0
                 : this.curveRadius(index, mapStyle, radius);
-        console.log('StraitModel.straitParameters() radius =', radius);
-        console.log('StraitModel.straitParameters() curveRadius =', curveRadius);
         const straitLength = Math.sqrt((a.x - b.x) ** 2 + (a.y - b.y) ** 2);
 
         const straitAngle = Math.atan2(
             (a.y - b.y),
             (a.x - b.x)
         );
-        const directionAdjust = (direction == 'left' ? 1 : -1);
+        const directionAdjust = (direction == 'clockwise' ? 1 : -1);
         // direction 1: counterclockwise, -1: clockwise
         const straitNormalAngle = straitAngle
             + directionAdjust * (Math.PI / 2); // -90 degrees, in radians
@@ -167,11 +165,10 @@ export class StraitModel implements StraitModelInterface {
         let curveRadius;
         switch (mapStyle) {
             case 'data':
-                curveRadius = 0; // TODO Work out what this should be.
+                curveRadius = radius;
                 break;
             case 'circular':
                 const systemsRadius = circularGraphSystemsRadius();
-                console.log('curveRadius() systemsRadius: ', systemsRadius);
                 if (index === 0) {
                     curveRadius = systemsRadius; // radius * 1.25;
                 } else {
@@ -184,7 +181,6 @@ export class StraitModel implements StraitModelInterface {
             default:
                 curveRadius = radius;
         }
-        console.log('StraitModel.curveRadius() index, mapStyle, radius, curveRadius: ', index, mapStyle, radius, curveRadius);
         return curveRadius;
     }
 
@@ -203,7 +199,8 @@ export class StraitModel implements StraitModelInterface {
             systems: [
                 this.systemA.id,
                 this.systemB.id
-            ]
+            ],
+            direction: this.getDrawDirection('data'),
         };
     }
 
