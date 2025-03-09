@@ -11,7 +11,6 @@ const props = defineProps<{
   index: number,
   debug: boolean,
   mapStyle: MapViewStylesType,
-  straightStraits: boolean,
   shouldRotate: boolean,
 }>();
 
@@ -42,7 +41,7 @@ const numSystems = computed(() => props.strait.systemA.cluster.numSystems);
 
 const radius = computed(() => systemRadiusByStyleAndNumberOfSystems(props.mapStyle, numSystems.value));
 
-const straitParams = computed(() => props.strait.straitParameters(props.index, props.mapStyle, props.shouldRotate, radius.value, props.straightStraits));
+const straitParams = computed(() => props.strait.straitParameters(props.index, props.mapStyle, props.shouldRotate, radius.value));
 
 const path = computed(() => {
 

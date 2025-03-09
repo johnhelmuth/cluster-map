@@ -10,7 +10,6 @@ const props = defineProps<{
   plan?: RoutePlanRefType,
   debug: boolean,
   mapStyle: MapViewStylesType,
-  straightStraits: boolean,
   rotateCluster?: boolean
 }>();
 
@@ -50,7 +49,6 @@ function selectSystem(system: SystemModelInterface | undefined) {
                        :data-systemId="systemId"
                        :debug="debug"
                        :mapStyle="mapStyle"
-                       :straightStraits="straightStraits"
                        :should-rotate="shouldRotate"
           />
         </template>

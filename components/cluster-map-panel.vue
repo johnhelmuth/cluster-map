@@ -50,7 +50,7 @@ function mapView() {
 }
 
 function mapViewChanged(newMapViewStyles: MapStylesStoreType) {
-  for (const propName of ['debug', 'mapStyle', 'straightStraits'] as Array<MapStylesStoreKeyType>) {
+  for (const propName of ['debug', 'mapStyle'] as Array<MapStylesStoreKeyType>) {
     if (newMapViewStyles.hasOwnProperty(propName)) {
       // @ts-ignore - I don't know why I get a complaint about mapStylesStore[propname].
       mapStylesStore[propName] = newMapViewStyles[propName];
@@ -79,7 +79,6 @@ function mapViewClosed() {
         @system-selected="selectSystem"
         :debug="isDebug"
         :mapStyle="mapStylesStore.mapStyle"
-        :straight-straits="mapStylesStore.straightStraits"
     />
     <SVGClusterGraph
         v-if="cluster"
@@ -89,7 +88,6 @@ function mapViewClosed() {
         @system-selected="selectSystem"
         :debug="isDebug"
         :mapStyle="mapStylesStore.mapStyle"
-        :straight-straits="mapStylesStore.straightStraits"
         :rotate-cluster="true"/>
 
     <Icon class="map-control" name="material-symbols:eye-tracking-outline-rounded" @click="mapView"/>
@@ -100,7 +98,6 @@ function mapViewClosed() {
         @changed="mapViewChanged"
         :debug="mapStylesStore.debug"
         :mapStyle="mapStylesStore.mapStyle"
-        :straightStraits="mapStylesStore.straightStraits"
     />
   </div>
 </template>

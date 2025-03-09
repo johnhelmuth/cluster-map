@@ -70,7 +70,6 @@ export class StraitModel implements StraitModelInterface {
      * @param mapStyle {MapViewStylesType} - The style of the map, data, circular, linear.
      * @param rotate {boolean} - True if the strait should be drawn rotated -90 degress around the graph center.
      * @param radius {number} - The radius of the circle used to draw a star system on the graph.
-     * @param straightStraits {boolean} - Render the straits as straight lines, regardless of mapview or radius.
      *
      * @return {
      *        straitLength: number,
@@ -79,14 +78,14 @@ export class StraitModel implements StraitModelInterface {
      *        controlPoint: PointType
      *    }
      */
-    straitParameters(index: number, mapStyle: MapViewStylesType, rotate: boolean, radius: number, straightStraits: boolean): {
+    straitParameters(index: number, mapStyle: MapViewStylesType, rotate: boolean, radius: number): {
         straitLength: number,
         straitNormalAngle: number,
         straitMidPoint: PointType,
         quadControlPoint: PointType,
         cubicControlPoint1: PointType,
         cubicControlPoint2: PointType,
-        pathType: 'straight' | 'arc' | 'curved',
+        pathType: 'arc' | 'curved',
         curveRadius: number,
     } {
 
@@ -140,9 +139,7 @@ export class StraitModel implements StraitModelInterface {
                     x: Math.cos(cubicAngle2) * curveRadius + b.x,
                     y: Math.sin(cubicAngle2) * curveRadius + b.y
                 };
-        const pathType = straightStraits
-            ? 'straight'
-            : (mapStyle === 'circular' && index === 0
+        const pathType = (mapStyle === 'circular' && index === 0
                 ? 'arc'
                 : 'curved'
               );

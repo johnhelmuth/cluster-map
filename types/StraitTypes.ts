@@ -22,14 +22,14 @@ export interface StraitModelInterface {
 
   getStraitIndex() : number;
 
-  straitParameters(index : number, mapStyle: MapViewStylesType, rotate: boolean, radius : number, straightStraits: boolean) : {
+  straitParameters(index : number, mapStyle: MapViewStylesType, rotate: boolean, radius : number) : {
     straitLength: number,
     straitNormalAngle: number,
     straitMidPoint : PointType,
     quadControlPoint: PointType,
     cubicControlPoint1: PointType,
     cubicControlPoint2: PointType,
-    pathType: 'straight' | 'arc' | 'curved',
+    pathType: 'arc' | 'curved',
     curveRadius: number,
   };
 

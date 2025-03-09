@@ -6,7 +6,6 @@ import { VueFinalModal } from 'vue-final-modal'
 const props = defineProps<{
   debug: boolean,
   mapStyle: MapViewStylesType,
-  straightStraits: boolean
 }>();
 
 const emit = defineEmits<{
@@ -17,7 +16,6 @@ const emit = defineEmits<{
 const localMapStyles = reactive({
   debug: (props.debug || false),
   mapStyle: (props.mapStyle + ''),
-  straightStraits: (props.straightStraits || false)
 });
 
 watch(localMapStyles, (newMapStyles) => {
@@ -41,7 +39,6 @@ watch(localMapStyles, (newMapStyles) => {
         <label><input type="radio" :value="styleData.key" name="mapStyle" v-model="localMapStyles.mapStyle" style="margin-right: 1rem;"/>{{styleData.label}}</label>
       </div>
       <h3>Others</h3>
-      <label><input type="checkbox" name="straightStraits" v-model="localMapStyles.straightStraits" style="margin-right: 1rem;"/>Straight straits</label>
       <label><input type="checkbox" name="debug" v-model="localMapStyles.debug" style="margin-right: 1rem;"/>Enable debug</label>
     </div>
   </VueFinalModal>
