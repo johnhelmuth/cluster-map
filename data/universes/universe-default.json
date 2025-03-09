@@ -208,7 +208,8 @@
           "systems": [
             "0",
             "1"
-          ]
+          ],
+          "direction": "clockwise"
         },
         {
           "type": "strait",
@@ -216,15 +217,8 @@
           "systems": [
             "1",
             "2"
-          ]
-        },
-        {
-          "type": "strait",
-          "schemaVersion": "1",
-          "systems": [
-            "1",
-            "4"
-          ]
+          ],
+          "direction": "clockwise"
         },
         {
           "type": "strait",
@@ -232,7 +226,17 @@
           "systems": [
             "1",
             "3"
-          ]
+          ],
+          "direction": "clockwise"
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "1",
+            "4"
+          ],
+          "direction": "clockwise"
         },
         {
           "type": "strait",
@@ -240,7 +244,8 @@
           "systems": [
             "2",
             "3"
-          ]
+          ],
+          "direction": "clockwise"
         },
         {
           "type": "strait",
@@ -248,7 +253,8 @@
           "systems": [
             "3",
             "4"
-          ]
+          ],
+          "direction": "clockwise"
         },
         {
           "type": "strait",
@@ -256,7 +262,8 @@
           "systems": [
             "3",
             "5"
-          ]
+          ],
+          "direction": "clockwise"
         },
         {
           "type": "strait",
@@ -264,7 +271,8 @@
           "systems": [
             "3",
             "6"
-          ]
+          ],
+          "direction": "clockwise"
         },
         {
           "type": "strait",
@@ -272,7 +280,8 @@
           "systems": [
             "4",
             "5"
-          ]
+          ],
+          "direction": "clockwise"
         },
         {
           "type": "strait",
@@ -280,7 +289,8 @@
           "systems": [
             "5",
             "6"
-          ]
+          ],
+          "direction": "counterclockwise"
         },
         {
           "type": "strait",
@@ -288,7 +298,8 @@
           "systems": [
             "5",
             "7"
-          ]
+          ],
+          "direction": "counterclockwise"
         },
         {
           "type": "strait",
@@ -296,7 +307,8 @@
           "systems": [
             "6",
             "7"
-          ]
+          ],
+          "direction": "clockwise"
         },
         {
           "type": "strait",
@@ -304,7 +316,8 @@
           "systems": [
             "6",
             "8"
-          ]
+          ],
+          "direction": "clockwise"
         },
         {
           "type": "strait",
@@ -312,7 +325,8 @@
           "systems": [
             "7",
             "8"
-          ]
+          ],
+          "direction": "counterclockwise"
         },
         {
           "type": "strait",
@@ -320,7 +334,8 @@
           "systems": [
             "7",
             "9"
-          ]
+          ],
+          "direction": "counterclockwise"
         },
         {
           "type": "strait",
@@ -328,7 +343,8 @@
           "systems": [
             "8",
             "9"
-          ]
+          ],
+          "direction": "clockwise"
         }
       ]
     },
@@ -571,6 +587,99 @@
             "G6c8",
             "H6c9"
           ]
+        }
+      ]
+    },
+    {
+      "type": "cluster",
+      "schemaVersion": "1",
+      "id": "3-system-cluster",
+      "name": "A Cluster with 3 Systems",
+      "systems": [
+        {
+          "type": "system",
+          "schemaVersion": "1",
+          "id": "A739",
+          "name": "System 3",
+          "attributes": {
+            "technology": -1,
+            "environment": 0,
+            "resources": 3
+          },
+          "aspects": [],
+          "position": {
+            "x": 795,
+            "y": 374.99999999999994
+          }
+        },
+        {
+          "type": "system",
+          "schemaVersion": "1",
+          "id": "B749",
+          "name": "System 17",
+          "attributes": {
+            "technology": 2,
+            "environment": 0,
+            "resources": 1
+          },
+          "aspects": [],
+          "position": {
+            "x": 499.99999999999994,
+            "y": 80
+          }
+        },
+        {
+          "type": "system",
+          "schemaVersion": "1",
+          "id": "C566",
+          "name": "System 27",
+          "attributes": {
+            "technology": 1,
+            "environment": -1,
+            "resources": 2
+          },
+          "aspects": [],
+          "position": {
+            "x": 205,
+            "y": 375.00000000000006
+          }
+        }
+      ],
+      "straits": [
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "A739",
+            "B749"
+          ],
+          "direction": "counterclockwise"
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "A739",
+            "B749"
+          ]
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "B749",
+            "C566"
+          ],
+          "direction": "counterclockwise"
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "A739",
+            "C566"
+          ],
+          "direction": "clockwise"
         }
       ]
     }

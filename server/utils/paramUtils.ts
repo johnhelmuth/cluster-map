@@ -10,7 +10,7 @@ import {UniverseModel} from "~/models/UniverseModel";
 
 const universes = new Map<UniverseIdType, UniverseModelInterface>();
 
-export async function getUniverseData(universeId: UniverseIdType): UniverseModelInterface | undefined {
+export async function getUniverseData(universeId: UniverseIdType): Promise<UniverseModelInterface | undefined> {
     const logLabel = import.meta.client ? 'CLIENT: ' : 'SERVER: ';
 
     console.log(`${logLabel}getUniverseData() universesData: `, universesData);
@@ -23,13 +23,15 @@ export async function getUniverseData(universeId: UniverseIdType): UniverseModel
     console.log(`${logLabel}getUniverseData() universes does not have "${universeId}", pulling it in.`);
 
     const universeData = universesData.find((universeData) => universeData.id === universeId);
-    const universe = new UniverseModel(universeData);
+    if (universeData) {
+        const universe = new UniverseModel(universeData);
 
-    console.log(`${logLabel}getUniverseData() universe: `, universe);
-    console.log(`${logLabel}getUniverseData() universeId: `, universeId)
-    console.log(`${logLabel}getUniverseData() universe.id: `, universe.id)
-    console.log(`${logLabel}getUniverseData() universeId === universe.id: `, universeId === universe.id)
-    return universe;
+        console.log(`${logLabel}getUniverseData() universe: `, universe);
+        console.log(`${logLabel}getUniverseData() universeId: `, universeId)
+        console.log(`${logLabel}getUniverseData() universe.id: `, universe.id)
+        console.log(`${logLabel}getUniverseData() universeId === universe.id: `, universeId === universe.id)
+        return universe;
+    }
 }
 
 export async function getClusterData(universeId: UniverseIdType, clusterId: ClusterIdType): ClusterModelInterface | undefined {

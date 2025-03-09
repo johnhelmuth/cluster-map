@@ -12,7 +12,6 @@ onMounted(() => {
   console.log(`${logLabel}app.vue onMounted() universesStore.universes `, universesStore.universes);
 });
 
-const router = useRouter();
 const route = useRoute();
 
 </script>

@@ -11,7 +11,6 @@ import type {SystemIdType, SystemModelInterface} from "@/types/SystemTypes";
 import type {DrawDirectionType, StraitModelInterface} from "@/types/StraitTypes";
 import type {SystemModelDataType} from "@/types/SystemTypes";
 import type {StraitModelDataType} from "@/types/StraitTypes";
-import {boolean} from "vscode-jsonrpc/lib/common/is";
 
 
 export type ClusterIdType = IdType;
@@ -76,7 +75,7 @@ export interface UniverseModelInterface {
     cluster: ClusterModelInterface | undefined;
     clusters: Array<ClusterModelInterface>;
 
-    parseUniverseData(clustersData: UniverseModelDataType | undefined): void;
+    parseUniverseData(universeData: {} | undefined): void;
 
     addCluster(cluster: ClusterModelInterface): void;
 
@@ -98,30 +97,30 @@ export type UniverseModelDataType = {
     clusters: Array<ClusterModelDataType>
 }
 
-export type UniversesMetaDataModelInterface = {
+export type UniversesMetadataModelInterface = {
 
     currentUniverseId: UniverseIdType;
-    universesMetaData: Array<UniverseMetaDataIsLoadedType>;
+    universesMetaData: Array<UniverseMetadataIsLoadedType>;
 
     getCurrentUniverse(): Promise<UniverseModelInterface | undefined>;
     getUniverseById(universeId: UniverseIdType): Promise<UniverseModelInterface | undefined>;
 
-    parseUniversesMetaData(universesData: UniversesModelDataType);
+    parseUniversesMetadata(universesData: UniversesMetadataDataType): void;
 
     toJSON(key: string): object
 }
 
-export type UniversesModelDataType = {
+export type UniversesMetadataDataType = {
     currentUniverseId: UniverseIdType;
-    universesMetaData: Array<UniverseMetaDataType>;
+    universesMetadata: Array<UniverseMetadataIsLoadedType>;
 }
 
-export type UniverseMetaDataType = {
+export type UniverseMetadataType = {
     id: UniverseIdType,
     description: string
 }
 
-export type UniverseMetaDataIsLoadedType = UniverseMetaDataType & {
+export type UniverseMetadataIsLoadedType = UniverseMetadataType & {
     isLoaded: boolean;
 }
 

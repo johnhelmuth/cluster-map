@@ -4,6 +4,12 @@ import {getUniverseData} from "~/server/utils/paramUtils";
 export default defineEventHandler(async (event) => {
     console.log('api/universe/[universeId] called.');
     const universeId = getRouterParam(event, 'universeId');
+    if (!universeId) {
+        throw createError({
+            statusCode: 400,
+            statusMessage: 'Bad request, no universeId.',
+        });
+    }
     const universe = await getUniverseData(universeId);
     if (! universe) {
         console.error('api/universe/[universeId] No universe found with that universeId.');

@@ -1,21 +1,23 @@
 <script setup lang="ts">
 
-import {useClustersStore} from "~/stores/use-clusters-store";
+import {useUniversesStore} from "~/stores/use-universes-store";
 import {useUserScopeStore} from "~/stores/use-user-scope-store";
 import type {Ref} from "vue";
-import type {ClusterIdType, ClustersModelDataType} from "~/types/ClusterTypes";
+import {getParseUniverse} from "~/utils/import-validator";
+import type {ClusterIdType, UniverseIdType, UniverseModelDataType} from "~/types/ClusterTypes";
+import {isUniverseModelDataType} from "~/utils/utils";
 
-const clustersStore = useClustersStore();
+const universesStore = useUniversesStore();
 
 const {routePlannerService, selectedSystemsService} = useUserScopeStore();
 
-const {files, open, reset, onCancel, onChange} = useFileDialog({
+const {open, reset, onChange} = useFileDialog({
   accept: 'application/json', // Set to accept only JSON files
 })
 
 const importFile: Ref<File | null> = ref(null);
 
-const importedData: Ref<ClustersModelDataType | object> = ref({});
+const importedData: Ref<UniverseModelDataType | object> = ref({});
 const importError: Ref<string | undefined> = ref(undefined);
 
 const importPanelClosed = ref(true);
@@ -28,24 +30,34 @@ function expandPanel() {
   expandCollapseIcon.value = importPanelClosed.value ? iconExpandedName : iconCollapsedName;
 }
 
-const parseClusters = getParseClusters();
+const parseUniverse = getParseUniverse();
 
 const fileSelected = computed(() => !!importFile.value);
 
-const importedClustersStats = computed(() => {
-  const stats: {
+const importedUniverseStats = computed(() => {
+  const stats : {
     numClusters?: number,
     numSystems?: number,
+    universeId?: UniverseIdType,
+    description?: string,
     currentClusterId?: ClusterIdType,
     currentClusterName?: string,
   } = {
     numClusters: undefined,
     numSystems: undefined,
+    universeId: undefined,
+    description: undefined,
     currentClusterId: undefined,
     currentClusterName: undefined,
   };
-  if (importedData.value && isClustersModelDataType(importedData.value)) {
-    const importedDataRaw: ClustersModelDataType = importedData.value;
+  if (importedData.value && isUniverseModelDataType(importedData.value)) {
+    const importedDataRaw: UniverseModelDataType = importedData.value;
+    if (importedDataRaw?.id) {
+      stats.universeId = importedDataRaw.id;
+    }
+    if (importedDataRaw?.description) {
+      stats.description = importedDataRaw.description;
+    }
     if (importedDataRaw?.clusters && importedDataRaw?.clusters.hasOwnProperty('length')) {
       stats.numClusters = importedDataRaw.clusters.length;
       let systemCount = 0;
@@ -67,8 +79,8 @@ const importedClustersStats = computed(() => {
   return stats;
 });
 
-function exportData(e: Event) {
-  downloadJSON(clustersStore.clusters, 'clusters.json');
+function exportData() {
+  downloadJSON(universesStore.value.universe, 'universes.json');
 }
 
 function downloadJSON(data: any, filename: string) {
@@ -86,11 +98,11 @@ function downloadJSON(data: any, filename: string) {
   document.body.removeChild(element);
 }
 
-function updateClusters(data: ClustersModelDataType | object) {
-  if (data && isClustersModelDataType(data)) {
+function updateUniverse(data: UniverseModelDataType | object) {
+  if (data && isUniverseModelDataType(data)) {
     routePlannerService.deleteAllRoutePlans();
     selectedSystemsService.deleteAllSelectedSystems();
-    clustersStore.clusters.parseClustersData(data);
+    universesStore.value.universe.parseUniverseData(data);
   }
 }
 
@@ -102,7 +114,7 @@ onChange((files) => {
 })
 
 function applyImport() {
-  updateClusters(importedData.value);
+  updateUniverse(importedData.value);
   resetImports();
   reset();
 }
@@ -124,12 +136,12 @@ watch(importFile, async () => {
   if (importFile.value) {
     try {
       importedJSON = await importFile.value.text();
-      const parsedClusters = parseClusters(importedJSON);
-      if (parsedClusters.valid) {
-        importedData.value = parsedClusters.value as ClustersModelDataType;
+      const parsedUniverse = parseUniverse(importedJSON);
+      if (parsedUniverse.valid) {
+        importedData.value = parsedUniverse.value as UniverseModelDataType;
         importError.value = undefined;
       } else {
-        throw new Error(parsedClusters.error);
+        throw new Error(parsedUniverse.error);
       }
     } catch (err) {
       console.error(err);
@@ -138,7 +150,7 @@ watch(importFile, async () => {
       } else if (typeof err === "string") {
         importError.value = err;
       } else {
-        importError.value = "Unknown error during import of clusters.";
+        importError.value = "Unknown error during import of universes.";
       }
       resetImports();
     }
@@ -162,12 +174,12 @@ watch(importFile, async () => {
           <div>
             <button type="button" class="import-data" :class="fileSelected ? 'file-selected' : ''"
                     :disabled="fileSelected" @click="open()">
-              <div class="action">Import</div>
+              <span class="action">Import</span>
             </button>
           </div>
           <div>
             <button @click="exportData">
-              <div class="action">Export</div>
+              <span class="action">Export</span>
             </button>
           </div>
         </div>
@@ -180,18 +192,20 @@ watch(importFile, async () => {
                 <li>{{ importFile.type }}</li>
                 <li>{{ importFile.size }}</li>
                 <!--                  <p>{{importedData}}</p>-->
-                <li>Clusters count: {{ importedClustersStats.numClusters }}</li>
-                <li>Systems count: {{ importedClustersStats.numSystems }}</li>
-                <li>Default cluster: ({{ importedClustersStats.currentClusterId }}) -
-                  {{ importedClustersStats.currentClusterName }}
+                <li>Universe Id: {{ importedUniverseStats.universeId }}</li>
+                <li>Description: {{ importedUniverseStats.description }}</li>
+                <li>Clusters count: {{ importedUniverseStats.numClusters }}</li>
+                <li>Systems count: {{ importedUniverseStats.numSystems }}</li>
+                <li>Default cluster: ({{ importedUniverseStats.currentClusterId }}) -
+                  {{ importedUniverseStats.currentClusterName }}
                 </li>
               </ul>
               <div class="control-group">
                 <button type="button" class="cancel-data" @click="cancelImport">
-                  <div class="action">Cancel import</div>
+                  <span class="action">Cancel import</span>
                 </button>
                 <button type="button" class="apply-data" :disabled="! fileSelected" @click="applyImport">
-                  <div class="action">Apply file "{{ importFile.name }}"</div>
+                  <span class="action">Apply file "{{ importFile.name }}"</span>
                 </button>
               </div>
             </div>

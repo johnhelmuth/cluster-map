@@ -1,6 +1,5 @@
 <script setup lang="ts">
 
-import {useClustersStore} from "~/stores/use-clusters-store";
 import {createCluster} from "~/utils/cluster-generator";
 import {useUniversesStore} from "~/stores/use-universes-store";
 
@@ -34,10 +33,10 @@ function selectCluster(event: Event) {
         <div class="note">Click on a cluster in the list to select.</div>
         <div class="note">TODO: Implement something better looking here.</div>
         <div class="add-action"><button class="action" @click="addCluster">Add new Cluster</button></div>
-        <ul class="clusters-list">
-          <li class="clusters-list-item"
-              :class="aCluster === clustersStore.clusters.cluster ? 'selected-cluster' : ''"
-              v-for="aCluster in clustersStore.clusters.clusters"
+        <ul class="universe-list">
+          <li class="universe-list-item"
+              :class="aCluster === universesStore.universe.cluster ? 'selected-cluster' : ''"
+              v-for="aCluster in universesStore.universe.clusters"
               :key="aCluster.id"
               :id="aCluster.id"
               @click="selectCluster"
@@ -49,22 +48,6 @@ function selectCluster(event: Event) {
       <div class="clusters-settings-panel">
         <ClustersSettingsPanel />
       </div>
-
-    <div class="universe-view">
-      <div class="note">Click on a cluster in the list to select.</div>
-      <div class="note">TODO: Implement something better looking here.</div>
-      <div class="add-action"><button class="action" @click="addCluster">Add new Cluster</button></div>
-      <ul class="universe-list">
-        <li class="universe-list-item"
-            :class="aCluster === universesStore.universe.cluster ? 'selected-cluster' : ''"
-            v-for="aCluster in universesStore.universe.clusters"
-            :key="aCluster.id"
-            :id="aCluster.id"
-            @click="selectCluster"
-        >
-          {{ aCluster.id }} - {{ aCluster.name }}
-        </li>
-      </ul>
     </div>
   </InfoPage>
 </template>

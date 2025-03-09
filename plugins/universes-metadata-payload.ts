@@ -1,9 +1,9 @@
-import {UniversesMetaDataModel} from "~/models/UniversesMetaDataModel";
+import {UniversesMetadataModel} from "~/models/UniversesMetadataModel";
 
 export default definePayloadPlugin((nuxtApp) => {
     // "Reduce" the payload on the server - i.e. take a ClustersModel and return a JSON string.
     definePayloadReducer('UniversesMetaDataModel', data => {
-        if (data instanceof UniversesMetaDataModel) {
+        if (data instanceof UniversesMetadataModel) {
             console.log('defaultPayloadReducer(UniversesMetaDataModel) called with data (should be a UniversesMetaDataModel): ', data);
             const reducedUniversesMetaData = JSON.stringify(data);
             console.log('defaultPayloadReducer(UniversesMetaDataModel) returning reducedUniversesMetaData: ', reducedUniversesMetaData);
@@ -21,7 +21,7 @@ export default definePayloadPlugin((nuxtApp) => {
             console.error('ClustersModel.revivers JSON parse error: ', error)
         }
         if (universesMetaDataModel) {
-            return new UniversesMetaDataModel(universesMetaDataModel);
+            return new UniversesMetadataModel(universesMetaDataModel);
         }
     })
 });

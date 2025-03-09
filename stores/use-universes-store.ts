@@ -1,7 +1,7 @@
 import type {
     UniverseModelInterface
 } from "~/types/ClusterTypes";
-import {UniversesMetaDataModel} from "~/models/UniversesMetaDataModel";
+import {UniversesMetadataModel} from "~/models/UniversesMetadataModel";
 import {UniverseModel} from "~/models/UniverseModel";
 
 export const useUniversesStore
@@ -16,10 +16,10 @@ export const useUniversesStore
             const serversUniversesMetaData = await $fetch('/api/universes');
 
             console.log(`${logLabel} useUniversesStore().useAsyncData callback. serversUniversesMetaData: `, serversUniversesMetaData);
-            const universes = new UniversesMetaDataModel(serversUniversesMetaData);
-            console.log(`${logLabel} useUniversesStore().useAsyncData callback. universes: `, universes);
+            const universesMetadata = new UniversesMetadataModel(serversUniversesMetaData);
+            console.log(`${logLabel} useUniversesStore().useAsyncData callback. universesMetadata: `, universesMetadata);
 
-            const universeData = await $fetch(`/api/universe/${universes.currentUniverseId}`);
+            const universeData = await $fetch(`/api/universe/${universesMetadata.currentUniverseId}`);
 
             console.log(`${logLabel} useUniversesStore().useAsyncData callback. universeData: `, universeData);
             let universe: UniverseModelInterface = new UniverseModel();
@@ -28,7 +28,7 @@ export const useUniversesStore
                 universe.parseUniverseData(universeData);
             }
             console.log(`${logLabel} useUniversesStore().useAsyncData callback. 2 universe: `, universe);
-            return { universe, universes };
+            return { universe, universes: universesMetadata };
         });
         console.log(`${logLabel} useUniversesStore().setup() data: `, data);
 

@@ -7,7 +7,7 @@ import type {
 import {ClusterModel} from "@/models/ClusterModel";
 import {SCHEMA_VERSION} from "@/constants";
 import {getRandomIntInclusive} from "~/utils/cluster-generator";
-
+import { validateUniverseData } from "~/utils/import-validator";
 
 export class UniverseModel implements UniverseModelInterface {
 
@@ -19,16 +19,18 @@ export class UniverseModel implements UniverseModelInterface {
 
   logLabel: string;
 
-  constructor(data: UniverseModelDataType) {
+  constructor(data?: UniverseModelDataType) {
     this.logLabel = import.meta.client ? 'CLIENT: ' : 'SERVER: ';
+    this.id = '';
+    this.description = '';
     this._clusters = new Map<ClusterIdType, ClusterModelInterface>();
     this.parseUniverseData(data);
   }
 
-  parseUniverseData(universeData: UniverseModelDataType | undefined) {
+  parseUniverseData(universeData: { } | undefined) {
     this._clusters.clear();
-    console.log(`${this.logLabel}UniverseModel.parseUniverseData() universeData: `, universeData);
-    if (universeData) {
+    console.log(`${this.logLabel} UniverseModel.parseUniverseData() universeData: `, universeData);
+    if (universeData && validateUniverseData(universeData)) {
       if (universeData?.id) {
         this.id = universeData.id;
       } else {
@@ -60,6 +62,8 @@ export class UniverseModel implements UniverseModelInterface {
           }
         }
       }
+    } else {
+      throw new Error('UniverseModel passed invalid universeData.');
     }
     console.log(`${this.logLabel}UniverseModel.parseUniverseData() finished. this: `, this);
   }
