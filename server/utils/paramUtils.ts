@@ -34,7 +34,7 @@ export async function getUniverseData(universeId: UniverseIdType): Promise<Unive
     }
 }
 
-export async function getClusterData(universeId: UniverseIdType, clusterId: ClusterIdType): ClusterModelInterface | undefined {
+export async function getClusterData(universeId: UniverseIdType, clusterId: ClusterIdType): Promise<ClusterModelInterface | undefined> {
     const logLabel = import.meta.client ? 'CLIENT: ' : 'SERVER: ';
     const universe = await getUniverseData(universeId);
     if (universe) {
@@ -45,7 +45,7 @@ export async function getClusterData(universeId: UniverseIdType, clusterId: Clus
     }
 }
 
-export async function getSystemData(universeId: UniverseIdType, clusterId: ClusterIdType, systemId: SystemIdType): SystemModelInterface | undefined {
+export async function getSystemData(universeId: UniverseIdType, clusterId: ClusterIdType, systemId: SystemIdType): Promise<SystemModelInterface | undefined> {
     const logLabel = import.meta.client ? 'CLIENT: ' : 'SERVER: ';
     const cluster = await getClusterData(universeId, clusterId);
     if (cluster) {

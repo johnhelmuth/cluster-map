@@ -11,7 +11,6 @@ export const useUniversesStore
         const logLabel = import.meta.client ? 'CLIENT: ' : 'SERVER: ';
 
         const { data } = await useAsyncData(`universes`, async () => {
-            console.log(`${logLabel} useUniversesStore().useAsyncData callback.`)
 
             const serversUniversesMetaData = await $fetch('/api/universes');
 
@@ -19,15 +18,8 @@ export const useUniversesStore
             const universesMetadata = new UniversesMetadataModel(serversUniversesMetaData);
             console.log(`${logLabel} useUniversesStore().useAsyncData callback. universesMetadata: `, universesMetadata);
 
-            const universeData = await $fetch(`/api/universe/${universesMetadata.currentUniverseId}`);
-
-            console.log(`${logLabel} useUniversesStore().useAsyncData callback. universeData: `, universeData);
-            let universe: UniverseModelInterface = new UniverseModel();
-            console.log(`${logLabel} useUniversesStore().useAsyncData callback. 1 universe: `, universe);
-            if (universeData) {
-                universe.parseUniverseData(universeData);
-            }
-            console.log(`${logLabel} useUniversesStore().useAsyncData callback. 2 universe: `, universe);
+            const universe = await universesMetadata.getCurrentUniverse();
+            console.log(`${logLabel} useUniversesStore().useAsyncData callback. universe: `, universe);
             return { universe, universes: universesMetadata };
         });
         console.log(`${logLabel} useUniversesStore().setup() data: `, data);

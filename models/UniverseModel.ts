@@ -30,6 +30,7 @@ export class UniverseModel implements UniverseModelInterface {
   parseUniverseData(universeData: { } | undefined) {
     this._clusters.clear();
     console.log(`${this.logLabel} UniverseModel.parseUniverseData() universeData: `, universeData);
+    const validateResponse = universeData && validateUniverseData(universeData);
     if (universeData && validateUniverseData(universeData)) {
       if (universeData?.id) {
         this.id = universeData.id;

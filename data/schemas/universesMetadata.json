@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://in-dire-straits.space/data/schemas/universesMetaData.schema.json",
+  "$id": "https://in-dire-straits.space/data/schemas/universesMetadata.schema.json",
   "title": "Universe",
   "description": "Current universe ID, and IDs and descriptions of all of the universes used in a Role Playing Game.",
   "type": "object",
@@ -18,7 +18,7 @@
       "description": "The ID of the universe that is currently being viewed.",
       "type": "string"
     },
-    "universesMetaData": {
+    "universesMetadata": {
       "description": "The list of IDs and descriptions of the universes in the dataset.",
       "type": "array",
       "items": {

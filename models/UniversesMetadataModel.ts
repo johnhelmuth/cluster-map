@@ -22,7 +22,7 @@ export class UniversesMetadataModel implements UniversesMetadataModelInterface {
         }
     }
 
-    get universesMetaData() {
+    get universesMetadata() {
         return [...this._universesMetadata.values()];
     }
 
@@ -33,7 +33,7 @@ export class UniversesMetadataModel implements UniversesMetadataModelInterface {
     }
 
     async getUniverseById(universeId: UniverseIdType) {
-        const universe = await $fetch<UniverseModelInterface>(`/api/universe/${universeId}`);
+        const universe = await $fetch(`/api/universe/${universeId}`);
         console.log(`${this.logLabel}UniversesMetaDataModel.getUniverseById(${universeId}) universe: `, universe);
         return universe;
     }
@@ -42,10 +42,13 @@ export class UniversesMetadataModel implements UniversesMetadataModelInterface {
         this._universesMetadata.clear();
         console.log(`${this.logLabel}UniversesMetaDataModel.parseUniversesMetaData() universesMetadata: `, universesMetadata)
         if (universesMetadata) {
+            console.log(`${this.logLabel}UniversesMetaDataModel.parseUniversesMetaData() universesMetadata?.universesMetadata: `, universesMetadata?.universesMetadata)
+            console.log(`${this.logLabel}UniversesMetaDataModel.parseUniversesMetaData() universesMetadata?.universesMetadata?.length: `, universesMetadata?.universesMetadata?.length)
             if (universesMetadata?.universesMetadata?.length > 0) {
-                for (const universeMetaData of universesMetadata?.universesMetadata) {
-                    if (universeMetaData?.id) {
-                        this._universesMetadata.set(universeMetaData.id, {...universeMetaData, isLoaded: false});
+                for (const universeMetadata of universesMetadata?.universesMetadata) {
+                    console.log(`${this.logLabel}UniversesMetaDataModel.parseUniversesMetaData() universeMetadata: `, universeMetadata)
+                    if (universeMetadata?.id) {
+                        this._universesMetadata.set(universeMetadata.id, {...universeMetadata, isLoaded: false});
                     }
                 }
             }
@@ -62,7 +65,7 @@ export class UniversesMetadataModel implements UniversesMetadataModelInterface {
             type: "universes",
             schemaVersion: SCHEMA_VERSION,
             currentUniverseId: this.currentUniverseId || '',
-            universesMetaData: [...this._universesMetadata.values()]
+            universesMetadata: [...this._universesMetadata.values()]
         };
     }
 }

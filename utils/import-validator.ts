@@ -29,6 +29,11 @@ const validate = validator(universeSchema, {
 });
 
 export function validateUniverseData(data: {}): data is UniverseModelDataType {
-  return validate(JSON.stringify(data));
+  const parse = getParseUniverse();
+  const parseResults = parse(JSON.stringify(data));
+
+  console.log(`validateUniverseData() parseResults: `, parseResults);
+
+  return parseResults.valid;
 }
 

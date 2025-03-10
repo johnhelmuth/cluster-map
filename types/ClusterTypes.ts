@@ -100,7 +100,7 @@ export type UniverseModelDataType = {
 export type UniversesMetadataModelInterface = {
 
     currentUniverseId: UniverseIdType;
-    universesMetaData: Array<UniverseMetadataIsLoadedType>;
+    universesMetadata: Array<UniverseMetadataIsLoadedType>;
 
     getCurrentUniverse(): Promise<UniverseModelInterface | undefined>;
     getUniverseById(universeId: UniverseIdType): Promise<UniverseModelInterface | undefined>;
