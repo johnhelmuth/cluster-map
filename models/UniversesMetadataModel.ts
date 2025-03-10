@@ -6,17 +6,20 @@ import type {
 } from "~/types/ClusterTypes";
 
 import {SCHEMA_VERSION} from "~/constants";
+import {UniverseModel} from "~/models/UniverseModel";
+import {validateUniverseData} from "~/utils/import-validator";
 
 export class UniversesMetadataModel implements UniversesMetadataModelInterface {
 
     _universesMetadata: Map<UniverseIdType, UniverseMetadataIsLoadedType> = new Map<UniverseIdType, UniverseMetadataIsLoadedType>;
+    _universesCache: Map<UniverseIdType, UniverseModelInterface> = new Map;
+
     currentUniverseId: UniverseIdType = 'UNKNOWN';
 
     logLabel: string = '';
 
     constructor(universesMetadataData: UniversesMetadataDataType) {
         this.logLabel = import.meta.client ? 'CLIENT: ' : 'SERVER: ';
-        console.log(`${this.logLabel}UniversesMetaDataModel.constructor() universesData: `, universesMetadataData);
         if (universesMetadataData) {
             this.parseUniversesMetadata(universesMetadataData)
         }
@@ -33,26 +36,27 @@ export class UniversesMetadataModel implements UniversesMetadataModelInterface {
     }
 
     async getUniverseById(universeId: UniverseIdType) {
-        const universe = await $fetch(`/api/universe/${universeId}`);
-        console.log(`${this.logLabel}UniversesMetaDataModel.getUniverseById(${universeId}) universe: `, universe);
-        return universe;
+        if (this._universesCache.has(universeId)) {
+            return this._universesCache.get(universeId);
+        }
+        const universeData = await $fetch(`/api/universe/${universeId}`);
+        if (universeData && validateUniverseData(universeData)) {
+            const universe = new UniverseModel(universeData);
+            this._universesCache.set(universeId, universe);
+            return universe;
+        }
     }
 
     parseUniversesMetadata(universesMetadata: UniversesMetadataDataType): void {
         this._universesMetadata.clear();
-        console.log(`${this.logLabel}UniversesMetaDataModel.parseUniversesMetaData() universesMetadata: `, universesMetadata)
         if (universesMetadata) {
-            console.log(`${this.logLabel}UniversesMetaDataModel.parseUniversesMetaData() universesMetadata?.universesMetadata: `, universesMetadata?.universesMetadata)
-            console.log(`${this.logLabel}UniversesMetaDataModel.parseUniversesMetaData() universesMetadata?.universesMetadata?.length: `, universesMetadata?.universesMetadata?.length)
             if (universesMetadata?.universesMetadata?.length > 0) {
                 for (const universeMetadata of universesMetadata?.universesMetadata) {
-                    console.log(`${this.logLabel}UniversesMetaDataModel.parseUniversesMetaData() universeMetadata: `, universeMetadata)
                     if (universeMetadata?.id) {
                         this._universesMetadata.set(universeMetadata.id, {...universeMetadata, isLoaded: false});
                     }
                 }
             }
-            console.log(`${this.logLabel}UniversesMetaDataModel.parseUniversesMetaData() this._universesMetadata: `, this._universesMetadata)
             if (universesMetadata?.currentUniverseId === undefined || !this._universesMetadata.has(universesMetadata.currentUniverseId)) {
                 throw new Error('No currentUniverseId value or metadata not found.');
             }

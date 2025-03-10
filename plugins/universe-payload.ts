@@ -4,10 +4,7 @@ export default definePayloadPlugin((nuxtApp) => {
     // "Reduce" the payload on the server - i.e. take a ClustersModel and return a JSON string.
     definePayloadReducer('UniverseModel', data => {
         if (data instanceof UniverseModel) {
-            console.log('defaultPayloadReducer(UniverseModel) called with data (should be a UniverseModel): ', data);
-            const reducedUniverse = JSON.stringify(data);
-            console.log('defaultPayloadReducer(UniverseModel) returning reducedUniverse: ', reducedUniverse);
-            return reducedUniverse;
+            return JSON.stringify(data);
         }
         return false;
     })

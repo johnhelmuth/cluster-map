@@ -1,6 +1,8 @@
 
 
-import {type Parse, parser, validator} from '@exodus/schemasafe';
+
+import type {Parse, Validate, ParseResult} from '@exodus/schemasafe';
+import {parser, validator} from '@exodus/schemasafe';
 import straitSchema from '@/data/schemas/strait.schema.json';
 import systemSchema from '@/data/schemas/system.schema.json';
 import clusterSchema from '@/data/schemas/cluster.schema.json';
@@ -13,13 +15,18 @@ const schemas = {
     "https://in-dire-straits.space/data/schemas/cluster.schema.json": clusterSchema,
   };
 
+const parse = parser(universeSchema, {
+  schemas,
+  mode: "lax",
+  includeErrors: true,
+});
+
 export function getParseUniverse() : Parse {
-  const parse = parser(universeSchema, {
-    schemas,
-    mode: "lax",
-    includeErrors: true,
-  });
   return parse;
+}
+
+export function parseUniverseData(data: {}) : ParseResult {
+  return parse(JSON.stringify(data));
 }
 
 const validate = validator(universeSchema, {
@@ -29,11 +36,6 @@ const validate = validator(universeSchema, {
 });
 
 export function validateUniverseData(data: {}): data is UniverseModelDataType {
-  const parse = getParseUniverse();
-  const parseResults = parse(JSON.stringify(data));
-
-  console.log(`validateUniverseData() parseResults: `, parseResults);
-
-  return parseResults.valid;
+  return parseUniverseData(data)?.valid || false;
 }
 

@@ -29,8 +29,6 @@ export class UniverseModel implements UniverseModelInterface {
 
   parseUniverseData(universeData: { } | undefined) {
     this._clusters.clear();
-    console.log(`${this.logLabel} UniverseModel.parseUniverseData() universeData: `, universeData);
-    const validateResponse = universeData && validateUniverseData(universeData);
     if (universeData && validateUniverseData(universeData)) {
       if (universeData?.id) {
         this.id = universeData.id;
@@ -42,7 +40,6 @@ export class UniverseModel implements UniverseModelInterface {
       } else {
         this.description = 'Very mysterious universe.';
       }
-      console.log(`${this.logLabel}UniverseModel.parseUniverseData() universeData?.clusters: `, universeData?.clusters);
       if (universeData?.clusters?.length > 0) {
         for (const clusterData of universeData.clusters as Array<ClusterModelDataType>) {
           if (clusterData?.id) {
@@ -66,7 +63,6 @@ export class UniverseModel implements UniverseModelInterface {
     } else {
       throw new Error('UniverseModel passed invalid universeData.');
     }
-    console.log(`${this.logLabel}UniverseModel.parseUniverseData() finished. this: `, this);
   }
 
   getNewUniverseId() {

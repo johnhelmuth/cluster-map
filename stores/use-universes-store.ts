@@ -1,29 +1,27 @@
 import type {
-    UniverseModelInterface
+    UniverseModelInterface, UniversesMetadataModelInterface
 } from "~/types/ClusterTypes";
 import {UniversesMetadataModel} from "~/models/UniversesMetadataModel";
-import {UniverseModel} from "~/models/UniverseModel";
 
 export const useUniversesStore
     = defineStore(
     'universes',
-    async () => {
-        const logLabel = import.meta.client ? 'CLIENT: ' : 'SERVER: ';
+    () => {
 
-        const { data } = await useAsyncData(`universes`, async () => {
+        const universe = ref(undefined as UniverseModelInterface | undefined);
+        const universesMetadata = ref(undefined as UniversesMetadataModelInterface | undefined);
 
-            const serversUniversesMetaData = await $fetch('/api/universes');
+        async function fetchUniversesData() {
+            const { data } = await useAsyncData(`universes`, async () => {
 
-            console.log(`${logLabel} useUniversesStore().useAsyncData callback. serversUniversesMetaData: `, serversUniversesMetaData);
-            const universesMetadata = new UniversesMetadataModel(serversUniversesMetaData);
-            console.log(`${logLabel} useUniversesStore().useAsyncData callback. universesMetadata: `, universesMetadata);
+                const serversUniversesMetaData = await $fetch('/api/universes');
+                universesMetadata.value = new UniversesMetadataModel(serversUniversesMetaData);
 
-            const universe = await universesMetadata.getCurrentUniverse();
-            console.log(`${logLabel} useUniversesStore().useAsyncData callback. universe: `, universe);
-            return { universe, universes: universesMetadata };
-        });
-        console.log(`${logLabel} useUniversesStore().setup() data: `, data);
-
-        return data;
+                universe.value = await universesMetadata.value.getCurrentUniverse();
+                return { universe, universes: universesMetadata }
+            });
+            return data;
+        }
+        return { universe, universes: universesMetadata, fetchUniversesData };
     }
 );
