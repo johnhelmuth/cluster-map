@@ -38,8 +38,8 @@ function selectSystem(system: SystemModelInterface | undefined) {
 function clusterSelected(event: Event) {
   const targetSelect = event.target as HTMLSelectElement;
   const clusterId = targetSelect.value;
-  if (universesStore.universe) {
-    const newCluster = universesStore.universe.getClusterById(clusterId);
+  if (universesStore.hasUniverse()) {
+    const newCluster = universesStore.universes.universe?.getClusterById(clusterId);
     if (newCluster) {
       emit('cluster-selected', newCluster);
     }
@@ -52,7 +52,7 @@ function clusterSelected(event: Event) {
   <div class="cluster-map-controls">
     <h1>
       <select class="clusterSelect" @change="clusterSelected">
-        <option v-for="clusterItem in universesStore.universe?.clusters"
+        <option v-for="clusterItem in universesStore.universes.universe?.clusters"
                 :value="clusterItem.id"
                 :key="clusterItem.id"
                 :id="clusterItem.id"

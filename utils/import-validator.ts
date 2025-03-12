@@ -35,7 +35,10 @@ const validate = validator(universeSchema, {
   includeErrors: true,
 });
 
-export function validateUniverseData(data: {}): data is UniverseModelDataType {
-  return parseUniverseData(data)?.valid || false;
+export function validateUniverseData(data?: object): data is UniverseModelDataType {
+    if (data) {
+        return parseUniverseData(data)?.valid || false;
+    }
+    return false;
 }
 

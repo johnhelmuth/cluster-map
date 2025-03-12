@@ -5,22 +5,22 @@ import {useUniversesStore} from "~/stores/use-universes-store";
 const universesStore = useUniversesStore();
 
 function addCluster(event: Event) {
-  if (universesStore?.universe) {
+  if (universesStore.hasUniverse()) {
     const newCluster = createCluster('', '', getRandomIntInclusive(4, 9));
-    const notUnique = !!universesStore.universe.getClusterById(newCluster.id);
+    const notUnique = !!universesStore.universes.universe?.getClusterById(newCluster.id);
     if (!notUnique) {
-      universesStore.universe.addCluster(newCluster);
+      universesStore.universes.universe?.addCluster(newCluster);
     }
   }
 }
 
 function selectCluster(event: Event) {
   const clusterElement = event.target as HTMLElement;
-  if (universesStore.universe && clusterElement?.id) {
+  if (universesStore.hasUniverse() && clusterElement?.id) {
     const selectedClusterId = clusterElement.id;
-    const selectedCluster = universesStore.universe.getClusterById(selectedClusterId);
-    if (selectedCluster !== universesStore.universe.cluster) {
-      universesStore.universe.cluster = selectedCluster;
+    const selectedCluster = universesStore.universes.universe?.getClusterById(selectedClusterId);
+    if (universesStore.universes.universe?.cluster && selectedCluster !== universesStore.universes.universe?.cluster) {
+      universesStore.universes.universe.cluster = selectedCluster;
     }
   }
 }
@@ -29,7 +29,7 @@ function selectCluster(event: Event) {
 
 <template>
   <InfoPage page_title="Universe">
-    <div class="universe-page">
+    <div class="universes-page">
       <div class="universe-view">
         <div class="note">Click on a cluster in the list to select.</div>
         <div class="note">TODO: Implement something better looking here.</div>
@@ -38,8 +38,8 @@ function selectCluster(event: Event) {
         </div>
         <ul class="cluster-list">
           <li class="cluster-list-item"
-              :class="universesStore.universe && aCluster === universesStore.universe.cluster ? 'selected-cluster' : ''"
-              v-for="aCluster in universesStore?.universe?.clusters || []"
+              :class="universesStore.hasUniverse() && aCluster === universesStore.universes.universe?.cluster ? 'selected-cluster' : ''"
+              v-for="aCluster in universesStore.universes.universe?.clusters || []"
               :key="aCluster.id"
               :id="aCluster.id"
               @click="selectCluster"
@@ -57,10 +57,10 @@ function selectCluster(event: Event) {
 
 <style scoped>
 
-.universe-page {
+.universes-page {
   display: grid;
   grid-template-columns: 1fr;
-  //grid-template-columns: 3fr 1fr;
+  /* grid-template-columns: 3fr 1fr; */
   container: clusters-page / size;
 }
 

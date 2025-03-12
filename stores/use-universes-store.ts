@@ -1,27 +1,29 @@
-import type {
-    UniverseModelInterface, UniversesMetadataModelInterface
-} from "~/types/ClusterTypes";
+
 import {UniversesMetadataModel} from "~/models/UniversesMetadataModel";
+import type {UniversesMetadataModelInterface} from "~/types/ClusterTypes";
 
 export const useUniversesStore
     = defineStore(
     'universes',
     () => {
 
-        const universe = ref(undefined as UniverseModelInterface | undefined);
-        const universesMetadata = ref(undefined as UniversesMetadataModelInterface | undefined);
+        const universes = reactive(new UniversesMetadataModel() as UniversesMetadataModelInterface);
 
         async function fetchUniversesData() {
             const { data } = await useAsyncData(`universes`, async () => {
-
                 const serversUniversesMetaData = await $fetch('/api/universes');
-                universesMetadata.value = new UniversesMetadataModel(serversUniversesMetaData);
-
-                universe.value = await universesMetadata.value.getCurrentUniverse();
-                return { universe, universes: universesMetadata }
+                // @ts-ignore
+                universes.parseUniversesMetadata(serversUniversesMetaData);
+                console.log('fetchUniversesData() universes: ', universes);
+                return { universes }
             });
             return data;
         }
-        return { universe, universes: universesMetadata, fetchUniversesData };
+
+        function hasUniverse() {
+            return universes.hasCurrentUniverse();
+        }
+
+        return { universes, fetchUniversesData, hasUniverse };
     }
 );

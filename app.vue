@@ -1,10 +1,14 @@
 <script setup lang="ts">
 
-import { ModalsContainer } from 'vue-final-modal'
+import {ModalsContainer} from 'vue-final-modal'
 import {useUniversesStore} from "~/stores/use-universes-store";
 
 const universesStore = useUniversesStore();
-await callOnce('init-universe-store', async () => universesStore.fetchUniversesData(), { mode: 'navigation'});
+await callOnce('init-universe-store', async () => {
+      await universesStore.fetchUniversesData();
+    },
+    {mode: 'navigation'}
+);
 
 const route = useRoute();
 
@@ -15,14 +19,17 @@ const route = useRoute();
     <NuxtRouteAnnouncer/>
 
     <header>
-      <NuxtLink to="/"><Logo/></NuxtLink>
-      <SearchDropdown v-if="route.path !== '/search'" />
+      <NuxtLink to="/">
+        <Logo/>
+      </NuxtLink>
+      <SearchDropdown v-if="route.path !== '/search'"/>
       <BurgerMenu class="on-right">
         <NuxtLink to="/tatterpedia">Tatterpedia</NuxtLink>
         <NuxtLink to="/rules-and-systems">Rules & Systems</NuxtLink>
         <NuxtLink to="/search">Search</NuxtLink>
         <NuxtLink to="/map">Map</NuxtLink>
-        <NuxtLink to="/universe" >Universe</NuxtLink>
+        <NuxtLink to="/universe">Universe</NuxtLink>
+        <NuxtLink to="/universes">Universes</NuxtLink>
         <NuxtLink to="/settings">Settings</NuxtLink>
         <NuxtLink to="/about">About</NuxtLink>
       </BurgerMenu>
@@ -50,6 +57,7 @@ header {
 header > * {
   margin-left: 1rem;
 }
+
 header :first-child {
   margin-right: auto;
 }

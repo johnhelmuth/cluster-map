@@ -9,16 +9,16 @@ export default definePayloadPlugin((nuxtApp) => {
         return false;
     })
 
-    // "Revive" the payload on the client - i.e. take a JSON string and return a ClustersModel.
+    // "Revive" the payload on the client - i.e. take a JSON string and return a UniversesMetadataModel.
     definePayloadReviver('UniversesMetadataModel', (data) => {
-        let universesMetadataModel;
+        let universesMetadataModelPOJO;
         try {
-            universesMetadataModel = JSON.parse(data);
+            universesMetadataModelPOJO = JSON.parse(data);
         } catch (error) {
             console.error('ClustersModel.revivers JSON parse error: ', error)
         }
-        if (universesMetadataModel) {
-            return new UniversesMetadataModel(universesMetadataModel);
+        if (universesMetadataModelPOJO) {
+            return new UniversesMetadataModel(universesMetadataModelPOJO);
         }
     })
 });

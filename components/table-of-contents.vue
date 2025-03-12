@@ -41,7 +41,8 @@ function tocItemClicked(e: Event) {
 }
 
 function scrollToHeader(href: string) {
-  const hashElement = document.querySelector(href);
+  const fragment = new URL(href).hash;
+  const hashElement = document.querySelector(fragment);
   if (hashElement) {
     hashElement.scrollIntoView({behavior: 'smooth'});
   }

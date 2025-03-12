@@ -1,7 +1,7 @@
 import {UniverseModel} from "~/models/UniverseModel";
 
 export default definePayloadPlugin((nuxtApp) => {
-    // "Reduce" the payload on the server - i.e. take a ClustersModel and return a JSON string.
+    // "Reduce" the payload on the server - i.e. take a UniverseModel and return a JSON string.
     definePayloadReducer('UniverseModel', data => {
         if (data instanceof UniverseModel) {
             return JSON.stringify(data);
@@ -9,16 +9,16 @@ export default definePayloadPlugin((nuxtApp) => {
         return false;
     })
 
-    // "Revive" the payload on the client - i.e. take a JSON string and return a ClustersModel.
+    // "Revive" the payload on the client - i.e. take a JSON string and return a UniverseModel.
     definePayloadReviver('UniverseModel', (data) => {
-        let universeModel;
+        let universeModelPOJO;
         try {
-            universeModel = JSON.parse(data);
+            universeModelPOJO = JSON.parse(data);
         } catch (error) {
             console.error('ClustersModel.revivers JSON parse error: ', error)
         }
-        if (universeModel) {
-            return new UniverseModel(universeModel);
+        if (universeModelPOJO) {
+            return new UniverseModel(universeModelPOJO);
         }
     })
 });
