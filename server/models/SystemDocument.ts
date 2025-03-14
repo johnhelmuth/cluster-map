@@ -26,7 +26,7 @@ const PositionDocumentModelSchema = new Schema<PointType>({
     z: { type: Number },
 })
 
-const SystemDocumentSchema
+export const SystemDocumentSchema
   = new Schema<SystemDocumentInterface>({
     schemaVersion: { type: String, required: true },
     id: { type: String, required: true },
