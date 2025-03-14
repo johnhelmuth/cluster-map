@@ -33,6 +33,7 @@ export default defineNuxtConfig({
         '@vueuse/nuxt',
         '@nuxt/content',
         '@pinia/nuxt',
+      'nuxt-mongoose',
     ],
 
 })

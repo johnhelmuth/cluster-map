@@ -1,0 +1,687 @@
+{
+  "type": "universe",
+  "schemaVersion": "1",
+  "id": "1",
+  "description": "In Dire Straits Cluster plus 1 other randomly generated cluster.",
+  "currentClusterId": "DLC",
+  "clusters": [
+    {
+      "type": "cluster",
+      "schemaVersion": "1",
+      "id": "DLC",
+      "name": "In Dire Straits Cluster",
+      "systems": [
+        {
+          "type": "system",
+          "schemaVersion": "1",
+          "id": "0",
+          "name": "Avarax",
+          "attributes": {
+            "technology": -2,
+            "environment": -1,
+            "resources": -1
+          },
+          "aspects": [
+            "Recovering from a Devastating Invasion",
+            "\"We're Blockaded for Our Own Good\""
+          ],
+          "position": {
+            "x": 130,
+            "y": 130
+          }
+        },
+        {
+          "type": "system",
+          "schemaVersion": "1",
+          "id": "1",
+          "name": "Willful",
+          "attributes": {
+            "technology": 0,
+            "environment": 0,
+            "resources": -1
+          },
+          "aspects": [
+            "Clawed our Way off the Planet, What's next?",
+            "Need More Unobtainium"
+          ],
+          "position": {
+            "x": 650,
+            "y": 90
+          }
+        },
+        {
+          "type": "system",
+          "schemaVersion": "1",
+          "id": "2",
+          "name": "Bane's Eye",
+          "attributes": {
+            "technology": 3,
+            "environment": 0,
+            "resources": -2
+          },
+          "aspects": [
+            "Ambitious, but methodical for their own survival",
+            "Our god is always watching what we do"
+          ],
+          "position": {
+            "x": 895,
+            "y": 200
+          }
+        },
+        {
+          "type": "system",
+          "schemaVersion": "1",
+          "id": "3",
+          "name": "Dragongull's Cry",
+          "attributes": {
+            "technology": 0,
+            "environment": 0,
+            "resources": 1
+          },
+          "aspects": [
+            "Everything Can Be Found In The Ocean",
+            "\"Never Trust a Human\""
+          ],
+          "position": {
+            "x": 875,
+            "y": 475
+          }
+        },
+        {
+          "type": "system",
+          "schemaVersion": "1",
+          "id": "4",
+          "name": "Dalderana",
+          "attributes": {
+            "technology": 0,
+            "environment": 1,
+            "resources": -1
+          },
+          "aspects": [
+            "Owe those bastards for our Space Program",
+            "Obsessed with the TattTubers"
+          ],
+          "position": {
+            "x": 630,
+            "y": 300
+          }
+        },
+        {
+          "type": "system",
+          "schemaVersion": "1",
+          "id": "5",
+          "name": "Concordist",
+          "attributes": {
+            "technology": 0,
+            "environment": 0,
+            "resources": 1
+          },
+          "aspects": [
+            "Secretive",
+            "Hedonistic"
+          ],
+          "position": {
+            "x": 300,
+            "y": 260
+          }
+        },
+        {
+          "type": "system",
+          "schemaVersion": "1",
+          "id": "6",
+          "name": "Golden Seed",
+          "attributes": {
+            "technology": -2,
+            "environment": 1,
+            "resources": 4
+          },
+          "aspects": [
+            "The Pulsar Only Cooks One Hemisphere.",
+            "\"They Think That Nothing Bad Can Happen To Them!\""
+          ],
+          "position": {
+            "x": 620,
+            "y": 575
+          }
+        },
+        {
+          "type": "system",
+          "schemaVersion": "1",
+          "id": "7",
+          "name": "Ceti Daenia",
+          "attributes": {
+            "technology": 0,
+            "environment": -2,
+            "resources": -1
+          },
+          "aspects": [
+            "Balkanized Dome City States On Planet, Tentative Off Planet Coalition"
+          ],
+          "position": {
+            "x": 100,
+            "y": 400
+          }
+        },
+        {
+          "type": "system",
+          "schemaVersion": "1",
+          "id": "8",
+          "name": "Zerzi",
+          "attributes": {
+            "technology": 1,
+            "environment": -2,
+            "resources": 2
+          },
+          "aspects": [
+            "Aggressively Industrialized",
+            "The only thing that matters is right now,\nthe future will take care of itself"
+          ],
+          "position": {
+            "x": 375,
+            "y": 665
+          }
+        },
+        {
+          "type": "system",
+          "schemaVersion": "1",
+          "id": "9",
+          "name": "Luxia",
+          "attributes": {
+            "technology": 1,
+            "environment": -1,
+            "resources": -2
+          },
+          "aspects": [
+            "It's a prison planet, were you expecting cake?",
+            "You can get blood if you find the right stone"
+          ],
+          "position": {
+            "x": 130,
+            "y": 620
+          }
+        }
+      ],
+      "straits": [
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "0",
+            "1"
+          ],
+          "direction": "clockwise"
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "1",
+            "2"
+          ],
+          "direction": "clockwise"
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "1",
+            "3"
+          ],
+          "direction": "clockwise"
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "1",
+            "4"
+          ],
+          "direction": "clockwise"
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "2",
+            "3"
+          ],
+          "direction": "clockwise"
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "3",
+            "4"
+          ],
+          "direction": "clockwise"
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "3",
+            "5"
+          ],
+          "direction": "clockwise"
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "3",
+            "6"
+          ],
+          "direction": "clockwise"
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "4",
+            "5"
+          ],
+          "direction": "clockwise"
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "5",
+            "6"
+          ],
+          "direction": "counterclockwise"
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "5",
+            "7"
+          ],
+          "direction": "counterclockwise"
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "6",
+            "7"
+          ],
+          "direction": "clockwise"
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "6",
+            "8"
+          ],
+          "direction": "clockwise"
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "7",
+            "8"
+          ],
+          "direction": "counterclockwise"
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "7",
+            "9"
+          ],
+          "direction": "counterclockwise"
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "8",
+            "9"
+          ],
+          "direction": "clockwise"
+        }
+      ]
+    },
+    {
+      "type": "cluster",
+      "schemaVersion": "1",
+      "id": "1652",
+      "name": "Cluster 1652",
+      "systems": [
+        {
+          "type": "system",
+          "schemaVersion": "1",
+          "id": "A738",
+          "name": "System 9",
+          "attributes": {
+            "technology": -1,
+            "environment": -2,
+            "resources": 2
+          },
+          "aspects": [],
+          "position": {
+            "x": 795,
+            "y": 374.99999999999994
+          }
+        },
+        {
+          "type": "system",
+          "schemaVersion": "1",
+          "id": "B7a7",
+          "name": "System 10",
+          "attributes": {
+            "technology": 2,
+            "environment": 0,
+            "resources": -1
+          },
+          "aspects": [],
+          "position": {
+            "x": 708.5965004500315,
+            "y": 166.40349954996844
+          }
+        },
+        {
+          "type": "system",
+          "schemaVersion": "1",
+          "id": "C65b",
+          "name": "System 21",
+          "attributes": {
+            "technology": 0,
+            "environment": 0,
+            "resources": 1
+          },
+          "aspects": [],
+          "position": {
+            "x": 499.99999999999994,
+            "y": 80
+          }
+        },
+        {
+          "type": "system",
+          "schemaVersion": "1",
+          "id": "D7d5",
+          "name": "System 37",
+          "attributes": {
+            "technology": -2,
+            "environment": 1,
+            "resources": 0
+          },
+          "aspects": [],
+          "position": {
+            "x": 291.40349954996844,
+            "y": 166.4034995499685
+          }
+        },
+        {
+          "type": "system",
+          "schemaVersion": "1",
+          "id": "E5ba",
+          "name": "System 48",
+          "attributes": {
+            "technology": -2,
+            "environment": -2,
+            "resources": 2
+          },
+          "aspects": [],
+          "position": {
+            "x": 205,
+            "y": 375.00000000000006
+          }
+        },
+        {
+          "type": "system",
+          "schemaVersion": "1",
+          "id": "F584",
+          "name": "System 58",
+          "attributes": {
+            "technology": -1,
+            "environment": 0,
+            "resources": -3
+          },
+          "aspects": [],
+          "position": {
+            "x": 291.4034995499685,
+            "y": 583.5965004500315
+          }
+        },
+        {
+          "type": "system",
+          "schemaVersion": "1",
+          "id": "G6c8",
+          "name": "System 60",
+          "attributes": {
+            "technology": -1,
+            "environment": 1,
+            "resources": -1
+          },
+          "aspects": [],
+          "position": {
+            "x": 500,
+            "y": 670
+          }
+        },
+        {
+          "type": "system",
+          "schemaVersion": "1",
+          "id": "H6c9",
+          "name": "System 71",
+          "attributes": {
+            "technology": 1,
+            "environment": -3,
+            "resources": 2
+          },
+          "aspects": [],
+          "position": {
+            "x": 708.5965004500315,
+            "y": 583.5965004500315
+          }
+        }
+      ],
+      "straits": [
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "A738",
+            "B7a7"
+          ]
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "A738",
+            "C65b"
+          ]
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "A738",
+            "D7d5"
+          ]
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "B7a7",
+            "C65b"
+          ]
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "B7a7",
+            "E5ba"
+          ]
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "C65b",
+            "D7d5"
+          ]
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "C65b",
+            "F584"
+          ]
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "C65b",
+            "G6c8"
+          ]
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "D7d5",
+            "E5ba"
+          ]
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "E5ba",
+            "F584"
+          ]
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "E5ba",
+            "H6c9"
+          ]
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "F584",
+            "G6c8"
+          ]
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "G6c8",
+            "H6c9"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "cluster",
+      "schemaVersion": "1",
+      "id": "3-system-cluster",
+      "name": "A Cluster with 3 Systems",
+      "systems": [
+        {
+          "type": "system",
+          "schemaVersion": "1",
+          "id": "A739",
+          "name": "System 3",
+          "attributes": {
+            "technology": -1,
+            "environment": 0,
+            "resources": 3
+          },
+          "aspects": [],
+          "position": {
+            "x": 795,
+            "y": 374.99999999999994
+          }
+        },
+        {
+          "type": "system",
+          "schemaVersion": "1",
+          "id": "B749",
+          "name": "System 17",
+          "attributes": {
+            "technology": 2,
+            "environment": 0,
+            "resources": 1
+          },
+          "aspects": [],
+          "position": {
+            "x": 499.99999999999994,
+            "y": 80
+          }
+        },
+        {
+          "type": "system",
+          "schemaVersion": "1",
+          "id": "C566",
+          "name": "System 27",
+          "attributes": {
+            "technology": 1,
+            "environment": -1,
+            "resources": 2
+          },
+          "aspects": [],
+          "position": {
+            "x": 205,
+            "y": 375.00000000000006
+          }
+        }
+      ],
+      "straits": [
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "A739",
+            "B749"
+          ],
+          "direction": "counterclockwise"
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "A739",
+            "B749"
+          ]
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "B749",
+            "C566"
+          ],
+          "direction": "counterclockwise"
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "A739",
+            "C566"
+          ],
+          "direction": "clockwise"
+        }
+      ]
+    }
+  ]
+}
