@@ -11,6 +11,14 @@ export default defineNuxtConfig({
         }
     ],
 
+    app: {
+        head: {
+            htmlAttrs: {
+                lang: 'en',
+            },
+        }
+    },
+
     content: {
         build: {
             markdown: {
@@ -23,6 +31,10 @@ export default defineNuxtConfig({
         renderer: {
             anchorLinks: true,
         }
+    },
+
+    mongoose: {
+        modelsDir: 'server/models',
     },
 
     css: ['~/assets/main.css', 'vue-final-modal/style.css'],
