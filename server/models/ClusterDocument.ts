@@ -2,8 +2,10 @@
 import { Schema, model } from 'mongoose';
 import {SystemDocumentInterface, SystemDocumentSchema} from './SystemDocument';
 import {StraitDocumentInterface, StraitDocumentSchema} from './StraitDocument';
+import {ObjectId} from "bson";
 
 export interface ClusterDocumentInterface {
+    _id: ObjectId;
     schemaVersion: string;
     id: string;
     name: string;

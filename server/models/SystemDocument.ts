@@ -3,8 +3,10 @@ import { Schema, model } from 'mongoose';
 import {SystemAttributesInterface} from "~/types/SystemTypes";
 import {PointType} from "~/types/GeometryTypes";
 import type {AspectType} from "~/types/BasicTypes";
+import {ObjectId} from "bson";
 
 export interface SystemDocumentInterface {
+    _id: ObjectId;
     schemaVersion: string;
     id: string;
     name: string;
