@@ -22,7 +22,7 @@ export default defineNuxtConfig({
         },
         renderer: {
             anchorLinks: true,
-        }
+        }   
     },
 
     css: ['~/assets/main.css', 'vue-final-modal/style.css'],
@@ -33,7 +33,7 @@ export default defineNuxtConfig({
       '@vueuse/nuxt',
       '@nuxt/content',
       '@pinia/nuxt',
-      '@nuxtjs/html-validator',
+      'nuxt-mongoose',
     ],
 
 })
