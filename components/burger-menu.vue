@@ -161,7 +161,12 @@ button:focus {
 
 .burger-menu-list.slide-enter-from,
 .burger-menu-list.slide-leave-to {
-  transform: translateX(var(--burger-menu-list-width));
+  perspective: 800px;
+  transform: rotate3d(0, 1, 0, 90deg);
+  transform-origin: right 100%;
+}
+.burger-menu-list.slide-leave-to {
+  transform: rotate3d(0, 1, 0, -90deg);
 }
 
 </style>
