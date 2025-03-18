@@ -25,6 +25,10 @@ function selectCluster(event: Event) {
   }
 }
 
+function addToDatabase() {
+  console.log('addToDatabase()');
+}
+
 </script>
 
 <template>
@@ -51,6 +55,11 @@ function selectCluster(event: Event) {
 <!--      <div class="clusters-settings-panel">-->
 <!--        <ClustersSettingsPanel/>-->
 <!--      </div>-->
+      <div class="clusters-settings-panel">
+        <div class="add-action">
+          <button class="action" @click="addToDatabase">Add to database</button>
+        </div>
+      </div>
     </div>
   </InfoPage>
 </template>

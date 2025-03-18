@@ -11,4 +11,4 @@ export const universesData: Array<UniverseModelDataType> = [
 ];
 
 const logLabel = import.meta.client ? 'CLIENT: ' : 'SERVER: ';
-console.log(`${logLabel}server/data/universesData universesData: `, universesData);
+// console.log(`${logLabel}server/data/universesData universesData: `, universesData);

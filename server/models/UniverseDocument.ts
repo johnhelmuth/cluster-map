@@ -1,13 +1,16 @@
 
-import { Schema, model } from 'mongoose';
-import {ClusterDocumentInterface, ClusterDocumentSchema} from "~/server/models/ClusterDocument";
+import { Schema } from 'mongoose';
+// @ts-ignore
+import {defineMongooseModel} from "#nuxt/mongoose";
+// @ts-ignore
+import {mongoose} from "mongoose";
 
 export interface UniverseDocumentInterface {
     schemaVersion: string;
     id: string;
     description: string;
     currentClusterId: string;
-    clusters: Array<ClusterDocumentInterface>;
+    clusters: Array<mongoose.Types.ObjectId>;
 }
 
 export const UniverseDocumentSchema
@@ -16,9 +19,8 @@ export const UniverseDocumentSchema
     id: { type: String, required: true },
     description: { type: String, required: true },
     currentClusterId: { type: String, required: true },
-    clusters: { type: [ClusterDocumentSchema]}
+    clusters: { type: [mongoose.Types.ObjectId] }
 });
 
 export const UniverseDocument
-  = model<UniverseDocumentInterface>("UniverseDocument", UniverseDocumentSchema);
-
+  = defineMongooseModel<UniverseDocumentInterface>("UniverseDocument", UniverseDocumentSchema);
