@@ -26,6 +26,10 @@ function selectCluster(event: Event) {
   }
 }
 
+function addToDatabase() {
+  console.log('addToDatabase()');
+}
+
 </script>
 
 <template>
@@ -49,6 +53,14 @@ function selectCluster(event: Event) {
           </li>
         </ul>
       </div>
+<!--      <div class="clusters-settings-panel">-->
+<!--        <ClustersSettingsPanel/>-->
+<!--      </div>-->
+      <div class="clusters-settings-panel">
+        <div class="add-action">
+          <button class="action" @click="addToDatabase">Add to database</button>
+        </div>
+      </div>
     </div>
   </InfoPage>
 </template>
@@ -58,6 +70,7 @@ function selectCluster(event: Event) {
 .universes-page {
   display: grid;
   grid-template-columns: 1fr;
+  /* grid-template-columns: 3fr 1fr; */
   container: clusters-page / size;
 }
 
