@@ -46,11 +46,3 @@ export function rotatePosition(position : PointType) : PointType {
 
   return { x, y };
 }
-
-export function isClustersModelDataType(data : object | ClustersModelDataType) : data is ClustersModelDataType {
-  const hasCurrentClusterId = ((data as ClustersModelDataType)?.currentClusterId !== undefined);
-  return hasCurrentClusterId
-    && typeof (data as ClustersModelDataType).currentClusterId === 'string'
-    && (data as ClustersModelDataType).clusters !== undefined
-    && ((data as ClustersModelDataType).clusters?.length === 0 || (data as ClustersModelDataType).clusters?.length > 0)
-}

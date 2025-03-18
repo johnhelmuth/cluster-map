@@ -1,18 +1,22 @@
+import { z } from 'zod';
 import type {attributeValueType, IdType, AspectType, MapViewStylesType} from "@/types/BasicTypes";
+import {AspectZSchema, AttributeValueZSchema, IdZSchema} from "@/types/BasicTypes";
 import type {StraitModelInterface} from "@/types/StraitTypes";
 import type {ClusterModelInterface} from "@/types/ClusterTypes";
 import type { PointType } from "@/types/GeometryTypes";
+import {PointZSchema} from "@/types/GeometryTypes";
 
 /**
  * System model types
  *
  * A System is a star system.
  */
-export interface SystemAttributesInterface {
-  technology: attributeValueType;
-  environment: attributeValueType;
-  resources: attributeValueType;
-}
+export const SystemAttributesZSchema = z.object({
+  technology: AttributeValueZSchema,
+  environment: AttributeValueZSchema,
+  resources: AttributeValueZSchema,
+});
+export type SystemAttributesInterface = z.infer<typeof SystemAttributesZSchema>;
 
 export type SystemAttributesKeyType = keyof SystemAttributesInterface;
 
@@ -22,8 +26,8 @@ export const SystemAttributesDefaults: SystemAttributesInterface = {
   resources: 0 as attributeValueType
 }
 
-export type SystemIdType = IdType;
-
+export const SystemIdZSchema = IdZSchema;
+export type SystemIdType = z.infer<typeof SystemIdZSchema>;
 export interface SystemModelInterface {
   id: SystemIdType;
   name: string;
@@ -49,5 +53,16 @@ export interface SystemModelInterface {
   toJSON(key: string): object;
 }
 
-export type SystemModelDataType = Omit<SystemModelInterface,"cluster"> | (Pick<SystemModelInterface, "name"> & Partial<Pick<SystemModelInterface, "id">>);
+export const SystemModelDataZSchema = z.object({
+  id: SystemIdZSchema,
+  name: z.string(),
+  url: z.string().optional(),
+  attributes: SystemAttributesZSchema.optional(),
+  aspects: z.array(AspectZSchema).optional(),
+  position: PointZSchema.optional(),
+  selected: z.boolean().optional(),
+  index: z.number().nonnegative().optional(),
+});
+
+export type SystemModelDataType = z.infer<typeof SystemModelDataZSchema>;
 

@@ -7,13 +7,16 @@
  * These StraitModelInterface objects are shared between the 2 SystemModelInterface objects it connects.
  */
 import type {BoundingBoxType, ClusterOrientationType, IdType, MapViewStylesType} from "@/types/BasicTypes";
-import type { SystemIdType, SystemModelInterface} from "@/types/SystemTypes";
+import {IdZSchema} from "@/types/BasicTypes";
+import type {SystemIdType, SystemModelInterface} from "@/types/SystemTypes";
+import {SystemModelDataZSchema} from "@/types/SystemTypes";
 import type {DrawDirectionType, StraitModelInterface} from "@/types/StraitTypes";
-import type {SystemModelDataType} from "@/types/SystemTypes";
-import type {StraitModelDataType} from "@/types/StraitTypes";
+import {StraitModelDataZSchema} from "@/types/StraitTypes";
+import {z} from "zod";
 
 
 export type ClusterIdType = IdType;
+export const ClusterIdTypeZSchema = IdZSchema;
 
 export interface ClusterModelInterface {
   id: ClusterIdType;
@@ -58,14 +61,18 @@ export interface ClusterModelInterface {
   toJSON(key: string) : object;
 }
 
-export type ClusterModelDataType = ClusterModelInterface |
-  (Pick<ClusterModelInterface, "name">
-    & Partial<Pick<ClusterModelInterface, "id">>
-    & {
-        systems?: Array<SystemModelDataType> | null,
-        straits?: Array<StraitModelDataType> | Array<Array<SystemIdType>> | null
-      }
-  );
+export const ClusterModelDataZSchema = z.object({
+  id: ClusterIdTypeZSchema,
+  name: z.string(),
+  systems: z.array(SystemModelDataZSchema),
+  straits: z.array(StraitModelDataZSchema),
+});
+
+export type ClusterModelDataType = z.infer<typeof ClusterModelDataZSchema>;
+
+export function isClusterModelDataType(data: any): data is ClusterModelDataType {
+  return ClusterModelDataZSchema.safeParse(data).success;
+}
 
 export interface ClustersModelInterface {
   cluster: ClusterModelInterface | undefined;
@@ -80,7 +87,14 @@ export interface ClustersModelInterface {
   toJSON(key: string) : object
 }
 
-export type ClustersModelDataType = {
-  currentClusterId: ClusterIdType,
-  clusters: Array<ClusterModelDataType>
+
+export const ClustersModelDataZSchema = z.object({
+  currentClusterId: ClusterIdTypeZSchema,
+  clusters: z.array(ClusterModelDataZSchema)
+})
+
+export type ClustersModelDataType = z.infer<typeof ClustersModelDataZSchema>;
+
+export function isClustersModelDataType(data: any): data is ClustersModelDataType {
+  return ClustersModelDataZSchema.safeParse(data).success;
 }

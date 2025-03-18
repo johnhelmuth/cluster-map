@@ -1,19 +1,20 @@
 <script setup lang="ts">
 
-import type {SystemModelInterface} from "@/types/SystemTypes";
+import SystemModel from "~/models/SystemModel";
 import type {RoutePlanRefType} from "@/types/RoutePlannerTypes";
 import {type MapViewStylesType} from "@/types/BasicTypes";
 import {rotatePosition} from "~/utils/utils";
+import type {DrawDirectionType} from "~/types/StraitTypes";
 
 const props = defineProps<{
-  system: SystemModelInterface,
+  system: SystemModel,
   plan?: RoutePlanRefType,
   mapStyle?: MapViewStylesType | undefined,
   shouldRotate: boolean,
 }>();
 
 defineEmits<{
-  selected: [system: SystemModelInterface | undefined]
+  selected: [system: SystemModel | undefined]
 }>();
 
 const showInfoInside = computed(() => {
@@ -37,7 +38,7 @@ const radius = computed(() => {
 
 const maxStraitRadius = computed(() => {
   if (props?.mapStyle && props?.system) {
-    const direction = props?.shouldRotate ? 'right' : 'left';
+    const direction = props?.shouldRotate ? 'clockwise' : 'right' as DrawDirectionType;
     return Math.max(props.system.cluster.maxStraitRadius(props.mapStyle, radius.value, direction) * 0.40, radius.value);
   }
   return 80;

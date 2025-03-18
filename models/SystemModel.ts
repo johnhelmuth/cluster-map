@@ -6,8 +6,7 @@ import type {
   SystemAttributesInterface,
   SystemAttributesKeyType,
   SystemIdType,
-  SystemModelDataType,
-  SystemModelInterface
+  SystemModelDataType, SystemModelInterface
 } from "@/types/SystemTypes";
 import {SystemAttributesDefaults} from "@/types/SystemTypes"
 import type {PointType} from "@/types/GeometryTypes";
@@ -16,8 +15,9 @@ import {
 } from "~/utils/cluster-generator";
 import { rotatePosition } from "~/utils/utils";
 import {SCHEMA_VERSION} from "@/constants";
+import {isPointType, PointZSchema} from "@/types/GeometryTypes";
 
-export default class SystemModel implements SystemModelInterface {
+export default class SystemModel {
   id: SystemIdType;
   name: string;
   url: string;
@@ -53,33 +53,35 @@ export default class SystemModel implements SystemModelInterface {
       if ("id" in data) {
         this.id = data.id || '';
       }
-      if ("url" in data) {
+      if ("url" in data && data.url) {
         this.url = data.url;
       }
     }
-    this.cluster.addSystem(this as SystemModelInterface);
+    this.cluster.addSystem(this);
   }
 
   private constructAttributes(data: SystemModelDataType) {
     if ("attributes" in data) {
       const dataAttributes = data.attributes;
       let attrib : SystemAttributesKeyType;
-      for (attrib in SystemAttributesDefaults as SystemAttributesInterface) {
-        if (attrib in dataAttributes) {
-          this.attributes[attrib] = dataAttributes[attrib] as attributeValueType;
+      if (typeof dataAttributes === "object") {
+        for (attrib in SystemAttributesDefaults as SystemAttributesInterface) {
+          if (attrib in dataAttributes) {
+            this.attributes[attrib] = dataAttributes[attrib] as attributeValueType;
+          }
         }
       }
     }
   }
 
   private constructAspects(data: SystemModelDataType) {
-    if ("aspects" in data) {
+    if ("aspects" in data && data.aspects instanceof Array) {
       this.aspects = [...data.aspects];
     }
   }
 
   private constructPosition(data: SystemModelDataType) {
-    if ("position" in data) {
+    if ("position" in data && isPointType(data.position)) {
       this.position = { ...data.position };
     }
   }

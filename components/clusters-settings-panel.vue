@@ -1,15 +1,16 @@
 <script setup lang="ts">
 
 import {useClustersStore} from "~/stores/use-clusters-store";
+import { getParseClusters } from "~/utils/import-validator";
 import {useUserScopeStore} from "~/stores/use-user-scope-store";
 import type {Ref} from "vue";
-import type {ClusterIdType, ClustersModelDataType} from "~/types/ClusterTypes";
+import {type ClusterIdType, type ClustersModelDataType, isClustersModelDataType} from "~/types/ClusterTypes";
 
 const clustersStore = useClustersStore();
 
 const {routePlannerService, selectedSystemsService} = useUserScopeStore();
 
-const {files, open, reset, onCancel, onChange} = useFileDialog({
+const {files, open, reset, onChange} = useFileDialog({
   accept: 'application/json', // Set to accept only JSON files
 })
 
@@ -30,7 +31,9 @@ function expandPanel() {
 
 const parseClusters = getParseClusters();
 
-const fileSelected = computed(() => !!importFile.value);
+const fileSelected = computed(() => {
+  return !!importFile.value
+});
 
 const importedClustersStats = computed(() => {
   const stats: {
@@ -124,15 +127,15 @@ watch(importFile, async () => {
   if (importFile.value) {
     try {
       importedJSON = await importFile.value.text();
-      const parsedClusters = parseClusters(importedJSON);
-      if (parsedClusters.valid) {
-        importedData.value = parsedClusters.value as ClustersModelDataType;
+
+      const parseResponse = parseClusters(importedJSON);
+      if (parseResponse.success) {
+        importedData.value = parseResponse.data as ClustersModelDataType;
         importError.value = undefined;
       } else {
-        throw new Error(parsedClusters.error);
+        throw new Error(`${parseResponse.error.toString()}`);
       }
     } catch (err) {
-      console.error(err);
       if (err instanceof Object && "message" in err && typeof err.message === "string") {
         importError.value = err.message;
       } else if (typeof err === "string") {
@@ -140,10 +143,13 @@ watch(importFile, async () => {
       } else {
         importError.value = "Unknown error during import of clusters.";
       }
+      console.error(importError.value);
       resetImports();
+      reset();
     }
   } else {
     resetImports();
+    reset();
   }
 });
 
@@ -179,7 +185,7 @@ watch(importFile, async () => {
                 <li>{{ importFile.name }}</li>
                 <li>{{ importFile.type }}</li>
                 <li>{{ importFile.size }}</li>
-                <!--                  <p>{{importedData}}</p>-->
+                <!-- <p>{{importedData}}</p> -->
                 <li>Clusters count: {{ importedClustersStats.numClusters }}</li>
                 <li>Systems count: {{ importedClustersStats.numSystems }}</li>
                 <li>Default cluster: ({{ importedClustersStats.currentClusterId }}) -

@@ -1,3 +1,5 @@
+
+import SystemModel from "~/models/SystemModel";
 import type {SystemIdType, SystemModelInterface} from "@/types/SystemTypes";
 import type {SelectedSystemsListInterface, SelectedSystemMapType, SelectedSystemLogType} from "@/types/SystemsSelectedListTypes";
 import type {ClusterModelInterface} from "@/types/ClusterTypes";
@@ -32,18 +34,19 @@ export class SelectedSystemsList implements SelectedSystemsListInterface {
     return this._selectedSystems.size >= MAX_SELECTED_SYSTEMS_COUNT;
   }
 
-  selectSystem(system: SystemModelInterface) : void {
+  selectSystem(system: SystemModel) : void {
     system.toggleSelected();
     if (system.getSelected() && ! this._selectedSystems.has(system.id)) {
       if (this.maxSelected) {
         const initialLastSelectedRecord : LastSelectedRecord = { max: -1, lastSystemSelected: undefined };
         const {max, lastSystemSelected} =
           [...this._selectedSystems.values()].reduce(
-            ({max, lastSystemSelected}, {seq, system}: SelectedSystemLogType) => {
-              if (seq > max) {
-                return {max: seq, lastSystemSelected: system};
+            (lastSelectedRecord, { seq, system }) => {
+              if (seq > lastSelectedRecord.max) {
+                lastSelectedRecord.max = seq;
+                lastSelectedRecord.lastSystemSelected = system;
               }
-              return {max, lastSystemSelected};
+              return lastSelectedRecord;
             },
             initialLastSelectedRecord
           );

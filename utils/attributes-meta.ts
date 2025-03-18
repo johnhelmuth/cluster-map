@@ -1,5 +1,5 @@
 import type {SystemAttributesInterface, SystemAttributesKeyType, SystemIdType} from "@/types/SystemTypes";
-import type {attributeFormatType, attributeValueType, attributeRatingMetaType} from "@/types/BasicTypes";
+import type {attributeFormatType, attributeValueType} from "@/types/BasicTypes";
 import {SystemAttributesDefaults} from "@/types/SystemTypes";
 
 export const attributesMeta = {

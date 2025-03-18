@@ -2,7 +2,7 @@
 
 import type {ClusterModelInterface} from "@/types/ClusterTypes";
 import type {RoutePlanRefType} from "@/types/RoutePlannerTypes";
-import type {SystemModelInterface} from "@/types/SystemTypes";
+import SystemModel from "~/models/SystemModel";
 import type {MapViewStylesType} from "~/types/BasicTypes";
 
 const props = defineProps<{
@@ -14,7 +14,7 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  systemSelected: [system: SystemModelInterface | undefined]
+  systemSelected: [system: SystemModel | undefined]
 }>();
 
 const shouldRotate = computed(() => {
@@ -31,7 +31,7 @@ const viewBox = computed(() => {
   return "0 0 1000 750";
 });
 
-function selectSystem(system: SystemModelInterface | undefined) {
+function selectSystem(system: SystemModel | undefined) {
   if (!system) {
     return;
   }

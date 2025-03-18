@@ -1,8 +1,13 @@
-import type {SystemIdType, SystemModelInterface} from "@/types/SystemTypes";
+import { z } from 'zod';
+
+import type {SystemModelInterface} from "@/types/SystemTypes";
 import type {PointType} from "@/types/GeometryTypes";
 import type {MapViewStylesType} from "@/types/BasicTypes";
+import {SystemIdZSchema} from "@/types/SystemTypes";
+import {PointZSchema} from "@/types/GeometryTypes";
 
-export type DrawDirectionType = 'clockwise' | 'center' | 'counterclockwise';
+export const DrawDirectionZSchema = z.enum(['clockwise', 'center', 'counterclockwise'])
+export type DrawDirectionType = z.infer<typeof DrawDirectionZSchema>;
 
 /**
  * Strait model types
@@ -46,7 +51,9 @@ export interface StraitModelInterface {
   toJSON(key: string) : object;
 }
 
-export type StraitModelDataType = {
-  systems: Array<SystemIdType>,
-  direction?: DrawDirectionType,
-};
+export const StraitModelDataZSchema = z.object({
+  systems: z.array(SystemIdZSchema).length(2),
+  direction: DrawDirectionZSchema.optional(),
+});
+
+export type StraitModelDataType = z.infer<typeof StraitModelDataZSchema>;

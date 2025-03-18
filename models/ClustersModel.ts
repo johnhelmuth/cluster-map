@@ -6,6 +6,7 @@ import type {
 } from "@/types/ClusterTypes";
 import {ClusterModel} from "@/models/ClusterModel";
 import {SCHEMA_VERSION} from "@/constants";
+import {isClustersModelDataType} from "@/types/ClusterTypes";
 
 
 export class ClustersModel implements ClustersModelInterface {
@@ -19,8 +20,8 @@ export class ClustersModel implements ClustersModelInterface {
 
   parseClustersData(clustersData: ClustersModelDataType | undefined) {
     this._clusters.clear();
-    if (clustersData && clustersData?.clusters?.length > 0) {
-      for (const clusterData of clustersData.clusters as Array<ClusterModelDataType>) {
+    if (clustersData && isClustersModelDataType(clustersData)) {
+      for (const clusterData of clustersData.clusters) {
         if (clusterData?.id) {
           this._clusters.set(clusterData.id, new ClusterModel(clusterData));
         }

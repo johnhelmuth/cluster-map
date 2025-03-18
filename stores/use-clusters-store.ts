@@ -6,14 +6,15 @@ import clusterJsonDLC from "~/data/clusters/cluster-DLC.json";
 import clusterJson1652 from "~/data/clusters/cluster-1652.json";
 import clusterJson2Systems from "~/data/clusters/cluster-3.json";
 import type {ClustersModelInterface} from "~/types/ClusterTypes";
+import {isClustersModelDataType} from "~/types/ClusterTypes";
 
 const defaultClustersData = {
-    currentClusterId: clusterJsonDLC.id,
-    clusters: [
-        clusterJsonDLC,
-        clusterJson1652,
-        clusterJson2Systems
-    ]
+  currentClusterId: clusterJsonDLC.id,
+  clusters: [
+    clusterJsonDLC,
+    clusterJson1652,
+    clusterJson2Systems
+  ]
 };
 
 let clustersData;
@@ -28,20 +29,24 @@ let clustersData;
 //     }
 // }
 clustersData = clustersData || defaultClustersData;
+
+if (!isClustersModelDataType(clustersData)) {
+  throw new Error('use-clusters-store clustersData does not validate.');
+}
 const clusters: ClustersModelInterface = reactive(new ClustersModel(clustersData));
 
 export function useClustersStore() {
 
-    // /** Store changes to `clusters` in LocalStorage **/
-    // watch(
-    //     clusters,
-    //     () => {
-    //         localStorage.setItem("pinia.cluster-map.clusters", JSON.stringify(clusters));
-    //     },
-    //     { deep: true }
-    // );
+  // /** Store changes to `clusters` in LocalStorage **/
+  // watch(
+  //     clusters,
+  //     () => {
+  //         localStorage.setItem("pinia.cluster-map.clusters", JSON.stringify(clusters));
+  //     },
+  //     { deep: true }
+  // );
 
-    return { clusters };
+  return {clusters};
 }
 
 
