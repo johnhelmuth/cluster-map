@@ -27,7 +27,10 @@ function toggleActive() {
     <Teleport to="body">
       <Transition name="slide">
         <nav v-show="isActive" class="burger-menu-list" :class="{ 'active': isActive}" @click="toggleActive">
-          <slot></slot>
+          <div class="face-front">
+            <slot></slot>
+          </div>
+          <div class="face-back"><img src="/images/banes-eye-space-navy-admiral.png"></div>
         </nav>
       </Transition>
     </Teleport>
@@ -143,30 +146,46 @@ button:focus {
   background-color: var(--color-background);
   width: var(--burger-menu-list-width);
   text-align: left;
-  display: flex;
-  flex-direction: column;
   position: absolute;
-  top: calc(var(--burger-menu-button-height) + 1.5rem);
+  top: calc(var(--burger-menu-button-height) + 2.5rem);
   right: 1rem;
   z-index: var(--layers-navigation);
-
+  padding: 0;
   box-shadow: inset -0.1rem -0.1rem 0.1rem grey,
               inset 0.1rem 0.1rem 0.1rem lightgrey;
+  transform-style: preserve-3d;
+}
 
+.burger-menu-list > div {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0;
+}
+.burger-menu-list .face-back {
+  position: absolute;
+  background-color: var(--color-background-soft);
+  top: 0; left: 0; bottom: 0; right: 0;
+  transform: translateZ(-1px) rotateY(180deg);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.burger-menu-list .face-back :deep(img) {
+  height: calc(var(--burger-menu-list-width) - 2rem);
+  width: calc(var(--burger-menu-list-width) - 2rem);
+  opacity: 0.2;
 }
 
 .burger-menu-list.slide-enter-active, .burger-menu-list.slide-leave-active {
-  transition: all 0.3s ease-out;
+  transition: all .5s linear;
 }
-
 .burger-menu-list.slide-enter-from,
 .burger-menu-list.slide-leave-to {
-  perspective: 800px;
-  transform: rotate3d(0, 1, 0, 90deg);
-  transform-origin: right 100%;
-}
-.burger-menu-list.slide-leave-to {
-  transform: rotate3d(0, 1, 0, -90deg);
+  transform-origin: right top;
 }
 
+.burger-menu-list.slide-enter-from, .burger-menu-list.slide-leave-to {
+  transform: rotate3d(1, 0, 0, 135deg);
+}
 </style>
