@@ -60,7 +60,7 @@ h1 {
 }
 
 .info-content {
-  overflow-y: scroll;
+  overflow-y: auto;
   flex: 2 1 auto;
   background-color: var(--color-background-soft);
   border-radius: 0.5rem;

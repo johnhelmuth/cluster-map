@@ -51,6 +51,9 @@
   --color-background-inverted: var(--vt-c-black);
   --color-background-inverted-mute: var(--vt-c-black-mute);
 
+  --color-scrollbar-track: var(--color-background-mute);
+  --color-scrollbar-thumb: var(--color-background-lightest);
+
   --color-border: var(--vt-c-divider-light-2);
   --color-border-hover: var(--vt-c-divider-light-1);
   --color-border-inverted: var(--vt-c-amber-dull);
@@ -132,6 +135,23 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: clamp(1rem, 1cqw, 1.5rem);
+}
+
+/* https://developer.mozilla.org/en-US/docs/Web/CSS/::-webkit-scrollbar#adding_a_fallback_for_scrollbar_styles */
+/* For browsers that support `scrollbar-*` properties */
+@supports (scrollbar-color: auto) {
+  body {
+    scrollbar-color: var(--color-scrollbar-thumb) var(--color-scrollbar-track);
+  }
+}
+/* Otherwise, use `::-webkit-scrollbar-*` pseudo-elements */
+@supports selector(::-webkit-scrollbar) {
+  body::-webkit-scrollbar, *::-webkit-scrollbar {
+    background: var(--color-scrollbar-track);
+  }
+  body::-webkit-scrollbar-thumb, *::-webkit-scrollbar-thumb {
+    background: var(--color-scrollbar-thumb);
+  }
 }
 
 html {
