@@ -148,6 +148,6 @@ h1 > select {
 .panel-body {
   font-size: .75rem;
   margin-top: 0.25rem;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 </style>
