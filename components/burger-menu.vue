@@ -171,7 +171,7 @@ button:focus {
   align-items: center;
   justify-content: center;
 }
-.burger-menu-list .face-back :deep(img) {
+.burger-menu-list .face-back img {
   height: calc(var(--burger-menu-list-width) - 2rem);
   width: calc(var(--burger-menu-list-width) - 2rem);
   opacity: 0.2;
