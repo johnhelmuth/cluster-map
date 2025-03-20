@@ -1,0 +1,33 @@
+{
+  "type": "character",
+  "schemaVersion": "1",
+  "id": 1,
+  "name": "Carla",
+  "traitType": "approach",
+  "traits": [
+    {
+      "name": "Careful",
+      "rank": 3
+    },
+    {
+      "name": "Clever",
+      "rank": 2
+    },
+    {
+      "name": "Forceful",
+      "rank": 2
+    },
+    {
+      "name": "Flashy",
+      "rank": 1
+    },
+    {
+      "name": "Quickly",
+      "rank": 1
+    },
+    {
+      "name": "Sneaky",
+      "rank": 0
+    }
+  ]
+}
