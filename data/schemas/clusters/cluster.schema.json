@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://in-dire-straits.space/data/schemas/cluster.schema.json",
+  "$id": "https://in-dire-straits.space/data/schemas/clusters/cluster.schema.json",
   "title": "Cluster",
   "description": "A group of star systems and their connections in a Role Playing Game.",
   "type": "object",
@@ -26,14 +26,14 @@
       "description": "A list of systems in the cluster.",
       "type": "array",
       "items": {
-        "$ref": "https://in-dire-straits.space/data/schemas/system.schema.json"
+        "$ref": "https://in-dire-straits.space/data/schemas/clusters/system.schema.json"
       }
     },
     "straits": {
       "description": "A list of connections between systems in the cluster.",
       "type": "array",
       "items": {
-        "$ref": "https://in-dire-straits.space/data/schemas/strait.schema.json"
+        "$ref": "https://in-dire-straits.space/data/schemas/clusters/strait.schema.json"
       }
     }
   },
