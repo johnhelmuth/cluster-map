@@ -9,7 +9,7 @@ const clustersStore = useClustersStore();
 
 const {routePlannerService, selectedSystemsService} = useUserScopeStore();
 
-const {files, open, reset, onCancel, onChange} = useFileDialog({
+const {files, open, reset, onChange} = useFileDialog({
   accept: 'application/json', // Set to accept only JSON files
 })
 
