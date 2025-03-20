@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://in-dire-straits.space/data/schemas/cluster.schema.json",
+  "$id": "https://in-dire-straits.space/data/schemas/clusters/cluster.schema.json",
   "title": "Strait",
   "description": "A strait is an FTL connection between two star systems in a Role Playing Game.",
   "type": "object",

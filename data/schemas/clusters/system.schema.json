@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://in-dire-straits.space/data/schemas/system.schema.json",
+  "$id": "https://in-dire-straits.space/data/schemas/clusters/system.schema.json",
   "title": "System",
   "description": "A description of a star system in a Role Playing Game.",
   "type": "object",

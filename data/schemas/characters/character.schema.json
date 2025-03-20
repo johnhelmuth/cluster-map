@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://in-dire-straits.space/data/schemas/characters/character.schema.json",
+  "title": "Cluster",
+  "description": "A character in a Role Playing Game.",
+  "type": "object",
+  "properties": {
+    "type": {
+      "description": "The type of thingy the data describes, 'character'.",
+      "type": "string",
+      "const": "character"
+    },
+    "schemaVersion": {
+      "description": "The version of the schema for the data.",
+      "type": "string",
+      "const": "1"
+    },
+    "id": {
+      "description": "Unique identifier for the character.",
+      "type": "string"
+    },
+    "name": {
+      "description": "The name of the character.",
+      "type": "string"
+    },
+    "description": {
+      "description": "The description of the character.",
+      "type": "string"
+    },
+    "refresh": {
+      "description": "The current minimum number of Fate points the player of this character starts with at the beginning of a session.",
+      "type": "integer",
+      "minimum": 1,
+      "default": 3
+    },
+    "fatePoints": {
+      "description": "The current number of Fate points the player of this character currently has.",
+      "type": "integer",
+      "minimum": 0,
+      "default": 3
+    },
+    "aspects": {
+      "description": "The Aspects describing the character.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "aspectType": {
+            "description": "The type of Aspect",
+            "type": "string",
+            "enum": [
+              "High Concept",
+              "Trouble",
+              "Relationship",
+              "Other"
+            ]
+          },
+          "name": {
+            "description": "The name of the Aspect",
+            "type": "string"
+          },
+          "description": {
+            "description": "A description of the Aspect, giving a little more context.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      }
+    },
+    "traitType": {
+      "type": "string",
+      "description": "The type of the properties of the character used as a bonus on a dice roll to resolve actions.",
+      "enum": [
+        "skill",
+        "approach",
+        "profession",
+        "other"
+      ]
+    }
+  },
+  "traits": {
+    "type": "array",
+    "items": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the trait, like 'Notice', 'Careful', or 'Warrior'"
+        },
+        "rank": {
+          "type": "integer",
+          "description": "The bonus applied to a resolution roll when this trait is applicable.",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "name",
+        "rank"
+      ]
+    }
+  },
+  "stunts": {
+    "type": "array",
+    "items": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the stunt"
+        },
+        "description": {
+          "type": "string",
+          "description": "A description of the stunt describe the mechanical or narrative effect of the stunt and the conditions under which it applies."
+        },
+        "parameters": {
+          "type": "object",
+          "description": "The details of the mechanical effect of a stunt.",
+          "properties": {
+            "trait": {
+              "type": "string",
+              "description": "The trait (from the 'trait[].name' list) that the mechanics of this stunt applies."
+            },
+            "modifier": {
+              "type": "integer",
+              "description": "How many points should be applied as the mechanical effect of the stunt. It can either add to a roll or the shifts of effect from the roll when successful.",
+              "minimum": 1
+            },
+            "actions": {
+              "type": "array",
+              "description": "The action types to which the mechanical effect applies.",
+              "items": {
+                "enum": ["Overcome", "CaA", "Defend", "Attack"]
+              },
+              "uniqueItems": true,
+              "minItems": 1
+            },
+            "modificationType": {
+              "type": "string",
+              "description": "The part of the resolution task to which the modifier is applied, either the total of the roll, or the total of the effect when the roll is successful.",
+              "enum": ["roll", "effect"],
+              "default": "roll"
+            }
+          }
+        }
+      },
+      "required": [
+        "description"
+      ]
+    }
+  },
+  "required": [
+    "type",
+    "schemaVersion",
+    "id",
+    "name"
+  ]
+}
