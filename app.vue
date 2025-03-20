@@ -19,6 +19,7 @@ const route = useRoute();
         <NuxtLink to="/tatterpedia">Tatterpedia</NuxtLink>
         <NuxtLink to="/sessions">Sessions</NuxtLink>
         <NuxtLink to="/rules-and-systems">Rules & Systems</NuxtLink>
+        <NuxtLink to="/characters">Characters</NuxtLink>
         <NuxtLink to="/search">Search</NuxtLink>
         <NuxtLink to="/map">Map</NuxtLink>
         <NuxtLink to="/clusters">Clusters</NuxtLink>
