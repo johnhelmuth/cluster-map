@@ -3,6 +3,10 @@
 import {useClustersStore} from "~/stores/use-clusters-store";
 import {createCluster} from "~/utils/cluster-generator";
 
+useSeoMeta({
+  title: () => `Clusters`,
+})
+
 const clustersStore = useClustersStore();
 
 function addCluster(event: Event) {
