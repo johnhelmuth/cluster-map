@@ -29,7 +29,7 @@ onMounted(() => {
   }
 });
 
-useServerSeoMeta({
+useSeoMeta({
   title: data?.value?.title,
   description: data?.value?.description
 });
