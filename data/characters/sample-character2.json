@@ -1,8 +1,12 @@
 {
   "type": "character",
   "schemaVersion": "1",
-  "id": 1,
+  "id": "1",
   "name": "Carla",
+  "aspects": [
+    {
+      "name": "Valuable assistant"
+    }],
   "traitType": "approach",
   "traits": [
     {

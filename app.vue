@@ -5,6 +5,12 @@ import {ModalsContainer} from 'vue-final-modal'
 const router = useRouter();
 const route = useRoute();
 
+useSeoMeta({
+  titleTemplate: (titleChunk) => {
+    return titleChunk ? `${titleChunk} - In Dire Straits` : 'In Dire Straits';
+  }
+});
+
 </script>
 
 <template>

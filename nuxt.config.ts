@@ -4,6 +4,12 @@ export default defineNuxtConfig({
     compatibilityDate: '2024-11-01',
     devtools: {enabled: false},
 
+    app: {
+        head: {
+            title: 'In Dire Straits - A Tool for RP Game Information',
+        }
+    },
+
     components: [
         {
             path: '~/components/',
