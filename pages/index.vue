@@ -1,5 +1,10 @@
 <script setup lang="ts">
 
+const route = useRoute();
+
+useSeoMeta({
+  title: () => `In Dire Straits`,
+})
 </script>
 
 <template>
