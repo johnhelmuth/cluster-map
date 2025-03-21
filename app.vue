@@ -7,7 +7,9 @@ const route = useRoute();
 
 useSeoMeta({
   titleTemplate: (titleChunk) => {
-    return titleChunk ? `${titleChunk} - In Dire Straits` : 'In Dire Straits';
+    return titleChunk
+        ? (titleChunk !== "In Dire Straits" ? `${titleChunk} - In Dire Straits` : titleChunk)
+        : 'In Dire Straits';
   }
 });
 
