@@ -7,6 +7,10 @@ const route = useRoute();
 const router = useRouter();
 const {getSearchResults} = await useContentSearch();
 
+useSeoMeta({
+  title: () => `Site Search`,
+})
+
 const urlQueryParam = route?.query?.search?.toString() || '';
 const searchQueryParam = ref(urlQueryParam);
 
