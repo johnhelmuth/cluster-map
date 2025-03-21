@@ -1,60 +1,61 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
 
-    compatibilityDate: '2024-11-01',
-    devtools: {enabled: false},
+  compatibilityDate: '2024-11-01',
+  devtools: {enabled: false},
 
-    app: {
-        head: {
-            htmlAttrs: {
-                lang: 'en',
-            },
-        },
-    },
-
-    routeRules: {
-      "/map": {
-        redirect: {
-          to: "/maps",
-          statusCode: 308
-        },
+  app: {
+    head: {
+      title: 'In Dire Straits - A Tool for RP Game Information',
+      htmlAttrs: {
+        lang: 'en',
       },
-      "/sessions": {
-        redirect: {
-          to: "/campaigns/campaign-1",
-          statusCode: 308
-        }
+    },
+  },
+
+  routeRules: {
+    "/map": {
+      redirect: {
+        to: "/maps",
+        statusCode: 308
+      },
+    },
+    "/sessions": {
+      redirect: {
+        to: "/campaigns/campaign-1",
+        statusCode: 308
+      }
+    }
+  },
+
+  components: [
+    {
+      path: '~/components/',
+      pathPrefix: false,
+    }
+  ],
+
+  content: {
+    build: {
+      markdown: {
+        toc: {
+          depth: 2,
+          searchDepth: 2,
+        },
       }
     },
+    renderer: {
+      anchorLinks: true,
+    }
+  },
 
-    components: [
-        {
-            path: '~/components/',
-            pathPrefix: false,
-        }
-    ],
+  css: ['~/assets/main.css'],
 
-    content: {
-        build: {
-            markdown: {
-                toc: {
-                    depth: 2,
-                    searchDepth: 2,
-                },
-            }
-        },
-        renderer: {
-            anchorLinks: true,
-        }
-    },
-
-    css: ['~/assets/main.css'],
-
-    modules: [
-        '@nuxt/icon',
-        '@vue-final-modal/nuxt',
-        '@vueuse/nuxt',
-        '@nuxt/content',
-    ],
+  modules: [
+    '@nuxt/icon',
+    '@vue-final-modal/nuxt',
+    '@vueuse/nuxt',
+    '@nuxt/content',
+  ],
 
 })
