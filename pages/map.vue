@@ -5,6 +5,11 @@ import {useUserScopeStore} from '~/stores/use-user-scope-store.ts'
 import type {RoutePlannerServiceInterface} from "~/types/RoutePlannerServiceTypes";
 import type {SelectedSystemsServiceInterface} from "~/types/SystemsSelectedListTypes";
 
+
+useSeoMeta({
+  title: () => `Cluster Map`,
+})
+
 const clustersStore = useClustersStore();
 const { routePlannerService, selectedSystemsService } = useUserScopeStore() as { routePlannerService: RoutePlannerServiceInterface, selectedSystemsService: SelectedSystemsServiceInterface };
 
