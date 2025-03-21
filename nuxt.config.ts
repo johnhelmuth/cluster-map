@@ -6,7 +6,7 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: 'In Dire Straits - A Tool for RP Game Information',
+      title: 'In Dire Straits',
       htmlAttrs: {
         lang: 'en',
       },
