@@ -7,7 +7,7 @@ const characters = useCharactersStore();
 
 const character = computed(() => {
   const characterId = route.params.characterId as string;
-  return characters.characters.has(characterId) && characters.characters.get(characterId) || undefined;
+  return characters.getCharacter(characterId);
 });
 
 const page_title = computed(() => {

@@ -2,13 +2,18 @@ import sampleCharacterData from "~/data/characters/sample-character.json"
 import sampleCharacter2Data from "~/data/characters/sample-character2.json"
 import {parseAsCharacterData, parseCharacter} from "~/utils/import-validator";
 import {CharacterModel} from "~/models/character/CharacterModel";
+import type {
+  TraitLabelsType,
+  TraitLabelsTypeKeys,
+  TraitTypesKeys
+} from "~/types/character/CharacterTypes";
 
 const defaultCharactersRawData =
   [sampleCharacterData, sampleCharacter2Data];
 
-const characters = new Map<string, CharacterModel>();
+const characters = reactive(new Map<string, CharacterModel>());
 
-const traitLabels = new Map<string, { singular: string, plural: string }>([
+const traitLabels = new Map<TraitTypesKeys, TraitLabelsType>([
   ["skill", {singular: "Skill", plural: "Skills"}],
   ["approach", {singular: "Approach", plural: "Approaches"}],
   ["profession", {singular: "Profession", plural: "Professions"}],
@@ -31,9 +36,12 @@ const ladder = new Map<number, string>([
   [8, "Legendary"],
 ]);
 
-function getTraitLabel(trait: "skill" | "approach" | "profession" | "other", plurality = "singular" as "singular" | "plural"): string | undefined {
+function getTraitLabel(trait: TraitTypesKeys, plurality = "singular" as TraitLabelsTypeKeys): string | undefined {
   if (traitLabels.has(trait)) {
-    return (traitLabels.get(trait) || {})[plurality];
+    const traitLabelMetadata = traitLabels.get(trait);
+    if (traitLabelMetadata) {
+      return traitLabelMetadata[plurality];
+    }
   }
 }
 
@@ -57,6 +65,10 @@ function formatTraitRank(rank: number): string {
   return formattedRank;
 }
 
+function getCharacter(characterId: string) : CharacterModel | undefined {
+  return characters.has(characterId) && characters.get(characterId) || undefined;
+}
+
 defaultCharactersRawData.forEach((character) => {
   const parseResults = parseCharacter(JSON.stringify(character));
   if (parseAsCharacterData(character)) {
@@ -68,5 +80,11 @@ defaultCharactersRawData.forEach((character) => {
 });
 
 export function useCharactersStore() {
-  return {characters, getTraitLabel, formatTraitRank, getLadderLabel}
+  return {
+    characters,
+    getCharacter,
+    getTraitLabel,
+    formatTraitRank,
+    getLadderLabel
+  }
 }
