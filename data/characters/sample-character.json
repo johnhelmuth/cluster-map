@@ -10,23 +10,28 @@
     {
       "aspectType": "High Concept",
       "name": "Protagonist for Pay",
-      "description": "Joe is an ex-cop who now works as a Private Investigator and is definitely the hero of his own story."
+      "description": "Joe is an ex-cop who now works as a Private Investigator and is definitely the hero of his own story.",
+      "freeInvokes": 0
     },
     {
       "aspectType": "Trouble",
       "name": "Too good for this world",
-      "description": "Joe will do the right thing even though it turns out very badly for him."
+      "description": "Joe will do the right thing even though it turns out very badly for him.",
+      "freeInvokes": 0
     },
     {
       "aspectType": "Relationship",
       "name": "Must reconnect with my estranged daughter Emily",
-      "description": "Joe's adult daughter Emily lives in the City but does not want contact with her father. She was raised by her mother after she divorced Joe because of his extreme work ethic and for fear of losing him to the dangers of his job."
+      "description": "Joe's adult daughter Emily lives in the City but does not want contact with her father. She was raised by her mother after she divorced Joe because of his extreme work ethic and for fear of losing him to the dangers of his job.",
+      "freeInvokes": 0
     },
     {
-      "name": "Custom tuned 1969 Mustang Mach 1"
+      "name": "Custom tuned 1969 Mustang Mach 1",
+      "freeInvokes": 0
     },
     {
-      "name": "Carla's the best partner a man can have."
+      "name": "Carla's the best partner a man can have.",
+      "freeInvokes": 0
     }
   ],
   "traitType": "skill",
@@ -79,7 +84,60 @@
       "parameters": {
         "trait": "Will",
         "modifier": 2,
-        "actions": ["CaA"]
+        "actions": [
+          "CaA"
+        ]
+      }
+    }
+  ],
+  "tracks": [
+    {
+      "trackId": "stress",
+      "trackType": "stress",
+      "trackLabel": "Stress",
+      "stressParams": {
+        "stressSoakType": "increasing",
+        "numBoxes": 2,
+        "isUsed": [true, false]
+      }
+    },
+    {
+      "trackId": "consequences",
+      "trackType": "consequences",
+      "trackLabel": "Consequences",
+      "consequenceParams": {
+        "slots": [
+          {
+            "slotType": "Mild",
+            "slotSoakAmount": 2,
+            "aspect": {
+              "name": "Bruised knuckles",
+              "freeInvokes": 1
+            },
+            "state": "used",
+            "freeInvokes": 2
+          },
+          {
+            "slotType": "Moderate",
+            "slotSoakAmount": 4,
+            "aspect": {
+              "name": "",
+              "freeInvokes": 0
+            },
+            "state": "free",
+            "freeInvokes": 0
+          },
+          {
+            "slotType": "Severe",
+            "slotSoakAmount": 6,
+            "aspect": {
+              "name": "Weak knee",
+              "freeInvokes": 0
+            },
+            "state": "recovering",
+            "freeInvokes": 0
+          }
+        ]
       }
     }
   ]
