@@ -29,7 +29,7 @@ export const parseCharacter = parser(characterSchema, {
 export function parseAsCharacterData(data: any): data is CharacterData {
   const parseResults = parseCharacter(JSON.stringify(data));
   if (! parseResults?.valid) {
-    console.error('Invalid character. parseResults: ', parseResults);
+    console.warn('Invalid character. parseResults: ', parseResults);
   }
   return !! parseResults?.valid;
 }
