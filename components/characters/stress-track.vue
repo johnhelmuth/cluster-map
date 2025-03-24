@@ -15,8 +15,6 @@ const showSoakAmount = computed(() => {
 });
 
 function toggleBox(index: number) {
-  console.log('StressTrack toggleBox() trackId', props.trackId);
-  console.log('StressTrack toggleBox() index', index);
   emit('toggleStress', props.trackId, index);
 }
 

@@ -39,12 +39,18 @@ export class CharacterModel implements CharacterData {
     toggleStressBox(trackId : string, stressIndex: number) {
         const track = this.tracks.find((track) => track.trackId === trackId);
         if (track) {
-            console.log('CharacterModel.toggleStressBox() track: ', track);
             if (stressIndex < track.stressParams.isUsed.length) {
                 track.stressParams.isUsed[stressIndex] = ! track.stressParams.isUsed[stressIndex];
             }
         } else {
-            console.log('CharacterModel.toggleStressBox() could not find track: ', trackId);
+            console.warn('CharacterModel.toggleStressBox() could not find track: ', trackId);
         }
     }
+
+    toLink() {
+        if (this?.id) {
+            return `/character/${this.id}`;
+        }
+    }
+
 }
