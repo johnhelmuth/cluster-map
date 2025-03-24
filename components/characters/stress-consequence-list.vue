@@ -18,7 +18,6 @@ const consequenceTracks = computed(() => {
 });
 
 function toggleStress(trackId: string, stressIndex: number) {
-  console.log('StressConsequenceList.toggleStress() trackId, stressIndex: ', trackId, stressIndex);
   emit('toggleStress', trackId, stressIndex);
 }
 

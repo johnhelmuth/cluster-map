@@ -10,7 +10,6 @@ const props = defineProps<{
 const emit = defineEmits(["toggleBox"]);
 
 function toggleStressBox() {
-  console.log('StressBox.toggleStressBox() icon clicked.');
   emit('toggleBox');
 }
 

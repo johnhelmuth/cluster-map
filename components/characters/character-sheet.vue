@@ -11,13 +11,11 @@ const props = defineProps<{
 }>();
 
 function toggleStressBox(trackId: string, stressIndex: number): void {
-  console.log('CharacterSheet.toggleStressBox() trackId, stressIndex: ', trackId, stressIndex);
   if (props.character) {
     props.character.toggleStressBox(trackId, stressIndex);
   } else {
-    console.log('CharacterSheet.toggleStressBox() Received toggle-stress action from StressConsequenceList with no character in scope.');
+    console.warn('CharacterSheet.toggleStressBox() Received toggle-stress action from StressConsequenceList with no character in scope.');
   }
-
 }
 
 </script>

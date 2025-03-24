@@ -15,6 +15,8 @@ export const TraitTypes = {
 } as const;
 
 export type TraitTypesKeys = keyof typeof TraitTypes;
+export type TraitLabelsType = {singular: string, plural: string};
+export type TraitLabelsTypeKeys = keyof TraitLabelsType;
 
 export interface AspectData {
     name: string,
