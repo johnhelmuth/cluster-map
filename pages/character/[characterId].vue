@@ -7,22 +7,25 @@ const characters = useCharactersStore();
 
 const character = computed(() => {
   const characterId = route.params.characterId as string;
-  return characters.characters.has(characterId) && characters.characters.get(characterId);
+  return characters.characters.has(characterId) && characters.characters.get(characterId) || undefined;
 });
 
 const page_title = computed(() => {
-  return "Character - " + character?.value.name;
+  return "Character - " + character.value?.name;
 });
 
 useSeoMeta({
-  title: () => `Character` + (character?.value?.name ? ` - ${character?.value.name}` : '')
+  title: () => `Character` + (character.value?.name ? ` - ${character?.value.name}` : '')
 })
 
 </script>
 
 <template>
   <InfoPage :page_title="page_title">
-    <CharacterSheet :character="character" />
+    <CharacterSheet v-if="character"
+                    :character="character"
+    />
+    <div v-else>Loading...</div>
   </InfoPage>
 </template>
 

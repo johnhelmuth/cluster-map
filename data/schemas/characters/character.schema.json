@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://in-dire-straits.space/data/schemas/characters/character.schema.json",
-  "title": "Cluster",
+  "title": "Character",
   "description": "A character in a Role Playing Game.",
   "type": "object",
   "properties": {
@@ -62,6 +62,12 @@
           "description": {
             "description": "A description of the Aspect, giving a little more context.",
             "type": "string"
+          },
+          "freeInvokes": {
+            "type": "number",
+            "description": "How many Free Invokes are currently on the Aspect",
+            "minimum": 0,
+            "default": 0
           }
         },
         "required": [
@@ -78,76 +84,203 @@
         "profession",
         "other"
       ]
-    }
-  },
-  "traits": {
-    "type": "array",
-    "items": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "The name of the trait, like 'Notice', 'Careful', or 'Warrior'"
+    },
+    "traits": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the trait, like 'Notice', 'Careful', or 'Warrior'"
+          },
+          "rank": {
+            "type": "integer",
+            "description": "The bonus applied to a resolution roll when this trait is applicable.",
+            "minimum": 0
+          }
         },
-        "rank": {
-          "type": "integer",
-          "description": "The bonus applied to a resolution roll when this trait is applicable.",
-          "minimum": 1
-        }
-      },
-      "required": [
-        "name",
-        "rank"
-      ]
-    }
-  },
-  "stunts": {
-    "type": "array",
-    "items": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "The name of the stunt"
-        },
-        "description": {
-          "type": "string",
-          "description": "A description of the stunt describe the mechanical or narrative effect of the stunt and the conditions under which it applies."
-        },
-        "parameters": {
-          "type": "object",
-          "description": "The details of the mechanical effect of a stunt.",
-          "properties": {
-            "trait": {
-              "type": "string",
-              "description": "The trait (from the 'trait[].name' list) that the mechanics of this stunt applies."
-            },
-            "modifier": {
-              "type": "integer",
-              "description": "How many points should be applied as the mechanical effect of the stunt. It can either add to a roll or the shifts of effect from the roll when successful.",
-              "minimum": 1
-            },
-            "actions": {
-              "type": "array",
-              "description": "The action types to which the mechanical effect applies.",
-              "items": {
-                "enum": ["Overcome", "CaA", "Defend", "Attack"]
+        "required": [
+          "name",
+          "rank"
+        ]
+      }
+    },
+    "stunts": {
+      "type": "array",
+      "description": "A list of the stunts the character can use.",
+      "items": {
+        "type": "object",
+        "description": "A stunt the character can use.",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the stunt"
+          },
+          "description": {
+            "type": "string",
+            "description": "A description of the stunt describe the mechanical or narrative effect of the stunt and the conditions under which it applies."
+          },
+          "parameters": {
+            "type": "object",
+            "description": "The details of the mechanical effect of a stunt.",
+            "properties": {
+              "trait": {
+                "type": "string",
+                "description": "The trait (from the 'trait[].name' list) that the mechanics of this stunt applies."
               },
-              "uniqueItems": true,
-              "minItems": 1
-            },
-            "modificationType": {
-              "type": "string",
-              "description": "The part of the resolution task to which the modifier is applied, either the total of the roll, or the total of the effect when the roll is successful.",
-              "enum": ["roll", "effect"],
-              "default": "roll"
+              "modifier": {
+                "type": "integer",
+                "description": "How many points should be applied as the mechanical effect of the stunt. It can either add to a roll or the shifts of effect from the roll when successful.",
+                "minimum": 1
+              },
+              "actions": {
+                "type": "array",
+                "description": "The action types to which the mechanical effect applies.",
+                "items": {
+                  "enum": [
+                    "Overcome",
+                    "CaA",
+                    "Defend",
+                    "Attack"
+                  ]
+                },
+                "uniqueItems": true,
+                "minItems": 1
+              },
+              "modificationType": {
+                "type": "string",
+                "description": "The part of the resolution task to which the modifier is applied, either the total of the roll, or the total of the effect when the roll is successful.",
+                "enum": [
+                  "roll",
+                  "effect"
+                ],
+                "default": "roll"
+              }
             }
           }
-        }
-      },
-      "required": [
-        "description"
-      ]
+        },
+        "required": [
+          "description"
+        ]
+      }
+    },
+    "tracks": {
+      "type": "array",
+      "description": "The data structures used to track the current state of the character.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "trackId": {
+            "type": "string",
+            "description": "A unique identifier for this track on the character to which it is tied."
+          },
+          "trackType": {
+            "type": "string",
+            "description": "What type of track this is, `stress` or `consequences`.",
+            "enum": [
+              "stress",
+              "consequences"
+            ]
+          },
+          "trackLabel": {
+            "type": "string",
+            "description": "The label or title for this track."
+          },
+          "stressParams": {
+            "type": "object",
+            "description": "The parameters describing the size and type of stress tracks.",
+            "properties": {
+              "stressSoakType": {
+                "type": "string",
+                "description": "The type of stress track. 'single' means all the boxes soak the same amount. 'increasing' means that the amount that each box will soak increases across the track.",
+                "enum": [
+                  "single",
+                  "increasing"
+                ]
+              },
+              "stressBoxLimitPerAction": {
+                "type": "number",
+                "description": "How many boxes on the track can be used to soak shifts from a single roll."
+              },
+              "numBoxes": {
+                "type": "number",
+                "description": "How many boxes in the stress track."
+              },
+              "isUsed": {
+                "type": "array",
+                "items": {
+                  "type": "boolean",
+                  "description": "Checked when the stress box has been used."
+                }
+              }
+            },
+            "required": [
+              "stressSoakType",
+              "numBoxes"
+            ]
+          },
+          "consequenceParams": {
+            "type": "object",
+            "description": "The parameters describing the consequence slots in the track.",
+            "properties": {
+              "slots": {
+                "type": "array",
+                "description": "A list of parameters describing each of the consequence slots on the character sheet.",
+                "items": {
+                  "type": "object",
+                  "description": "Parameters describing one consequence slot on the track.",
+                  "properties": {
+                    "slotType": {
+                      "type": "string",
+                      "description": "The type of consequence the consequence slot. See FC for definitions.",
+                      "enum": [
+                        "Mild",
+                        "Moderate",
+                        "Severe"
+                      ]
+                    },
+                    "slotSoakAmount": {
+                      "type": "number",
+                      "description": "How many shifts of effect ",
+                      "minimum": 1
+                    },
+                    "aspect": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "description": "The name of the Aspect",
+                          "type": "string"
+                        },
+                        "description": {
+                          "description": "A description of the Aspect, giving a little more context.",
+                          "type": "string"
+                        },
+                        "freeInvokes": {
+                          "type": "number",
+                          "description": "",
+                          "minimum": 0
+                        }
+                      },
+                      "required": ["name", "freeInvokes"]
+                    },
+                    "state": {
+                      "type": "string",
+                      "description": "The current state of the consequence slot: 'free' means it can be used to soak shifts of effect. 'used' means it has already been used to soak shifts of effect. 'recovering' means that a recovery roll has been made on the consequence; it is healing, but still affecting the character in some way.",
+                      "enum": ["free", "used", "recovering"]
+                    }
+                  },
+                  "required": ["slotType", "slotSoakAmount", "aspect", "state", "freeInvokes"]
+                }
+              }
+            },
+            "required": ["slots"]
+          }
+        },
+        "required": [
+          "trackType"
+        ]
+      }
     }
   },
   "required": [
