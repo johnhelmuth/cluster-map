@@ -1,27 +1,25 @@
 <script setup lang="ts">
+
+
+import type {CharacterData} from "~/types/character/CharacterTypes";
 import {useCharactersStore} from "~/stores/use-characters-store";
 
-const {characters} = useCharactersStore();
+const charactersStore = useCharactersStore();
 
 useSeoMeta({
   title: () => `Characters`,
 })
-
-function toLink(character) {
-  if (character && character?.id) {
-    return `/character/${character.id}`;
-  }
-}
 </script>
 
 <template>
   <InfoPage page_title="Characters">
     <table>
       <tbody>
-      <tr v-if="characters.size" v-for="character in characters.values()" :key="character.id">
+      <tr v-if="charactersStore.characters.size" v-for="character in charactersStore.characters.values()"
+          :key="character.id">
         <td>{{ character.id }}</td>
         <td>
-          <NuxtLink v-if="toLink(character)" :to="toLink(character)">
+          <NuxtLink v-if="character.toLink()" :to="character.toLink()">
             {{ character.name }}
           </NuxtLink>
           <span v-else>{{ character.name }}</span>
