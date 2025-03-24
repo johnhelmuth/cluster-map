@@ -5,7 +5,8 @@
   "name": "Carla",
   "aspects": [
     {
-      "name": "Valuable assistant"
+      "name": "Valuable assistant",
+      "freeInvokes": 0
     }],
   "traitType": "approach",
   "traits": [
@@ -32,6 +33,19 @@
     {
       "name": "Sneaky",
       "rank": 0
+    }
+  ],
+  "tracks": [
+    {
+      "trackId": "stress",
+      "trackType": "stress",
+      "trackLabel": "Stress",
+      "stressParams": {
+        "stressSoakType": "increasing",
+        "stressBoxLimit": 1,
+        "numBoxes": 2,
+        "isUsed": [false, true]
+      }
     }
   ]
 }

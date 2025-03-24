@@ -6,6 +6,7 @@ import systemSchema from '~/data/schemas/clusters/system.schema.json';
 import clusterSchema from '~/data/schemas/clusters/cluster.schema.json';
 import clustersSchema from '~/data/schemas/clusters/clusters.schema.json';
 import characterSchema from '~/data/schemas/characters/character.schema.json';
+import type { CharacterData } from '~/types/character/CharacterTypes';
 
 export function getParseClusters() : Parse {
   const parse = parser(clustersSchema, {
@@ -24,3 +25,11 @@ export const parseCharacter = parser(characterSchema, {
   mode: "lax",
   includeErrors: true,
 });
+
+export function parseAsCharacterData(data: any): data is CharacterData {
+  const parseResults = parseCharacter(JSON.stringify(data));
+  if (! parseResults?.valid) {
+    console.error('Invalid character. parseResults: ', parseResults);
+  }
+  return !! parseResults?.valid;
+}
