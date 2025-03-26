@@ -1,7 +1,8 @@
 import type {
   CharacterAspectData,
   CharacterData,
-  StuntData, TrackData,
+  StuntData,
+  TrackData,
   TraitData,
   TraitTypesKeys
 } from "~/types/character/CharacterTypes";
@@ -35,8 +36,11 @@ export class CharacterModel implements CharacterData {
     this.tracks = data?.tracks ?? [];
   }
 
+  getTrack(trackId: string) {
+    return this.tracks.find((track) => track.trackId === trackId);
+  }
   toggleBox(trackId: string, boxIndex: number) {
-    const track = this.tracks.find((track) => track.trackId === trackId);
+    const track = this.getTrack(trackId);
     if (track) {
       if (boxIndex < track.boxes.length) {
         track.boxes[boxIndex].isUsed = !track.boxes[boxIndex].isUsed;
@@ -45,6 +49,19 @@ export class CharacterModel implements CharacterData {
       }
     } else {
       console.warn('CharacterModel.toggleBox() could not find track: ', trackId);
+    }
+  }
+
+  useInvoke(trackId: string) {
+    const track = this.getTrack(trackId);
+    if (track) {
+      if (typeof track?.aspect?.freeInvokes === "number" && track.aspect.freeInvokes) {
+        track.aspect.freeInvokes--;
+      } else {
+        console.warn(`CharacterModel.useInvoke() asked to use a free invoke that doesn't exist, track?.aspect?.freeInvokes: `, track?.aspect?.freeInvokes);
+      }
+    } else {
+      console.warn('CharacterModel.useInvoke() could not find track: ', trackId);
     }
   }
 
