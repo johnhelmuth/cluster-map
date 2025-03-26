@@ -38,14 +38,17 @@
   "tracks": [
     {
       "trackId": "stress",
-      "trackType": "stress",
       "trackLabel": "Stress",
-      "stressParams": {
-        "stressSoakType": "increasing",
-        "stressBoxLimit": 1,
-        "numBoxes": 2,
-        "isUsed": [false, true]
-      }
+      "boxes": [
+        {
+          "isUsed": true,
+          "soakValue": 1
+        },
+        {
+          "isUsed": false,
+          "soakValue": 1
+        }
+      ]
     }
   ]
 }

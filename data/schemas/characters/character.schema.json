@@ -175,110 +175,59 @@
             "type": "string",
             "description": "A unique identifier for this track on the character to which it is tied."
           },
-          "trackType": {
-            "type": "string",
-            "description": "What type of track this is, `stress` or `consequences`.",
-            "enum": [
-              "stress",
-              "consequences"
-            ]
-          },
           "trackLabel": {
             "type": "string",
             "description": "The label or title for this track."
           },
-          "stressParams": {
-            "type": "object",
-            "description": "The parameters describing the size and type of stress tracks.",
-            "properties": {
-              "stressSoakType": {
-                "type": "string",
-                "description": "The type of stress track. 'single' means all the boxes soak the same amount. 'increasing' means that the amount that each box will soak increases across the track.",
-                "enum": [
-                  "single",
-                  "increasing"
-                ]
-              },
-              "stressBoxLimitPerAction": {
-                "type": "number",
-                "description": "How many boxes on the track can be used to soak shifts from a single roll."
-              },
-              "numBoxes": {
-                "type": "number",
-                "description": "How many boxes in the stress track."
-              },
-              "isUsed": {
-                "type": "array",
-                "items": {
-                  "type": "boolean",
-                  "description": "Checked when the stress box has been used."
-                }
-              }
-            },
-            "required": [
-              "stressSoakType",
-              "numBoxes"
-            ]
+          "showSoakAmount": {
+            "type": "boolean",
+            "description": "Should the amount of soak the boxes in this track be displayed to the user?"
           },
-          "consequenceParams": {
-            "type": "object",
-            "description": "The parameters describing the consequence slots in the track.",
-            "properties": {
-              "slots": {
-                "type": "array",
-                "description": "A list of parameters describing each of the consequence slots on the character sheet.",
-                "items": {
-                  "type": "object",
-                  "description": "Parameters describing one consequence slot on the track.",
-                  "properties": {
-                    "slotType": {
-                      "type": "string",
-                      "description": "The type of consequence the consequence slot. See FC for definitions.",
-                      "enum": [
-                        "Mild",
-                        "Moderate",
-                        "Severe"
-                      ]
-                    },
-                    "slotSoakAmount": {
-                      "type": "number",
-                      "description": "How many shifts of effect ",
-                      "minimum": 1
-                    },
-                    "aspect": {
-                      "type": "object",
-                      "properties": {
-                        "name": {
-                          "description": "The name of the Aspect",
-                          "type": "string"
-                        },
-                        "description": {
-                          "description": "A description of the Aspect, giving a little more context.",
-                          "type": "string"
-                        },
-                        "freeInvokes": {
-                          "type": "number",
-                          "description": "",
-                          "minimum": 0
-                        }
-                      },
-                      "required": ["name", "freeInvokes"]
-                    },
-                    "state": {
-                      "type": "string",
-                      "description": "The current state of the consequence slot: 'free' means it can be used to soak shifts of effect. 'used' means it has already been used to soak shifts of effect. 'recovering' means that a recovery roll has been made on the consequence; it is healing, but still affecting the character in some way.",
-                      "enum": ["free", "used", "recovering"]
-                    }
-                  },
-                  "required": ["slotType", "slotSoakAmount", "aspect", "state", "freeInvokes"]
+          "boxes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "isUsed": {
+                  "type": "boolean",
+                  "description": "Has the box been used to soak shifts of effect?"
+                },
+                "soakValue": {
+                  "type": "number",
+                  "description": "How many shifts of effect the box can soak."
                 }
+              },
+              "required": [
+                "isUsed",
+                "soakValue"
+              ]
+            }
+          },
+          "aspect": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "The Aspect representing the consequence in this track."
+              },
+              "freeInvokes": {
+                "type": "number",
+                "description": "How many Free Invokes the consequence already has."
+              },
+              "state": {
+                "type": "string",
+                "enum": [
+                  "free",
+                  "used",
+                  "recovering"
+                ]
               }
             },
-            "required": ["slots"]
+            "required": ["name", "freeInvokes", "state"]
           }
         },
         "required": [
-          "trackType"
+          "trackId"
         ]
       }
     }
