@@ -39,6 +39,7 @@ export class CharacterModel implements CharacterData {
   getTrack(trackId: string) {
     return this.tracks.find((track) => track.trackId === trackId);
   }
+
   toggleBox(trackId: string, boxIndex: number) {
     const track = this.getTrack(trackId);
     if (track) {
@@ -52,16 +53,24 @@ export class CharacterModel implements CharacterData {
     }
   }
 
-  useInvoke(trackId: string) {
+  useCharacterAspectInvoke(aspectIndex: number) {
+    if (aspectIndex < this.aspects.length && this.aspects[aspectIndex]?.freeInvokes) {
+      this.aspects[aspectIndex].freeInvokes--;
+    } else {
+      console.warn('CharacterModel.useCharacterAspectInvoke() Invalid aspect index or aspect selected does not have enough free invokes.');
+    }
+  }
+
+  useTrackInvoke(trackId: string) {
     const track = this.getTrack(trackId);
     if (track) {
       if (typeof track?.aspect?.freeInvokes === "number" && track.aspect.freeInvokes) {
         track.aspect.freeInvokes--;
       } else {
-        console.warn(`CharacterModel.useInvoke() asked to use a free invoke that doesn't exist, track?.aspect?.freeInvokes: `, track?.aspect?.freeInvokes);
+        console.warn(`CharacterModel.useTrackInvoke() asked to use a free invoke that doesn't exist, track?.aspect?.freeInvokes: `, track?.aspect?.freeInvokes);
       }
     } else {
-      console.warn('CharacterModel.useInvoke() could not find track: ', trackId);
+      console.warn('CharacterModel.useTrackInvoke() could not find track: ', trackId);
     }
   }
 
