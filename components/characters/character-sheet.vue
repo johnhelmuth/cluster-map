@@ -10,9 +10,9 @@ const props = defineProps<{
   character?: CharacterModel
 }>();
 
-function toggleStressBox(trackId: string, stressIndex: number): void {
+function toggleBox(trackId: string, boxIndex: number): void {
   if (props.character) {
-    props.character.toggleStressBox(trackId, stressIndex);
+    props.character.toggleBox(trackId, boxIndex);
   } else {
     console.warn('CharacterSheet.toggleStressBox() Received toggle-stress action from StressConsequenceList with no character in scope.');
   }
@@ -27,7 +27,12 @@ function toggleStressBox(trackId: string, stressIndex: number): void {
     <AspectList :aspects="character.aspects" v-if="character.aspects && character.aspects.length" class="block aspect-list left-half"/>
     <TraitList :traitType="character.traitType" :traits="character.traits"  v-if="character.traits.length" class="block trait-list right-half"/>
     <StuntList :stunts="character.stunts" v-if="character.stunts && character.stunts.length" class="block stunt-list all-columns"/>
-    <StressConsequenceList :tracks="character.tracks" v-if="character.tracks && character.tracks.length" class="block track-list left-half" @toggleStress="toggleStressBox"/>
+    <TrackList
+        v-if="character.tracks && character.tracks.length"
+        :tracks="character.tracks"
+        class="block track-list first-three-columns"
+        @toggleBox="toggleBox"
+    />
   </div>
   <div v-else>Loading...</div>
 </template>
