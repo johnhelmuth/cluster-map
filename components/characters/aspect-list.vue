@@ -21,5 +21,11 @@ defineProps<{
 </template>
 
 <style scoped>
-
+.aspect-item.property-item .aspect-name {
+  font-weight: bold;
+  font-style: italic;
+  font-size: 1.1rem;
+  padding-left: 1rem;
+  text-indent: -1rem;
+}
 </style>
