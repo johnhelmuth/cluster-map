@@ -103,6 +103,10 @@
         {
           "isUsed": false,
           "soakValue": 2
+        },
+        {
+          "isUsed": false,
+          "soakValue": 3
         }
       ]
     },
@@ -118,7 +122,7 @@
       ],
       "aspect": {
         "name": "Bruised knuckles",
-        "freeInvokes": 1,
+        "freeInvokes": 2,
         "state": "used"
       }
     },
@@ -150,7 +154,7 @@
       ],
       "aspect": {
         "name": "Compound fracture, left shin.",
-        "freeInvokes": 0,
+        "freeInvokes": 1,
         "state": "recovering"
       }
     }

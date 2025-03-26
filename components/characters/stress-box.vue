@@ -19,7 +19,7 @@ const shouldShowSoak = computed(() => {
 </script>
 
 <template>
-  <div class="stress-box-container" @click="toggleStressBox" :class="{ checked: isChecked}" :data[box-limit-per-action]="boxLimitPerAction">
+  <div class="stress-box-container" @click="toggleStressBox" :class="{ checked: isChecked}">
     <div v-if="shouldShowSoak" class="soak-value">{{ soakNumber }}</div>
   </div>
 </template>

@@ -17,6 +17,13 @@ function toggleBox(trackId: string, boxIndex: number): void {
     console.warn('CharacterSheet.toggleStressBox() Received toggle-stress action from StressConsequenceList with no character in scope.');
   }
 }
+function useInvoke(trackId: string): void {
+  console.log('CharacterSheet.useInvoke() trackId: ', trackId);
+  if (props.character) {
+    props.character.useInvoke(trackId);
+  }
+}
+
 
 </script>
 
@@ -30,8 +37,9 @@ function toggleBox(trackId: string, boxIndex: number): void {
     <TrackList
         v-if="character.tracks && character.tracks.length"
         :tracks="character.tracks"
-        class="block track-list first-three-columns"
+        class="block track-list left-half"
         @toggleBox="toggleBox"
+        @useInvoke="useInvoke"
     />
   </div>
   <div v-else>Loading...</div>
