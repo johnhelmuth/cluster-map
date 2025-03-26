@@ -3,7 +3,6 @@
 const props = defineProps<{
   isChecked: boolean;
   showSoakAmount?: boolean;
-  boxLimitPerAction?: number;
   soakNumber?: number
 }>();
 
