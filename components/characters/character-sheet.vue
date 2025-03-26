@@ -18,7 +18,6 @@ function toggleBox(trackId: string, boxIndex: number): void {
   }
 }
 function useInvoke(trackId: string): void {
-  console.log('CharacterSheet.useInvoke() trackId: ', trackId);
   if (props.character) {
     props.character.useInvoke(trackId);
   }
@@ -33,7 +32,6 @@ function useInvoke(trackId: string): void {
     <RefreshList :refresh="character.refresh" :fatePoints="character.fatePoints" v-if="typeof character.refresh !== 'undefined' && typeof character.fatePoints !== 'undefined'" class="refresh-list block last-column" />
     <AspectList :aspects="character.aspects" v-if="character.aspects && character.aspects.length" class="block aspect-list left-half"/>
     <TraitList :traitType="character.traitType" :traits="character.traits"  v-if="character.traits.length" class="block trait-list right-half"/>
-    <StuntList :stunts="character.stunts" v-if="character.stunts && character.stunts.length" class="block stunt-list all-columns"/>
     <TrackList
         v-if="character.tracks && character.tracks.length"
         :tracks="character.tracks"
@@ -41,6 +39,12 @@ function useInvoke(trackId: string): void {
         @toggleBox="toggleBox"
         @useInvoke="useInvoke"
     />
+    <StuntList
+        v-if="character.stunts && character.stunts.length"
+        :stunts="character.stunts"
+        class="block stunt-list right-half"
+    />
+
   </div>
   <div v-else>Loading...</div>
 </template>
