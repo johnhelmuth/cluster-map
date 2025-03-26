@@ -93,51 +93,65 @@
   "tracks": [
     {
       "trackId": "stress",
-      "trackType": "stress",
       "trackLabel": "Stress",
-      "stressParams": {
-        "stressSoakType": "increasing",
-        "numBoxes": 2,
-        "isUsed": [true, false]
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": true,
+          "soakValue": 1
+        },
+        {
+          "isUsed": false,
+          "soakValue": 2
+        }
+      ]
+    },
+    {
+      "trackId": "consequence-mild",
+      "trackLabel": "Mild",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": true,
+          "soakValue": 2
+        }
+      ],
+      "aspect": {
+        "name": "Bruised knuckles",
+        "freeInvokes": 1,
+        "state": "used"
       }
     },
     {
-      "trackId": "consequences",
-      "trackType": "consequences",
-      "trackLabel": "Consequences",
-      "consequenceParams": {
-        "slots": [
-          {
-            "slotType": "Mild",
-            "slotSoakAmount": 2,
-            "aspect": {
-              "name": "Bruised knuckles",
-              "freeInvokes": 1
-            },
-            "state": "used",
-            "freeInvokes": 2
-          },
-          {
-            "slotType": "Moderate",
-            "slotSoakAmount": 4,
-            "aspect": {
-              "name": "",
-              "freeInvokes": 0
-            },
-            "state": "free",
-            "freeInvokes": 0
-          },
-          {
-            "slotType": "Severe",
-            "slotSoakAmount": 6,
-            "aspect": {
-              "name": "Weak knee",
-              "freeInvokes": 0
-            },
-            "state": "recovering",
-            "freeInvokes": 0
-          }
-        ]
+      "trackId": "consequence-moderate",
+      "trackLabel": "Moderate",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 4
+        }
+      ],
+      "aspect": {
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    },
+    {
+      "trackId": "consequence-severe",
+      "trackLabel": "Severe",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": true,
+          "soakValue": 6
+        }
+      ],
+      "aspect": {
+        "name": "Compound fracture, left shin.",
+        "freeInvokes": 0,
+        "state": "recovering"
       }
     }
   ]
