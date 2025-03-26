@@ -16,9 +16,10 @@ function toggleBox(trackId: string, stressIndex: number) {
 }
 
 function useInvoke(trackId: string) {
-  console.log('TrackList.useInvoke() trackId: ', trackId);
   emit('useInvoke', trackId);
 }
+
+// TODO: Implement consequence recovery state, track.aspect.state in 'free', 'used', 'recovering'
 
 </script>
 
