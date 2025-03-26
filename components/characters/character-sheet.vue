@@ -1,9 +1,5 @@
 <script setup lang="ts">
 
-import {useCharactersStore} from "~/stores/use-characters-store";
-import AspectList from "~/components/characters/aspect-list.vue";
-import StuntList from "~/components/characters/stunt-list.vue";
-import IdentityList from "~/components/characters/identity-list.vue";
 import type {CharacterModel} from "~/models/character/CharacterModel";
 
 const props = defineProps<{
@@ -17,9 +13,14 @@ function toggleBox(trackId: string, boxIndex: number): void {
     console.warn('CharacterSheet.toggleStressBox() Received toggle-stress action from StressConsequenceList with no character in scope.');
   }
 }
-function useInvoke(trackId: string): void {
+function useTrackInvoke(trackId: string): void {
   if (props.character) {
-    props.character.useInvoke(trackId);
+    props.character.useTrackInvoke(trackId);
+  }
+}
+function useCharacterAspectInvoke(aspectIndex: number): void {
+  if (props.character) {
+    props.character.useCharacterAspectInvoke(aspectIndex);
   }
 }
 
@@ -30,14 +31,19 @@ function useInvoke(trackId: string): void {
   <div v-if="character" class="sheet">
     <IdentityList :name="character.name" :description="character.description" class="identity-list block first-three-columns"/>
     <RefreshList :refresh="character.refresh" :fatePoints="character.fatePoints" v-if="typeof character.refresh !== 'undefined' && typeof character.fatePoints !== 'undefined'" class="refresh-list block last-column" />
-    <AspectList :aspects="character.aspects" v-if="character.aspects && character.aspects.length" class="block aspect-list left-half"/>
+    <AspectList
+        :aspects="character.aspects"
+        v-if="character.aspects && character.aspects.length"
+        class="block aspect-list left-half"
+        @useInvoke="useCharacterAspectInvoke"
+    />
     <TraitList :traitType="character.traitType" :traits="character.traits"  v-if="character.traits.length" class="block trait-list right-half"/>
     <TrackList
         v-if="character.tracks && character.tracks.length"
         :tracks="character.tracks"
         class="block track-list left-half"
         @toggleBox="toggleBox"
-        @useInvoke="useInvoke"
+        @useInvoke="useTrackInvoke"
     />
     <StuntList
         v-if="character.stunts && character.stunts.length"

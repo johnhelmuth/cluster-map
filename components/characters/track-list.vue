@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type {TrackData} from "~/types/character/CharacterTypes";
-import Track from "~/components/characters/track.vue";
 
 const props = defineProps<{
   tracks: Array<TrackData>
@@ -39,19 +38,13 @@ function useInvoke(trackId: string) {
               @toggle-box="toggleBox(track.trackId, index-1)"
           />
         </div>
-        <div v-if="track.aspect" class="track-aspect" :class="{'track-aspect-spread': ! track?.aspect?.freeInvokes}">
-          {{ track?.aspect?.name || ' ' }}
-        </div>
-        <div v-if="track.aspect?.freeInvokes" class="track-aspect-invokes">
-          <StressBox v-for="index in track.aspect.freeInvokes"
-                     class=""
-                     :key="index-1"
-                     :soak-number="1"
-                     :show-soak-amount="false"
-                     :is-checked="false"
-                     @toggle-box="useInvoke(track.trackId)"
-          />
-        </div>
+        <Aspect
+            v-if="track.aspect" :track-id="track.trackId"
+            :aspect="track.aspect"
+            class="track-aspect"
+            :class="{'track-aspect-spread': ! track?.aspect?.freeInvokes}"
+            @use-invoke="useInvoke(track.trackId)"
+        />
       </template>
     </div>
   </div>
@@ -95,7 +88,7 @@ function useInvoke(trackId: string) {
 .track-aspect.track-aspect-spread {
   grid-column: 3 / 5;
 }
-.track-aspect-invokes {
+.track-aspect-invokes, :deep(.track-aspect-invokes) {
   grid-column: 4 / 5;
   display: flex;
   flex-direction: row;
@@ -103,7 +96,7 @@ function useInvoke(trackId: string) {
   align-items: center;
   gap: 0.35rem;
 }
-.track-aspect-invokes :deep(.stress-box-container) {
+.track-aspect-invokes :deep(.stress-box-container), :deep(.track-aspect-invokes .stress-box-container) {
   width: 1rem;
   height: 1rem;
 }
