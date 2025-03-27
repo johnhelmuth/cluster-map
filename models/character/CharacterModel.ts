@@ -6,7 +6,6 @@ import type {
   TraitData,
   TraitTypesKeys
 } from "~/types/character/CharacterTypes";
-import {DEFAULT_REFRESH} from "~/types/character/CharacterTypes";
 
 export class CharacterModel implements CharacterData {
 
@@ -27,8 +26,8 @@ export class CharacterModel implements CharacterData {
     this.id = data.id;
     this.name = data.name;
     this.description = data?.description ?? "";
-    this.refresh = data?.refresh ?? DEFAULT_REFRESH;
-    this.fatePoints = data?.fatePoints ?? DEFAULT_REFRESH;
+    this.refresh = data?.refresh;
+    this.fatePoints = data?.fatePoints;
     this.aspects = data?.aspects ?? [];
     this.traitType = data?.traitType ?? 'skill' as TraitTypesKeys;
     this.traits = data?.traits ?? [];
