@@ -1,6 +1,7 @@
 <script setup lang="ts">
 
 import {useCharactersStore} from "~/stores/use-characters-store";
+import type {TraitViewTypesKeys} from "~/types/character/CharacterTypes";
 
 const route = useRoute();
 const characters = useCharactersStore();
@@ -8,6 +9,10 @@ const characters = useCharactersStore();
 const character = computed(() => {
   const characterId = route.params.characterId as string;
   return characters.getCharacter(characterId);
+});
+
+const traitsViewType = computed(() => {
+  return "pyramid" as TraitViewTypesKeys;
 });
 
 const page_title = computed(() => {
@@ -24,6 +29,7 @@ useSeoMeta({
   <InfoPage :page_title="page_title">
     <CharacterSheet v-if="character"
                     :character="character"
+                    :traits-view-type="traitsViewType"
     />
     <div v-else>Loading...</div>
   </InfoPage>
