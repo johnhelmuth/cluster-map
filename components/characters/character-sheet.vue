@@ -1,9 +1,11 @@
 <script setup lang="ts">
 
 import type {CharacterModel} from "~/models/character/CharacterModel";
+import type {TraitViewTypesKeys} from "~/types/character/CharacterTypes";
 
 const props = defineProps<{
-  character?: CharacterModel
+  character?: CharacterModel,
+  traitsViewType: TraitViewTypesKeys
 }>();
 
 function toggleBox(trackId: string, boxIndex: number): void {
@@ -24,20 +26,25 @@ function useCharacterAspectInvoke(aspectIndex: number): void {
   }
 }
 
-
 </script>
 
 <template>
   <div v-if="character" class="sheet">
     <IdentityList :name="character.name" :description="character.description" class="identity-list block first-three-columns"/>
-    <RefreshList :refresh="character.refresh" :fatePoints="character.fatePoints" v-if="typeof character.refresh !== 'undefined' && typeof character.fatePoints !== 'undefined'" class="refresh-list block last-column" />
+    <RefreshList v-if="typeof character.refresh !== 'undefined' && typeof character.fatePoints !== 'undefined'" :refresh="character.refresh" :fatePoints="character.fatePoints" class="refresh-list block last-column" />
     <AspectList
         :aspects="character.aspects"
         v-if="character.aspects && character.aspects.length"
         class="block aspect-list left-half"
         @useInvoke="useCharacterAspectInvoke"
     />
-    <TraitList :traitType="character.traitType" :traits="character.traits"  v-if="character.traits.length" class="block trait-list right-half"/>
+    <TraitList
+        v-if="character.traits.length"
+        :traitType="character.traitType"
+        :traits="character.traits"
+        :view-type="traitsViewType"
+        class="block trait-list right-half"
+    />
     <TrackList
         v-if="character.tracks && character.tracks.length"
         :tracks="character.tracks"
@@ -50,15 +57,37 @@ function useCharacterAspectInvoke(aspectIndex: number): void {
         :stunts="character.stunts"
         class="block stunt-list right-half"
     />
-
   </div>
   <div v-else>Loading...</div>
 </template>
 
 <style scoped>
 
+.all-columns {
+  grid-column: 1 / 5;
+}
+.first-three-columns {
+  grid-column: 1 / 4;
+}
+.last-column {
+  grid-column: 4 / 5;
+}
+.left-half {
+  grid-column: 1 / 3;
+}
+.right-half {
+  grid-column: 3 / 5;
+}
+
+@container (max-width: 1070px) {
+  .left-half, .right-half {
+    grid-column: 1 / -1;
+  }
+}
+
 h3, :deep(h3) {
-  text-align: center;
+  text-align: left;
+  text-indent: 3rem;
 }
 
 h4, :deep(h4) {
@@ -79,27 +108,12 @@ ul, :deep(ul) {
 .block {
   min-width: 10rem;
   container-name: block;
-}
-
-.all-columns {
-  grid-column: 1 / 5;
-}
-.first-three-columns {
-  grid-column: 1 / 4;
-}
-.last-column {
-  grid-column: 4 / 5;
-}
-.left-half {
-  grid-column: 1 / 3;
-}
-.right-half {
-  grid-column: 3 / 5;
+  container-type: inline-size;
 }
 
 .property-item, :deep(.property-item) {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr 4fr;
   align-items: start;
   column-gap: 0.5rem;
   margin-bottom: 0.5rem;
