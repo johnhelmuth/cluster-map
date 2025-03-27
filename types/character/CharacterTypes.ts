@@ -18,6 +18,13 @@ export type TraitTypesKeys = keyof typeof TraitTypes;
 export type TraitLabelsType = { singular: string, plural: string };
 export type TraitLabelsTypeKeys = keyof TraitLabelsType;
 
+export const TraitViewTypes = {
+  "name": "By Name",
+  "rank": "By Rank",
+  "pyramid": "Pyramid"
+};
+export type TraitViewTypesKeys = keyof typeof TraitViewTypes;
+
 export interface AspectData {
   name: string,
   description: string,
