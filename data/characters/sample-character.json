@@ -23,7 +23,7 @@
       "aspectType": "Relationship",
       "name": "Must reconnect with my estranged daughter Emily",
       "description": "Joe's adult daughter Emily lives in the City but does not want contact with her father. She was raised by her mother after she divorced Joe because of his extreme work ethic and for fear of losing him to the dangers of his job.",
-      "freeInvokes": 0
+      "freeInvokes": 3
     },
     {
       "name": "Custom tuned 1969 Mustang Mach 1",
