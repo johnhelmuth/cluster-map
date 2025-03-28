@@ -26,6 +26,7 @@ useSeoMeta({
         <NuxtLink to="/tatterpedia">Tatterpedia</NuxtLink>
         <NuxtLink to="/rules-and-systems">Rules & Systems</NuxtLink>
         <NuxtLink to="/characters">Characters</NuxtLink>
+        <NuxtLink to="/aspects">Aspects</NuxtLink>
         <NuxtLink to="/search">Search</NuxtLink>
         <NuxtLink to="/map">Map</NuxtLink>
         <NuxtLink to="/clusters">Clusters</NuxtLink>
