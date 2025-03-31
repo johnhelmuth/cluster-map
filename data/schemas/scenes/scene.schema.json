@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://in-dire-straits.space/data/schemas/scenes/scene.schema.json",
+  "title": "Scene",
+  "description": "A scene in a Role Playing Game.",
+  "type": "object",
+  "properties": {
+    "type": {
+      "description": "",
+      "type": "string",
+      "const": "scene"
+    },
+    "schemaVersion":  {
+      "description": "The version of the schema for the data.",
+      "type": "string",
+      "const": "1"
+    },
+    "id": {
+      "description": "Unique identifier for the scene.",
+      "type": "string"
+    },
+    "title": {
+      "description": "The title of the scene.",
+      "type": "string"
+    },
+    "description": {
+      "description": "The description of the scene.",
+      "type": "string"
+    },
+    "aspects": {
+      "description": "The list of aspects in the scene",
+      "type": "array",
+      "items": {
+        "description": "The situation aspects in the scene.",
+        "$ref": "https://in-dire-straits.space/data/schemas/aspect.schema.json"
+      }
+    },
+    "characterIds": {
+      "description": "The list of PCs and NPCs in the scene.",
+      "type": "array",
+      "items": {
+        "description": "Each item is the character ID for a PC or an NPC in the scene.",
+        "type": "string"
+      },
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "type",
+    "schemaVersion",
+    "id",
+    "title"
+  ]
+}

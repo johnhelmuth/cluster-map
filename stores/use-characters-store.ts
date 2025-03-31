@@ -3,6 +3,7 @@ import sampleCharacter2Data from "~/data/characters/sample-character2.json"
 import {parseAsCharacterData, parseCharacter} from "~/utils/import-validator";
 import {CharacterModel} from "~/models/character/CharacterModel";
 import type {
+  CharacterIdType,
   TraitLabelsType,
   TraitLabelsTypeKeys,
   TraitTypesKeys
@@ -35,6 +36,21 @@ const ladder = new Map<number, string>([
   [7, "Epic"],
   [8, "Legendary"],
 ]);
+const ladderAbbrev = new Map<number, string>([
+  [-4, "Horrif"],
+  [-3, "Catast"],
+  [-2, "Terr"],
+  [-1, "Poor"],
+  [0, "Medio"],
+  [1, "Avg"],
+  [2, "Fair"],
+  [3, "Good"],
+  [4, "Great"],
+  [5, "Superb"],
+  [6, "Fant"],
+  [7, "Epic"],
+  [8, "Legend"],
+]);
 
 function getTraitLabel(trait: TraitTypesKeys, plurality = "singular" as TraitLabelsTypeKeys): string | undefined {
   if (traitLabels.has(trait)) {
@@ -45,9 +61,15 @@ function getTraitLabel(trait: TraitTypesKeys, plurality = "singular" as TraitLab
   }
 }
 
-function getLadderLabel(rating: number): string | undefined {
-  if (ladder.has(rating)) {
-    return ladder.get(rating);
+function getLadderLabel(rating: number, useAbbrev = false): string | undefined {
+  if (useAbbrev) {
+    if (ladderAbbrev.has(rating)) {
+      return ladderAbbrev.get(rating);
+    }
+  } else {
+    if (ladder.has(rating)) {
+      return ladder.get(rating);
+    }
   }
 }
 
@@ -65,7 +87,7 @@ function formatTraitRank(rank: number): string {
   return formattedRank;
 }
 
-function getCharacter(characterId: string) : CharacterModel | undefined {
+function getCharacter(characterId: CharacterIdType) : CharacterModel | undefined {
   return characters.has(characterId) && characters.get(characterId) || undefined;
 }
 
@@ -75,7 +97,7 @@ defaultCharactersRawData.forEach((character) => {
     const characterModel = new CharacterModel(character);
     characters.set(characterModel.id, characterModel);
   } else {
-    console.log('Invalid character. parseResults: ', parseResults);
+    console.warn('Invalid character. parseResults: ', parseResults);
   }
 });
 
