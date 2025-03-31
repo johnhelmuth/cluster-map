@@ -68,6 +68,8 @@ h1 {
   box-shadow: inset -0.125rem -0.125rem 0.125rem lightgrey,
   inset 0.125rem 0.125rem 0.125rem #777;
   padding: 1rem;
+  container-type: size;
+  container-name: info-content;
 }
 
 .info-content.no-inset-shadow {
