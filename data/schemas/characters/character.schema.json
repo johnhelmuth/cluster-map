@@ -43,36 +43,8 @@
       "description": "The Aspects describing the character.",
       "type": "array",
       "items": {
-        "type": "object",
-        "properties": {
-          "aspectType": {
-            "description": "The type of Aspect",
-            "type": "string",
-            "enum": [
-              "High Concept",
-              "Trouble",
-              "Relationship",
-              "Other"
-            ]
-          },
-          "name": {
-            "description": "The name of the Aspect",
-            "type": "string"
-          },
-          "description": {
-            "description": "A description of the Aspect, giving a little more context.",
-            "type": "string"
-          },
-          "freeInvokes": {
-            "type": "number",
-            "description": "How many Free Invokes are currently on the Aspect",
-            "minimum": 0,
-            "default": 0
-          }
-        },
-        "required": [
-          "name"
-        ]
+        "description": "",
+        "$ref": "https://in-dire-straits.space/data/schemas/aspect.schema.json"
       }
     },
     "traitType": {

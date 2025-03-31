@@ -2,6 +2,7 @@
 import {parseAsCharacterData, parseCharacter} from "~/utils/import-validator";
 import {CharacterModel} from "~/models/character/CharacterModel";
 import type {
+  CharacterIdType,
   TraitLabelsType,
   TraitLabelsTypeKeys,
   TraitTypesKeys
@@ -30,6 +31,21 @@ const ladder = new Map<number, string>([
   [7, "Epic"],
   [8, "Legendary"],
 ]);
+const ladderAbbrev = new Map<number, string>([
+  [-4, "Horrif"],
+  [-3, "Catast"],
+  [-2, "Terr"],
+  [-1, "Poor"],
+  [0, "Medio"],
+  [1, "Avg"],
+  [2, "Fair"],
+  [3, "Good"],
+  [4, "Great"],
+  [5, "Superb"],
+  [6, "Fant"],
+  [7, "Epic"],
+  [8, "Legend"],
+]);
 
 function getTraitLabel(trait: TraitTypesKeys, plurality = "singular" as TraitLabelsTypeKeys): string | undefined {
   if (traitLabels.has(trait)) {
@@ -40,9 +56,15 @@ function getTraitLabel(trait: TraitTypesKeys, plurality = "singular" as TraitLab
   }
 }
 
-function getLadderLabel(rating: number): string | undefined {
-  if (ladder.has(rating)) {
-    return ladder.get(rating);
+function getLadderLabel(rating: number, useAbbrev = false): string | undefined {
+  if (useAbbrev) {
+    if (ladderAbbrev.has(rating)) {
+      return ladderAbbrev.get(rating);
+    }
+  } else {
+    if (ladder.has(rating)) {
+      return ladder.get(rating);
+    }
   }
 }
 
@@ -66,7 +88,7 @@ export function useCharactersStore() {
   const loaded = ref(false);
   const error = ref(false);
 
-  function getCharacter(characterId: string) : CharacterModel | undefined {
+  function getCharacter(characterId: CharacterIdType) : CharacterModel | undefined {
     return characters.has(characterId) && characters.get(characterId) || undefined;
   }
 

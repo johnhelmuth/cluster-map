@@ -1,3 +1,7 @@
+import type {IdType} from "~/types/BasicTypes";
+
+export type CharacterIdType = IdType;
+
 export const AspectTypes = {
   HighConcept: "HighConcept",
   Trouble: "Trouble",
@@ -96,7 +100,7 @@ export const DEFAULT_REFRESH = 3;
 
 export interface CharacterData {
   schemaVersion: string,
-  id: string,
+  id: CharacterIdType,
   name: string,
   description: string,
   refresh: number,
