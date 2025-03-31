@@ -1,8 +1,14 @@
 <script setup lang="ts">
 
 import {ModalsContainer} from 'vue-final-modal'
+import {useUniversesStore} from "~/stores/use-universes-store";
 
-const router = useRouter();
+const universesStore = useUniversesStore();
+await callOnce('init-universe-store', async () => {
+      await universesStore.fetchUniversesData();
+    }
+);
+
 const route = useRoute();
 
 </script>
@@ -19,12 +25,12 @@ const route = useRoute();
         <NuxtLink to="/rules-and-systems">Rules & Systems</NuxtLink>
         <NuxtLink to="/search">Search</NuxtLink>
         <NuxtLink to="/map">Map</NuxtLink>
-        <NuxtLink to="/clusters">Clusters</NuxtLink>
+        <NuxtLink to="/universe">Universe</NuxtLink>
+        <NuxtLink to="/universes">Universes</NuxtLink>
         <NuxtLink to="/settings">Settings</NuxtLink>
         <NuxtLink to="/about">About</NuxtLink>
       </BurgerMenu>
     </header>
-
     <NuxtPage class="content"/>
     <ModalsContainer/>
   </div>

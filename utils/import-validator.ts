@@ -1,10 +1,10 @@
 
 
-import {ClustersModelDataZSchema} from "~/types/ClusterTypes";
+import {UniverseModelDataZSchema} from "~/types/ClusterTypes";
 
 export function getParseClusters() {
   return (data: any) => {
     const parsedPOJO = JSON.parse(data);
-    return ClustersModelDataZSchema.safeParse(parsedPOJO)
+    return UniverseModelDataZSchema.safeParse(parsedPOJO)
   }
 }

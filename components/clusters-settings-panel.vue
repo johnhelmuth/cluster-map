@@ -1,12 +1,12 @@
 <script setup lang="ts">
 
-import {useClustersStore} from "~/stores/use-clusters-store";
+import {useUniversesStore} from "~/stores/use-universes-store";
 import { getParseClusters } from "~/utils/import-validator";
 import {useUserScopeStore} from "~/stores/use-user-scope-store";
 import type {Ref} from "vue";
-import {type ClusterIdType, type ClustersModelDataType, isClustersModelDataType} from "~/types/ClusterTypes";
+import {type ClusterIdType, type UniverseModelDataType, isUniverseModelDataType} from "~/types/ClusterTypes";
 
-const clustersStore = useClustersStore();
+const clustersStore = useUniversesStore();
 
 const {routePlannerService, selectedSystemsService} = useUserScopeStore();
 
@@ -16,7 +16,7 @@ const {files, open, reset, onChange} = useFileDialog({
 
 const importFile: Ref<File | null> = ref(null);
 
-const importedData: Ref<ClustersModelDataType | object> = ref({});
+const importedData: Ref<UniverseModelDataType | object> = ref({});
 const importError: Ref<string | undefined> = ref(undefined);
 
 const importPanelClosed = ref(true);
@@ -47,8 +47,8 @@ const importedClustersStats = computed(() => {
     currentClusterId: undefined,
     currentClusterName: undefined,
   };
-  if (importedData.value && isClustersModelDataType(importedData.value)) {
-    const importedDataRaw: ClustersModelDataType = importedData.value;
+  if (importedData.value && isUniverseModelDataType(importedData.value)) {
+    const importedDataRaw: UniverseModelDataType = importedData.value;
     if (importedDataRaw?.clusters && importedDataRaw?.clusters.hasOwnProperty('length')) {
       stats.numClusters = importedDataRaw.clusters.length;
       let systemCount = 0;
@@ -71,7 +71,7 @@ const importedClustersStats = computed(() => {
 });
 
 function exportData(e: Event) {
-  downloadJSON(clustersStore.clusters, 'clusters.json');
+  downloadJSON(clustersStore.clusters, 'universes.json');
 }
 
 function downloadJSON(data: any, filename: string) {
@@ -89,8 +89,8 @@ function downloadJSON(data: any, filename: string) {
   document.body.removeChild(element);
 }
 
-function updateClusters(data: ClustersModelDataType | object) {
-  if (data && isClustersModelDataType(data)) {
+function updateClusters(data: UniverseModelDataType | object) {
+  if (data && isUniverseModelDataType(data)) {
     routePlannerService.deleteAllRoutePlans();
     selectedSystemsService.deleteAllSelectedSystems();
     clustersStore.clusters.parseClustersData(data);
@@ -130,7 +130,7 @@ watch(importFile, async () => {
 
       const parseResponse = parseClusters(importedJSON);
       if (parseResponse.success) {
-        importedData.value = parseResponse.data as ClustersModelDataType;
+        importedData.value = parseResponse.data as UniverseModelDataType;
         importError.value = undefined;
       } else {
         throw new Error(`${parseResponse.error.toString()}`);
@@ -141,7 +141,7 @@ watch(importFile, async () => {
       } else if (typeof err === "string") {
         importError.value = err;
       } else {
-        importError.value = "Unknown error during import of clusters.";
+        importError.value = "Unknown error during import of universes.";
       }
       console.error(importError.value);
       resetImports();

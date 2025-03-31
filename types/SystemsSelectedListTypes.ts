@@ -1,5 +1,5 @@
 import type {SystemIdType, SystemModelInterface} from "@/types/SystemTypes";
-import type {ClusterModelInterface, ClustersModelInterface} from "@/types/ClusterTypes";
+import type {ClusterModelInterface, UniverseModelInterface} from "@/types/ClusterTypes";
 
 
 export type SelectedSystemLogType = { seq: number, system: SystemModelInterface };

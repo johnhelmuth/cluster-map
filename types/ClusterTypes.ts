@@ -29,43 +29,44 @@ export interface ClusterModelInterface {
   aspectRatio: number;
   orientation: ClusterOrientationType;
 
-  getSystemByName(systemName: string) : SystemModelInterface | null;
+  getSystemByName(systemName: string): SystemModelInterface | null;
 
-  getSystemById(systemId: SystemIdType) : SystemModelInterface | null | undefined;
+  getSystemById(systemId: SystemIdType): SystemModelInterface | null | undefined;
 
-  getSystemIndex(systemId: SystemIdType) : number;
+  getSystemIndex(systemId: SystemIdType): number;
 
-  getSystemsMap() : Map<SystemIdType, SystemModelInterface>;
+  getSystemsMap(): Map<SystemIdType, SystemModelInterface>;
 
   addSystem(system: SystemModelInterface): void;
 
-  connectSystems(systemA: SystemModelInterface, systemB: SystemModelInterface) : StraitModelInterface|undefined;
+  connectSystems(systemA: SystemModelInterface, systemB: SystemModelInterface): StraitModelInterface | undefined;
 
-  areConnected(systemA: SystemModelInterface, systemB: SystemModelInterface) : boolean
+  areConnected(systemA: SystemModelInterface, systemB: SystemModelInterface): boolean
 
-  getStraitsBySystem(system: SystemModelInterface) : Array<StraitModelInterface>;
+  getStraitsBySystem(system: SystemModelInterface): Array<StraitModelInterface>;
 
   /**
    * Gets the straits in cluster in order of the systems.
    *
    * @returns Map<SystemIdType, Array<StraitModelInterface>>
    */
-  getStraitsInSystemOrder() : Map<SystemIdType, Array<StraitModelInterface>>;
+  getStraitsInSystemOrder(): Map<SystemIdType, Array<StraitModelInterface>>;
 
 
-  maxStraitRadius(mapStyle: MapViewStylesType, radius: number, direction: DrawDirectionType) : number;
+  maxStraitRadius(mapStyle: MapViewStylesType, radius: number, direction: DrawDirectionType): number;
 
-  importSystems(data: ClusterModelDataType) : void;
-  importStraits(data: ClusterModelDataType) : void;
+  importSystems(data: ClusterModelDataType): void;
 
-  toJSON(key: string) : object;
+  importStraits(data: ClusterModelDataType): void;
+
+  toJSON(key: string): object;
 }
 
 export const ClusterModelDataZSchema = z.object({
   id: ClusterIdTypeZSchema,
   name: z.string(),
-  systems: z.array(SystemModelDataZSchema),
-  straits: z.array(StraitModelDataZSchema),
+  systems: z.array(SystemModelDataZSchema).optional(),
+  straits: z.array(StraitModelDataZSchema).optional(),
 });
 
 export type ClusterModelDataType = z.infer<typeof ClusterModelDataZSchema>;
@@ -74,27 +75,87 @@ export function isClusterModelDataType(data: any): data is ClusterModelDataType 
   return ClusterModelDataZSchema.safeParse(data).success;
 }
 
-export interface ClustersModelInterface {
+export type UniverseIdType = IdType;
+export const UniverseIdTypeZSchema = IdZSchema;
+
+export interface UniverseModelInterface {
+  id: UniverseIdType,
+  description: string,
   cluster: ClusterModelInterface | undefined;
   clusters: Array<ClusterModelInterface>;
 
-  parseClustersData(clustersData: ClustersModelDataType | undefined) : void;
-  addCluster(cluster: ClusterModelInterface) : void;
-  getClusterById(id: ClusterIdType) : ClusterModelInterface | undefined;
-  getClusterByName(name: string) : ClusterModelInterface | undefined;
+  parseUniverseData(clustersData: any): void;
+
+  addCluster(cluster: ClusterModelInterface): void;
+
+  getClusterById(id: ClusterIdType): ClusterModelInterface | undefined;
+
+  getClusterByName(name: string): ClusterModelInterface | undefined;
+
   selectClusterById(id: ClusterIdType): void;
-  selectClusterByName(name: string) : void;
-  toJSON(key: string) : object
+
+  selectClusterByName(name: string): void;
+
+  toJSON(key: string): object
 }
 
-
-export const ClustersModelDataZSchema = z.object({
+export const UniverseModelDataZSchema = z.object({
+  id: UniverseIdTypeZSchema,
+  description: z.string(),
   currentClusterId: ClusterIdTypeZSchema,
   clusters: z.array(ClusterModelDataZSchema)
 })
 
-export type ClustersModelDataType = z.infer<typeof ClustersModelDataZSchema>;
+export type UniverseModelDataType = z.infer<typeof UniverseModelDataZSchema>;
 
-export function isClustersModelDataType(data: any): data is ClustersModelDataType {
-  return ClustersModelDataZSchema.safeParse(data).success;
+export function isUniverseModelDataType(data: any): data is UniverseModelDataType {
+  return UniverseModelDataZSchema.safeParse(data).success;
 }
+
+export const UniverseMetadataDataZSchema = z.object({
+  id: UniverseIdTypeZSchema,
+  description: z.string(),
+})
+
+export type UniverseMetadataDataType = z.infer<typeof UniverseMetadataDataZSchema>;
+
+export const UniverseMetadataDataIsLoadedZSchema = UniverseMetadataDataZSchema.extend({
+  isLoaded: z.boolean(),
+})
+
+export type UniverseMetadataDataIsLoadedType = z.infer<typeof UniverseMetadataDataIsLoadedZSchema>;
+
+
+export const UniversesMetadataDataZSchema = z.object({
+  currentUniverseId: UniverseIdTypeZSchema,
+  universe: UniverseModelDataZSchema.optional().nullable(),
+  universesMetadata: z.array(UniverseMetadataDataZSchema),
+});
+
+export type UniversesMetadataDataType = z.infer<typeof UniversesMetadataDataZSchema>;
+
+export function isUniversesMetadataDataType(data: any): data is UniversesMetadataDataType {
+  return UniversesMetadataDataZSchema.safeParse(data).success;
+}
+
+export function validateUniversesMetadataDataType(data: any) {
+  return UniversesMetadataDataZSchema.safeParse(data);
+}
+
+export type UniversesMetadataModelInterface = {
+
+  universesMetadata: Array<UniverseMetadataDataIsLoadedType>;
+  universe: UniverseModelInterface | null;
+
+  getCurrentUniverse(): Promise<UniverseModelInterface | undefined>;
+  getUniverseById(universeId: UniverseIdType): Promise<UniverseModelInterface | undefined>;
+
+  hasCurrentUniverse(): boolean;
+
+  setCurrentUniverse(universeId: UniverseIdType): void;
+
+  parseUniversesMetadata(universesData: UniversesMetadataDataType): void;
+
+  toJSON(key: string): object
+}
+

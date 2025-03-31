@@ -37,7 +37,7 @@ export class ClusterModel implements ClusterModelInterface {
     this.systemsMap.set(system.id, system);
   }
 
-  connectSystems(systemA: SystemModel, systemB: SystemModel): StraitModelInterface | undefined {
+  connectSystems(systemA: SystemModelInterface, systemB: SystemModelInterface): StraitModelInterface | undefined {
     if (!this.areConnected(systemA, systemB)) {
       const strait = new StraitModel(systemA, systemB);
       this.straits.push(strait);
@@ -46,7 +46,7 @@ export class ClusterModel implements ClusterModelInterface {
     }
   }
 
-  areConnected(systemA: SystemModel, systemB: SystemModel): boolean {
+  areConnected(systemA: SystemModelInterface, systemB: SystemModelInterface): boolean {
     const matches = this.straits.filter((strait) => {
       return (systemA.id == strait.systemA.id || systemA.id === strait.systemB.id)
         && (systemB.id == strait.systemA.id || systemB.id === strait.systemB.id)

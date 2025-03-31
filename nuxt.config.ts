@@ -32,6 +32,7 @@ export default defineNuxtConfig({
         '@vue-final-modal/nuxt',
         '@vueuse/nuxt',
         '@nuxt/content',
+        '@pinia/nuxt',
     ],
 
 })

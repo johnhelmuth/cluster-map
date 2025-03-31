@@ -1,42 +1,61 @@
 import type {
   ClusterIdType, ClusterModelDataType,
-  ClusterModelInterface,
-  ClustersModelDataType,
-  ClustersModelInterface
+  ClusterModelInterface, UniverseIdType,
+  UniverseModelDataType,
+  UniverseModelInterface
 } from "@/types/ClusterTypes";
 import {ClusterModel} from "@/models/ClusterModel";
 import {SCHEMA_VERSION} from "@/constants";
-import {isClustersModelDataType} from "@/types/ClusterTypes";
+import {isUniverseModelDataType} from "@/types/ClusterTypes";
+import {getRandomIntInclusive} from "~/utils/cluster-generator";
 
-
-export class ClustersModel implements ClustersModelInterface {
+export function getNewUniverseId() {
+  return String(getRandomIntInclusive(1,1000000));
+}
+export class UniverseModel implements UniverseModelInterface {
   _cluster: ClusterModelInterface | undefined;
   _clusters: Map<ClusterIdType, ClusterModelInterface>;
 
-  constructor(data: ClustersModelDataType) {
+  id: UniverseIdType;
+  description: string;
+
+  logLabel: string;
+
+  constructor(data: any) {
+    this.logLabel = import.meta.client ? 'CLIENT: ' : 'SERVER: ';
     this._clusters = new Map<ClusterIdType, ClusterModelInterface>();
-    this.parseClustersData(data);
+    this.id = getNewUniverseId();
+    this.description = 'Very mysterious universe.';
+    this.parseUniverseData(data);
   }
 
-  parseClustersData(clustersData: ClustersModelDataType | undefined) {
+  parseUniverseData(universeData: any) {
     this._clusters.clear();
-    if (clustersData && isClustersModelDataType(clustersData)) {
-      for (const clusterData of clustersData.clusters) {
-        if (clusterData?.id) {
-          this._clusters.set(clusterData.id, new ClusterModel(clusterData));
-        }
+    if (universeData && isUniverseModelDataType(universeData)) {
+      if (universeData?.id) {
+        this.id = universeData.id;
       }
-      if ((! clustersData?.currentClusterId || clustersData.currentClusterId === "")) {
-        if (this._clusters.size > 0) {
-          const firstCluster = [...this.clusters][0];
-          if (firstCluster) {
-            this._cluster = firstCluster;
+      if (universeData?.description) {
+        this.description = universeData.description;
+      }
+      if (universeData?.clusters.length > 0) {
+        for (const clusterData of universeData.clusters) {
+          if (clusterData?.id) {
+            this._clusters.set(clusterData.id, new ClusterModel(clusterData));
           }
         }
-      } else {
-        const selectedCluster = this.getClusterById(clustersData.currentClusterId);
-        if (selectedCluster) {
-          this._cluster = selectedCluster;
+        if ((! universeData?.currentClusterId || universeData.currentClusterId === "")) {
+          if (this._clusters.size > 0) {
+            const firstCluster = [...this.clusters][0];
+            if (firstCluster) {
+              this._cluster = firstCluster;
+            }
+          }
+        } else {
+          const selectedCluster = this.getClusterById(universeData.currentClusterId);
+          if (selectedCluster) {
+            this._cluster = selectedCluster;
+          }
         }
       }
     }
@@ -88,8 +107,10 @@ export class ClustersModel implements ClustersModelInterface {
 
   toJSON(key: string): object {
     return {
-      type: "clusters",
+      type: "universe",
       schemaVersion: SCHEMA_VERSION,
+      id: this.id || '',
+      description: this.description || '',
       currentClusterId: this.cluster?.id || '',
       clusters: [...this._clusters.values()]
     };

@@ -1,6 +1,8 @@
 {
-  "type": "clusters",
+  "type": "universe",
   "schemaVersion": "1",
+  "id": "2",
+  "description": "In Dire Straits Cluster plus 25 other randomly generated clusters",
   "currentClusterId": "DLC",
   "clusters": [
     {

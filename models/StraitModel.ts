@@ -1,19 +1,18 @@
 import type {DrawDirectionType, StraitModelInterface} from "@/types/StraitTypes";
-import SystemModel from "~/models/SystemModel";
 import type {PointType} from "@/types/GeometryTypes";
 import {SCHEMA_VERSION} from "@/constants";
 import type {MapViewStylesType} from "@/types/BasicTypes";
-import {mapViewStyleLabels} from "@/types/BasicTypes";
 import { circularGraphSystemsRadius } from '@/utils/cluster-generator';
+import type {SystemModelInterface} from "~/types/SystemTypes";
 
 export class StraitModel implements StraitModelInterface {
 
-    systemA: SystemModel;
-    systemB: SystemModel;
+    systemA: SystemModelInterface;
+    systemB: SystemModelInterface;
 
     _drawDirections: { [K in MapViewStylesType]: DrawDirectionType };
 
-    constructor(systemA: SystemModel, systemB: SystemModel) {
+    constructor(systemA: SystemModelInterface, systemB: SystemModelInterface) {
         this.systemA = systemA;
         this.systemB = systemB;
         this._drawDirections = {
@@ -23,7 +22,7 @@ export class StraitModel implements StraitModelInterface {
         }
     }
 
-    getOtherSystem(system: SystemModel): SystemModel | undefined {
+    getOtherSystem(system: SystemModelInterface): SystemModelInterface | undefined {
         if (this.systemA === system) {
             return this.systemB;
         }
@@ -36,7 +35,7 @@ export class StraitModel implements StraitModelInterface {
         return `${this.systemA.id || 'unknown'}:${this.systemB.id || 'unknown'}`;
     }
 
-    includes(system: SystemModel): boolean {
+    includes(system: SystemModelInterface): boolean {
         return (this.systemA === system || this.systemB === system);
     }
 

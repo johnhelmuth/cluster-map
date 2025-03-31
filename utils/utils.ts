@@ -1,5 +1,5 @@
 import type {PointType} from "@/types/GeometryTypes.js";
-import type {ClustersModelDataType} from "@/types/ClusterTypes";
+import type {UniverseModelDataType} from "@/types/ClusterTypes";
 import type {BoundingBoxType, ClusterOrientationType, PositionThing, PositionThingList} from "@/types/BasicTypes";
 import {getMapDimensions} from "~/utils/cluster-generator";
 
