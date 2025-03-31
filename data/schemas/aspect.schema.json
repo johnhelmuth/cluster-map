@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://in-dire-straits.space/data/schemas/character/aspect.schema.json",
+  "title": "Scene",
+  "description": "An Aspect in a Fate Core Role Playing Game.",
+  "type": "object",
+  "properties": {
+    "aspectType": {
+      "description": "The type of Aspect",
+      "type": "string",
+      "enum": [
+        "High Concept",
+        "Trouble",
+        "Relationship",
+        "Other"
+      ]
+    },
+    "name": {
+      "description": "The name of the Aspect",
+      "type": "string"
+    },
+    "description": {
+      "description": "A description of the Aspect, giving a little more context.",
+      "type": "string"
+    },
+    "freeInvokes": {
+      "type": "number",
+      "description": "How many Free Invokes are currently on the Aspect",
+      "minimum": 0,
+      "default": 0
+    }
+  },
+  "required": [
+    "name"
+  ]
+}
