@@ -7,9 +7,9 @@ import {
 import {universesData} from '~/server/data/universesData'
 import {ClusterModel} from "~/models/ClusterModel";
 import {ClusterModelDataType} from "~/types/ClusterTypes";
-import {SystemModelDataType, SystemModelInterface} from "~/types/SystemTypes";
+import {SystemModelDataType} from "~/types/SystemTypes";
 import mongoose from "mongoose";
-import {StraitModelDataType, StraitModelInterface} from "~/types/StraitTypes";
+import {StraitModelDataType} from "~/types/StraitTypes";
 
 type IdsTo_IDsMapType = Map<string, typeof mongoose.Types.ObjectId>;
 
@@ -31,9 +31,10 @@ function mapSystemIdsToObjectIds(systems: SystemModelDataType[]): {
   return {idsToObjectIds, systemDocuments};
 }
 
-async function clusterToModel(cluster: ClusterModelDataType): Promise<[string, typeof ClusterDocument] | [string, Error] | undefined> {
+async function clusterToModel(cluster: ClusterModelDataType): Promise<[string, typeof ClusterDocument] | [string, Error] | undefined>
+{
   console.log('cluster.id: ', cluster.id);
-  const systems = cluster.systems || [];
+  const systems = (cluster.systems || []) as SystemModelDataType[];
   const straits = (cluster.straits || []) as StraitModelDataType[];
   delete cluster.systems;
   delete cluster.straits;
@@ -64,6 +65,7 @@ async function clusterToModel(cluster: ClusterModelDataType): Promise<[string, t
   }
   return [cluster.id || 'UNKNOWN', clusterDocument];
 }
+
 
 export default defineEventHandler(
   async (event) => {

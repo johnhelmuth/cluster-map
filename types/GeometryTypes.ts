@@ -3,7 +3,7 @@ import {z} from 'zod';
 export const PointZSchema = z.object({
   x: z.number(),
   y: z.number(),
-  z: z.string().optional()
+  z: z.number().optional()
 });
 
 export type PointType = z.infer<typeof PointZSchema>;
