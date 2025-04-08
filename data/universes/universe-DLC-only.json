@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1",
-  "type": "clusters",
+  "type": "universe",
   "currentClusterId": "DLC",
   "clusters": [
     {
-      "schemaVersion": "0",
+      "schemaVersion": "1",
       "type": "cluster",
       "id": "DLC",
       "name": "In Dire Straits Cluster",
@@ -202,11 +202,12 @@
       "straits": [
         {
           "type": "strait",
-          "schemaVersion": "0",
+          "schemaVersion": "1",
           "systems": [
             "0",
             "1"
-          ]
+          ],
+          "direction": "clockwise"
         },
         {
           "type": "strait",
@@ -214,15 +215,8 @@
           "systems": [
             "1",
             "2"
-          ]
-        },
-        {
-          "type": "strait",
-          "schemaVersion": "1",
-          "systems": [
-            "1",
-            "4"
-          ]
+          ],
+          "direction": "clockwise"
         },
         {
           "type": "strait",
@@ -230,7 +224,17 @@
           "systems": [
             "1",
             "3"
-          ]
+          ],
+          "direction": "clockwise"
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "1",
+            "4"
+          ],
+          "direction": "clockwise"
         },
         {
           "type": "strait",
@@ -238,7 +242,8 @@
           "systems": [
             "2",
             "3"
-          ]
+          ],
+          "direction": "clockwise"
         },
         {
           "type": "strait",
@@ -246,7 +251,8 @@
           "systems": [
             "3",
             "4"
-          ]
+          ],
+          "direction": "clockwise"
         },
         {
           "type": "strait",
@@ -254,7 +260,8 @@
           "systems": [
             "3",
             "5"
-          ]
+          ],
+          "direction": "clockwise"
         },
         {
           "type": "strait",
@@ -262,7 +269,8 @@
           "systems": [
             "3",
             "6"
-          ]
+          ],
+          "direction": "clockwise"
         },
         {
           "type": "strait",
@@ -270,7 +278,8 @@
           "systems": [
             "4",
             "5"
-          ]
+          ],
+          "direction": "clockwise"
         },
         {
           "type": "strait",
@@ -278,7 +287,8 @@
           "systems": [
             "5",
             "6"
-          ]
+          ],
+          "direction": "counterclockwise"
         },
         {
           "type": "strait",
@@ -286,7 +296,8 @@
           "systems": [
             "5",
             "7"
-          ]
+          ],
+          "direction": "counterclockwise"
         },
         {
           "type": "strait",
@@ -294,7 +305,8 @@
           "systems": [
             "6",
             "7"
-          ]
+          ],
+          "direction": "clockwise"
         },
         {
           "type": "strait",
@@ -302,7 +314,8 @@
           "systems": [
             "6",
             "8"
-          ]
+          ],
+          "direction": "clockwise"
         },
         {
           "type": "strait",
@@ -310,7 +323,8 @@
           "systems": [
             "7",
             "8"
-          ]
+          ],
+          "direction": "counterclockwise"
         },
         {
           "type": "strait",
@@ -318,7 +332,8 @@
           "systems": [
             "7",
             "9"
-          ]
+          ],
+          "direction": "counterclockwise"
         },
         {
           "type": "strait",
@@ -326,7 +341,8 @@
           "systems": [
             "8",
             "9"
-          ]
+          ],
+          "direction": "clockwise"
         }
       ]
     }
