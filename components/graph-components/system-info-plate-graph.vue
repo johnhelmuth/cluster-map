@@ -1,9 +1,10 @@
 <script setup lang="ts">
 
-import type {SystemModelInterface} from "~/types/SystemTypes";
+
+import type {SystemModel} from "~/models/SystemModel";
 
 const props = defineProps< {
-  system: SystemModelInterface,
+  system: SystemModel,
   radius: number,
   maxStraitRadius: number,
   x: number,

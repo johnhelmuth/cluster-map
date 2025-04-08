@@ -1,12 +1,12 @@
 <script setup lang="ts">
 
-import type {ClusterModelInterface} from "@/types/ClusterTypes";
-import type {RoutePlanRefType} from "@/types/RoutePlannerTypes";
-import type {SystemModelInterface} from "@/types/SystemTypes";
-import type {MapViewStylesType} from "~/types/BasicTypes";
+import type {MapViewStylesType} from "~/types/MapViewTypes";
+import type {SystemModel} from "~/models/SystemModel";
+import type {ClusterModel} from "~/models/ClusterModel";
+import type {RoutePlanRefType} from "~/utils/route-planner";
 
 const props = defineProps<{
-  cluster: ClusterModelInterface,
+  cluster: ClusterModel,
   plan?: RoutePlanRefType,
   debug: boolean,
   mapStyle: MapViewStylesType,
@@ -14,7 +14,7 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  systemSelected: [system: SystemModelInterface | undefined]
+  systemSelected: [system: SystemModel | undefined]
 }>();
 
 const shouldRotate = computed(() => {
@@ -31,7 +31,7 @@ const viewBox = computed(() => {
   return "0 0 1000 750";
 });
 
-function selectSystem(system: SystemModelInterface | undefined) {
+function selectSystem(system: SystemModel | undefined) {
   if (!system) {
     return;
   }

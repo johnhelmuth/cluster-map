@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import {useClustersStore} from "~/stores/use-clusters-store";
-import {mapViewStyleLabels, type MapViewStylesType} from "~/types/BasicTypes";
+import {mapViewStyleLabels, type MapViewStylesType} from "~/types/MapViewTypes";
 
 const clustersStore = useClustersStore();
 const cluster = computed(() => clustersStore.clusters.cluster);
