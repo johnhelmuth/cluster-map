@@ -1,18 +1,18 @@
 <script lang="ts" setup>
 
-import type {ClusterModelInterface} from "~/types/ClusterTypes.js";
-import type {SystemModelInterface} from "~/types/SystemTypes";
-import type {RoutePlanRefType} from "~/types/RoutePlannerTypes";
 import {type MapStylesStoreKeyType, type MapStylesStoreType, useMapStyles} from "~/stores/use-map-styles";
 import {useModalStateStore} from "~/stores/use-modal-state-store";
+import type {SystemModel} from "~/models/SystemModel";
+import type {ClusterModel} from "~/models/ClusterModel";
+import type {RoutePlanRefType} from "~/utils/route-planner";
 
 const props = defineProps<{
-  cluster?: ClusterModelInterface | undefined,
+  cluster?: ClusterModel | undefined,
   plan?: RoutePlanRefType
 }>();
 
 const emit = defineEmits<{
-  "system-selected": [system: SystemModelInterface];
+  "system-selected": [system: SystemModel];
 }>();
 
 const {setCurrentOpenModal, closeModal} = useModalStateStore('clusterStyleModal', mapViewClosed);
@@ -37,7 +37,7 @@ const otherOrientation = computed(() => {
   return oppositeOrientation(clusterOrientation.value);
 });
 
-function selectSystem(system: SystemModelInterface | undefined) {
+function selectSystem(system: SystemModel | undefined) {
   if (!system) {
     return;
   }

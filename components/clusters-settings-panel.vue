@@ -3,19 +3,21 @@
 import {useClustersStore} from "~/stores/use-clusters-store";
 import {useUserScopeStore} from "~/stores/use-user-scope-store";
 import type {Ref} from "vue";
-import type {ClusterIdType, ClustersModelDataType} from "~/types/ClusterTypes";
+import {type ClustersModelData, isClustersModelData} from "~/models/ClustersModel";
+import type {ClusterIdType} from "~/models/ClusterModel";
+import {clustersJSONParse, clustersParse, createSchemaValidationError} from "~/utils/import-validator";
 
 const clustersStore = useClustersStore();
 
 const {routePlannerService, selectedSystemsService} = useUserScopeStore();
 
-const {files, open, reset, onCancel, onChange} = useFileDialog({
+const {files, open, reset, onChange} = useFileDialog({
   accept: 'application/json', // Set to accept only JSON files
 })
 
 const importFile: Ref<File | null> = ref(null);
 
-const importedData: Ref<ClustersModelDataType | object> = ref({});
+const importedData: Ref<ClustersModelData | object> = ref({});
 const importError: Ref<string | undefined> = ref(undefined);
 
 const importPanelClosed = ref(true);
@@ -27,8 +29,6 @@ function expandPanel() {
   importPanelClosed.value = !importPanelClosed.value;
   expandCollapseIcon.value = importPanelClosed.value ? iconExpandedName : iconCollapsedName;
 }
-
-const parseClusters = getParseClusters();
 
 const fileSelected = computed(() => !!importFile.value);
 
@@ -44,8 +44,8 @@ const importedClustersStats = computed(() => {
     currentClusterId: undefined,
     currentClusterName: undefined,
   };
-  if (importedData.value && isClustersModelDataType(importedData.value)) {
-    const importedDataRaw: ClustersModelDataType = importedData.value;
+  if (importedData.value && isClustersModelData(importedData.value)) {
+    const importedDataRaw: ClustersModelData = importedData.value;
     if (importedDataRaw?.clusters && importedDataRaw?.clusters.hasOwnProperty('length')) {
       stats.numClusters = importedDataRaw.clusters.length;
       let systemCount = 0;
@@ -86,8 +86,8 @@ function downloadJSON(data: any, filename: string) {
   document.body.removeChild(element);
 }
 
-function updateClusters(data: ClustersModelDataType | object) {
-  if (data && isClustersModelDataType(data)) {
+function updateClusters(data: ClustersModelData | object) {
+  if (data && isClustersModelData(data)) {
     routePlannerService.deleteAllRoutePlans();
     selectedSystemsService.deleteAllSelectedSystems();
     clustersStore.clusters.parseClustersData(data);
@@ -124,12 +124,20 @@ watch(importFile, async () => {
   if (importFile.value) {
     try {
       importedJSON = await importFile.value.text();
-      const parsedClusters = parseClusters(importedJSON);
-      if (parsedClusters.valid) {
-        importedData.value = parsedClusters.value as ClustersModelDataType;
-        importError.value = undefined;
-      } else {
-        throw new Error(parsedClusters.error);
+      let valid = false;
+      if (importedJSON) {
+        const clustersData = JSON.parse(importedJSON);
+        if (isClustersModelData(clustersData)) {
+          importedData.value = clustersData;
+          importError.value = undefined;
+          valid = true;
+        }
+      }
+      if (! valid) {
+        const parsedResponse = clustersJSONParse(importedJSON);
+        if (!parsedResponse.valid) {
+          throw createSchemaValidationError(parsedResponse, 'ClustersSettingPanel import file selected, invalid cluster data imported. ');
+        }
       }
     } catch (err) {
       console.error(err);
