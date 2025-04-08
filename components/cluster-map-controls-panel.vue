@@ -1,20 +1,20 @@
 <script setup lang="ts">
 
 import {useClustersStore} from "~/stores/use-clusters-store";
-import type {ClusterModelInterface} from "~/types/ClusterTypes";
-import type {RoutePlanRefType} from "~/types/RoutePlannerTypes";
-import type {SystemModelInterface} from "~/types/SystemTypes";
+import {SystemModel} from "~/models/SystemModel";
+import type {ClusterModel} from "~/models/ClusterModel";
+import type {RoutePlanRefType} from "~/utils/route-planner";
 
 const clustersStore = useClustersStore();
 
 defineProps<{
-  cluster?: ClusterModelInterface | undefined,
+  cluster?: ClusterModel | undefined,
   plan?: RoutePlanRefType,
 }>();
 
 const emit = defineEmits<{
-  "system-selected": [system: SystemModelInterface];
-  "cluster-selected": [cluster: ClusterModelInterface];
+  "system-selected": [system: SystemModel];
+  "cluster-selected": [cluster: ClusterModel];
 }>();
 
 const iconExpandedName = 'material-symbols:expand-all-rounded'
@@ -28,7 +28,7 @@ function expandCards() {
   expandCollapseIcon.value = systemInfoCardClosed.value ? iconExpandedName : iconCollapsedName;
 }
 
-function selectSystem(system: SystemModelInterface | undefined) {
+function selectSystem(system: SystemModel | undefined) {
   if (!system) {
     return;
   }
@@ -66,7 +66,7 @@ function clusterSelected(event: Event) {
     </div>
     <div class="panel-body">
       <SystemInfoCard v-if="!! cluster?.systems"
-                      v-for="system in cluster?.systems || [] as Array<SystemModelInterface | undefined>"
+                      v-for="system in cluster?.systems || [] as Array<SystemModel | undefined>"
                       :system="system"
                       :key="system.id"
                       @selected="selectSystem"

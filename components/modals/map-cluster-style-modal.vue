@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import {MAP_VIEW_STYLES_DEFAULT, mapViewStyleLabels, type MapViewStylesType} from "@/types/BasicTypes";
+import {mapViewStyleLabels, type MapViewStylesType} from "@/types/MapViewTypes";
 import { VueFinalModal } from 'vue-final-modal'
 
 const props = defineProps<{
