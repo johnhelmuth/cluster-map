@@ -1,13 +1,13 @@
 <script setup lang="ts">
 
-import {useClustersStore} from "~/stores/use-clusters-store";
+import {useUniverseStore} from "~/stores/use-universe-store";
 import {useUserScopeStore} from "~/stores/use-user-scope-store";
 import type {Ref} from "vue";
-import {type ClustersModelData, isClustersModelData} from "~/models/ClustersModel";
+import {type UniverseModelData, isUniverseModelData} from "~/models/UniverseModel";
 import type {ClusterIdType} from "~/models/ClusterModel";
-import {clustersJSONParse, clustersParse, createSchemaValidationError} from "~/utils/import-validator";
+import {universeJSONParse, universeParse, createSchemaValidationError} from "~/utils/import-validator";
 
-const clustersStore = useClustersStore();
+const universeStore = useUniverseStore();
 
 const {routePlannerService, selectedSystemsService} = useUserScopeStore();
 
@@ -17,7 +17,7 @@ const {files, open, reset, onChange} = useFileDialog({
 
 const importFile: Ref<File | null> = ref(null);
 
-const importedData: Ref<ClustersModelData | object> = ref({});
+const importedData: Ref<UniverseModelData | object> = ref({});
 const importError: Ref<string | undefined> = ref(undefined);
 
 const importPanelClosed = ref(true);
@@ -44,8 +44,8 @@ const importedClustersStats = computed(() => {
     currentClusterId: undefined,
     currentClusterName: undefined,
   };
-  if (importedData.value && isClustersModelData(importedData.value)) {
-    const importedDataRaw: ClustersModelData = importedData.value;
+  if (importedData.value && isUniverseModelData(importedData.value)) {
+    const importedDataRaw: UniverseModelData = importedData.value;
     if (importedDataRaw?.clusters && importedDataRaw?.clusters.hasOwnProperty('length')) {
       stats.numClusters = importedDataRaw.clusters.length;
       let systemCount = 0;
@@ -68,7 +68,7 @@ const importedClustersStats = computed(() => {
 });
 
 function exportData(e: Event) {
-  downloadJSON(clustersStore.clusters, 'clusters.json');
+  downloadJSON(universeStore.clusters, 'universes.json');
 }
 
 function downloadJSON(data: any, filename: string) {
@@ -86,11 +86,11 @@ function downloadJSON(data: any, filename: string) {
   document.body.removeChild(element);
 }
 
-function updateClusters(data: ClustersModelData | object) {
-  if (data && isClustersModelData(data)) {
+function updateClusters(data: UniverseModelData | object) {
+  if (data && isUniverseModelData(data)) {
     routePlannerService.deleteAllRoutePlans();
     selectedSystemsService.deleteAllSelectedSystems();
-    clustersStore.clusters.parseClustersData(data);
+    universeStore.clusters.parseUniverseData(data);
   }
 }
 
@@ -127,14 +127,14 @@ watch(importFile, async () => {
       let valid = false;
       if (importedJSON) {
         const clustersData = JSON.parse(importedJSON);
-        if (isClustersModelData(clustersData)) {
+        if (isUniverseModelData(clustersData)) {
           importedData.value = clustersData;
           importError.value = undefined;
           valid = true;
         }
       }
       if (! valid) {
-        const parsedResponse = clustersJSONParse(importedJSON);
+        const parsedResponse = universeJSONParse(importedJSON);
         if (!parsedResponse.valid) {
           throw createSchemaValidationError(parsedResponse, 'ClustersSettingPanel import file selected, invalid cluster data imported. ');
         }
@@ -146,7 +146,7 @@ watch(importFile, async () => {
       } else if (typeof err === "string") {
         importError.value = err;
       } else {
-        importError.value = "Unknown error during import of clusters.";
+        importError.value = "Unknown error during import of universes.";
       }
       resetImports();
     }

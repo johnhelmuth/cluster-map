@@ -1,11 +1,11 @@
 <script setup lang="ts">
 
-import {useClustersStore} from "~/stores/use-clusters-store";
+import {useUniverseStore} from "~/stores/use-universe-store";
 import {SystemModel} from "~/models/SystemModel";
 import type {ClusterModel} from "~/models/ClusterModel";
 import type {RoutePlanRefType} from "~/utils/route-planner";
 
-const clustersStore = useClustersStore();
+const universeStore = useUniverseStore();
 
 defineProps<{
   cluster?: ClusterModel | undefined,
@@ -38,7 +38,7 @@ function selectSystem(system: SystemModel | undefined) {
 function clusterSelected(event: Event) {
   const targetSelect = event.target as HTMLSelectElement;
   const clusterId = targetSelect.value;
-  const newCluster = clustersStore.clusters.getClusterById(clusterId);
+  const newCluster = universeStore.clusters.getClusterById(clusterId);
   if (newCluster) {
     emit('cluster-selected', newCluster);
   }
@@ -50,7 +50,7 @@ function clusterSelected(event: Event) {
   <div class="cluster-map-controls">
     <h1>
       <select class="clusterSelect" @change="clusterSelected">
-        <option v-for="clusterItem in clustersStore.clusters.clusters"
+        <option v-for="clusterItem in universeStore.clusters.clusters"
                 :value="clusterItem.id"
                 :key="clusterItem.id"
                 :id="clusterItem.id"

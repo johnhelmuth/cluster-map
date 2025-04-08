@@ -2,7 +2,7 @@ import {parser, type ParseResult} from '@exodus/schemasafe';
 import straitSchema from '@/data/schemas/strait.schema.json';
 import systemSchema from '@/data/schemas/system.schema.json';
 import clusterSchema from '@/data/schemas/cluster.schema.json';
-import clustersSchema from '@/data/schemas/clusters.schema.json';
+import universeSchema from '~/data/schemas/universe.schema.json';
 
 const parseOptions = {
   mode: "lax",
@@ -27,7 +27,7 @@ export const clusterJSONParse = parser(clusterSchema, {
 export function clusterParse(data: any) {
   return clusterJSONParse(JSON.stringify(data))
 }
-export const clustersJSONParse = parser(clustersSchema, {
+export const universeJSONParse = parser(universeSchema, {
   ...parseOptions,
   schemas: {
     "https://in-dire-straits.space/data/schemas/system.schema.json": systemSchema,
@@ -35,8 +35,8 @@ export const clustersJSONParse = parser(clustersSchema, {
     "https://in-dire-straits.space/data/schemas/cluster.schema.json": clusterSchema,
   }
 });
-export function clustersParse(data: any) {
-  return clustersJSONParse(JSON.stringify(data))
+export function universeParse(data: any) {
+  return universeJSONParse(JSON.stringify(data))
 }
 
 export function createSchemaValidationError(parseResponse: ParseResult, msgPrefix: string) {
