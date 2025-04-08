@@ -1,6 +1,6 @@
-import type {SystemAttributesInterface, SystemAttributesKeyType, SystemIdType} from "@/types/SystemTypes";
+import type {SystemAttributesInterface, SystemAttributesKeyType} from "@/models/SystemModel";
 import type {attributeFormatType, attributeValueType, attributeRatingMetaType} from "@/types/BasicTypes";
-import {SystemAttributesDefaults} from "@/types/SystemTypes";
+import {SystemAttributesDefaults} from "@/models/SystemModel";
 
 export const attributesMeta = {
   "technology": {
@@ -17,9 +17,10 @@ export const attributesMeta = {
   }
 };
 
+type AttributeRatingDescriptorsType = { [K in SystemAttributesKeyType]: Map<number, attributeRatingMetaType> };
 // @TODO Move these into a JSON file or other persistence layer, so that they can be easily edited.
 
-export const attributeRatingDescriptors = {
+export const attributeRatingDescriptors: AttributeRatingDescriptorsType = {
   "technology": new Map([
     [-4, { "name": "Stone age" }],
     [-3, { "name": "Metallurgy" }],
