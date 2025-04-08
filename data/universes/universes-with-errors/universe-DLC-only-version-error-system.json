@@ -1,10 +1,10 @@
 {
-  "schemaVersion": "0",
-  "type": "clusters",
+  "schemaVersion": "1",
+  "type": "universe",
   "currentClusterId": "DLC",
   "clusters": [
     {
-      "schemaVersion": "1",
+      "schemaVersion": "0",
       "type": "cluster",
       "id": "DLC",
       "name": "In Dire Straits Cluster",

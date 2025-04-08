@@ -1,17 +1,17 @@
 <script setup lang="ts">
 
-import {useClustersStore} from "~/stores/use-clusters-store";
+import {useUniverseStore} from "~/stores/use-universe-store";
 import {useUserScopeStore} from '~/stores/use-user-scope-store'
 import type {SystemModel} from "~/models/SystemModel";
 import type {SelectedSystemsList} from "~/models/SelectedSystemsList";
 import type {ClusterModel} from "~/models/ClusterModel";
 
-const clustersStore = useClustersStore();
+const universeStore = useUniverseStore();
 const { routePlannerService, selectedSystemsService } = useUserScopeStore() as { routePlannerService: RoutePlannerService, selectedSystemsService: SelectedSystemsService };
 
 function systemSelected(system: SystemModel) {
-  if (clustersStore.clusters.cluster) {
-    const selectedSystemsList = selectedSystemsService.getSelectedSystemsForCluster(clustersStore.clusters.cluster);
+  if (universeStore.clusters.cluster) {
+    const selectedSystemsList = selectedSystemsService.getSelectedSystemsForCluster(universeStore.clusters.cluster);
     if (selectedSystemsList) {
       selectedSystemsList.selectSystem(system);
       planTrip(selectedSystemsList);
@@ -21,23 +21,23 @@ function systemSelected(system: SystemModel) {
 
 function planTrip(selectedSystemsList : SelectedSystemsList) {
 
-  if ("cluster" in clustersStore.clusters) {
+  if ("cluster" in universeStore.clusters) {
     if ( ! selectedSystemsList.maxSelected ) {
       // @ts-ignore
-      routePlannerService.deleteRoutePlanForCluster(clustersStore.clusters.cluster);
+      routePlannerService.deleteRoutePlanForCluster(universeStore.clusters.cluster);
       return;
     }
     // @ts-ignore
-    const routePlan = routePlannerService.getRoutePlanForCluster(clustersStore.clusters.cluster);
+    const routePlan = routePlannerService.getRoutePlanForCluster(universeStore.clusters.cluster);
     if ( ! routePlan) {
       return;
     }
     const [systemA, systemB] = selectedSystemsList.selectedSystems;
-    if (! clustersStore.clusters.cluster) {
+    if (! universeStore.clusters.cluster) {
       throw new Error("No cluster created in ClusterMapControlsPanel.");
     }
     // @ts-ignore
-    const routePlanner = createRoutePlanner(clustersStore.clusters.cluster);
+    const routePlanner = createRoutePlanner(universeStore.clusters.cluster);
     const routePlanRaw = routePlanner.plan(systemA, systemB);
     if (routePlanRaw) {
       routePlan.value = routePlanRaw;
@@ -46,7 +46,7 @@ function planTrip(selectedSystemsList : SelectedSystemsList) {
 }
 
 function clusterSelected(newCluster: ClusterModel) : void {
-  clustersStore.clusters.cluster = newCluster;
+  universeStore.clusters.cluster = newCluster;
 }
 
 </script>
@@ -55,18 +55,18 @@ function clusterSelected(newCluster: ClusterModel) : void {
   <Bezels>
     <template v-slot:display>
       <ClusterMapPanel
-          v-if="clustersStore.clusters.cluster"
-          :cluster="clustersStore.clusters.cluster"
+          v-if="universeStore.clusters.cluster"
+          :cluster="universeStore.clusters.cluster"
           @system-selected="systemSelected"
-          :plan="routePlannerService.getRoutePlanForCluster(clustersStore!.clusters!.cluster)"
+          :plan="routePlannerService.getRoutePlanForCluster(universeStore!.clusters!.cluster)"
        />
     </template>
     <template v-slot:controls>
       <ClusterMapControlsPanel
-          :cluster="clustersStore.clusters.cluster"
+          :cluster="universeStore.clusters.cluster"
           @system-selected="systemSelected"
           @cluster-selected="clusterSelected"
-          :plan="routePlannerService.getRoutePlanForCluster(clustersStore.clusters.cluster)"
+          :plan="routePlannerService.getRoutePlanForCluster(universeStore.clusters.cluster)"
       />
     </template>
   </Bezels>

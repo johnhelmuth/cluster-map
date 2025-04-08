@@ -1,19 +1,19 @@
 <script setup lang="ts">
 
-import {useClustersStore} from "~/stores/use-clusters-store";
+import {useUniverseStore} from "~/stores/use-universe-store";
 import {mapViewStyleLabels, type MapViewStylesType} from "~/types/MapViewTypes";
 
-const clustersStore = useClustersStore();
-const cluster = computed(() => clustersStore.clusters.cluster);
+const universeStore = useUniverseStore();
+const cluster = computed(() => universeStore.clusters.cluster);
 
 const mapViewStyles = ref(mapViewStyleLabels.map(({key}) => key) as Array<MapViewStylesType>);
 
 function clusterSelected(event: Event) {
   const targetSelect = event.target as HTMLSelectElement;
   const clusterId = targetSelect.value;
-  const newCluster = clustersStore.clusters.getClusterById(clusterId);
+  const newCluster = universeStore.clusters.getClusterById(clusterId);
   if (newCluster) {
-    clustersStore.clusters.cluster = newCluster;
+    universeStore.clusters.cluster = newCluster;
   }
 }
 
@@ -23,7 +23,7 @@ function clusterSelected(event: Event) {
   <div class="cluster-strait-debug-page">
     <form>
       <select class="clusterSelect" @change="clusterSelected">
-        <option v-for="clusterItem in clustersStore.clusters.clusters"
+        <option v-for="clusterItem in universeStore.clusters.clusters"
                 :value="clusterItem.id"
                 :key="clusterItem.id"
                 :id="clusterItem.id"
