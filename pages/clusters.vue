@@ -1,15 +1,26 @@
 <script setup lang="ts">
 
-import {useClustersStore} from "~/stores/use-clusters-store";
+import {useUniverseStore} from "~/stores/use-universe-store";
 import {createCluster} from "~/utils/cluster-generator";
 
-const clustersStore = useClustersStore();
+const universeStore = useUniverseStore();
 
 function addCluster(event: Event) {
   const newCluster = createCluster('', '', getRandomIntInclusive(4, 9));
-  const notUnique = !! clustersStore.clusters.getClusterById(newCluster.id);
+  const notUnique = !! universeStore.clusters.getClusterById(newCluster.id);
   if (! notUnique) {
-    clustersStore.clusters.addCluster(newCluster);
+    universeStore.clusters.addCluster(newCluster);
+  }
+}
+
+function selectCluster(event: Event) {
+  const clusterElement = event.target as HTMLElement;
+  if (clusterElement?.id) {
+    const selectedClusterId = clusterElement.id;
+    const selectedCluster = universeStore.clusters.getClusterById(selectedClusterId);
+    if (selectedCluster !== universeStore.clusters.cluster) {
+      universeStore.clusters.cluster = selectedCluster;
+    }
   }
 }
 
@@ -26,8 +37,8 @@ function addCluster(event: Event) {
         </div>
         <ul class="clusters-list">
           <li class="clusters-list-item"
-              :class="aCluster === clustersStore.clusters.cluster ? 'selected-cluster' : ''"
-              v-for="aCluster in clustersStore.clusters.clusters"
+              :class="aCluster === universeStore.clusters.cluster ? 'selected-cluster' : ''"
+              v-for="aCluster in universeStore.clusters.clusters"
               :key="aCluster.id"
               :id="aCluster.id"
           >
@@ -38,7 +49,7 @@ function addCluster(event: Event) {
         </ul>
       </div>
       <div class="clusters-settings-panel">
-        <ClustersSettingsPanel/>
+        <ClustersSettingsPanel />
       </div>
     </div>
   </InfoPage>

@@ -1,35 +1,35 @@
 
 import {type ClusterIdType, ClusterModel, type ClusterModelData} from "@/models/ClusterModel";
 import {SCHEMA_VERSION} from "@/constants";
-import {clustersParse} from "~/utils/import-validator";
+import {universeParse} from "~/utils/import-validator";
 
-export interface ClustersModelData {
+export interface UniverseModelData {
   currentClusterId: ClusterIdType,
   clusters: Array<ClusterModelData>
 }
 
-export function isClustersModelData(data: any) : data is ClustersModelData {
-  return clustersParse(data).valid;
+export function isUniverseModelData(data: any) : data is UniverseModelData {
+  return universeParse(data).valid;
 }
 
-export class ClustersModel {
+export class UniverseModel {
   _cluster: ClusterModel | undefined;
   _clusters: Map<ClusterIdType, ClusterModel>;
 
-  constructor(data: ClustersModelData) {
+  constructor(data: UniverseModelData) {
     this._clusters = new Map<ClusterIdType, ClusterModel>();
-    this.parseClustersData(data);
+    this.parseUniverseData(data);
   }
 
-  parseClustersData(clustersData: ClustersModelData | undefined) {
+  parseUniverseData(universeData: UniverseModelData | undefined) {
     this._clusters.clear();
-    if (clustersData && clustersData?.clusters?.length > 0) {
-      for (const clusterData of clustersData.clusters as Array<ClusterModelData>) {
+    if (universeData && universeData?.clusters?.length > 0) {
+      for (const clusterData of universeData.clusters as Array<ClusterModelData>) {
         if (clusterData?.id) {
           this._clusters.set(clusterData.id, new ClusterModel(clusterData));
         }
       }
-      if ((! clustersData?.currentClusterId || clustersData.currentClusterId === "")) {
+      if ((! universeData?.currentClusterId || universeData.currentClusterId === "")) {
         if (this._clusters.size > 0) {
           const firstCluster = [...this.clusters][0];
           if (firstCluster) {
@@ -37,7 +37,7 @@ export class ClustersModel {
           }
         }
       } else {
-        const selectedCluster = this.getClusterById(clustersData.currentClusterId);
+        const selectedCluster = this.getClusterById(universeData.currentClusterId);
         if (selectedCluster) {
           this._cluster = selectedCluster;
         }
@@ -102,7 +102,7 @@ export class ClustersModel {
 
   toJSON(key: string): object {
     return {
-      type: "clusters",
+      type: "universe",
       schemaVersion: SCHEMA_VERSION,
       currentClusterId: this.cluster?.id || '',
       clusters: [...this._clusters.values()]
