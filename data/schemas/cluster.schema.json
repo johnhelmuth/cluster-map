@@ -7,11 +7,10 @@
   "properties": {
     "type": {
       "description": "The type of thingy the data describes, 'cluster'.",
-      "type": "string"
+      "const": "cluster"
     },
     "schemaVersion": {
       "description": "The version of the schema for the data.",
-      "type": "string",
       "const": "1"
     },
     "id": {
