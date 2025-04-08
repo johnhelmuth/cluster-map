@@ -1,17 +1,17 @@
-import type {SelectedSystemsListInterface, SelectedSystemsServiceInterface} from "@/types/SystemsSelectedListTypes";
-import type {ClusterIdType, ClusterModelInterface} from "@/types/ClusterTypes";
+
 import {SelectedSystemsList} from "@/models/SelectedSystemsList";
+import type {ClusterIdType} from "~/models/ClusterModel";
+import {ClusterModel} from "~/models/ClusterModel";
 
+export class SelectedSystemsService {
 
-export class SelectedSystemsService implements SelectedSystemsServiceInterface {
-
-  _selectedSystemsForCluster : Map<ClusterIdType, SelectedSystemsListInterface>;
+  _selectedSystemsForCluster : Map<ClusterIdType, SelectedSystemsList>;
 
   constructor() {
-    this._selectedSystemsForCluster = new Map<ClusterIdType, SelectedSystemsListInterface>();
+    this._selectedSystemsForCluster = new Map<ClusterIdType, SelectedSystemsList>();
   }
 
-  getSelectedSystemsForCluster(cluster: ClusterModelInterface) : SelectedSystemsListInterface | undefined {
+  getSelectedSystemsForCluster(cluster: ClusterModel) : SelectedSystemsList | undefined {
     if (this._selectedSystemsForCluster.has(cluster.id)) {
       return this._selectedSystemsForCluster.get(cluster.id);
     }

@@ -1,16 +1,16 @@
 <script setup lang="ts">
 
-import type {SystemModelInterface} from "@/types/SystemTypes";
-import type {RoutePlanRefType} from "~/types/RoutePlannerTypes";
+import type {SystemModel} from "~/models/SystemModel";
+import type {RoutePlanRefType} from "~/utils/route-planner";
 
 const props = defineProps<{
-  system: SystemModelInterface | undefined,
+  system: SystemModel | undefined,
   plan?: RoutePlanRefType,
   systemInfoCardClosed?: boolean
 }>();
 
 defineEmits< {
-  selected: [system: SystemModelInterface | undefined]
+  selected: [system: SystemModel | undefined]
 } >();
 
 const isSelected = computed(() => (props.system && props.system?.getSelected() || false));

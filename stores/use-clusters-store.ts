@@ -1,13 +1,14 @@
 // import {defineStore} from 'pinia';
 // import {reactive, watch} from "vue";
 
-import {ClustersModel} from "~/models/ClustersModel";
+import {ClustersModel, isClustersModelData} from "~/models/ClustersModel";
 import clusterJsonDLC from "~/data/clusters/cluster-DLC.json";
 import clusterJson1652 from "~/data/clusters/cluster-1652.json";
 import clusterJson2Systems from "~/data/clusters/cluster-3.json";
 import clusterJsonDLCCoreNeighbor from "~/data/clusters/cluster-DLC-neighbor-coreward.json";
 import clusterJsonOLC from "~/data/clusters/cluster-other-local-cluster.json";
 import type {ClustersModelInterface} from "~/types/ClusterTypes";
+import {clustersParse, createSchemaValidationError} from "~/utils/import-validator";
 
 const defaultClustersData = {
     currentClusterId: clusterJsonDLC.id,
@@ -19,6 +20,11 @@ const defaultClustersData = {
         // clusterJson2Systems
     ]
 };
+
+if (! isClustersModelData(defaultClustersData)) {
+    const parsedResponse = clustersParse(defaultClustersData);
+    throw createSchemaValidationError(parsedResponse, 'useClustersStore setup, invalid defaultClustersData. ');
+}
 
 let clustersData;
 // /** Check if `clusters` data is in LocalStorage **/

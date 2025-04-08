@@ -1,8 +1,12 @@
 {
+  "type": "cluster",
+  "schemaVersion": "1",
   "id": "DLC",
   "name": "In Dire Straits Cluster",
   "systems": [
     {
+      "type": "system",
+      "schemaVersion": "1",
       "id": "0",
       "name": "Avarax",
       "aspects": [
@@ -21,6 +25,8 @@
       }
     },
     {
+      "type": "system",
+      "schemaVersion": "1",
       "id": "1",
       "name": "Willful",
       "aspects": [
@@ -39,6 +45,8 @@
       }
     },
     {
+      "type": "system",
+      "schemaVersion": "1",
       "id": "2",
       "name": "Bane's Eye",
       "aspects": [
@@ -57,6 +65,8 @@
       }
     },
     {
+      "type": "system",
+      "schemaVersion": "1",
       "id": "3",
       "name": "Dragongull's Cry",
       "aspects": [
@@ -75,6 +85,8 @@
       }
     },
     {
+      "type": "system",
+      "schemaVersion": "1",
       "id": "4",
       "name": "Dalderana",
       "aspects": [
@@ -93,6 +105,8 @@
       }
     },
     {
+      "type": "system",
+      "schemaVersion": "1",
       "id": "5",
       "name": "Concordist",
       "aspects": [
@@ -111,6 +125,8 @@
       }
     },
     {
+      "type": "system",
+      "schemaVersion": "1",
       "id": "6",
       "name": "Golden Seed",
       "aspects": [
@@ -129,6 +145,8 @@
       }
     },
     {
+      "type": "system",
+      "schemaVersion": "1",
       "id": "7",
       "name": "Ceti Daenia",
       "aspects": [
@@ -146,6 +164,8 @@
       }
     },
     {
+      "type": "system",
+      "schemaVersion": "1",
       "id": "8",
       "name": "Zerzi",
       "aspects": [
@@ -164,6 +184,8 @@
       }
     },
     {
+      "type": "system",
+      "schemaVersion": "1",
       "id": "9",
       "name": "Luxia",
       "aspects": [

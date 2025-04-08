@@ -1,6 +1,6 @@
 import type {PointType} from "@/types/GeometryTypes.js";
-import type {ClustersModelDataType} from "@/types/ClusterTypes";
-import type {BoundingBoxType, ClusterOrientationType, PositionThing, PositionThingList} from "@/types/BasicTypes";
+import type {BoundingBoxType, PositionThing, PositionThingList} from "@/types/BasicTypes";
+import type { ClusterOrientationType } from "@/types/MapViewTypes";
 import {getMapDimensions} from "~/utils/cluster-generator";
 
 export function getBoundingBox(things: PositionThingList) : BoundingBoxType {

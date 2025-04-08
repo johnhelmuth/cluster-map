@@ -1,26 +1,30 @@
-import type {
-  ClusterIdType, ClusterModelDataType,
-  ClusterModelInterface,
-  ClustersModelDataType,
-  ClustersModelInterface
-} from "@/types/ClusterTypes";
-import {ClusterModel} from "@/models/ClusterModel";
+
+import {type ClusterIdType, ClusterModel, type ClusterModelData} from "@/models/ClusterModel";
 import {SCHEMA_VERSION} from "@/constants";
+import {clustersParse} from "~/utils/import-validator";
 
+export interface ClustersModelData {
+  currentClusterId: ClusterIdType,
+  clusters: Array<ClusterModelData>
+}
 
-export class ClustersModel implements ClustersModelInterface {
-  _cluster: ClusterModelInterface | undefined;
-  _clusters: Map<ClusterIdType, ClusterModelInterface>;
+export function isClustersModelData(data: any) : data is ClustersModelData {
+  return clustersParse(data).valid;
+}
 
-  constructor(data: ClustersModelDataType) {
-    this._clusters = new Map<ClusterIdType, ClusterModelInterface>();
+export class ClustersModel {
+  _cluster: ClusterModel | undefined;
+  _clusters: Map<ClusterIdType, ClusterModel>;
+
+  constructor(data: ClustersModelData) {
+    this._clusters = new Map<ClusterIdType, ClusterModel>();
     this.parseClustersData(data);
   }
 
-  parseClustersData(clustersData: ClustersModelDataType | undefined) {
+  parseClustersData(clustersData: ClustersModelData | undefined) {
     this._clusters.clear();
     if (clustersData && clustersData?.clusters?.length > 0) {
-      for (const clusterData of clustersData.clusters as Array<ClusterModelDataType>) {
+      for (const clusterData of clustersData.clusters as Array<ClusterModelData>) {
         if (clusterData?.id) {
           this._clusters.set(clusterData.id, new ClusterModel(clusterData));
         }
@@ -41,33 +45,33 @@ export class ClustersModel implements ClustersModelInterface {
     }
   }
 
-  get cluster(): ClusterModelInterface | undefined {
+  get cluster(): ClusterModel | undefined {
     return this._cluster;
   }
 
-  set cluster(newCluster: ClusterModelInterface) {
+  set cluster(newCluster: ClusterModel) {
     if (this._cluster !== newCluster) {
       this.addCluster(newCluster);
       this._cluster = newCluster;
     }
   }
 
-  get clusters() : Array<ClusterModelInterface> {
+  get clusters() : Array<ClusterModel> {
     return [...this._clusters.values()];
   }
 
-  addCluster(newCluster: ClusterModelInterface) : void {
+  addCluster(newCluster: ClusterModel) : void {
     this._clusters.set(newCluster.id, newCluster);
     if (this._clusters.size === 1) {
       this._cluster = newCluster;
     }
   }
 
-  getClusterById(id: ClusterIdType) : ClusterModelInterface | undefined{
+  getClusterById(id: ClusterIdType) : ClusterModel | undefined{
     return this._clusters.get(id);
   }
 
-  getClusterByName(name: string) : ClusterModelInterface | undefined {
+  getClusterByName(name: string) : ClusterModel | undefined {
     return [...this.clusters].find(cluster => cluster.name === name);
   }
 
