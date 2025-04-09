@@ -1,11 +1,12 @@
 <script setup lang="ts">
 
-import {useUniverseStore} from "~/stores/use-universe-store";
+import {useUniversesStore} from "~/stores/use-universes-store";
 import {SystemModel} from "~/models/SystemModel";
 import type {ClusterModel} from "~/models/ClusterModel";
 import type {RoutePlanRefType} from "~/utils/route-planner";
 
-const universeStore = useUniverseStore();
+const universesStore = useUniversesStore();
+const router = useRouter();
 
 defineProps<{
   cluster?: ClusterModel | undefined,
@@ -51,7 +52,7 @@ function clusterSelected(event: Event) {
         <option v-if="! cluster" disabled selected>
           No Cluster Selected
         </option>
-        <option v-for="clusterItem in universeStore.clusters.clusters"
+        <option v-for="clusterItem in (universesStore?.universe?.clusters || [])"
                 :value="clusterItem.slug"
                 :key="clusterItem.id"
                 :id="clusterItem.id"

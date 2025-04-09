@@ -11,7 +11,7 @@ export class RoutePlannerService {
     this._routePlans = new Map<ClusterIdType, RoutePlanRefType>();
   }
 
-  getRoutePlanForCluster(cluster?: ClusterModel) : RoutePlanRefType | undefined {
+  getRoutePlanForCluster(cluster?: ClusterModel | undefined) : RoutePlanRefType | undefined {
     if (! cluster) {
       return undefined;
     }

@@ -3,6 +3,7 @@ import straitSchema from '@/data/schemas/strait.schema.json';
 import systemSchema from '@/data/schemas/system.schema.json';
 import clusterSchema from '@/data/schemas/cluster.schema.json';
 import universeSchema from '~/data/schemas/universe.schema.json';
+import universeMetadataSchema from '~/data/schemas/universeMetadata.schema.json';
 
 const parseOptions = {
   mode: "lax",
@@ -37,6 +38,11 @@ export const universeJSONParse = parser(universeSchema, {
 });
 export function universeParse(data: any) {
   return universeJSONParse(JSON.stringify(data))
+}
+
+export const universeMetadataJSONParse = parser(universeMetadataSchema, parseOptions);
+export function universeMetadataParse(data: any) {
+  return universeMetadataJSONParse(JSON.stringify(data))
 }
 
 export function createSchemaValidationError(parseResponse: ParseResult, msgPrefix: string) {

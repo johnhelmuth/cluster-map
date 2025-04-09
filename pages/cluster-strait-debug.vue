@@ -1,9 +1,9 @@
 <script setup lang="ts">
 
-import {useUniverseStore} from "~/stores/use-universe-store";
+import {useUniversesStore} from "~/stores/use-universes-store";
 import {mapViewStyleLabels, type MapViewStylesType} from "~/types/MapViewTypes";
 
-const universeStore = useUniverseStore();
+const universeStore = useUniversesStore();
 const cluster = computed(() => universeStore.clusters.cluster);
 
 const mapViewStyles = ref(mapViewStyleLabels.map(({key}) => key) as Array<MapViewStylesType>);
