@@ -1,10 +1,12 @@
 {
   "schemaVersion": "1",
   "type": "universe",
+  "id": "1",
+  "name": "In Dire Straits Cluster only.",
   "currentClusterId": "DLC",
   "clusters": [
     {
-      "schemaVersion": "0",
+      "schemaVersion": "1",
       "type": "cluster",
       "id": "DLC",
       "name": "In Dire Straits Cluster",
@@ -202,8 +204,9 @@
       "straits": [
         {
           "type": "strait",
-          "schemaVersion": "0",
+          "schemaVersion": "1",
           "systems": [
+            "0",
             "0",
             "1"
           ]
@@ -226,7 +229,7 @@
         },
         {
           "type": "strait",
-          "schemaVersion": "1",
+          "schemaVersion": "0",
           "systems": [
             "1",
             "3"

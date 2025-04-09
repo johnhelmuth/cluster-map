@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://in-dire-straits.space/data/schemas/universeMetadata.schema.json",
+  "title": "Universe Metadata",
+  "description": "Metadata about the universe in a Role Playing Game.",
+  "type": "object",
+  "properties": {
+    "type": {
+      "description": "The type of thingy the data describes, 'universeMetadata'.",
+      "const": "universeMetadata"
+    },
+    "schemaVersion": {
+      "description": "The version of the schema for the data.",
+      "const": "1"
+    },
+    "id": {
+      "description": "The identifier for this universe",
+      "type": "string"
+    },
+    "name": {
+      "description": "The name for this universe",
+      "type": "string"
+    }
+  }
+}

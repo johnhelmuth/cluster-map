@@ -1,13 +1,13 @@
 <script setup lang="ts">
 
-import {useUniverseStore} from "~/stores/use-universe-store";
+import {useUniversesStore} from "~/stores/use-universes-store";
 import {useUserScopeStore} from "~/stores/use-user-scope-store";
 import type {Ref} from "vue";
 import {type UniverseModelData, isUniverseModelData} from "~/models/UniverseModel";
 import type {ClusterIdType} from "~/models/ClusterModel";
 import {universeJSONParse, universeParse, createSchemaValidationError} from "~/utils/import-validator";
 
-const universeStore = useUniverseStore();
+const universeStore = useUniversesStore();
 
 const {routePlannerService, selectedSystemsService} = useUserScopeStore();
 
