@@ -2,8 +2,13 @@
 import {type ClusterIdType, ClusterModel, type ClusterModelData} from "@/models/ClusterModel";
 import {SCHEMA_VERSION} from "@/constants";
 import {universeParse} from "~/utils/import-validator";
+import type {IdType} from "~/types/BasicTypes";
+
+export type UniverseIdType = IdType;
 
 export interface UniverseModelData {
+  id: UniverseIdType,
+  name: string,
   currentClusterId: ClusterIdType,
   clusters: Array<ClusterModelData>
 }
@@ -13,6 +18,8 @@ export function isUniverseModelData(data: any) : data is UniverseModelData {
 }
 
 export class UniverseModel {
+  id = 'unknown' as UniverseIdType;
+  name = 'unknown';
   _cluster: ClusterModel | undefined;
   _clusters: Map<ClusterIdType, ClusterModel>;
 
@@ -23,23 +30,27 @@ export class UniverseModel {
 
   parseUniverseData(universeData: UniverseModelData | undefined) {
     this._clusters.clear();
-    if (universeData && universeData?.clusters?.length > 0) {
-      for (const clusterData of universeData.clusters as Array<ClusterModelData>) {
-        if (clusterData?.id) {
-          this._clusters.set(clusterData.id, new ClusterModel(clusterData));
-        }
-      }
-      if ((! universeData?.currentClusterId || universeData.currentClusterId === "")) {
-        if (this._clusters.size > 0) {
-          const firstCluster = [...this.clusters][0];
-          if (firstCluster) {
-            this._cluster = firstCluster;
+    if (universeData && isUniverseModelData(universeData)) {
+      this.id = universeData.id;
+      this.name = universeData.name;
+      if (universeData && universeData.clusters.length > 0) {
+        for (const clusterData of universeData.clusters as Array<ClusterModelData>) {
+          if (clusterData?.id) {
+            this._clusters.set(clusterData.id, new ClusterModel(clusterData));
           }
         }
-      } else {
-        const selectedCluster = this.getClusterById(universeData.currentClusterId);
-        if (selectedCluster) {
-          this._cluster = selectedCluster;
+        if ((!universeData.currentClusterId || universeData.currentClusterId === "")) {
+          if (this._clusters.size > 0) {
+            const firstCluster = [...this.clusters][0];
+            if (firstCluster) {
+              this._cluster = firstCluster;
+            }
+          }
+        } else {
+          const selectedCluster = this.getClusterById(universeData.currentClusterId);
+          if (selectedCluster) {
+            this._cluster = selectedCluster;
+          }
         }
       }
     }
@@ -75,7 +86,7 @@ export class UniverseModel {
     return [...this.clusters].find(cluster => cluster.name === name);
   }
 
-  getClusterBySlugOrId(slugOrId: string) : ClusterModelInterface | undefined {
+  getClusterBySlugOrId(slugOrId: string) : ClusterModel | undefined {
     let cluster = undefined;
     if (slugOrId) {
       cluster = this.getClusterById(slugOrId);

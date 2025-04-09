@@ -1,25 +1,16 @@
 <script setup lang="ts">
 
-import {useUniverseStore} from "~/stores/use-universe-store";
+import {useUniversesStore} from "~/stores/use-universes-store";
 import {createCluster} from "~/utils/cluster-generator";
 
-const universeStore = useUniverseStore();
+const universeStore = useUniversesStore();
 
 function addCluster(event: Event) {
-  const newCluster = createCluster('', '', getRandomIntInclusive(4, 9));
-  const notUnique = !! universeStore.clusters.getClusterById(newCluster.id);
-  if (! notUnique) {
-    universeStore.clusters.addCluster(newCluster);
-  }
-}
-
-function selectCluster(event: Event) {
-  const clusterElement = event.target as HTMLElement;
-  if (clusterElement?.id) {
-    const selectedClusterId = clusterElement.id;
-    const selectedCluster = universeStore.clusters.getClusterById(selectedClusterId);
-    if (selectedCluster !== universeStore.clusters.cluster) {
-      universeStore.clusters.cluster = selectedCluster;
+  if (universeStore.universe) {
+    const newCluster = createCluster('', '', getRandomIntInclusive(4, 9));
+    const notUnique = !!universeStore.universe.getClusterById(newCluster.id);
+    if (!notUnique) {
+      universeStore.universe.addCluster(newCluster);
     }
   }
 }
@@ -27,7 +18,7 @@ function selectCluster(event: Event) {
 </script>
 
 <template>
-  <InfoPage page_title="Clusters">
+  <InfoPage page_title="Universe">
     <div class="clusters-page">
       <div class="clusters-view">
         <div class="note">Click on a cluster in the list to select.</div>
@@ -35,10 +26,10 @@ function selectCluster(event: Event) {
         <div class="add-action">
           <button class="action" @click="addCluster">Add new Cluster</button>
         </div>
-        <ul class="clusters-list">
+        <ul class="clusters-list" v-if="universeStore.universe">
           <li class="clusters-list-item"
-              :class="aCluster === universeStore.clusters.cluster ? 'selected-cluster' : ''"
-              v-for="aCluster in universeStore.clusters.clusters"
+              :class="aCluster === universeStore.universe.cluster ? 'selected-cluster' : ''"
+              v-for="aCluster in universeStore.universe.clusters"
               :key="aCluster.id"
               :id="aCluster.id"
           >
@@ -47,9 +38,6 @@ function selectCluster(event: Event) {
             </NuxtLink>
           </li>
         </ul>
-      </div>
-      <div class="clusters-settings-panel">
-        <ClustersSettingsPanel />
       </div>
     </div>
   </InfoPage>
