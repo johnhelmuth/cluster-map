@@ -1,10 +1,11 @@
 
 import {createSchemaValidationError, universeMetadataParse, universeParse} from "~/utils/import-validator";
-import type {UniverseIdType} from "~/models/UniverseModel";
+import type {UniverseIdType, UniverseModelData} from "~/models/UniverseModel";
 import {isUniverseModelData, UniverseModel} from "~/models/UniverseModel";
+import type {IdType} from "~/types/BasicTypes";
 
 export interface UniverseMetadataData {
-  id: string;
+  id: UniverseIdType;
   name: string;
 }
 export type UniversesMetadata = Array<UniverseMetadataData>;
@@ -117,7 +118,44 @@ export class UniversesManager {
       console.error(`UniversesManager.getUniverse(), invalid universeData for universeId ${universeId} parsedResponse: `, parsedResponse);
       throw createSchemaValidationError(parsedResponse, 'UniversesManager.getUniverse(), invalid universeData. ');
     }
-    this._universes.set(universeId, new UniverseModel(universeData));
+    let universe = new UniverseModel(universeData);
+    this._universes.set(universeId, universe);
     universeMetadata.isLoaded = true;
+    return universe;
+  }
+
+  async getUniverses() {
+    const universes = await Promise.all([...this._universesMetadataStatusMap.keys()]
+      .map(
+        async (universeId) =>
+        {
+          return await this.getUniverse(universeId)
+        }));
+    return universes;
+  }
+
+  async getNewUniverseId() : Promise<IdType> {
+    return $fetch('/api/id-gen');
+  }
+
+  static toUniverseMetadataDataStatus(universe: UniverseModel | UniverseMetadataData, isLoaded: boolean) : UniverseMetadataDataStatus {
+    return {...this.toUniverseMetadataData(universe), isLoaded};
+  }
+
+  static toUniverseMetadataData(universe: UniverseModel | UniverseMetadataData) : UniverseMetadataData {
+    return {
+      id: universe.id,
+      name: universe.name,
+    }
+  }
+
+  async addUniverse(data: UniverseModelData) {
+    if (this._universesMetadataStatusMap.has(data.id)) {
+      data.id = await this.getNewUniverseId();
+    }
+    const universe = new UniverseModel(data);
+    this._universes.set(universe.id, universe);
+    this._universesMetadataStatusMap.set(universe.id, UniversesManager.toUniverseMetadataDataStatus(universe, true));
+    return universe;
   }
 }
