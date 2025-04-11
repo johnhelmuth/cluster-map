@@ -25,6 +25,7 @@
     "bson": "^6.10.3",
     "minisearch": "^7.2.0",
     "nuxt": "^4.2.2",
+    "nuxt-mongodb": "^1.0.13",
     "vue": "^3.5.25",
     "vue-final-modal": "^4.5.5",
     "vue-router": "*"
