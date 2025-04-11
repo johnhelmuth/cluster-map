@@ -3,22 +3,23 @@ import {isUniverseMetadataData} from "~/models/UniversesManager";
 import {createSchemaValidationError, universeMetadataParse} from "~/utils/import-validator";
 import { mongo } from '#nuxt-mongodb';
 
-// export const db = mongo.db();
-//
-// export async function getUniversesMetadataData() {
-//   const rawUniversesMetadataData = await db.collection("universes").find();
-//   console.log('rawUniversesMetadataData: ', rawUniversesMetadataData);
-//
-//   const universesMetadataData = rawUniversesMetadataData
-//     .map((rawUniverseMetadataData) => {
-//       if (! isUniverseMetadataData(rawUniverseMetadataData)) {
-//         const parsedResponse = universeMetadataParse(rawUniverseMetadataData);
-//         throw createSchemaValidationError(parsedResponse, 'DataSourceDb, invalid universeMetadataData. ');
-//       }
-//       return rawUniverseMetadataData;
-//     });
-//
-//   console.log('universesMetadataData: ', universesMetadataData);
-//
-//   return universesMetadataData;
-// }
+export async function getUniversesMetadataData() {
+  const rawUniversesMetadataData = await mongo.db().collection("universes").find().toArray();
+
+  const universesMetadataData = rawUniversesMetadataData
+    .map((rawUniverseMetadataData) => {
+      if (! isUniverseMetadataData(rawUniverseMetadataData)) {
+        const parsedResponse = universeMetadataParse(rawUniverseMetadataData);
+        throw createSchemaValidationError(parsedResponse, 'DataSourceDb, invalid universeMetadataData. ');
+      }
+      const { _id, ...universeMetadataData} = rawUniverseMetadataData;
+      if (! rawUniverseMetadataData?.id && _id) {
+        universeMetadataData.id = _id.toString();
+      }
+      return universeMetadataData;
+    });
+
+  console.log('universesMetadataData: ', universesMetadataData);
+
+  return universesMetadataData;
+}
