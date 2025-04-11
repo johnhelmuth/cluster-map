@@ -6,6 +6,7 @@ import clusterJson1652 from "~/server/data/universes/cluster-1652.json";
 import clusterJson2Systems from "~/server/data/universes/cluster-3.json";
 import universeDLCOnlyData from "~/server/data/universes/universe-DLC-only.json";
 import universeDLCPlus25Data from "~/server/data/universes/universe-DLC-25-random.json";
+import {UniversesManager} from "~/models/UniversesManager";
 
 const defaultUniverseData = {
   type: 'universe',
@@ -31,7 +32,7 @@ export const universesMetadataData = universesData
       const parsedResponse = universeParse(universeData);
       throw createSchemaValidationError(parsedResponse, 'DataSource, invalid universeData. ');
     }
-    return { id: universeData.id, name: universeData.name };
+    return UniversesManager.toUniverseMetadataData(universeData);
   });
 
 console.log('universesMetadataData: ', universesMetadataData);
