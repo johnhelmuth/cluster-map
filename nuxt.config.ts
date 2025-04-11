@@ -45,10 +45,11 @@ export default defineNuxtConfig({
     css: ['~/assets/main.css', 'vue-final-modal/style.css'],
 
     modules: [
-        '@nuxt/icon',
-        '@vue-final-modal/nuxt',
-        '@vueuse/nuxt',
-        '@nuxt/content',
+      '@nuxt/icon',
+      '@vue-final-modal/nuxt',
+      '@vueuse/nuxt',
+      '@nuxt/content',
+      'nuxt-mongodb',
     ],
 
 })
