@@ -134,8 +134,13 @@ export class UniversesManager {
     return universes;
   }
 
-  async getNewUniverseId() : Promise<IdType> {
-    return $fetch('/api/id-gen');
+  async getNewUniverseId(): Promise<IdType> {
+    const newIdResponse = await $fetch('/api/id-gen');
+    let newId = 'newId';
+    if (newIdResponse) {
+      newId = newIdResponse.toString();
+    }
+    return newId;
   }
 
   static toUniverseMetadataDataStatus(universe: UniverseModel | UniverseMetadataData, isLoaded: boolean) : UniverseMetadataDataStatus {
