@@ -15,6 +15,10 @@
 
     <p>The conglomeration of all known information in known space, available on the interstellar Tatternet.</p>
 
+    <h2><NuxtLink to="/sessions">Session Summaries</NuxtLink></h2>
+
+    The story of the crew of the Dire Straits, session by session.
+
     <h2><NuxtLink to="/rules-and-systems">Rules & Systems</NuxtLink></h2>
 
     The rules and systems we are using to play In Dire Straits.

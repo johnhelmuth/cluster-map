@@ -16,6 +16,7 @@ const route = useRoute();
       <SearchDropdown v-if="route.path !== '/search'" />
       <BurgerMenu class="on-right">
         <NuxtLink to="/tatterpedia">Tatterpedia</NuxtLink>
+        <NuxtLink to="/sessions">Sessions</NuxtLink>
         <NuxtLink to="/rules-and-systems">Rules & Systems</NuxtLink>
         <NuxtLink to="/search">Search</NuxtLink>
         <NuxtLink to="/map">Map</NuxtLink>
