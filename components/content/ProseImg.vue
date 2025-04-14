@@ -69,7 +69,7 @@ const refinedAlign = computed(() => {
 });
 
 // Always use a caption if specified.
-const captianValue = computed(() => {
+const captionValue = computed(() => {
   if (props.caption && props.caption.length > 0) {
     return props.caption;
   }
@@ -90,7 +90,7 @@ const altValue = computed(() => {
 </script>
 
 <template>
-  <div :class="{ 'figure-container': true, captioned: captianValue, left: (refinedAlign=='left'), right: (refinedAlign=='right'), center: (refinedAlign=='center') }">
+  <div :class="{ 'figure-container': true, captioned: captionValue, left: (refinedAlign=='left'), right: (refinedAlign=='right'), center: (refinedAlign=='center') }">
     <figure>
       <img
           :src="refinedSrc"
@@ -98,17 +98,12 @@ const altValue = computed(() => {
           :width="props.width"
           :height="props.height"
       />
-      <figcaption v-if="captianValue">{{ captianValue }}</figcaption>
+      <figcaption v-if="captionValue">{{ captionValue }}</figcaption>
     </figure>
   </div>
 </template>
 
 <style scoped>
-
-div.figure-container {
-  width: v-bind('width');
-  max-width: v-bind('width');
-}
 
 div.figure-container.left {
   float: left;
@@ -124,9 +119,23 @@ div.figure-container.right {
 }
 
 div.figure-container figure {
-  width: v-bind('width');
-  max-width: v-bind('width');
   margin: 1rem;
+}
+
+div.figure-container figure img {
+  width:  75cqw; /* Default to center */
+  height: auto;
+  border: 1px solid var(--color-border);
+}
+
+div.figure-container.left figure img, div.figure-container.right figure img {
+  width:  40cqw; /* Smaller for floating images, left or right. */
+}
+
+@media (max-width: 700px) {
+  div.figure-container figure img, div.figure-container.left figure img, div.figure-container.right figure img {
+    width: 90cqw; /* Too small to float text next to it, make them all the same. */
+  }
 }
 
 /* Trick the web page to get the caption to wrap to the width of the image by
