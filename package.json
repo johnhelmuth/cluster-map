@@ -9,7 +9,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "type-check": "vue-tsc --build --force"
+    "type-check": "vue-tsc --build --force",
+    "cleanup": "nuxt cleanup"
   },
   "dependencies": {
     "@exodus/schemasafe": "^1.3.0",

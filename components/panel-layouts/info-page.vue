@@ -22,7 +22,10 @@ const realMaxWidth = computed(() => {
     <template v-slot:controls>
       <div class="info-panel">
         <div class="info-box">
-          <h1>{{ page_title }}</h1>
+          <h1>
+            <DropDownBreadCrumbs hide-if-only-one />
+            {{ page_title }}
+          </h1>
           <div :class='{"info-content": true, "no-inset-shadow": useNoInset}'>
             <slot>Default page contents</slot>
           </div>
