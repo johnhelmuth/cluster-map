@@ -7,6 +7,7 @@ export default defineContentConfig({
             type: 'page',
             source: {
                 include: '**/*',
+                exclude: ['**/*.png', '**/*.svg', '**/*.jpg', 'LICENSE'],
                 repository: 'https://github.com/johnhelmuth/in-dire-straits-content/tree/main',
                 authToken: process.env.GH_TOKEN,
             },
