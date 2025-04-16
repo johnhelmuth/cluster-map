@@ -81,7 +81,7 @@ function mapViewClosed() {
         :mapStyle="mapStylesStore.mapStyle"
     />
     <SVGClusterGraph
-        v-if="cluster"
+        v-if="cluster && clusterOrientation !== 'square'"
         :class="[otherOrientation, mapStylesStore.mapStyle]"
         :cluster="cluster"
         :plan="plan"
