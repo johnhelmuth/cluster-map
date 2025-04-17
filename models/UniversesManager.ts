@@ -6,6 +6,8 @@ import type {IdType} from "~/types/BasicTypes";
 
 export interface UniverseMetadataData {
   id: UniverseIdType;
+  type: 'universeMetadata',
+  schemaVersion: string,
   name: string;
 }
 export type UniversesMetadata = Array<UniverseMetadataData>;
@@ -103,6 +105,7 @@ export class UniversesManager {
 
   async getUniverse(universeId: UniverseIdType) {
     const universeMetadata = this._universesMetadataStatusMap.get(universeId);
+    console.log('UniversesManager.getUniverse() universeMetadata: ', universeMetadata);
     if (! universeMetadata) {
       throw new Error(`No universe metadata for universe ID ${universeId}`);
     }
@@ -150,6 +153,8 @@ export class UniversesManager {
   static toUniverseMetadataData(universe: UniverseModel | UniverseMetadataData) : UniverseMetadataData {
     return {
       id: universe.id,
+      type: 'universeMetadata',
+      schemaVersion: '1',
       name: universe.name,
     }
   }

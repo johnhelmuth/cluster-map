@@ -1,3 +1,18 @@
-{"_id":{"$oid":"67f97d8e80abff8f6b12d58f"},"name":"Default universe."}
-{"_id":{"$oid":"67f97da580abff8f6b12d590"},"name":"In Dire Straits Cluster plus 25 random clusters."}
-{"_id":{"$oid":"67f97dbc80abff8f6b12d591"},"name":"In Dire Straits Cluster only."}
+[
+  {
+    "schemaVersion": "1",
+    "type": "universe",
+    "_id": {
+      "$oid": "67f97d8e80abff8f6b12d58f"
+    },
+    "name": "In Dire Straits Cluster only.",
+    "currentClusterId": {
+      "$oid": "67fd9f169e23e2b5f1e22173"
+    },
+    "clusters": [
+      {
+        "$oid": "67f97d8e80abff8f6b12d58f"
+      }
+    ]
+  }
+]
