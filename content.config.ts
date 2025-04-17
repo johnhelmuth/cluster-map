@@ -1,4 +1,4 @@
-import {defineContentConfig, defineCollection, type ResolvedCollectionSource} from '@nuxt/content'
+import {defineContentConfig, defineCollection} from '@nuxt/content'
 import {z} from "zod";
 
 const source = {
@@ -26,7 +26,9 @@ export default defineContentConfig({
               'handler-tag': z.enum(['pick-random']),
             })
           )
-        })
+        }),
+        'in-game-start': z.string(),
+        'in-game-end': z.string(),
       })
     })
   }
