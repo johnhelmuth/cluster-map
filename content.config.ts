@@ -18,7 +18,9 @@ export default defineContentConfig({
                             'handler-tag': z.enum(['pick-random']),
                         })
                     )
-                })
+                }),
+                'in-game-start': z.string(),
+                'in-game-end': z.string(),
             })
         })
     }
