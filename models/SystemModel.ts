@@ -57,6 +57,8 @@ export type SystemIdType = IdType;
  * System Model Data types
  */
 export interface SystemModelData {
+  type: 'system',
+  schemaVersion: string,
   id: SystemIdType;
   name: string;
   url?: string;
@@ -74,7 +76,7 @@ export function isSystemModelData(data: any) : data is SystemModelData {
  *
  * Encapsulates the business logic of what a System is and how it relates to other components.
  */
-export class SystemModel implements SystemModelData {
+export class SystemModel {
   id: SystemIdType;
   name: string;
   url: string;
