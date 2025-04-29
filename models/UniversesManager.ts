@@ -116,6 +116,7 @@ export class UniversesManager {
     if (! universeData) {
       throw new Error(`No universe data for universe ID ${universeId} found.`);
     }
+    console.log('UniversesManager.getUniverse() universeData: ', universeData);
     if (! isUniverseModelData(universeData)) {
       const parsedResponse = universeParse(universeData);
       console.error(`UniversesManager.getUniverse(), invalid universeData for universeId ${universeId} parsedResponse: `, parsedResponse);

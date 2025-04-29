@@ -1,18 +1,6 @@
 [
   {
     "_id": {
-      "$oid": "67f97d8e80abff8f6b12d58f"
-    },
-    "name": "Default universe."
-  },
-  {
-    "_id": {
-      "$oid": "67f97da580abff8f6b12d590"
-    },
-    "name": "In Dire Straits Cluster plus 25 random clusters."
-  },
-  {
-    "_id": {
       "$oid": "67f97dbc80abff8f6b12d591"
     },
     "name": "In Dire Straits Cluster only."
