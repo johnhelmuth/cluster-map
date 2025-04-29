@@ -14,6 +14,8 @@ import {clusterParse} from "~/utils/import-validator";
 export type ClusterIdType = IdType;
 
 export interface ClusterModelData {
+  type: 'cluster',
+  schemaVersion: string,
   id: ClusterIdType,
   name: string,
   systems?: Array<SystemModelData>,

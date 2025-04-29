@@ -7,6 +7,8 @@ import type {IdType} from "~/types/BasicTypes";
 export type UniverseIdType = IdType;
 
 export interface UniverseModelData {
+  type: 'universe',
+  schemaVersion: string,
   id: UniverseIdType,
   name: string,
   currentClusterId: ClusterIdType,
