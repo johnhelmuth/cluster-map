@@ -24,6 +24,8 @@ export type DrawDirectionType = 'clockwise' | 'center' | 'counterclockwise';
  *   center (i.e. no curve) or counterclockwise.
  */
 export type StraitModelData = {
+    type: 'strait',
+    schemaVersion: string,
     systems: Array<SystemIdType>,
     direction?: DrawDirectionType,
 };
