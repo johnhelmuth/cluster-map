@@ -14,5 +14,4 @@ When running the mongodb server locally, mongoimport will be able to connect wit
 mongoimport --jsonArray --db=clustermap --collection=systems --drop --maintainInsertionOrder --stopOnError < systems-db.json
 mongoimport --jsonArray --db=clustermap --collection=clusters --drop --maintainInsertionOrder --stopOnError < clusters-db.json
 mongoimport --jsonArray --db=clustermap --collection=universes --drop --maintainInsertionOrder --stopOnError < universes-db.json
-mongoimport --jsonArray --db=clustermap --collection=universes-metadata --drop --maintainInsertionOrder --stopOnError < universes-metadata-db.json
 ```
