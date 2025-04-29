@@ -10,6 +10,8 @@ const parseOptions = {
   includeErrors: true,
 };
 
+export const SCHEMA_VERSION = '1';
+
 export const straitJSONParse = parser(straitSchema, parseOptions);
 export function straitParse(data: any) {
   return straitJSONParse(JSON.stringify(data))
