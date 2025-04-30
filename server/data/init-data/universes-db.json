@@ -3,7 +3,7 @@
     "schemaVersion": "1",
     "type": "universe",
     "_id": {
-      "$oid": "67f97d8e80abff8f6b12d58f"
+      "$oid": "67f97dbc80abff8f6b12d591"
     },
     "name": "In Dire Straits Cluster only.",
     "currentClusterId": {
