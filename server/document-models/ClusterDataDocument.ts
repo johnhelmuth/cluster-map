@@ -1,12 +1,14 @@
-import {Document, WithId} from "mongodb";
+import {Document, ObjectId, WithId} from "mongodb";
 import {ClusterModelData} from "~/models/ClusterModel";
 import {SystemModelData} from "~/models/SystemModel";
 import {StraitModelData} from "~/models/StraitModel";
-import {SystemDataDocumentToSystemModelData, SystemDataDocument} from "~/server/document-models/SystemDataDocument";
-import {StraitDataDocumentToStraitModelData, StraitDataDocument} from "~/server/document-models/StraitDataDocument";
+import {SystemDataDocument} from "~/server/document-models/SystemDataDocument";
+import {StraitDataDocument} from "~/server/document-models/StraitDataDocument";
+import {SCHEMA_VERSION} from "~/constants";
 
+import clusterMongoSchema from '~/server/data/db-schemas/mongo-cluster.schema.json';
 
-export interface ClusterDataDocument extends WithId<Document> {
+export interface ClusterDataDocumentInterface extends WithId<Document> {
   schemaVersion: string;
   type: 'cluster';
   name: string;
@@ -14,23 +16,45 @@ export interface ClusterDataDocument extends WithId<Document> {
   straits: Array<StraitDataDocument>;
 }
 
-export function isClusterDataDocument(data: any): data is ClusterDataDocument {
-  // TODO implement this.
-  return true;
-}
+export class ClusterDataDocument implements ClusterDataDocumentInterface {
+  _id: ObjectId = new ObjectId();
+  schemaVersion: string = SCHEMA_VERSION;
+  type: 'cluster' = 'cluster';
+  name: string = 'Unknown cluster';
+  systems: Array<SystemDataDocument> = [];
+  straits: Array<StraitDataDocument> = [];
 
-export function ClusterDataDocumentToClusterModelData(cluster: ClusterDataDocument) {
-  if (isClusterDataDocument(cluster)) {
+  constructor(data: any) {
+    if (ClusterDataDocument.isClusterDataDocument(data)) {
+      this._id = data._id;
+      this.schemaVersion = data.schemaVersion;
+      this.type = data.type;
+      this.name = data.name;
+      this.systems = data.systems;
+      this.straits = data.straits;
+    }
+  }
+
+  static isClusterDataDocument(data: any): this is ClusterDataDocumentInterface {
+    // TODO implement this.
+    return true;
+  }
+
+  toModelData(): ClusterModelData | undefined {
     const clusterData = {
-      type: cluster.type,
-      schemaVersion: cluster.schemaVersion,
-      id: cluster._id.toHexString(),
-      name: cluster.name,
+      type: this.type,
+      schemaVersion: this.schemaVersion,
+      id: this._id.toHexString(),
+      name: this.name,
       systems: [],
       straits: [],
     } as ClusterModelData;
-    const systems = cluster.systems.map(SystemDataDocumentToSystemModelData).filter(system => !! system) as Array<SystemModelData>;
-    const straits = cluster.straits.map(StraitDataDocumentToStraitModelData).filter(strait => !! strait) as Array<StraitModelData>;
+    const systems = this.systems
+      .map(systemData => SystemDataDocument.create(systemData).toModelData())
+      .filter(system => !! system) as Array<SystemModelData>;
+    const straits = this.straits
+      .map(straitData => StraitDataDocument.create(straitData).toModelData())
+      .filter(strait => !! strait) as Array<StraitModelData>;
     if (systems?.length > 0) {
       clusterData.systems = systems;
     }
@@ -38,5 +62,13 @@ export function ClusterDataDocumentToClusterModelData(cluster: ClusterDataDocume
       clusterData.straits = straits;
     }
     return clusterData;
+  }
+
+  static create(data: any): ClusterDataDocument {
+    return new ClusterDataDocument(data);
+  }
+
+  static mongoSchemaValidator() {
+    return clusterMongoSchema
   }
 }
