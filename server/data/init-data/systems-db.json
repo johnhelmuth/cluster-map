@@ -217,5 +217,275 @@
       "x": 130,
       "y": 620
     }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "68196b16a566e351dddce3ee"
+    },
+    "name": "System 2",
+    "attributes": {
+      "technology": 2,
+      "environment": -1,
+      "resources": -2
+    },
+    "aspects": [],
+    "position": {
+      "x": 795,
+      "y": 374.99999999999994
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "68196c21a566e351dddce3ef"
+    },
+    "name": "System 17",
+    "attributes": {
+      "technology": -3,
+      "environment": 3,
+      "resources": -1
+    },
+    "aspects": [],
+    "position": {
+      "x": 683.9294915483264,
+      "y": 144.35971267193116
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "68196c26a566e351dddce3f0"
+    },
+    "name": "System 25",
+    "attributes": {
+      "technology": 0,
+      "environment": 0,
+      "resources": 0
+    },
+    "aspects": [],
+    "position": {
+      "x": 434.3563244828872,
+      "y": 87.39626590636203
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "68196c2da566e351dddce3f1"
+    },
+    "name": "System 34",
+    "attributes": {
+      "technology": 0,
+      "environment": 1,
+      "resources": -3
+    },
+    "aspects": [],
+    "position": {
+      "x": 234.21418396878636,
+      "y": 247.0042969603204
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "68196c31a566e351dddce3f2"
+    },
+    "name": "System 44",
+    "attributes": {
+      "technology": -1,
+      "environment": 1,
+      "resources": 1
+    },
+    "aspects": [],
+    "position": {
+      "x": 234.21418396878636,
+      "y": 502.9957030396797
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "68196c35a566e351dddce3f3"
+    },
+    "name": "System 52",
+    "attributes": {
+      "technology": 1,
+      "environment": 0,
+      "resources": -1
+    },
+    "aspects": [],
+    "position": {
+      "x": 434.35632448288726,
+      "y": 662.603734093638
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "68196c39a566e351dddce3f4"
+    },
+    "name": "System 67",
+    "attributes": {
+      "technology": -1,
+      "environment": 4,
+      "resources": -1
+    },
+    "aspects": [],
+    "position": {
+      "x": 683.9294915483264,
+      "y": 605.6402873280688
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "68196dafa566e351dddce3f5"
+    },
+    "name": "System 5",
+    "attributes": {
+      "technology": 1,
+      "environment": -1,
+      "resources": 1
+    },
+    "aspects": [],
+    "position": {
+      "x": 795,
+      "y": 374.99999999999994
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "68196deca566e351dddce3f6"
+    },
+    "name": "System 14",
+    "attributes": {
+      "technology": 2,
+      "environment": 0,
+      "resources": -3
+    },
+    "aspects": [],
+    "position": {
+      "x": 708.5965004500315,
+      "y": 166.40349954996844
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "681b5bc4a566e351dddce3fc"
+    },
+    "name": "System 24",
+    "attributes": {
+      "technology": 2,
+      "environment": -1,
+      "resources": -3
+    },
+    "aspects": [],
+    "position": {
+      "x": 499.99999999999994,
+      "y": 80
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "68196e3da566e351dddce3f7"
+    },
+    "name": "System 37",
+    "attributes": {
+      "technology": -1,
+      "environment": 0,
+      "resources": 1
+    },
+    "aspects": [],
+    "position": {
+      "x": 291.40349954996844,
+      "y": 166.4034995499685
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "68196e41a566e351dddce3f8"
+    },
+    "name": "System 40",
+    "attributes": {
+      "technology": 1,
+      "environment": 0,
+      "resources": -2
+    },
+    "aspects": [],
+    "position": {
+      "x": 205,
+      "y": 375.00000000000006
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "68196e46a566e351dddce3f9"
+    },
+    "name": "System 52",
+    "attributes": {
+      "technology": 1,
+      "environment": 1,
+      "resources": 1
+    },
+    "aspects": [],
+    "position": {
+      "x": 291.4034995499685,
+      "y": 583.5965004500315
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "68196e4ca566e351dddce3fa"
+    },
+    "name": "System 67",
+    "attributes": {
+      "technology": -1,
+      "environment": 0,
+      "resources": 2
+    },
+    "aspects": [],
+    "position": {
+      "x": 500,
+      "y": 670
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "68196e51a566e351dddce3fb"
+    },
+    "name": "System 79",
+    "attributes": {
+      "technology": -1,
+      "environment": 0,
+      "resources": 0
+    },
+    "aspects": [],
+    "position": {
+      "x": 708.5965004500315,
+      "y": 583.5965004500315
+    }
   }
 ]
