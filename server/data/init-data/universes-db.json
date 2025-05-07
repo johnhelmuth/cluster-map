@@ -14,5 +14,24 @@
         "$oid": "67f97d8e80abff8f6b12d58f"
       }
     ]
+  },
+  {
+    "schemaVersion": "1",
+    "type": "universe",
+    "_id": {
+      "$oid": "68196973a566e351dddce3eb"
+    },
+    "name": "Two random clusters.",
+    "currentClusterId": {
+      "$oid": "681969f2a566e351dddce3ec"
+    },
+    "clusters": [
+      {
+        "$oid": "681969f2a566e351dddce3ec"
+      },
+      {
+        "$oid": "68196a21a566e351dddce3ed"
+      }
+    ]
   }
 ]
