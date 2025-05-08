@@ -5,6 +5,8 @@ import type {UniverseMetadataData, UniverseMetadataDataStatus} from "~/models/Un
 
 const universesStore = useUniversesStore();
 
+const showId = false;
+
 function universeRowClass(universeMetadata: UniverseMetadataDataStatus) {
   return {
     selected: universesStore.currentUniverseId === universeMetadata.id,
@@ -28,9 +30,9 @@ async function selectUniverse(evt: Event) {
   <InfoPage page_title="Universes">
     <div class="universes">
       <div class="universe-list-container">
-        <div v-if="universesStore.universesMetadata.length" class="universes-list">
+        <div v-if="universesStore.universesMetadata.length" class="universes-list" :class="showId ? 'has-id' : ''">
           <div class="universe-list-header row">
-            <span></span><span class="column-label">ID</span><span class="column-label">Name</span>
+            <span class="column-label" v-if="showId">ID</span><span class="column-label">Name</span>
           </div>
           <div
               v-for="(universeMetadata, index) in universesStore.universesMetadata" :key="index"
@@ -39,10 +41,7 @@ async function selectUniverse(evt: Event) {
               @click="selectUniverse"
               :class="universeRowClass(universeMetadata)"
           >
-            <span class="universe-select">
-              <input type="radio" name="universeSelected" :checked="universeMetadata.id === universesStore.currentUniverseId" />
-            </span>
-            <span class="universe-id">
+            <span v-if="showId" class="universe-id">
               {{ universeMetadata.id }}
             </span>
             <span class="universe-name">
@@ -69,16 +68,23 @@ async function selectUniverse(evt: Event) {
 .universes-list {
   display: grid;
   margin-right: 0.5rem;
-  padding: 0.5rem;
-  grid-template-columns: 1fr 2fr 7fr;
-  box-shadow: inset -0.25rem -0.25rem 0.25rem #777,
-  inset 0.25rem 0.25rem 0.25rem lightgrey;
+  padding: 0.35rem;
+  grid-template-columns: 1fr;
+  box-shadow: inset -0.125rem -0.125rem 0.125rem lightgrey,
+  inset 0.125rem 0.125rem 0.125rem #777;
+}
+.universes-list.has-id {
+  grid-template-columns: 1fr 7fr;
 }
 
 .universes-list .row {
   display: grid;
   grid-template-columns: subgrid;
   grid-column: 1 / 4;
+}
+
+.universes-list .row.selected {
+  background-color: var(--color-background-lightest);
 }
 
 span {
