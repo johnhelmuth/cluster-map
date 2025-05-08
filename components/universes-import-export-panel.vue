@@ -252,14 +252,13 @@ watch(importFile, async () => {
 <style scoped>
 
 .universes-import-export-panel {
-  border: 1px solid var(--color-border);
-  border-radius: 1rem;
-  padding: 0.5rem 1rem;
   overflow-y: auto;
 }
 
-.import-export {
-  width: 100%;
+section.accordion-control {
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  padding: 0.5rem 1rem;
 }
 
 section.accordion-control h3 {
