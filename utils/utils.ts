@@ -1,6 +1,6 @@
 import type {PointType} from "@/types/GeometryTypes.js";
-import type {ClustersModelDataType} from "@/types/ClusterTypes";
-import type {BoundingBoxType, ClusterOrientationType, PositionThing, PositionThingList} from "@/types/BasicTypes";
+import type {BoundingBoxType, PositionThing, PositionThingList} from "@/types/BasicTypes";
+import type { ClusterOrientationType } from "@/types/MapViewTypes";
 import {getMapDimensions} from "~/utils/cluster-generator";
 
 export function getBoundingBox(things: PositionThingList) : BoundingBoxType {
@@ -45,12 +45,4 @@ export function rotatePosition(position : PointType) : PointType {
   const y = transPos.y * Math.cos(rotationAngle) + transPos.x * Math.sin(rotationAngle) + center.y - translateDiff.y;
 
   return { x, y };
-}
-
-export function isClustersModelDataType(data : object | ClustersModelDataType) : data is ClustersModelDataType {
-  const hasCurrentClusterId = ((data as ClustersModelDataType)?.currentClusterId !== undefined);
-  return hasCurrentClusterId
-    && typeof (data as ClustersModelDataType).currentClusterId === 'string'
-    && (data as ClustersModelDataType).clusters !== undefined
-    && ((data as ClustersModelDataType).clusters?.length === 0 || (data as ClustersModelDataType).clusters?.length > 0)
 }

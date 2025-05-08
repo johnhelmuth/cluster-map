@@ -1,0 +1,29 @@
+{
+  "bsonType": "object",
+  "required": ["schemaVersion", "type", "name"],
+  "properties": {
+    "_id": {
+      "bsonType": "objectId"
+    },
+    "schemaVersion": {
+      "bsonType": "string"
+    },
+    "type": {
+      "bsonType": "string",
+      "enum": ["universe"]
+    },
+    "name": {
+      "bsonType": "string"
+    },
+    "currentClusterId": {
+      "bsonType": "objectId"
+    },
+    "clusters": {
+      "bsonType": "array",
+      "minItems": 1,
+      "items": {
+        "bsonType": "objectId"
+      }
+    }
+  }
+}
