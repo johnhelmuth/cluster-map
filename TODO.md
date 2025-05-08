@@ -44,12 +44,12 @@
 * TODO: auto-layout for cluster map. Maybe just make the map editable.
   * Partially done with autogenerate new clusters feature.  Need to rework that code
     ~~to be able to choose either the locations stored in the cluster data, or~~ different algorithmic views of
-    the current cluster, like a straight line view, ~~a circle view~~. Possibly implement a force directed
+    the current cluster, like ~~a straight line view, a circle view. Possibly implement~~ a force directed
     graph algorithm.
 * TODO: 3D positions of systems, imported from real world near space astronomical data, per
   * https://www.projectrho.com/starmap.html
 * TODO: Edit cluster and system in the UI, save in persistence layer.
-* TODO: Implement server side APIs for storage using something like MongoDB
+* ~~TODO: Implement server side APIs for storage using something like MongoDB~~
 * TODO: Add user accounts, including separate storage space per user.
 * TODO: Add groups, permissions on data structures.
 
