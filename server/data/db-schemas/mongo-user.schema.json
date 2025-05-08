@@ -1,0 +1,32 @@
+{
+  "bsonType": "object",
+  "required": [
+    "schemaVersion",
+    "type",
+    "name",
+    "authenticationData"
+  ],
+  "properties": {
+    "_id": {
+      "bsonType": "objectId"
+    },
+    "schemaVersion": {
+      "bsonType": "string"
+    },
+    "type": {
+      "bsonType": "string",
+      "enum": [
+        "user"
+      ]
+    },
+    "name": {
+      "bsonType": "string"
+    },
+    "authenticationData": {
+      "bsonType": "array",
+      "items": {
+        "bsonType": "objectId"
+      }
+    }
+  }
+}
