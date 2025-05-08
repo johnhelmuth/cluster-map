@@ -1,0 +1,15 @@
+[
+  {
+    "_id": {
+      "$oid": "681d2c296ddb619240513dac"
+    },
+    "schemaVersion": "1",
+    "type": "user-auth-data",
+    "authType": "username-password",
+    "usernamePassword": {
+      "username": "johnhelmuth",
+      "salt": "12345",
+      "hash": "12345"
+    }
+  }
+]
