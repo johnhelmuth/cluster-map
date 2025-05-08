@@ -21,6 +21,7 @@
     "@nuxt/icon": "^2.1.1",
     "@vue-final-modal/nuxt": "^1.0.3",
     "@vueuse/nuxt": "^14.1.0",
+    "bcryptjs": "^3.0.2",
     "better-sqlite3": "^12.5.0",
     "bson": "^6.10.3",
     "minisearch": "^7.2.0",
