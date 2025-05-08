@@ -1,0 +1,43 @@
+{
+  "bsonType": "object",
+  "required": [
+    "schemaVersion",
+    "type",
+    "authType"
+  ],
+  "properties": {
+    "_id": {
+      "bsonType": "objectId"
+    },
+    "schemaVersion": {
+      "bsonType": "string"
+    },
+    "type": {
+      "bsonType": "string",
+      "enum": [
+        "user-auth-data"
+      ]
+    },
+    "authType": {
+      "bsonType": "string",
+      "enum": [
+        "username-password"
+      ]
+    },
+    "usernamePassword": {
+      "bsonType": "object",
+      "required": ["username", "salt", "hash"],
+      "properties": {
+        "username": {
+          "bsonType": "string"
+        },
+        "salt": {
+          "bsonType": "string"
+        },
+        "hash": {
+          "bsonType": "string"
+        }
+      }
+    }
+  }
+}
