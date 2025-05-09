@@ -4,12 +4,11 @@
       "$oid": "681d2c296ddb619240513dac"
     },
     "schemaVersion": "1",
-    "type": "user-auth-data",
+    "type": "user-auth",
     "authType": "username-password",
     "usernamePassword": {
       "username": "johnhelmuth",
-      "salt": "12345",
-      "hash": "12345"
+      "hash": "$2b$12$p9Nl.v6Ph8YZAwngUbtBTudTvd.7GJ/DdtnvJamYYkhG2s.ZgutvG"
     }
   }
 ]
