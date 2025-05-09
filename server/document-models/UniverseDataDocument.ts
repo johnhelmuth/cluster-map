@@ -4,9 +4,8 @@ import {UniverseMetadataData} from "~/models/UniversesManager";
 import {UniverseIdType, UniverseModelData} from "~/models/UniverseModel";
 import {ClusterModelData} from "~/models/ClusterModel";
 import {SCHEMA_VERSION} from "~/constants";
-import { universesCollection } from '~/server/utils/DataSourceDb';
+import {universesCollection} from '~/server/utils/DataSourceDb';
 import {createSchemaValidationError, universeMetadataParse} from "~/utils/import-validator";
-import universeMongoSchema from '~/server/data/db-schemas/mongo-universe.schema.json';
 
 export interface UniverseDataDocumentInterface extends WithId<Document> {
   schemaVersion: string;
@@ -71,7 +70,7 @@ export class UniverseDataDocument implements UniverseDataDocumentInterface {
   }
 
   static async getUniverseData(universeId: UniverseIdType) {
-    const universesData = await (await universesCollection())
+    const universesData = await universesCollection()
       .aggregate(UniverseDataDocument.dataPipeline(universeId)).toArray() as UniverseDataDocument[];
     if (universesData) {
       const universeDataDocument = UniverseDataDocument.create(universesData[0]);
@@ -80,7 +79,7 @@ export class UniverseDataDocument implements UniverseDataDocumentInterface {
   }
 
   static async getUniversesMetadataData() {
-    const universeDataDocuments = await (await universesCollection()).find().toArray();
+    const universeDataDocuments = await universesCollection().find().toArray();
 
     const universesMetadataData = universeDataDocuments
       .map((universeDataDocumentData : UniverseDataDocumentInterface) => {
@@ -135,9 +134,5 @@ export class UniverseDataDocument implements UniverseDataDocumentInterface {
         as: "clusters",
       }
     }]
-  }
-
-  static mongoSchemaValidator() {
-    return universeMongoSchema
   }
 }
