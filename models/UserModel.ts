@@ -3,16 +3,15 @@ import type {IdType} from "~/types/BasicTypes";
 export type UserIdType = IdType;
 export type AuthIdType = IdType;
 
-export type authenticationType = 'username-password';
+export type AuthenticationTypeType = 'username-password';
 
 export interface AuthenticationDataInterface {
   id: AuthIdType;
   schemaVersion: string;
   type: 'authentication-data';
-  authType: authenticationType;
+  authType: AuthenticationTypeType;
   usernamePassword?: {
     username: string;
-    salt: string;
     hash: string;
   }
 }
