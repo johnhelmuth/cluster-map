@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://in-dire-straits.space/data/schemas/user-auth.schema.json",
+  "title": "User",
+  "description": "One of the ways the user can authenticate themselves to the system.",
+  "type": "object",
+  "required": ["type","schemaVersion","id","authType"],
+  "properties": {
+    "type": {
+      "description": "The type of thingy the data describes, 'user-auth'.",
+      "const": "user-auth"
+    },
+    "schemaVersion": {
+      "description": "The version of the schema for the data.",
+      "const": "1"
+    },
+    "id": {
+      "description": "A unique identifier for this way for the user to authenticate themself.",
+      "type": "string"
+    },
+    "authType": {
+      "description": "The authentication method. (TODO Add more methods to this enum and the code. Use JSON Schema allOf and if/then keywords for separate sets of metadata per authentication method.)",
+      "enum": ["username-password"]
+    },
+    "usernamePassword": {
+      "description": "Details for the username-password authentication method.",
+      "type": "object",
+      "required": ["username", "hash"],
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "hash": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
