@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://in-dire-straits.space/data/schemas/user.schema.json",
+  "title": "User",
+  "description": "A dataset of a user of the application used to manage the data in a Role Playing Game.",
+  "type": "object",
+  "properties": {
+    "type": {
+      "description": "The type of thingy the data describes, 'user'.",
+      "const": "user"
+    },
+    "schemaVersion": {
+      "description": "The version of the schema for the data.",
+      "const": "1"
+    },
+    "id": {
+      "description": "A unique identifier for this user",
+      "type": "string"
+    },
+    "name": {
+      "description": "The name of the user, used to display the user's identity in the UI.",
+      "type": "string"
+    },
+    "authenticationData": {
+      "description": "All the different ways the user can authenticate themselves to the system.",
+      "type": "array",
+      "items": {
+        "description": "One of the ways the user can authenticate themselves to the system.",
+        "$ref": "https://in-dire-straits.space/data/schemas/user-auth.schema.json"
+      }
+    }
+  }
+}

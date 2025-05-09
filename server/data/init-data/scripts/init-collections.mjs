@@ -4,14 +4,14 @@ import mongoClusterSchema from '../../db-schemas/mongo-cluster.schema.json' with
 import mongoSystemSchema from '../../db-schemas/mongo-system.schema.json' with { type: 'json'};
 
 import mongoUserSchema from '../../db-schemas/mongo-user.schema.json' with { type: 'json'};
-import mongoUserAuthDataSchema from '../../db-schemas/mongo-user-auth-data.schema.json' with { type: 'json'};
+import mongoUserAuthSchema from '../../db-schemas/mongo-user-auth.schema.json' with { type: 'json'};
 
 export const mongoCollections = {
   universes: mongoUniverseSchema,
   clusters: mongoClusterSchema,
   systems: mongoSystemSchema,
   users: mongoUserSchema,
-  usersAuthData: mongoUserAuthDataSchema,
+  usersAuth: mongoUserAuthSchema,
 }
 
 async function initCollection(db, name, schema) {
@@ -40,8 +40,8 @@ export async function initUsersCollection(db) {
   return initCollection(db, 'users', mongoUserSchema);
 }
 
-export async function initAuthDataCollection(db) {
-  return initCollection(db, 'usersAuthData', mongoUserAuthDataSchema);
+export async function initAuthCollection(db) {
+  return initCollection(db, 'usersAuth', mongoUserAuthSchema);
 }
 
 export async function initCollections(db) {

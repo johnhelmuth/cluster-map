@@ -9,7 +9,7 @@ mongoimport --jsonArray --db=clustermap --collection=systems --maintainInsertion
 mongoimport --jsonArray --db=clustermap --collection=clusters --maintainInsertionOrder --stopOnError < clusters-db.json
 mongoimport --jsonArray --db=clustermap --collection=universes --maintainInsertionOrder --stopOnError < universes-db.json
 mongoimport --jsonArray --db=clustermap --collection=users --maintainInsertionOrder --stopOnError < users-db.json
-mongoimport --jsonArray --db=clustermap --collection=usersAuthData --maintainInsertionOrder --stopOnError < users-auth-data-db.json
+mongoimport --jsonArray --db=clustermap --collection=usersAuth --maintainInsertionOrder --stopOnError < users-auth-db.json
 
 
 

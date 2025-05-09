@@ -15,7 +15,7 @@
     "type": {
       "bsonType": "string",
       "enum": [
-        "user-auth-data"
+        "user-auth"
       ]
     },
     "authType": {
@@ -26,12 +26,9 @@
     },
     "usernamePassword": {
       "bsonType": "object",
-      "required": ["username", "salt", "hash"],
+      "required": ["username", "hash"],
       "properties": {
         "username": {
-          "bsonType": "string"
-        },
-        "salt": {
           "bsonType": "string"
         },
         "hash": {
