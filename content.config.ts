@@ -3,7 +3,7 @@ import {z} from "zod";
 
 const source = {
   include: '**/*',
-  exclude: ['**/*.png', '**/*.svg', '**/*.jpg', 'LICENSE'],
+  exclude: ['**/*.png', '**/*.svg', '**/*.jpg', 'LICENSE', '.git', '**/.DS_Store', '**/.idea'],
 } as ResolvedCollectionSource;
 
 if (process.env.CONTENT_LOCAL_PATH) {
