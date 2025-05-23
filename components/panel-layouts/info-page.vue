@@ -4,7 +4,6 @@ const props = defineProps<{
   page_title: string,
   maxWidthRems?: string,
   includeFooter?: boolean,
-  useNoInset?: boolean,
 }>();
 
 const realMaxWidth = computed(() => {
@@ -26,7 +25,7 @@ const realMaxWidth = computed(() => {
             <DropDownBreadCrumbs hide-if-only-one />
             {{ page_title }}
           </h1>
-          <div :class='{"info-content": true, "no-inset-shadow": useNoInset}'>
+          <div :class='{"info-content": true}'>
             <slot>Default page contents</slot>
           </div>
           <InfoFooter v-if="includeFooter"/>
@@ -73,10 +72,6 @@ h1 {
   padding: 1rem;
 }
 
-.info-content.no-inset-shadow {
-  box-shadow: none;
-}
-
 .info-content h1, .info-content h2, .info-content h3, .info-content h4, .info-content h5, .info-content h6 {
   font-weight: bolder;
 }
@@ -100,23 +95,9 @@ h1 {
   margin-bottom: 1rem;
 }
 
-.info-content.inset-shadow :deep(a) {
-  color: var(--color-action-text-inverted);
-}
-
-.info-content.inset-shadow :deep(hr) {
-  border-color: var(--color-border-inverted);
-}
-
 .info-content :deep(table), .info-content :deep(table tr td), .info-content :deep(table tr th) {
   border-collapse: collapse;
   border: 1px solid var(--color-border);
-}
-
-.info-content.inset-shadow :deep(table),
-.info-content.inset-shadow :deep(table tr td),
-.info-content.inset-shadow :deep(table tr th) {
-  border: 1px solid var(--color-border-inverted);
 }
 
 .info-content :deep(table) {
@@ -131,7 +112,7 @@ h1 {
   margin-left: 2rem;
   margin-right: 2rem;
   background-color: var(--color-background-lightest);
-  color: var(--color-text-inverted-lightest);
+  color: var(--color-text);
   font-style: italic;
   padding: 1rem;
   border-radius: 0.75rem;

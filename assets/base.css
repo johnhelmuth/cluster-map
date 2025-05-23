@@ -16,6 +16,9 @@
   --vt-c-indigo-mute: hsl(210 59% 54% / 100);
   --vt-c-indigo-lightest: hsl(210 64% 59% / 100);
 
+  --vt-c-blue: hsl(240 100% 55% / 100);
+  --vt-c-blue-soft: hsl(240, 100%, 70%);
+
   --vt-c-green-dark: hsl(120 64% 15% / 100);
   --vt-c-green: hsl(120 50% 50%);
   --vt-c-green-soft: hsl(120 70% 67%);
@@ -48,32 +51,25 @@
   --color-background-mute: var(--vt-c-white-mute);
   --color-background-lightest: var(--vt-c-white-lightest);
 
-  --color-background-inverted: var(--vt-c-black);
-  --color-background-inverted-mute: var(--vt-c-black-mute);
-
-  --color-scrollbar-track: var(--color-background-mute);
-  --color-scrollbar-thumb: var(--color-background-lightest);
-
   --color-border: var(--vt-c-divider-light-2);
   --color-border-hover: var(--vt-c-divider-light-1);
-  --color-border-inverted: var(--vt-c-amber-dull);
-  --color-border-hover-inverted: var(--vt-c-amber-dull);
 
   --color-heading: var(--vt-c-text-light-1);
   --color-text: var(--vt-c-text-light-1);
   --color-text-lightest: var(--vt-c-text-light-2);
-  --color-text-inverted: var(--vt-c-amber-brightest);
-  --color-text-inverted-lightest: var(--vt-c-amber-dark);
-
-  --section-gap: 160px;
 
   --color-action-background: var(--vt-c-green);
-  --color-action-background-inverted: var(--vt-c-amber-dark);
   --color-action-hover: var(--vt-c-green-lightest);
   --color-action-text: var(--vt-c-text-light-1);
-  --color-action-text-inverted: var(--vt-c-amber-lightest);
-
   --color-highlight: var(--vt-c-indigo-lightest);
+
+  --color-stroke-map: var(--vt-c-black);
+  --color-fill-map-blue: var(--vt-c-blue);
+}
+
+/* Global other variables for this project */
+:root {
+  --section-gap: 160px;
 
   --layers-content: 1;
   --layers-bezel: 90;
@@ -82,24 +78,26 @@
   --layers-navigation: 1000;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-background: var(--vt-c-black);
-    --color-background-soft: var(--vt-c-black-soft);
-    --color-background-mute: var(--vt-c-black-mute);
-    --color-background-lightest: var(--vt-c-black-lightest);
+:root.dark {
+  --color-background: var(--vt-c-black);
+  --color-background-soft: var(--vt-c-black-soft);
+  --color-background-mute: var(--vt-c-black-mute);
+  --color-background-lightest: var(--vt-c-black-lightest);
 
-    --color-border: var(--vt-c-divider-dark-2);
-    --color-border-hover: var(--vt-c-divider-dark-1);
+  --color-border: var(--vt-c-divider-dark-2);
+  --color-border-hover: var(--vt-c-divider-dark-1);
 
-    --color-heading: var(--vt-c-text-dark-1);
-    --color-text: var(--vt-c-text-dark-2);
-    --color-text-lightest: var(--vt-c-text-dark-2);
+  --color-heading: var(--vt-c-text-dark-1);
+  --color-text: var(--vt-c-text-dark-2);
+  --color-text-lightest: var(--vt-c-text-dark-2);
 
-    --color-action-background: var(--vt-c-green-dark);
-    --color-action-hover: var(--vt-c-green-soft);
-    --color-action-text: var(--vt-c-text-light-2);
-  }
+  --color-action-background: var(--vt-c-green-dark);
+  --color-action-hover: var(--vt-c-green-soft);
+  --color-action-text: var(--vt-c-text-light-2);
+  --color-highlight: var(--vt-c-indigo-lightest);
+
+  --color-stroke-map: var(--vt-c-white-soft);
+  --color-fill-map-blue: var(--vt-c-blue-soft);
 }
 
 *,
@@ -140,6 +138,8 @@ body {
 /* https://developer.mozilla.org/en-US/docs/Web/CSS/::-webkit-scrollbar#adding_a_fallback_for_scrollbar_styles */
 /* For browsers that support `scrollbar-*` properties */
 @supports (scrollbar-color: auto) {
+  --color-scrollbar-track: var(--color-background-mute);
+  --color-scrollbar-thumb: var(--color-background-lightest);
   body {
     scrollbar-color: var(--color-scrollbar-thumb) var(--color-scrollbar-track);
   }

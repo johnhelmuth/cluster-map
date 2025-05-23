@@ -15,6 +15,7 @@ const route = useRoute();
       <NuxtLink to="/"><Logo/></NuxtLink>
       <SearchDropdown v-if="route.path !== '/search'" />
       <BurgerMenu class="on-right">
+        <ThemeSwitch class="theme-switch" />
         <NuxtLink to="/tatterpedia">Tatterpedia</NuxtLink>
         <NuxtLink to="/sessions">Sessions</NuxtLink>
         <NuxtLink to="/rules-and-systems">Rules & Systems</NuxtLink>
@@ -89,6 +90,10 @@ nav a {
 
 nav a:first-of-type {
   border: 0;
+}
+
+nav .theme-switch {
+  margin: 0.5rem 1rem;
 }
 
 </style>
