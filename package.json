@@ -33,6 +33,9 @@
   "overrides": {
     "nuxt": {
       "vue": "latest"
+    },
+    "nuxt-mongodb": {
+      "mongodb": "5.8.x"
     }
   },
   "devDependencies": {
