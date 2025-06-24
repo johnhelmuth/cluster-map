@@ -36,6 +36,9 @@
     },
     "@nuxt/content": {
       "@nuxtjs/mdc": "^0.17.2"
+    },
+    "nuxt-mongodb": {
+      "mongodb": "5.8.x"
     }
   },
   "devDependencies": {
