@@ -43,4 +43,12 @@ export default defineNuxtConfig({
       'nuxt-mongodb',
     ],
 
+    hooks: {
+        close: (nuxt) => {
+            if (!nuxt.options._prepare) {
+                process.exit()
+            }
+        }
+    }
+
 })
