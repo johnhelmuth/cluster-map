@@ -1,7 +1,7 @@
 <script setup lang="ts">
-const { loggedIn, user, fetch: refreshSession } = useUserSession()
+const { loggedIn, user, fetch: refreshSession, clear } = useUserSession()
 const credentials = reactive({
-  email: '',
+  username: '',
   password: '',
 })
 async function login() {
@@ -16,12 +16,20 @@ async function login() {
       })
       .catch(() => alert('Bad credentials'))
 }
+async function logout() {
+  await $fetch('/api/logout', { method: 'POST' });
+  await refreshSession();
+  await navigateTo('/');
+}
 </script>
 
 <template>
-  <form @submit.prevent="login">
-    <input v-model="credentials.email" type="email" placeholder="Email" />
-    <input v-model="credentials.password" type="password" placeholder="Password" />
-    <button type="submit">Login</button>
-  </form>
+  <AuthState v-slot="{ loggedIn }">
+    <form v-if="! loggedIn" @submit.prevent="login">
+      <input v-model="credentials.username" type="text" placeholder="Username" />
+      <input v-model="credentials.password" type="password" placeholder="Password" />
+      <button type="submit">Login</button>
+    </form>
+    <button v-else @click="logout">Logout</button>
+  </AuthState>
 </template>

@@ -1,20 +1,15 @@
-import { z } from 'zod'
 
-const bodySchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8)
-})
+import {UserDataDocument, validateLoginBody} from "~/server/document-models/UserDataDocument";
 
 export default defineEventHandler(async (event) => {
-  const { email, password } = await readValidatedBody(event, bodySchema.parse)
+  const body = await readValidatedBody(event, validateLoginBody)
 
-  if (email === 'admin@admin.com' && password === 'iamtheadmin') {
+  const userDataDocument = await UserDataDocument.login(body);
+  if (userDataDocument) {
     // set the user session in the cookie
     // this server util is auto-imported by the auth-utils module
     await setUserSession(event, {
-      user: {
-        name: 'John Helmuth'
-      }
+      user: userDataDocument.toUserMetadataData()
     })
     return {}
   }

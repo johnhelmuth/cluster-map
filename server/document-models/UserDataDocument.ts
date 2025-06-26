@@ -2,11 +2,9 @@ import {Document, ObjectId, WithId} from "mongodb";
 import {SCHEMA_VERSION} from "~/constants";
 import {AuthenticationTypeType, UserIdType, UserModelData} from "~/models/UserModel";
 import {usersAuthCollection, usersCollection} from "~/server/utils/DataSourceDb";
-import {
-  UserAuthDataDocument,
-  UserAuthDataDocumentInterface
-} from "~/server/document-models/UserAuthDataDocument";
+import {UserAuthDataDocument, UserAuthDataDocumentInterface} from "~/server/document-models/UserAuthDataDocument";
 import bcrypt from "bcryptjs";
+import {z} from "zod";
 
 export interface UserDataDocumentInterface extends WithId<Document> {
   schemaVersion: string;
@@ -60,19 +58,19 @@ export class UserDataDocument implements UserDataDocumentInterface {
     return new UserDataDocument(data);
   }
 
-  static async getUsersWhere(query: any, asModelData = true) {
+  static async getUsersWhere(query: any) {
     const usersData = await usersCollection()
       .aggregate(UserDataDocument.dataPipeline(query)).toArray() as UserDataDocument[];
     if (usersData) {
-      const usersModelData = usersData.map(
+      const userDataDocuments = usersData.map(
         (userData) => {
           const userDataDocument = UserDataDocument.create(userData);
           if (userDataDocument) {
-            return asModelData ? userDataDocument.toModelData() : userDataDocument;
+            return userDataDocument;
           }
         }
-      ).filter(umd => !! umd);
-      return usersModelData;
+      ).filter(udd => !! udd) as UserDataDocument[];
+      return userDataDocuments;
     }
   }
 
@@ -80,29 +78,24 @@ export class UserDataDocument implements UserDataDocumentInterface {
     const query = {
       _id: {$eq: new ObjectId(userId)}
     }
-    const userModelData = await UserDataDocument.getOneUserWhere(query);
-    if (userModelData) {
-      return userModelData;
+    const userDataDocument = await UserDataDocument.getOneUserWhere(query);
+    if (userDataDocument) {
+      return userDataDocument;
     }
   }
 
   static async getOneUserWhere(query: any) {
-    const usersModelData = await UserDataDocument.getUsersWhere(query);
-    if (usersModelData && Array.isArray(usersModelData) && usersModelData.length > 0) {
-      return usersModelData[0];
+    const usersDataDocuments = await UserDataDocument.getUsersWhere(query);
+    if (usersDataDocuments && Array.isArray(usersDataDocuments) && usersDataDocuments.length > 0) {
+      return usersDataDocuments[0];
     }
   }
 
   static async getUsersMetadata() {
-    const usersData = await usersCollection()
-      .aggregate(UserDataDocument.dataPipeline({})).toArray();
-    if (usersData) {
-      const userDataDocuments = usersData.map(userData => {
-        const userDataDocument = UserDataDocument.create(userData);
-        const userMetadataData = userDataDocument.toUserMetadataData()
-        return userMetadataData;
-      })
-      return userDataDocuments;
+    const usersDataDocuments = await UserDataDocument.getUsersWhere({})
+    if (usersDataDocuments) {
+      return usersDataDocuments.map(userDataDocument => userDataDocument.toUserMetadataData())
+        .filter(umd => !!umd);
     }
   }
 
@@ -171,7 +164,7 @@ export class UserDataDocument implements UserDataDocumentInterface {
             authenticationData: userAuth._id
           });
           console.log('UserDataDocument.login() userDataDocument: ', userDataDocument);
-          return true;
+          return userDataDocument || false;
         }
       }
     }
@@ -179,12 +172,22 @@ export class UserDataDocument implements UserDataDocumentInterface {
   }
 }
 
-export type LoginDocument = { username: string, password: string };
 
-function isLoginDocument(data: any): data is LoginDocument {
-  return (
-    data &&
-    data?.username && typeof data?.username === 'string' &&
-    data?.password && typeof data?.password === 'string'
-  );
+export const loginBodyZSchema = z.object({
+  username: z.string(),
+  password: z.string().min(8)
+});
+
+export type LoginDocument = z.infer<typeof loginBodyZSchema>;
+
+export function validateLoginBody(data: any) {
+  const loginBody = loginBodyZSchema.safeParse(data);
+  if (loginBody.success) {
+    return loginBody.data
+  }
+  return false;
+}
+
+export function isLoginDocument(data: any): data is LoginDocument {
+  return !! validateLoginBody(data);
 }
