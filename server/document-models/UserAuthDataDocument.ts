@@ -2,7 +2,7 @@ import {
   AuthenticationDataInterface,
   AuthenticationTypeType,
   AuthIdType,
-  AUTHTYPE_USERNAME_PASSWORD
+  AUTHTYPE_USERNAME_PASSWORD, UserIdType
 } from "~/models/UserModel";
 import {Document, ObjectId, WithId} from "mongodb";
 import {SCHEMA_VERSION} from "~/constants";
@@ -41,7 +41,11 @@ export const UserAuthMetadataDocumentZSchema = z.object({
   username: z.string()
 });
 
-
+export interface UserMetadataData {
+  id: UserIdType;
+  name: string;
+  authenticationData: Array<UserAuthMetadataDocumentInterface>
+}
 
 export class UserAuthDataDocument implements UserAuthDataDocumentInterface {
   _id: ObjectId = new ObjectId();
