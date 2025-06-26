@@ -9,6 +9,8 @@ import {universeJSONParse, universeParse, createSchemaValidationError} from "~/u
 
 const universesStore = useUniversesStore();
 
+const {loggedIn} = useUserSession()
+
 const {routePlannerService, selectedSystemsService} = useUserScopeStore();
 
 const {files, open, reset, onChange} = useFileDialog({
@@ -74,7 +76,7 @@ const importedUniverseStats = computed(() => {
   return stats;
 });
 
-async function exportData(e: Event, dataType : 'all' | 'universe') {
+async function exportData(e: Event, dataType: 'all' | 'universe') {
   if (dataType === 'all') {
     downloadJSON(await universesStore.getUniverses(), 'universes.json');
   } else if (dataType === 'universe') {
@@ -146,7 +148,7 @@ watch(importFile, async () => {
           valid = true;
         }
       }
-      if (! valid) {
+      if (!valid) {
         const parsedResponse = universeJSONParse(importedJSON);
         if (!parsedResponse.valid) {
           throw createSchemaValidationError(parsedResponse, 'ClustersSettingPanel import file selected, invalid cluster data imported. ');
@@ -172,54 +174,56 @@ watch(importFile, async () => {
 
 <template>
   <div class="universes-import-export-panel">
-    <section class="import accordion-control">
-      <h3 @click="importExpandPanel">Import
-        <Icon class="button-icon accordion-button"
-              :name="importExpandCollapseIcon"/>
-      </h3>
-      <div class="accordion-panel note" :class="{ open: ! importPanelClosed}">
-        <p>Import a new universe JSON definition.</p>
-        <div class="control-group control-group-grid data-import-export">
-          <div>
-            <button type="button" class="import-data" :class="fileSelected ? 'file-selected' : ''"
-                    :disabled="fileSelected" @click="open()">
-              <div class="action">Import</div>
-            </button>
+    <AuthState v-slot="{loggedIn}">
+      <section v-if="loggedIn" class="import accordion-control">
+        <h3 @click="importExpandPanel">Import
+          <Icon class="button-icon accordion-button"
+                :name="importExpandCollapseIcon"/>
+        </h3>
+        <div class="accordion-panel note" :class="{ open: ! importPanelClosed}">
+          <p>Import a new universe JSON definition.</p>
+          <div class="control-group control-group-grid data-import-export">
+            <div>
+              <button type="button" class="import-data" :class="fileSelected ? 'file-selected' : ''"
+                      :disabled="fileSelected" @click="open()">
+                <div class="action">Import</div>
+              </button>
+            </div>
           </div>
-        </div>
-        <div class="control-group">
-          <div class="import-actions">
-            <h4>Import file</h4>
-            <div v-if="importFile && importedData && ! importError" class="import-file-apply">
-              <ul class="note">
-                <li>{{ importFile.name }}</li>
-                <li>{{ importFile.type }}</li>
-                <li>{{ importFile.size }}</li>
-                <!--                  <p>{{importedData}}</p>-->
-                <li>Clusters count: {{ importedUniverseStats.numClusters }}</li>
-                <li>Systems count: {{ importedUniverseStats.numSystems }}</li>
-                <li>Default cluster: ({{ importedUniverseStats.currentClusterId }}) -
-                  {{ importedUniverseStats.currentClusterName }}
-                </li>
-              </ul>
-              <div class="control-group">
-                <button type="button" class="cancel-data" @click="cancelImport">
-                  <div class="action">Cancel import</div>
-                </button>
-                <button type="button" class="apply-data" :disabled="! fileSelected" @click="applyImport">
-                  <div class="action">Apply file "{{ importFile.name }}"</div>
-                </button>
+          <div class="control-group">
+            <div class="import-actions">
+              <h4>Import file</h4>
+              <div v-if="importFile && importedData && ! importError" class="import-file-apply">
+                <ul class="note">
+                  <li>{{ importFile.name }}</li>
+                  <li>{{ importFile.type }}</li>
+                  <li>{{ importFile.size }}</li>
+                  <!--                  <p>{{importedData}}</p>-->
+                  <li>Clusters count: {{ importedUniverseStats.numClusters }}</li>
+                  <li>Systems count: {{ importedUniverseStats.numSystems }}</li>
+                  <li>Default cluster: ({{ importedUniverseStats.currentClusterId }}) -
+                    {{ importedUniverseStats.currentClusterName }}
+                  </li>
+                </ul>
+                <div class="control-group">
+                  <button type="button" class="cancel-data" @click="cancelImport">
+                    <div class="action">Cancel import</div>
+                  </button>
+                  <button type="button" class="apply-data" :disabled="! fileSelected" @click="applyImport">
+                    <div class="action">Apply file "{{ importFile.name }}"</div>
+                  </button>
+                </div>
+              </div>
+              <div v-else-if="importError" class="error">{{ importError }}</div>
+              <div v-else class="note">
+                <p>Information about the selected file to be imported will appear here.</p>
+                <p>You can cancel or import the selected file after reviewing the information.</p>
               </div>
             </div>
-            <div v-else-if="importError" class="error">{{ importError }}</div>
-            <div v-else class="note">
-              <p>Information about the selected file to be imported will appear here.</p>
-              <p>You can cancel or import the selected file after reviewing the information.</p>
-            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </AuthState>
     <section class="export accordion-control">
       <h3 @click="ExportExpandPanel">Export
         <Icon class="button-icon accordion-button"
@@ -271,6 +275,7 @@ section.accordion-control h3 {
 .accordion-panel {
   display: none;
 }
+
 .accordion-panel.open {
   display: block;
 }
