@@ -1,9 +1,14 @@
 import {Document, ObjectId, WithId} from "mongodb";
 import {SCHEMA_VERSION} from "~/constants";
-import {AuthenticationTypeType, UserIdType, UserModelData} from "~/models/UserModel";
+import {AuthenticationTypeType, AUTHTYPE_USERNAME_PASSWORD, UserIdType, UserModelData} from "~/models/UserModel";
 import {usersAuthCollection, usersCollection} from "~/server/utils/DataSourceDb";
-import {UserAuthDataDocument, UserAuthDataDocumentInterface} from "~/server/document-models/UserAuthDataDocument";
+import {
+  UserAuthDataDocument,
+  UserAuthDataDocumentInterface,
+  UserAuthDataDocumentZSchema, UserAuthMetadataDocumentInterface
+} from "~/server/document-models/UserAuthDataDocument";
 import bcrypt from "bcryptjs";
+import {isLoginDocument, LoginDocument} from "~/types/UserTypes";
 import {z} from "zod";
 
 export interface UserDataDocumentInterface extends WithId<Document> {
@@ -16,9 +21,19 @@ export interface UserDataDocumentInterface extends WithId<Document> {
 export interface UserMetadataData {
   id: UserIdType;
   name: string;
-  authenticationData: Array<{
-    authType: AuthenticationTypeType;
-  }>
+  authenticationData: Array<UserAuthMetadataDocumentInterface>
+}
+
+export function isUserDataDocumentInterface(data: any): data is UserDataDocumentInterface {
+  const parseResponse = z.object({
+    schemaVersion: z.literal(SCHEMA_VERSION),
+    type: z.literal('user'),
+    name: z.string(),
+    authenticationData: z.array(UserAuthDataDocumentZSchema)
+  }).safeParse(data);
+  const isValid = data?._id && data?._id instanceof ObjectId &&
+    parseResponse.success;
+  return isValid;
 }
 
 export class UserDataDocument implements UserDataDocumentInterface {
@@ -29,7 +44,7 @@ export class UserDataDocument implements UserDataDocumentInterface {
   authenticationData: Array<UserAuthDataDocument> = [];
 
   constructor(data: any) {
-    if (UserDataDocument.isUserDataDocument(data)) {
+    if (isUserDataDocumentInterface(data)) {
       this._id = data._id;
       this.schemaVersion = data.schemaVersion;
       this.type = data.type;
@@ -50,8 +65,7 @@ export class UserDataDocument implements UserDataDocumentInterface {
   }
 
   static isUserDataDocument(data: any): data is UserDataDocument {
-    // TODO implement this
-    return true;
+    return data instanceof UserDataDocument;
   }
 
   static create(data: any): UserDataDocument {
@@ -69,7 +83,7 @@ export class UserDataDocument implements UserDataDocumentInterface {
             return userDataDocument;
           }
         }
-      ).filter(udd => !! udd) as UserDataDocument[];
+      ).filter(udd => !!udd) as UserDataDocument[];
       return userDataDocuments;
     }
   }
@@ -107,7 +121,7 @@ export class UserDataDocument implements UserDataDocumentInterface {
       },
       {
         $lookup: {
-          from: "usersAuthData",
+          from: "usersAuth",
           let: {
             authIds: "$authenticationData"
           },
@@ -142,9 +156,7 @@ export class UserDataDocument implements UserDataDocumentInterface {
     return {
       id: this._id.toHexString(),
       name: this.name,
-      authenticationData: this.authenticationData.map(authData => {
-        return {authType: authData.authType};
-      })
+      authenticationData: this.authenticationData.map(authData => authData.toUserAuthMetadataData())
     }
   }
 
@@ -164,30 +176,25 @@ export class UserDataDocument implements UserDataDocumentInterface {
             authenticationData: userAuth._id
           });
           console.log('UserDataDocument.login() userDataDocument: ', userDataDocument);
-          return userDataDocument || false;
+          if (userDataDocument) {
+            return userDataDocument;
+          }
+          return {
+            status: 500,
+            message: "Problem loading user matching authentication credentials.",
+          }
+        } else {
+          return {
+            status: 403,
+            message: "Invalid login credentials.",
+          }
         }
       }
     }
-    return false;
+    return {
+      status: 400,
+      message: "Bad request."
+    }
   }
-}
 
-
-export const loginBodyZSchema = z.object({
-  username: z.string(),
-  password: z.string().min(8)
-});
-
-export type LoginDocument = z.infer<typeof loginBodyZSchema>;
-
-export function validateLoginBody(data: any) {
-  const loginBody = loginBodyZSchema.safeParse(data);
-  if (loginBody.success) {
-    return loginBody.data
-  }
-  return false;
-}
-
-export function isLoginDocument(data: any): data is LoginDocument {
-  return !! validateLoginBody(data);
 }
