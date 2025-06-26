@@ -3,7 +3,8 @@ import type {IdType} from "~/types/BasicTypes";
 export type UserIdType = IdType;
 export type AuthIdType = IdType;
 
-export type AuthenticationTypeType = 'username-password';
+export const AUTHTYPE_USERNAME_PASSWORD = 'username-password';
+export type AuthenticationTypeType = typeof AUTHTYPE_USERNAME_PASSWORD;
 
 export interface AuthenticationDataInterface {
   id: AuthIdType;
@@ -22,4 +23,16 @@ export interface UserModelData {
   type: 'user';
   name: string;
   authenticationData: Array<AuthenticationDataInterface>;
+}
+
+export interface AuthenticationMetadataDataInterface {
+  id: AuthIdType;
+  authType: AuthenticationTypeType;
+  username?: string;
+}
+
+export interface UserMetadataModel {
+  id: UserIdType;
+  name: string;
+  authenticationData: Array<AuthenticationMetadataDataInterface>
 }
