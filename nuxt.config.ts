@@ -50,6 +50,7 @@ export default defineNuxtConfig({
       '@vueuse/nuxt',
       '@nuxt/content',
       'nuxt-mongodb',
+      'nuxt-auth-utils'
     ],
 
     hooks: {
