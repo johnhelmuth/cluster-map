@@ -1,11 +1,11 @@
 import {Document, ObjectId, WithId} from "mongodb";
 import {SCHEMA_VERSION} from "~/constants";
-import {AuthenticationTypeType, AUTHTYPE_USERNAME_PASSWORD, UserIdType, UserModelData} from "~/models/UserModel";
+import {UserIdType, UserModelData} from "~/models/UserModel";
 import {usersAuthCollection, usersCollection} from "~/server/utils/DataSourceDb";
 import {
   UserAuthDataDocument,
   UserAuthDataDocumentInterface,
-  UserAuthDataDocumentZSchema, UserAuthMetadataDocumentInterface
+  UserAuthDataDocumentZSchema, UserMetadataData
 } from "~/server/document-models/UserAuthDataDocument";
 import bcrypt from "bcryptjs";
 import {isLoginDocument, LoginDocument} from "~/types/UserTypes";
@@ -16,12 +16,6 @@ export interface UserDataDocumentInterface extends WithId<Document> {
   type: 'user';
   name: string;
   authenticationData: Array<UserAuthDataDocumentInterface>;
-}
-
-export interface UserMetadataData {
-  id: UserIdType;
-  name: string;
-  authenticationData: Array<UserAuthMetadataDocumentInterface>
 }
 
 export function isUserDataDocumentInterface(data: any): data is UserDataDocumentInterface {
