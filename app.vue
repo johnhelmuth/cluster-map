@@ -8,6 +8,8 @@ const route = useRoute();
 
 const universesStore = useUniversesStore();
 
+const { loggedIn, user } = useUserSession();
+
 onMounted(async () => {
   await universesStore.initUniverses();
   await universesStore.initDefaultUniverse();
@@ -31,6 +33,9 @@ onMounted(async () => {
         <NuxtLink to="/universe">Current universe</NuxtLink>
         <NuxtLink to="/universes">Universes</NuxtLink>
         <NuxtLink to="/settings">Settings</NuxtLink>
+        <NuxtLink v-if="loggedIn" to="/me">My profile</NuxtLink>
+        <NuxtLink v-if="loggedIn" to="/logout">Logout {{ user?.name }}</NuxtLink>
+        <NuxtLink v-else to="/login">Login</NuxtLink>
         <NuxtLink to="/about">About</NuxtLink>
       </BurgerMenu>
     </header>
