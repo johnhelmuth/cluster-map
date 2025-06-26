@@ -19,7 +19,9 @@ onMounted(() => {
 </script>
 
 <template>
-Logging you out.
+  <div>
+    Logging you out.
+  </div>
 </template>
 
 <style scoped>
