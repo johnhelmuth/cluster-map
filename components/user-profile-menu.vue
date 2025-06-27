@@ -45,11 +45,9 @@ function toggleUserMenu() {
           </Transition>
         </Teleport>
       </div>
-      <div v-else  class="login-button">
-        <NuxtLink class="login-anchor" to="/login" title="Login">
-          <Icon class="icon-button" name="material-symbols:login-rounded"/>
-        </NuxtLink>
-      </div>
+      <NuxtLink v-else class="login-button" to="/login" title="Login">
+        <Icon class="button-icon" name="material-symbols:login-rounded"/>
+      </NuxtLink>
     </div>
   </AuthState>
 </template>
@@ -61,7 +59,7 @@ function toggleUserMenu() {
   flex-direction: column;
 }
 
-.profile-button, .login-button {
+.profile-button {
   display: block;
   background-color: var(--color-background-mute);
   font-weight: bolder;
@@ -74,16 +72,11 @@ function toggleUserMenu() {
 }
 
 .login-button {
-    background-color: var(--color-background-mute);
-    font-weight: bolder;
-    border-radius: 50%;
-    width: 2rem;
-    height: 2rem;
-    text-align: center;
-    cursor: pointer;
-  }
-
-.login-button .login-anchor {
+  background-color: var(--color-background-mute);
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
   padding: 0;
   margin: 0;
   display: flex;
@@ -91,11 +84,14 @@ function toggleUserMenu() {
   justify-content: center;
 }
 
-.login-anchor .icon-button {
+.login-button .button-icon {
   width: 1.5rem;
   height: 1.5rem;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  left: -0.125rem; /* Adjust because the icon visually is unbalanced. */
 }
-
 
 .user-menu-list {
   background-color: var(--color-background);
