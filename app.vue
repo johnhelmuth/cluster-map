@@ -9,8 +9,6 @@ const route = useRoute();
 
 const universesStore = useUniversesStore();
 
-const { loggedIn, user } = useUserSession();
-
 onMounted(async () => {
   await universesStore.initUniverses();
   await universesStore.initDefaultUniverse();
@@ -24,6 +22,10 @@ onMounted(async () => {
     <header>
       <NuxtLink to="/"><Logo/></NuxtLink>
       <SearchDropdown v-if="route.path !== '/search'" />
+      <UserProfileMenu>
+        <NuxtLink to="/me">Profile page</NuxtLink>
+        <NuxtLink to="/logout">Log out</NuxtLink>
+      </UserProfileMenu>
       <BurgerMenu class="on-right">
         <ThemeSwitch class="theme-switch" />
         <NuxtLink to="/tatterpedia">Tatterpedia</NuxtLink>
@@ -35,9 +37,6 @@ onMounted(async () => {
         <NuxtLink to="/universes">Universes</NuxtLink>
         <NuxtLink to="/news">Site news</NuxtLink>
         <NuxtLink to="/settings">Settings</NuxtLink>
-        <NuxtLink v-if="loggedIn" to="/me">My profile</NuxtLink>
-        <NuxtLink v-if="loggedIn" to="/logout">Logout {{ user?.name }}</NuxtLink>
-        <NuxtLink v-else to="/login">Login</NuxtLink>
         <NuxtLink to="/about">About</NuxtLink>
       </BurgerMenu>
     </header>
