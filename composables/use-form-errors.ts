@@ -47,7 +47,6 @@ export const useFormErrors = () => {
   ) {
     if (!isDocument(document)) {
       const parseResult = parseDocument(document);
-      console.log('parseResult: ', parseResult);
       if (parseResult?.error?.issues && parseResult?.error?.issues?.length > 0) {
         const issues = parseResult?.error?.issues || [];
         if (issues?.length > 0) {
