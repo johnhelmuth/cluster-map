@@ -42,6 +42,15 @@ export default defineNuxtConfig({
         }
     },
 
+    runtimeConfig: {
+        oauth: {
+            github: {
+                clientId: "", // defaults to empty string
+                clientSecret: "", // defaults to empty string
+            },
+        },
+    },
+
     css: ['~/assets/main.css', 'vue-final-modal/style.css'],
 
     modules: [
