@@ -3,13 +3,14 @@ import {mongo} from '#nuxt-mongodb';
 import * as mongoDB from 'mongodb';
 
 import {UniverseDataDocument} from "~/server/document-models/UniverseDataDocument";
-import {UserDataDocument} from "~/server/document-models/UserDataDocument";
-import {UserAuthDataDocument} from "~/server/document-models/UserAuthDataDocument";
+import {UserDataDocumentInterfaceInDB} from "~/server/document-models/UserDataDocument";
+import {UserAuthDataDocumentInterface} from "~/server/document-models/UserAuthDataDocument";
+import {SCHEMA_VERSION} from "~/constants";
 
 export const collections: {
   universes?: mongoDB.Collection<UniverseDataDocument>,
-  users?: mongoDB.Collection<UserDataDocument>,
-  usersAuth?: mongoDB.Collection<UserAuthDataDocument>,
+  users?: mongoDB.Collection<UserDataDocumentInterfaceInDB>,
+  usersAuth?: mongoDB.Collection<UserAuthDataDocumentInterface>,
 } = {};
 
 function isCollectionKey(collName: string): collName is keyof typeof collections {
@@ -31,9 +32,18 @@ export function universesCollection() {
 }
 
 export function usersCollection() {
-  return collection("users") as mongoDB.Collection<UserDataDocument>;
+  return collection("users") as mongoDB.Collection<UserDataDocumentInterfaceInDB>;
 }
 
 export function usersAuthCollection() {
-  return collection("usersAuth") as mongoDB.Collection<UserAuthDataDocument>;
+  return collection("usersAuth") as mongoDB.Collection<UserAuthDataDocumentInterface>;
+}
+
+export function initDocument(data: any, objectType: string) {
+  if (! data?.schemaVersion) {
+    data.schemaVersion = SCHEMA_VERSION;
+  }
+  if (! data?.type) {
+    data.type = objectType;
+  }
 }
