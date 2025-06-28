@@ -7,6 +7,7 @@ import {
 import {Document, ObjectId, WithId} from "mongodb";
 import {SCHEMA_VERSION} from "~/constants";
 import {z} from "zod";
+import {initDocument} from "~/server/utils/DataSourceDb";
 
 
 export const USER_AUTH_DATA_TYPE = 'user-auth';
@@ -41,12 +42,6 @@ export const UserAuthMetadataDocumentZSchema = z.object({
   username: z.string()
 });
 
-export interface UserMetadataData {
-  id: UserIdType;
-  name: string;
-  authenticationData: Array<UserAuthMetadataDocumentInterface>
-}
-
 export class UserAuthDataDocument implements UserAuthDataDocumentInterface {
   _id: ObjectId = new ObjectId();
   schemaVersion = SCHEMA_VERSION;
@@ -59,7 +54,9 @@ export class UserAuthDataDocument implements UserAuthDataDocumentInterface {
 
   constructor(data: any) {
     if (UserAuthDataDocument.isUserAuthDataDocument(data)) {
-      this._id = data._id;
+      if (data?._id) {
+        this._id = data._id;
+      }
       this.schemaVersion = SCHEMA_VERSION;
       this.type = data.type;
       this.authType = data.authType;
@@ -70,11 +67,16 @@ export class UserAuthDataDocument implements UserAuthDataDocumentInterface {
   }
 
   static create(data: any) {
+    initDocument(data, 'user-auth');
     return new UserAuthDataDocument(data);
   }
 
   static isUserAuthDataDocument(data: any): data is UserAuthDataDocumentInterface {
     return UserAuthDataDocumentZSchema.safeParse(data).success;
+  }
+
+  async save() {
+    return usersAuthCollection().insertOne(this);
   }
 
   toModelData() {
