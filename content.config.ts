@@ -27,8 +27,8 @@ export default defineContentConfig({
             })
           )
         }),
-        'in-game-start': z.string(),
-        'in-game-end': z.string(),
+        'in_game_start': z.string(),
+        'in_game_end': z.string(),
       })
     })
   }
