@@ -1,20 +1,34 @@
 import {Document, ObjectId, WithId} from "mongodb";
-import {SCHEMA_VERSION} from "~/constants";
-import {UserIdType, UserModelData} from "~/models/UserModel";
-import {usersAuthCollection, usersCollection} from "~/server/utils/DataSourceDb";
+import {HASH_SALT_LEN, SCHEMA_VERSION} from "~/constants";
+import {AUTHTYPE_USERNAME_PASSWORD, UserIdType, UserModelData} from "~/models/UserModel";
+import {initDocument, usersAuthCollection, usersCollection} from "~/server/utils/DataSourceDb";
 import {
   UserAuthDataDocument,
   UserAuthDataDocumentInterface,
-  UserAuthDataDocumentZSchema, UserMetadataData
+  UserAuthDataDocumentZSchema,
+  UserAuthMetadataDocumentInterface
 } from "~/server/document-models/UserAuthDataDocument";
 import bcrypt from "bcryptjs";
-import {isLoginDocument, LoginDocument} from "~/types/UserTypes";
+import {
+  isLoginDocument,
+  isRegisterDocument,
+  LoginDocument,
+  parseRegisterBody,
+  RegisterDocument
+} from "~/types/UserTypes";
 import {z} from "zod";
 
-export interface UserDataDocumentInterface extends WithId<Document> {
+export interface UserDataDocumentInterfaceBase extends WithId<Document> {
   schemaVersion: string;
   type: 'user';
   name: string;
+}
+
+export interface UserDataDocumentInterfaceInDB extends UserDataDocumentInterfaceBase {
+  authenticationData: Array<ObjectId>;
+}
+
+export interface UserDataDocumentInterface extends UserDataDocumentInterfaceBase {
   authenticationData: Array<UserAuthDataDocumentInterface>;
 }
 
@@ -25,9 +39,13 @@ export function isUserDataDocumentInterface(data: any): data is UserDataDocument
     name: z.string(),
     authenticationData: z.array(UserAuthDataDocumentZSchema)
   }).safeParse(data);
-  const isValid = data?._id && data?._id instanceof ObjectId &&
-    parseResponse.success;
-  return isValid;
+  return parseResponse.success;
+}
+
+export interface UserMetadataData {
+  id: UserIdType;
+  name: string;
+  authenticationData: Array<UserAuthMetadataDocumentInterface>
 }
 
 export class UserDataDocument implements UserDataDocumentInterface {
@@ -39,7 +57,9 @@ export class UserDataDocument implements UserDataDocumentInterface {
 
   constructor(data: any) {
     if (isUserDataDocumentInterface(data)) {
-      this._id = data._id;
+      if (data?._id) {
+        this._id = data._id;
+      }
       this.schemaVersion = data.schemaVersion;
       this.type = data.type;
       this.name = data.name;
@@ -63,6 +83,7 @@ export class UserDataDocument implements UserDataDocumentInterface {
   }
 
   static create(data: any): UserDataDocument {
+    initDocument(data, 'user');
     return new UserDataDocument(data);
   }
 
@@ -134,6 +155,20 @@ export class UserDataDocument implements UserDataDocumentInterface {
     ];
   }
 
+  async save() {
+    await Promise.all(this.authenticationData.map(
+      authData => authData.save()
+    ));
+    const authIds = this.authenticationData.map(authData => authData._id);
+    return usersCollection().insertOne({
+      _id: this._id,
+      schemaVersion: this.schemaVersion,
+      type: this.type,
+      name: this.name,
+      authenticationData: authIds
+    });
+  }
+
   toModelData(): UserModelData {
     return {
       id: this._id.toHexString(),
@@ -191,4 +226,45 @@ export class UserDataDocument implements UserDataDocumentInterface {
     }
   }
 
+  static async newUser(data: RegisterDocument | any) {
+    if (!isRegisterDocument(data)) {
+      const parseResponse = parseRegisterBody(data);
+      if (parseResponse.success) {
+        throw createError("Registration data funny business.");
+      }
+      throw createError({statusCode: 400, statusMessage: 'Invalid registration document', data: parseResponse.error});
+    }
+    const userAuth = await usersAuthCollection()
+      .findOne({
+        authType: 'username-password',
+        'usernamePassword.username': data.username
+      });
+    if (userAuth) {
+      throw createError({statusCode: 400, statusMessage: 'Username already exists.'});
+    }
+    if (bcrypt.truncates(data.password)) {
+      throw createError({statusCode: 400, statusMessage: 'Password is too long.'});
+    }
+    const hash = await bcrypt.hash(data.password, HASH_SALT_LEN);
+    try {
+      const userAuthData = UserAuthDataDocument.create({
+        authType: AUTHTYPE_USERNAME_PASSWORD,
+        usernamePassword: {
+          username: data.username,
+          hash,
+        }
+      });
+      const userDataDocument = UserDataDocument.create({
+        name: data.name,
+        authenticationData: [
+          userAuthData
+        ],
+      })
+      await userDataDocument.save();
+      return userDataDocument;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
 }
