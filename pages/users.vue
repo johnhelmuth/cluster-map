@@ -3,7 +3,6 @@
 // TODO: Implement authorization so that only admin can see this page.
 // TODO: Implement some sort of user grouping with permissions so you can see
 //       other users in your group on this page.
-import type {UserMetadataData} from "~/server/document-models/UserAuthDataDocument";
 
 definePageMeta({
   middleware: ['authenticated'],
