@@ -20,6 +20,7 @@ function selectCluster(event: Event) {
     const selectedCluster = clustersStore.clusters.getClusterById(selectedClusterId);
     if (selectedCluster !== clustersStore.clusters.cluster) {
       clustersStore.clusters.cluster = selectedCluster;
+      navigateTo('/map');
     }
   }
 }
