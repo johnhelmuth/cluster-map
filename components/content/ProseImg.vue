@@ -20,6 +20,9 @@
 import {withTrailingSlash, withLeadingSlash, joinURL} from 'ufo'
 import {useRuntimeConfig, computed} from '#imports'
 
+export type alignType = 'center' | 'left' | 'right';
+export type sizeType = 'small' | 'medium' | 'large';
+
 const props = defineProps({
   src: {
     type: String,
@@ -48,8 +51,18 @@ const props = defineProps({
   align: {
     type: String,
     default: 'center'
+  },
+  size: {
+    type: [String, null]
   }
 })
+
+function isValidAlign(value: any): value is alignType {
+  return value && ['left', 'center', 'right'].includes(value);
+}
+function isValidSize(value: any): value is sizeType {
+  return value && ['small', 'medium', 'large'].includes(value);
+}
 
 const refinedSrc = computed(() => {
   if (props.src?.startsWith('/') && !props.src.startsWith('//')) {
@@ -61,8 +74,8 @@ const refinedSrc = computed(() => {
   return props.src
 });
 
-const refinedAlign = computed(() => {
-  if (['left','center','right'].includes(props.align)) {
+const refinedAlign = computed((): alignType => {
+  if (isValidAlign(props.align)) {
     return props.align;
   }
   return 'center';
@@ -87,10 +100,33 @@ const altValue = computed(() => {
   return '';
 });
 
+const refinedSize = computed((): sizeType => {
+  if (props.size && isValidSize(props.size)) {
+    return props.size;
+  }
+  return 'medium';
+})
+
+function containerClasses(
+    align: alignType,
+    size: sizeType,
+    caption: string
+) {
+  return {
+    [size]: true,
+    captioned: caption,
+    left: (align == 'left'),
+    right: (align == 'right'),
+    center: (align == 'center')
+  };
+}
+
 </script>
 
 <template>
-  <div :class="{ 'figure-container': true, captioned: captionValue, left: (refinedAlign=='left'), right: (refinedAlign=='right'), center: (refinedAlign=='center') }">
+  <div class="figure-container"
+      :class="containerClasses(refinedAlign, refinedSize, captionValue)"
+  >
     <figure>
       <img
           :src="refinedSrc"
@@ -123,13 +159,23 @@ div.figure-container figure {
 }
 
 div.figure-container figure img {
-  width:  75cqw; /* Default to center */
+  width: 75cqw; /* Default to center */
   height: auto;
   border: 1px solid var(--color-border);
 }
 
 div.figure-container.left figure img, div.figure-container.right figure img {
-  width:  40cqw; /* Smaller for floating images, left or right. */
+  width: 40cqw; /* Smaller for floating images, left or right. */
+}
+/* Except when the size is explicitly called for */
+div.figure-container.small figure img {
+  width: 40cqw
+}
+div.figure-container.medium figure img {
+  width: 70cqw
+}
+div.figure-container.large figure img {
+  width: 90cqw
 }
 
 @media (max-width: 700px) {
