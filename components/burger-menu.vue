@@ -30,7 +30,7 @@ function toggleActive() {
           <div class="face-front">
             <slot></slot>
           </div>
-          <div class="face-back"><img src="/images/banes-eye-space-navy-admiral.png"></div>
+          <div class="face-back"><img src="/images/Grulvax.svg"></div>
         </nav>
       </Transition>
     </Teleport>
