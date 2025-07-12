@@ -1,14 +1,15 @@
 <script setup lang="ts">
 
 import {ModalsContainer} from 'vue-final-modal'
+import {useKeyHandler} from "~/composables/use-key-handler";
 
-const router = useRouter();
 const route = useRoute();
+const { KeyHandler } = useKeyHandler();
 
 </script>
 
 <template>
-  <div id="app">
+  <div id="app" @keyup="KeyHandler">
     <NuxtRouteAnnouncer/>
 
     <header>

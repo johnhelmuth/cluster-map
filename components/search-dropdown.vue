@@ -59,7 +59,7 @@ const resultObj = computed(() => getSearchResults(toValue(searchQueryParam), 5))
 watch (resultObj, showResults);
 
 function showResults() {
-  if (resultObj.value?.results) {
+  if (resultObj.value?.results?.length > 0) {
     if (! resultsAreActive.value) {
       openResults();
     }
