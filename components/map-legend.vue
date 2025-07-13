@@ -84,6 +84,27 @@ function toggleLegendTab(newLegendId: keyof typeof attributesMeta) {
   background-color: transparent;
 }
 
+@container (width < 31rem) {
+  .map-legend-box {
+    width: 95cqw;
+  }
+  .map-legend-box .map-legend-tab-label {
+    font-size: 0.70rem;
+  }
+  .map-legend-box ul.map-legend-list li {
+    font-size: 0.75rem;
+  }
+}
+
+@container (width < 24.5rem) {
+  .map-legend-box .map-legend-tab-label {
+    font-size: 0.60rem;
+  }
+  .map-legend-box ul.map-legend-list li {
+    font-size: 0.65rem;
+  }
+}
+
 .map-legend-tab-label {
   text-align: center;
   font-size: 0.75rem;
@@ -135,10 +156,6 @@ ul.map-legend-list li {
 ul.map-legend-list li span.attribute-rating {
   text-align: center;
   grid-column: 1 / 2;
-}
-
-ul.map-legend-list.environment li {
-  font-size: 1rem;
 }
 
 ul.map-legend-list li div.attribute-name {
