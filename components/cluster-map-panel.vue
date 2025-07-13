@@ -90,6 +90,8 @@ function mapViewClosed() {
         :mapStyle="mapStylesStore.mapStyle"
         :rotate-cluster="true"/>
 
+    <MapLegend class="map-legend"/>
+
     <Icon class="map-control" name="material-symbols:eye-tracking-outline-rounded" @click="mapView"/>
 
     <MapClusterStyleModal

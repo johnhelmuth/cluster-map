@@ -18,9 +18,14 @@ export const attributesMeta = {
 };
 
 // @TODO Move these into a JSON file or other persistence layer, so that they can be easily edited.
+export type AttributeRatingDescriptorType = {
+  name: string;
+  note?: string;
+  color?: string;
+}
 
 export const attributeRatingDescriptors = {
-  "technology": new Map([
+  "technology": new Map<number, AttributeRatingDescriptorType>([
     [-4, { "name": "Stone age" }],
     [-3, { "name": "Metallurgy" }],
     [-2, { "name": "Industrialization" }],
@@ -31,18 +36,18 @@ export const attributeRatingDescriptors = {
     [3, { "name": "FTL mastery" }],
     [4, { "name": "On the verge of collapse" }],
   ]),
-  "environment":  new Map([
+  "environment":  new Map<number, AttributeRatingDescriptorType>([
     [-4, { "name": "No habitable worlds at all", color: "#7f6000ff" }],
-    [-3, { "name": "Barren world (gravity, no atmosphere", color: "#bf9000ff" }],
-    [-2, { "name": "Hostile environment (gravity but dangerous atmosphere", color: "#f1c232ff" }],
+    [-3, { "name": "Barren world", note: "gravity, no atmosphere", color: "#bf9000ff" }],
+    [-2, { "name": "Hostile environment", note: "gravity, dangerous atmosphere", color: "#f1c232ff" }],
     [-1, { "name": "Survivable world", color: "#ffd966ff" }],
-    [0, { "name": "One garden (and perhaps additional barren worlds)", color: "#d9ead3ff" }],
-    [1, { "name": "One garden and several hostile environments", color: "#b0e497ff" }],
-    [2, { "name": "One garden and several survivable worlds", color: "#8ad073ff" }],
+    [0, { "name": "One garden", note: "and perhaps additional barren worlds", color: "#d9ead3ff" }],
+    [1, { "name": "One garden", note: "and several hostile environments", color: "#b0e497ff" }],
+    [2, { "name": "One garden", note: "and several survivable worlds", color: "#8ad073ff" }],
     [3, { "name": "Some garden worlds", color: "#6bb649ff" }],
     [4, { "name": "Many garden worlds", color: "#38761dff" }],
   ]),
-  "resources":  new Map([
+  "resources":  new Map<number, AttributeRatingDescriptorType>([
     [-4, { "name": "No resources" }],
     [-3, { "name": "Multiple dependencies" }],
     [-2, { "name": "Needs imports" }],
