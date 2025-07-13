@@ -2,7 +2,7 @@ import type {SystemAttributesInterface, SystemAttributesKeyType, SystemIdType} f
 import type {attributeFormatType, attributeValueType, attributeRatingMetaType} from "@/types/BasicTypes";
 import {SystemAttributesDefaults} from "@/types/SystemTypes";
 
-export const attributesMeta = {
+export const attributesMeta: { [K in SystemAttributesKeyType]: { name: string, abbrev: string } } = {
   "technology": {
     "name": "Technology",
     "abbrev": "T",
@@ -32,9 +32,9 @@ export const attributeRatingDescriptors = {
     [-1, { "name": "Atomic power" }],
     [0, { "name": "Exploring the system" }],
     [1, { "name": "Exploiting the system" }],
-    [2, { "name": "FTL use" }],
-    [3, { "name": "FTL mastery" }],
-    [4, { "name": "On the verge of collapse" }],
+    [2, { "name": "FTL use", note: "(map shows 2 rings)" }],
+    [3, { "name": "FTL mastery", note: "(map shows 3 rings)" }],
+    [4, { "name": "On the verge of collapse", note: "(map shows 4 rings)" }],
   ]),
   "environment":  new Map<number, AttributeRatingDescriptorType>([
     [-4, { "name": "No habitable worlds at all", color: "#7f6000ff" }],
