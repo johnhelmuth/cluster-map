@@ -1,13 +1,20 @@
 <!--
    ProseImg replacement that acts as a figure, optionally with a caption
 
-   Also supports left, center, right alignment.
+   Supports left, center, right alignment.
    left and right alignments causes the text to wrap around the image.
+
+   Supports size of image as 'x-small', 'small', 'medium' or 'large'
+     'size' sets the width of the image as follows
+         'x-small': 20cqw
+         'small': 40cqw
+         'medium': 70cqw
+         'large': 90cqw
 
    Markdown:
    ```markdown
 
-     ![Alt text here](/path/to/image.jpg){ width="200" height="100" caption="Caption text here" align="right" }
+     ![Alt text here](/path/to/image.jpg){ size="large" caption="Caption text here" align="right" }
 
    ```
 
@@ -21,7 +28,7 @@ import {withTrailingSlash, withLeadingSlash, joinURL} from 'ufo'
 import {useRuntimeConfig, computed} from '#imports'
 
 export type alignType = 'center' | 'left' | 'right';
-export type sizeType = 'small' | 'medium' | 'large';
+export type sizeType = 'x-small' | 'small' | 'medium' | 'large';
 
 const props = defineProps({
   src: {
@@ -61,7 +68,7 @@ function isValidAlign(value: any): value is alignType {
   return value && ['left', 'center', 'right'].includes(value);
 }
 function isValidSize(value: any): value is sizeType {
-  return value && ['small', 'medium', 'large'].includes(value);
+  return value && ['x-small', 'small', 'medium', 'large'].includes(value);
 }
 
 const refinedSrc = computed(() => {
@@ -168,6 +175,9 @@ div.figure-container.left figure img, div.figure-container.right figure img {
   width: 40cqw; /* Smaller for floating images, left or right. */
 }
 /* Except when the size is explicitly called for */
+div.figure-container.x-small figure img {
+  width: 20cqw
+}
 div.figure-container.small figure img {
   width: 40cqw
 }
