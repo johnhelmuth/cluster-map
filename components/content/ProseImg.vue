@@ -8,7 +8,7 @@
      'size' sets the width of the image as follows
          'x-small': 20cqw
          'small': 40cqw
-         'medium': 70cqw
+         'medium': 60cqw
          'large': 90cqw
 
    Markdown:
@@ -182,7 +182,7 @@ div.figure-container.small figure img {
   width: 40cqw
 }
 div.figure-container.medium figure img {
-  width: 70cqw
+  width: 60cqw
 }
 div.figure-container.large figure img {
   width: 90cqw
