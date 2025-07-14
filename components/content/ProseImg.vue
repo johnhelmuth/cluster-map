@@ -189,8 +189,13 @@ div.figure-container.large figure img {
 }
 
 @media (max-width: 700px) {
-  div.figure-container figure img, div.figure-container.left figure img, div.figure-container.right figure img {
+  div.figure-container figure img, div.figure-container.left figure img, div.figure-container.right figure img
+    div.figure-container.x-small figure img, div.figure-container.small figure img, div.figure-container.medium figure img, div.figure-container.large figure img
+  {
     width: 90cqw; /* Too small to float text next to it, make them all the same. */
+  }
+  div.figure-container.left, div.figure-container.right {
+    float: revert;
   }
 }
 
