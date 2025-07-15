@@ -25,7 +25,7 @@
     "nuxt": "^3.17.7",
     "vue": "^3.5.17",
     "vue-final-modal": "^4.5.5",
-    "vue-router": "latest"
+    "vue-router": "*"
   },
   "overrides": {
     "nuxt": {
