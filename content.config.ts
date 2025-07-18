@@ -1,9 +1,9 @@
-import {defineContentConfig, defineCollection} from '@nuxt/content'
+import {type ResolvedCollectionSource, defineContentConfig, defineCollection} from '@nuxt/content'
 import {z} from "zod";
 
 const source = {
   include: '**/*',
-  exclude: ['**/*.png', '**/*.svg', '**/*.jpg', 'LICENSE', '.git', '**/.DS_Store', '**/.idea'],
+  exclude: ['**/*.png', '**/*.svg', '**/*.jpg', '**/*.jpeg', 'LICENSE', '.git', '**/.DS_Store', '**/.idea'],
 } as ResolvedCollectionSource;
 
 if (process.env.CONTENT_LOCAL_PATH) {
