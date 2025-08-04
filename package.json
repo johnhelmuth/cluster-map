@@ -33,6 +33,6 @@
     }
   },
   "devDependencies": {
-    "@iconify-json/material-symbols": "^1.2.29"
+    "@iconify-json/material-symbols": "^1.2.30"
   }
 }
