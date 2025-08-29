@@ -30,6 +30,9 @@
   "overrides": {
     "nuxt": {
       "vue": "latest"
+    },
+    "@nuxt/content": {
+      "@nuxtjs/mdc": "^0.17.2"
     }
   },
   "devDependencies": {
