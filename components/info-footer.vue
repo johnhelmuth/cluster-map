@@ -21,7 +21,6 @@ footer {
   flex: 0 1 auto;
   justify-self: end;
   display: flex;
-  flex-direction: row;
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;

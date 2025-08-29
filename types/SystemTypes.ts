@@ -39,7 +39,7 @@ export interface SystemModelInterface {
   setName(name: string) : string;
   setAttribute(attribute: keyof SystemAttributesInterface, value: attributeValueType) : void;
   setAspect(index: number, aspect: AspectType) : AspectType;
-  addAspect(aspect: AspectType) : Number;
+  addAspect(aspect: AspectType) : number;
   getPosition(mapStyle: MapViewStylesType | undefined, rotate: boolean) : PointType;
   getConnections(): Array<StraitModelInterface>;
   getConnectedSystems(): Array<SystemModelInterface> | undefined;
