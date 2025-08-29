@@ -1,0 +1,70 @@
+{
+  "bsonType": "object",
+  "required": [
+    "schemaVersion",
+    "type",
+    "name"
+  ],
+  "properties": {
+    "_id": {
+      "bsonType": "objectId"
+    },
+    "schemaVersion": {
+      "bsonType": "string"
+    },
+    "type": {
+      "bsonType": "string",
+      "enum": [
+        "cluster"
+      ]
+    },
+    "name": {
+      "bsonType": "string"
+    },
+    "systems": {
+      "bsonType": "array",
+      "minItems": 1,
+      "items": {
+        "bsonType": "objectId"
+      }
+    },
+    "straits": {
+      "bsonType": "array",
+      "items": {
+        "bsonType": "object",
+        "required": [
+          "schemaVersion",
+          "type",
+          "systems"
+        ],
+        "properties": {
+          "schemaVersion": {
+            "bsonType": "string"
+          },
+          "type": {
+            "bsonType": "string",
+            "enum": [
+              "strait"
+            ]
+          },
+          "systems": {
+            "bsonType": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "items": {
+              "bsonType": "objectId"
+            }
+          },
+          "direction": {
+            "bsonType": "string",
+            "enum": [
+              "clockwise",
+              "center",
+              "counterclockwise"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

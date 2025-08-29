@@ -1,24 +1,28 @@
-import type {SystemIdType, SystemModelInterface} from "@/types/SystemTypes";
-import type {SelectedSystemsListInterface, SelectedSystemMapType, SelectedSystemLogType} from "@/types/SystemsSelectedListTypes";
-import type {ClusterModelInterface} from "@/types/ClusterTypes";
 
-type LastSelectedRecord = { max: number, lastSystemSelected: SystemModelInterface | undefined };
+import type {SystemIdType, SystemModel} from "~/models/SystemModel";
+import type {ClusterModel} from "~/models/ClusterModel";
+
+export type SelectedSystemLogType = { seq: number, system: SystemModel };
+export type SelectedSystemMapType = Map<SystemIdType, SelectedSystemLogType>;
+
+
+type LastSelectedRecord = { max: number, lastSystemSelected: SystemModel | undefined };
 
 const MAX_SELECTED_SYSTEMS_COUNT = 2;
 
-export class SelectedSystemsList implements SelectedSystemsListInterface {
+export class SelectedSystemsList {
 
   _selectedSystems : SelectedSystemMapType;
-  _cluster: ClusterModelInterface;
+  _cluster: ClusterModel;
 
   static _selectedSequence = 0;
 
-  constructor(cluster: ClusterModelInterface) {
+  constructor(cluster: ClusterModel) {
     this._cluster = cluster;
     this._selectedSystems = new Map<SystemIdType, SelectedSystemLogType>() as SelectedSystemMapType;
   }
 
-  get selectedSystems(): Array<SystemModelInterface> {
+  get selectedSystems(): Array<SystemModel> {
     return [...this._selectedSystems.values()].map(selectedSystemLog => {
       return selectedSystemLog.system
     });
@@ -32,7 +36,7 @@ export class SelectedSystemsList implements SelectedSystemsListInterface {
     return this._selectedSystems.size >= MAX_SELECTED_SYSTEMS_COUNT;
   }
 
-  selectSystem(system: SystemModelInterface) : void {
+  selectSystem(system: SystemModel) : void {
     system.toggleSelected();
     if (system.getSelected() && ! this._selectedSystems.has(system.id)) {
       if (this.maxSelected) {

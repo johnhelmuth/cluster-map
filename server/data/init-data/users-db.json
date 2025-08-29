@@ -1,0 +1,28 @@
+[
+  {
+    "_id": {
+      "$oid": "681d2be66ddb619240513dab"
+    },
+    "schemaVersion": "1",
+    "type": "user",
+    "name": "John Helmuth",
+    "authenticationData": [
+      {
+        "$oid": "681d2c296ddb619240513dac"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "685ed94a232eccd8d5d7edfe"
+    },
+    "schemaVersion": "1",
+    "type": "user",
+    "name": "John Player",
+    "authenticationData": [
+      {
+        "$oid": "685ed94a232eccd8d5d7edfb"
+      }
+    ]
+  }
+]

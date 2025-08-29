@@ -1,0 +1,634 @@
+[
+  {
+    "schemaVersion": "1",
+    "type": "cluster",
+    "_id": {
+      "$oid": "67f97d8e80abff8f6b12d58f"
+    },
+    "name": "In Dire Straits Cluster",
+    "systems": [
+      {
+        "$oid": "67fd9f279e23e2b5f1e22174"
+      },
+      {
+        "$oid": "67fd9f329e23e2b5f1e22175"
+      },
+      {
+        "$oid": "67fd9f3d9e23e2b5f1e22176"
+      },
+      {
+        "$oid": "67fd9f479e23e2b5f1e22177"
+      },
+      {
+        "$oid": "67fd9f4f9e23e2b5f1e22178"
+      },
+      {
+        "$oid": "67fd9f559e23e2b5f1e22179"
+      },
+      {
+        "$oid": "67fd9f5e9e23e2b5f1e2217a"
+      },
+      {
+        "$oid": "67fd9f699e23e2b5f1e2217b"
+      },
+      {
+        "$oid": "67fd9f709e23e2b5f1e2217c"
+      },
+      {
+        "$oid": "67fd9f789e23e2b5f1e2217d"
+      }
+    ],
+    "straits": [
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "67fd9f279e23e2b5f1e22174"
+          },
+          {
+            "$oid": "67fd9f329e23e2b5f1e22175"
+          }
+        ],
+        "direction": "clockwise"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "67fd9f329e23e2b5f1e22175"
+          },
+          {
+            "$oid": "67fd9f3d9e23e2b5f1e22176"
+          }
+        ],
+        "direction": "clockwise"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "67fd9f329e23e2b5f1e22175"
+          },
+          {
+            "$oid": "67fd9f479e23e2b5f1e22177"
+          }
+        ],
+        "direction": "clockwise"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "67fd9f329e23e2b5f1e22175"
+          },
+          {
+            "$oid": "67fd9f4f9e23e2b5f1e22178"
+          }
+        ],
+        "direction": "clockwise"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "67fd9f3d9e23e2b5f1e22176"
+          },
+          {
+            "$oid": "67fd9f479e23e2b5f1e22177"
+          }
+        ],
+        "direction": "clockwise"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "67fd9f479e23e2b5f1e22177"
+          },
+          {
+            "$oid": "67fd9f4f9e23e2b5f1e22178"
+          }
+        ],
+        "direction": "clockwise"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "67fd9f479e23e2b5f1e22177"
+          },
+          {
+            "$oid": "67fd9f559e23e2b5f1e22179"
+          }
+        ],
+        "direction": "clockwise"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "67fd9f479e23e2b5f1e22177"
+          },
+          {
+            "$oid": "67fd9f5e9e23e2b5f1e2217a"
+          }
+        ],
+        "direction": "clockwise"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "67fd9f4f9e23e2b5f1e22178"
+          },
+          {
+            "$oid": "67fd9f559e23e2b5f1e22179"
+          }
+        ],
+        "direction": "clockwise"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "67fd9f559e23e2b5f1e22179"
+          },
+          {
+            "$oid": "67fd9f5e9e23e2b5f1e2217a"
+          }
+        ],
+        "direction": "counterclockwise"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "67fd9f559e23e2b5f1e22179"
+          },
+          {
+            "$oid": "67fd9f699e23e2b5f1e2217b"
+          }
+        ],
+        "direction": "counterclockwise"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "67fd9f5e9e23e2b5f1e2217a"
+          },
+          {
+            "$oid": "67fd9f699e23e2b5f1e2217b"
+          }
+        ],
+        "direction": "clockwise"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "67fd9f5e9e23e2b5f1e2217a"
+          },
+          {
+            "$oid": "67fd9f709e23e2b5f1e2217c"
+          }
+        ],
+        "direction": "clockwise"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "67fd9f699e23e2b5f1e2217b"
+          },
+          {
+            "$oid": "67fd9f709e23e2b5f1e2217c"
+          }
+        ],
+        "direction": "counterclockwise"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "67fd9f699e23e2b5f1e2217b"
+          },
+          {
+            "$oid": "67fd9f789e23e2b5f1e2217d"
+          }
+        ],
+        "direction": "counterclockwise"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "67fd9f709e23e2b5f1e2217c"
+          },
+          {
+            "$oid": "67fd9f789e23e2b5f1e2217d"
+          }
+        ],
+        "direction": "clockwise"
+      }
+    ]
+  },
+  {
+    "type": "cluster",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "681969f2a566e351dddce3ec"
+    },
+    "name": "Cluster b67",
+    "systems": [
+      {
+        "$oid": "68196b16a566e351dddce3ee"
+      },
+      {
+        "$oid": "68196c21a566e351dddce3ef"
+      },
+      {
+        "$oid": "68196c26a566e351dddce3f0"
+      },
+      {
+        "$oid": "68196c2da566e351dddce3f1"
+      },
+      {
+        "$oid": "68196c31a566e351dddce3f2"
+      },
+      {
+        "$oid": "68196c35a566e351dddce3f3"
+      },
+      {
+        "$oid": "68196c39a566e351dddce3f4"
+      }
+    ],
+    "straits": [
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "68196b16a566e351dddce3ee"
+          },
+          {
+            "$oid": "68196c21a566e351dddce3ef"
+          }
+        ],
+        "direction": "center"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "68196b16a566e351dddce3ee"
+          },
+          {
+            "$oid": "68196c26a566e351dddce3f0"
+          }
+        ],
+        "direction": "center"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "68196b16a566e351dddce3ee"
+          },
+          {
+            "$oid": "68196c2da566e351dddce3f1"
+          }
+        ],
+        "direction": "center"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "68196c21a566e351dddce3ef"
+          },
+          {
+            "$oid": "68196c26a566e351dddce3f0"
+          }
+        ],
+        "direction": "center"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "68196c21a566e351dddce3ef"
+          },
+          {
+            "$oid": "68196c31a566e351dddce3f2"
+          }
+        ],
+        "direction": "center"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "68196c21a566e351dddce3ef"
+          },
+          {
+            "$oid": "68196c35a566e351dddce3f3"
+          }
+        ],
+        "direction": "center"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "68196c26a566e351dddce3f0"
+          },
+          {
+            "$oid": "68196c2da566e351dddce3f1"
+          }
+        ],
+        "direction": "center"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "68196c26a566e351dddce3f0"
+          },
+          {
+            "$oid": "68196c39a566e351dddce3f4"
+          }
+        ],
+        "direction": "center"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "68196c2da566e351dddce3f1"
+          },
+          {
+            "$oid": "68196c31a566e351dddce3f2"
+          }
+        ],
+        "direction": "center"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "68196c31a566e351dddce3f2"
+          },
+          {
+            "$oid": "68196c35a566e351dddce3f3"
+          }
+        ],
+        "direction": "center"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "68196c35a566e351dddce3f3"
+          },
+          {
+            "$oid": "68196c39a566e351dddce3f4"
+          }
+        ],
+        "direction": "center"
+      }
+
+    ]
+  },
+  {
+    "type": "cluster",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "68196a21a566e351dddce3ed"
+    },
+    "name": "Cluster 899",
+    "systems": [
+      {
+        "$oid": "68196dafa566e351dddce3f5"
+      },
+      {
+        "$oid": "68196deca566e351dddce3f6"
+      },
+      {
+        "$oid": "681b5bc4a566e351dddce3fc"
+      },
+      {
+        "$oid": "68196e3da566e351dddce3f7"
+      },
+      {
+        "$oid": "68196e41a566e351dddce3f8"
+      },
+      {
+        "$oid": "68196e46a566e351dddce3f9"
+      },
+      {
+        "$oid": "68196e4ca566e351dddce3fa"
+      },
+      {
+        "$oid": "68196e51a566e351dddce3fb"
+      }
+    ],
+    "straits": [
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "68196dafa566e351dddce3f5"
+          },
+          {
+            "$oid": "68196deca566e351dddce3f6"
+          }
+        ],
+        "direction": "center"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "68196dafa566e351dddce3f5"
+          },
+          {
+            "$oid": "681b5bc4a566e351dddce3fc"
+          }
+        ],
+        "direction": "center"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "68196deca566e351dddce3f6"
+          },
+          {
+            "$oid": "681b5bc4a566e351dddce3fc"
+          }
+        ],
+        "direction": "center"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "68196deca566e351dddce3f6"
+          },
+          {
+            "$oid": "68196e3da566e351dddce3f7"
+          }
+        ],
+        "direction": "center"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "68196deca566e351dddce3f6"
+          },
+          {
+            "$oid": "68196e41a566e351dddce3f8"
+          }
+        ],
+        "direction": "center"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "681b5bc4a566e351dddce3fc"
+          },
+          {
+            "$oid": "68196e3da566e351dddce3f7"
+          }
+        ],
+        "direction": "center"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "681b5bc4a566e351dddce3fc"
+          },
+          {
+            "$oid": "68196e46a566e351dddce3f9"
+          }
+        ],
+        "direction": "center"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "681b5bc4a566e351dddce3fc"
+          },
+          {
+            "$oid": "68196e4ca566e351dddce3fa"
+          }
+        ],
+        "direction": "center"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "68196e3da566e351dddce3f7"
+          },
+          {
+            "$oid": "68196e41a566e351dddce3f8"
+          }
+        ],
+        "direction": "center"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "68196e3da566e351dddce3f7"
+          },
+          {
+            "$oid": "68196e51a566e351dddce3fb"
+          }
+        ],
+        "direction": "center"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "68196e41a566e351dddce3f8"
+          },
+          {
+            "$oid": "68196e46a566e351dddce3f9"
+          }
+        ],
+        "direction": "center"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "68196e46a566e351dddce3f9"
+          },
+          {
+            "$oid": "68196e4ca566e351dddce3fa"
+          }
+        ],
+        "direction": "center"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "68196e4ca566e351dddce3fa"
+          },
+          {
+            "$oid": "68196e51a566e351dddce3fb"
+          }
+        ],
+        "direction": "center"
+      }
+    ]
+  }
+]
