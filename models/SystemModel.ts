@@ -123,7 +123,7 @@ export default class SystemModel implements SystemModelInterface {
     return this.aspects[index] || '';
   }
 
-  addAspect(aspect: AspectType) : Number {
+  addAspect(aspect: AspectType) : number {
     this.aspects.push(aspect);
     return this.aspects.length-1;
   }
