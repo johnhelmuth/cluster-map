@@ -19,7 +19,7 @@ if (process.env.CONTENT_LOCAL_PATH) {
 } else {
   contentSource.repository = process.env.GH_URL || 'https://github.com/johnhelmuth/in-dire-straits-content/tree/main';
   contentSource.authToken = process.env.GH_TOKEN;
-  characterSource.repository = process.env.GH_URL || 'https://github.com/johnhelmuth/in-dire-straits-content/tree/feature/fate-character-sheets-as-content';
+  characterSource.repository = process.env.GH_URL || 'https://github.com/johnhelmuth/in-dire-straits-content/tree/feature-fate-character-sheets-as-content';
   characterSource.authToken = process.env.GH_TOKEN;
 }
 
