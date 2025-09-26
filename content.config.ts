@@ -1,5 +1,9 @@
 import {type ResolvedCollectionSource, defineContentConfig, defineCollection} from '@nuxt/content'
 import {z} from "zod";
+import { convertJsonSchemaToZod } from 'zod-from-json-schema';
+import characterSchema from './data/schemas/characters/character.schema.json';
+
+const zodCharacterSchema = convertJsonSchemaToZod(characterSchema);
 
 let sourceConnection = {} as Partial<Pick<ResolvedCollectionSource, "cwd" | "repository">>;
 if (process.env.CONTENT_LOCAL_PATH) {
@@ -73,7 +77,16 @@ export default defineContentConfig({
       schema: z.object({
         'publish_date': z.string(),
       })
-    })
+    }),
+    characters: defineCollection({
+      type: 'data',
+      source: {
+        include: 'characters/**/*.json',
+        exclude,
+        ...sourceConnection
+      },
+      schema: zodCharacterSchema
+    }),
 
   }
 })
