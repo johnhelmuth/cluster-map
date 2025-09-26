@@ -1,5 +1,4 @@
-import sampleCharacterData from "~/data/characters/sample-character.json"
-import sampleCharacter2Data from "~/data/characters/sample-character2.json"
+
 import {parseAsCharacterData, parseCharacter} from "~/utils/import-validator";
 import {CharacterModel} from "~/models/character/CharacterModel";
 import type {
@@ -7,11 +6,7 @@ import type {
   TraitLabelsTypeKeys,
   TraitTypesKeys
 } from "~/types/character/CharacterTypes";
-
-const defaultCharactersRawData =
-  [sampleCharacterData, sampleCharacter2Data];
-
-const characters = reactive(new Map<string, CharacterModel>());
+export { type ParseResult } from "@exodus/schemasafe";
 
 const traitLabels = new Map<TraitTypesKeys, TraitLabelsType>([
   ["skill", {singular: "Skill", plural: "Skills"}],
@@ -65,22 +60,41 @@ function formatTraitRank(rank: number): string {
   return formattedRank;
 }
 
-function getCharacter(characterId: string) : CharacterModel | undefined {
-  return characters.has(characterId) && characters.get(characterId) || undefined;
-}
-
-defaultCharactersRawData.forEach((character) => {
-  const parseResults = parseCharacter(JSON.stringify(character));
-  if (parseAsCharacterData(character)) {
-    const characterModel = new CharacterModel(character);
-    characters.set(characterModel.id, characterModel);
-  } else {
-    console.log('Invalid character. parseResults: ', parseResults);
-  }
-});
-
 export function useCharactersStore() {
+
+  const characters = reactive(new Map<string, CharacterModel>());
+  const loaded = ref(false);
+  const error = ref(false);
+
+  function getCharacter(characterId: string) : CharacterModel | undefined {
+    return characters.has(characterId) && characters.get(characterId) || undefined;
+  }
+
+  const parseErrors = ref([] as Array<ParseResult>);
+  queryCollection('characters').all()
+      .then(characterDocs => {
+        characterDocs.forEach((characterDoc) => {
+          console.log('useCharactersStore() characterDoc: ', characterDoc);
+          if (parseAsCharacterData(characterDoc.meta.body)) {
+            const characterModel = new CharacterModel(characterDoc.meta.body);
+            characters.set(characterModel.id, characterModel);
+          } else {
+            const parseResults = parseCharacter(JSON.stringify(characterDoc.meta.body));
+            parseErrors.value.push(parseResults)
+          }
+        })
+        if (parseErrors.value.length > 0) {
+          error.value = true;
+        }
+      })
+      .catch(err => {
+        error.value = err;
+      });
+
   return {
+    loaded,
+    error,
+    parseErrors,
     characters,
     getCharacter,
     getTraitLabel,

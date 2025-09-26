@@ -2,8 +2,12 @@
 export type BreadCrumbType = {name: string, path?: string, isAPage?: boolean};
 
 export const pathComponentToTitle = (pathComponent: string) : string => {
-  return pathComponent.split('-')
-    .map((word) => word[0].toUpperCase() + word.slice(1)).join(' ');
+  return pathComponent ? pathComponent.split('-').map((word) => {
+    if (word && word.length) {
+      return word[0].toUpperCase() + word.slice(1);
+    }
+    return word;
+  }).join(' ') : '';
 }
 
 export const useBreadCrumbs = async () => {

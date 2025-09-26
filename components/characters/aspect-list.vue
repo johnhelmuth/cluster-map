@@ -20,16 +20,16 @@ function useInvoke(aspectIndex: number) {
   <div v-if="aspects && aspects.length">
     <h3>Aspects</h3>
     <ul>
-      <li v-for="aspectIndex in aspects.length" class="aspect-item property-item">
-        <div class="list-label aspect-type" v-if="aspects[aspectIndex]?.aspectType">
-          {{ aspects[aspectIndex - 1]?.aspectType }}:
+      <li v-for="(aspect, aspectIndex) in aspects" class="aspect-item property-item">
+        <div class="list-label aspect-type" v-if="aspect?.aspectType">
+          {{ aspect.aspectType }}:
         </div>
         <div class="list-label aspect-type" v-else>-</div>
         <Aspect
-            :aspect="aspects[aspectIndex-1]"
+            :aspect="aspect"
             :trackId="`characterAspects:${aspectIndex-1}`"
             @use-invoke="useInvoke(aspectIndex-1)"
-            :class="{ 'aspect-name-spread': ! aspects[aspectIndex-1].freeInvokes }"
+            :class="{ 'aspect-name-spread': ! aspect.freeInvokes }"
         />
       </li>
     </ul>
