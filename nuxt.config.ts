@@ -41,6 +41,15 @@ export default defineNuxtConfig({
       '@vueuse/nuxt',
       '@nuxt/content',
       'nuxt-mongodb',
+      'nuxt-auth-utils'
     ],
+
+    hooks: {
+        close: (nuxt) => {
+            if (!nuxt.options._prepare) {
+                process.exit()
+            }
+        }
+    }
 
 })
