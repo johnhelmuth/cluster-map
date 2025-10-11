@@ -5,12 +5,14 @@ import {ClustersModel} from "~/models/ClustersModel";
 import clusterJsonDLC from "~/data/clusters/cluster-DLC.json";
 import clusterJson1652 from "~/data/clusters/cluster-1652.json";
 import clusterJson2Systems from "~/data/clusters/cluster-3.json";
+import clusterJsonDLCCoreNeighbor from "~/data/clusters/cluster-DLC-neighbor-coreward.json";
 import type {ClustersModelInterface} from "~/types/ClusterTypes";
 
 const defaultClustersData = {
-    currentClusterId: clusterJsonDLC.id,
+    currentClusterId: clusterJsonDLCCoreNeighbor.id,
     clusters: [
         clusterJsonDLC,
+        clusterJsonDLCCoreNeighbor,
         clusterJson1652,
         clusterJson2Systems
     ]

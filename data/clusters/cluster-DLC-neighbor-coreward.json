@@ -1,0 +1,228 @@
+{
+  "type": "cluster",
+  "schemaVersion": "1",
+  "id": "6ad",
+  "name": "Core Gateway",
+  "systems": [
+    {
+      "type": "system",
+      "schemaVersion": "1",
+      "id": "A75f",
+      "name": "Azendono",
+      "attributes": {
+        "technology": 1,
+        "environment": -3,
+        "resources": -1
+      },
+      "aspects": [],
+      "position": {
+        "x": 795,
+        "y": 374.99999999999994
+      }
+    },
+    {
+      "type": "system",
+      "schemaVersion": "1",
+      "id": "B766",
+      "name": "Bayanul",
+      "attributes": {
+        "technology": 3,
+        "environment": 1,
+        "resources": 2
+      },
+      "aspects": [],
+      "position": {
+        "x": 708.5965004500315,
+        "y": 166.40349954996844
+      }
+    },
+    {
+      "type": "system",
+      "schemaVersion": "1",
+      "id": "C735",
+      "name": "Crossways",
+      "attributes": {
+        "technology": 2,
+        "environment": -4,
+        "resources": 2
+      },
+      "aspects": [],
+      "position": {
+        "x": 499.99999999999994,
+        "y": 80
+      }
+    },
+    {
+      "type": "system",
+      "schemaVersion": "1",
+      "id": "D68e",
+      "name": "Deelrina",
+      "attributes": {
+        "technology": 3,
+        "environment": 0,
+        "resources": 0
+      },
+      "aspects": [],
+      "position": {
+        "x": 291.40349954996844,
+        "y": 166.4034995499685
+      }
+    },
+    {
+      "type": "system",
+      "schemaVersion": "1",
+      "id": "E6c9",
+      "name": "Ereul",
+      "attributes": {
+        "technology": 0,
+        "environment": 3,
+        "resources": -2
+      },
+      "aspects": [],
+      "position": {
+        "x": 205,
+        "y": 375.00000000000006
+      }
+    },
+    {
+      "type": "system",
+      "schemaVersion": "1",
+      "id": "F4f6",
+      "name": "Fuohrko",
+      "attributes": {
+        "technology": 2,
+        "environment": 3,
+        "resources": -1
+      },
+      "aspects": [],
+      "position": {
+        "x": 291.4034995499685,
+        "y": 583.5965004500315
+      }
+    },
+    {
+      "type": "system",
+      "schemaVersion": "1",
+      "id": "G75f",
+      "name": "System 63",
+      "attributes": {
+        "technology": -2,
+        "environment": 0,
+        "resources": 0
+      },
+      "aspects": [],
+      "position": {
+        "x": 500,
+        "y": 670
+      }
+    },
+    {
+      "type": "system",
+      "schemaVersion": "1",
+      "id": "H79e",
+      "name": "System 71",
+      "attributes": {
+        "technology": 0,
+        "environment": 1,
+        "resources": 1
+      },
+      "aspects": [],
+      "position": {
+        "x": 708.5965004500315,
+        "y": 583.5965004500315
+      }
+    }
+  ],
+  "straits": [
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "A75f",
+        "B766"
+      ],
+      "direction": "center"
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "B766",
+        "C735"
+      ],
+      "direction": "center"
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "C735",
+        "D68e"
+      ],
+      "direction": "center"
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "D68e",
+        "E6c9"
+      ],
+      "direction": "center"
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "D68e",
+        "F4f6"
+      ],
+      "direction": "center"
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "E6c9",
+        "F4f6"
+      ],
+      "direction": "center"
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "E6c9",
+        "G75f"
+      ],
+      "direction": "center"
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "E6c9",
+        "H79e"
+      ],
+      "direction": "center"
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "F4f6",
+        "G75f"
+      ],
+      "direction": "center"
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "G75f",
+        "H79e"
+      ],
+      "direction": "center"
+    }
+  ]
+}
