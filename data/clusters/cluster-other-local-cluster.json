@@ -1,0 +1,207 @@
+{
+  "type": "cluster",
+  "schemaVersion": "1",
+  "id": "d26",
+  "name": "Other Local Cluster",
+  "systems": [
+    {
+      "type": "system",
+      "schemaVersion": "1",
+      "id": "A6b8",
+      "name": "Adatharax",
+      "attributes": {
+        "technology": 2,
+        "environment": 2,
+        "resources": -1
+      },
+      "aspects": [
+        "Strength through Unity",
+        "Dathian Planetary Alliance Capitol"
+      ],
+      "position": {
+        "x": 795,
+        "y": 374.99999999999994
+      }
+    },
+    {
+      "type": "system",
+      "schemaVersion": "1",
+      "id": "B785",
+      "name": "Balorn",
+      "attributes": {
+        "technology": 2,
+        "environment": 1,
+        "resources": 1
+      },
+      "aspects": [
+        "First successful colony",
+        "Bearing the brunt of the cold war",
+        "Dathian Planetary Alliance Charter Member"
+      ],
+      "position": {
+        "x": 647.5,
+        "y": 119.52250588359061
+      }
+    },
+    {
+      "type": "system",
+      "schemaVersion": "1",
+      "id": "C633",
+      "name": "Clanpali",
+      "attributes": {
+        "technology": -1,
+        "environment": -4,
+        "resources": -3
+      },
+      "aspects": [
+        "Fractured World",
+        "Former Rebel Colony of Flant",
+        "No Man's Land (Shoot first, let the diplomats sort it out.)"
+      ],
+      "position": {
+        "x": 352.4999999999999,
+        "y": 119.52250588359067
+      }
+    },
+    {
+      "type": "system",
+      "schemaVersion": "1",
+      "id": "D74b",
+      "name": "Delvar",
+      "attributes": {
+        "technology": -1,
+        "environment": -1,
+        "resources": -2
+      },
+      "aspects": [
+        "Gateway to the Greater Universe",
+        "A nice place to fly through"
+      ],
+      "position": {
+        "x": 205,
+        "y": 375.00000000000006
+      }
+    },
+    {
+      "type": "system",
+      "schemaVersion": "1",
+      "id": "E794",
+      "name": "Egret",
+      "attributes": {
+        "technology": 2,
+        "environment": 2,
+        "resources": -2
+      },
+      "aspects": [
+        "\"Stop treating us like Canapali!\"",
+        "Looking for seat at the table"
+      ],
+      "position": {
+        "x": 352.50000000000006,
+        "y": 630.4774941164094
+      }
+    },
+    {
+      "type": "system",
+      "schemaVersion": "1",
+      "id": "F786",
+      "name": "Flant",
+      "attributes": {
+        "technology": 3,
+        "environment": 2,
+        "resources": 4
+      },
+      "aspects": [
+        "The Prime Directive Protects You",
+        "Arrogant Elitists"
+      ],
+      "position": {
+        "x": 647.5,
+        "y": 630.4774941164094
+      }
+    }
+  ],
+  "straits": [
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "A6b8",
+        "B785"
+      ],
+      "direction": "center"
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "A6b8",
+        "C633"
+      ],
+      "direction": "clockwise"
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "A6b8",
+        "D74b"
+      ],
+      "direction": "clockwise"
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "B785",
+        "C633"
+      ],
+      "direction": "center"
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "B785",
+        "E794"
+      ],
+      "direction": "clockwise"
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "C633",
+        "D74b"
+      ],
+      "direction": "center"
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "C633",
+        "F786"
+      ],
+      "direction": "clockwise"
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "D74b",
+        "E794"
+      ],
+      "direction": "center"
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "E794",
+        "F786"
+      ],
+      "direction": "center"
+    }
+  ]
+}

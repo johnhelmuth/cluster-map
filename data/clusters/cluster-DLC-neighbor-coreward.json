@@ -2,7 +2,7 @@
   "type": "cluster",
   "schemaVersion": "1",
   "id": "6ad",
-  "name": "Core Gateway",
+  "name": "Neighbor Cluster",
   "systems": [
     {
       "type": "system",
@@ -104,7 +104,7 @@
       "type": "system",
       "schemaVersion": "1",
       "id": "G75f",
-      "name": "System 63",
+      "name": "Glaorkg",
       "attributes": {
         "technology": -2,
         "environment": 0,
@@ -120,9 +120,9 @@
       "type": "system",
       "schemaVersion": "1",
       "id": "H79e",
-      "name": "System 71",
+      "name": "Halconar",
       "attributes": {
-        "technology": 0,
+        "technology": 2,
         "environment": 1,
         "resources": 1
       },
@@ -177,7 +177,7 @@
         "D68e",
         "F4f6"
       ],
-      "direction": "center"
+      "direction": "clockwise"
     },
     {
       "type": "strait",
@@ -195,7 +195,7 @@
         "E6c9",
         "G75f"
       ],
-      "direction": "center"
+      "direction": "clockwise"
     },
     {
       "type": "strait",
@@ -204,7 +204,7 @@
         "E6c9",
         "H79e"
       ],
-      "direction": "center"
+      "direction": "clockwise"
     },
     {
       "type": "strait",
