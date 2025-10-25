@@ -14,7 +14,7 @@
         "environment": -1,
         "resources": -1
       },
-      "url": "/tatterpedia/places/star-systems/local-cluster/avarax",
+      "url": "/tatterpedia/places/clusters/local-cluster/avarax",
       "position": {
         "x": 130,
         "y": 130
@@ -32,7 +32,7 @@
         "environment": 0,
         "resources": -1
       },
-      "url": "/tatterpedia/places/star-systems/local-cluster/willful",
+      "url": "/tatterpedia/places/clusters/local-cluster/willful",
       "position": {
         "x": 650,
         "y": 90
@@ -50,7 +50,7 @@
         "environment": 0,
         "resources": -2
       },
-      "url": "/tatterpedia/places/star-systems/local-cluster/banes-eye",
+      "url": "/tatterpedia/places/clusters/local-cluster/banes-eye",
       "position": {
         "x": 895,
         "y": 200
@@ -68,7 +68,7 @@
         "environment": 0,
         "resources": 1
       },
-      "url": "/tatterpedia/places/star-systems/local-cluster/dragongulls-cry",
+      "url": "/tatterpedia/places/clusters/local-cluster/dragongulls-cry",
       "position": {
         "x": 875,
         "y": 475
@@ -86,7 +86,7 @@
         "environment": 1,
         "resources": -1
       },
-      "url": "/tatterpedia/places/star-systems/local-cluster/dalderana",
+      "url": "/tatterpedia/places/clusters/local-cluster/dalderana",
       "position": {
         "x": 630,
         "y": 300
@@ -104,7 +104,7 @@
         "environment": 0,
         "resources": 1
       },
-      "url": "/tatterpedia/places/star-systems/local-cluster/concordist",
+      "url": "/tatterpedia/places/clusters/local-cluster/concordist",
       "position": {
         "x": 300,
         "y": 260
@@ -122,7 +122,7 @@
         "environment": 1,
         "resources": 4
       },
-      "url": "/tatterpedia/places/star-systems/local-cluster/golden-seed",
+      "url": "/tatterpedia/places/clusters/local-cluster/golden-seed",
       "position": {
         "x": 620,
         "y": 575
@@ -139,7 +139,7 @@
         "environment": -2,
         "resources": -1
       },
-      "url": "/tatterpedia/places/star-systems/local-cluster/ceti-daenia",
+      "url": "/tatterpedia/places/clusters/local-cluster/ceti-daenia",
       "position": {
         "x": 100,
         "y": 400
@@ -157,7 +157,7 @@
         "environment": -2,
         "resources": 2
       },
-      "url": "/tatterpedia/places/star-systems/local-cluster/zerzi",
+      "url": "/tatterpedia/places/clusters/local-cluster/zerzi",
       "position": {
         "x": 375,
         "y": 665
@@ -175,7 +175,7 @@
         "environment": -1,
         "resources": -2
       },
-      "url": "/tatterpedia/places/star-systems/local-cluster/luxia",
+      "url": "/tatterpedia/places/clusters/local-cluster/luxia",
       "position": {
         "x": 130,
         "y": 620

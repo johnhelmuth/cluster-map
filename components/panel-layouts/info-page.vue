@@ -95,6 +95,10 @@ h1 {
   margin-bottom: 1rem;
 }
 
+.info-content :deep(ul) {
+  margin-bottom: 1rem;
+}
+
 .info-content :deep(table), .info-content :deep(table tr td), .info-content :deep(table tr th) {
   border-collapse: collapse;
   border: 1px solid var(--color-border);
