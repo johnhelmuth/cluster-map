@@ -125,4 +125,12 @@ h1 {
 .info-content :deep(> div) {
   flex-basis: 90%;
 }
+
+.info-content :deep(em) {
+  font-style: italic;
+}
+
+.info-content :deep(strong) {
+  font-weight: bolder;
+}
 </style>
