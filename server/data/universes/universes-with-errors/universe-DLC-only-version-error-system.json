@@ -1,16 +1,20 @@
 {
   "schemaVersion": "1",
-  "type": "clusters",
+  "type": "universe",
+  "id": "1",
+  "name": "In Dire Straits Cluster only.",
   "currentClusterId": "DLC",
   "clusters": [
     {
-      "schemaVersion": "1",
+      "schemaVersion": "0",
       "type": "cluster",
       "id": "DLC",
       "name": "In Dire Straits Cluster",
       "systems": [
         {
+          "schemaVersion": "1",
           "type": "system",
+          "id": "0",
           "name": "Avarax",
           "attributes": {
             "technology": -2,
@@ -200,7 +204,7 @@
       "straits": [
         {
           "type": "strait",
-          "schemaVersion": "1",
+          "schemaVersion": "0",
           "systems": [
             "0",
             "1"

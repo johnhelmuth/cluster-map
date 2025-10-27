@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import type { SystemAttributesInterface } from "@/types/SystemTypes";
+import type { SystemAttributesInterface } from "@/models/SystemModel";
 import type {attributeFormatType} from "@/types/BasicTypes";
 
 defineProps<{
