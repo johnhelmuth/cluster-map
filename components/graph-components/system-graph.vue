@@ -1,19 +1,18 @@
 <script setup lang="ts">
 
-import type {SystemModelInterface} from "@/types/SystemTypes";
-import type {RoutePlanRefType} from "@/types/RoutePlannerTypes";
-import {type MapViewStylesType} from "@/types/BasicTypes";
-import {rotatePosition} from "~/utils/utils";
+import type {SystemModel} from "@/models/SystemModel";
+import {type MapViewStylesType} from "@/types/MapViewTypes";
+import type {RoutePlanRefType} from "~/utils/route-planner";
 
 const props = defineProps<{
-  system: SystemModelInterface,
+  system: SystemModel,
   plan?: RoutePlanRefType,
   mapStyle?: MapViewStylesType | undefined,
   shouldRotate: boolean,
 }>();
 
 defineEmits<{
-  selected: [system: SystemModelInterface | undefined]
+  selected: [system: SystemModel | undefined]
 }>();
 
 const showInfoInside = computed(() => {
