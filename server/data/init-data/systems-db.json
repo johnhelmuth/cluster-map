@@ -15,7 +15,7 @@
       "Recovering from a Devastating Invasion",
       "\"We're Blockaded for Our Own Good\""
     ],
-    "url": "/tatterpedia/places/star-systems/avarax",
+    "url": "/tatterpedia/places/clusters/local-cluster/avarax",
     "position": {
       "x": 130,
       "y": 130
@@ -37,7 +37,7 @@
       "Clawed our Way off the Planet, What's next?",
       "Need More Unobtainium"
     ],
-    "url": "/tatterpedia/places/star-systems/willful",
+    "url": "/tatterpedia/places/clusters/local-cluster/willful",
     "position": {
       "x": 650,
       "y": 90
@@ -59,7 +59,7 @@
       "Ambitious, but methodical for their own survival",
       "Our god is always watching what we do"
     ],
-    "url": "/tatterpedia/places/star-systems/banes-eye",
+    "url": "/tatterpedia/places/clusters/local-cluster/banes-eye",
     "position": {
       "x": 895,
       "y": 200
@@ -81,7 +81,7 @@
       "Everything Can Be Found In The Ocean",
       "\"Never Trust a Human\""
     ],
-    "url": "/tatterpedia/places/star-systems/dragongulls-cry",
+    "url": "/tatterpedia/places/clusters/local-cluster/dragongulls-cry",
     "position": {
       "x": 875,
       "y": 475
@@ -103,7 +103,7 @@
       "Owe those bastards for our Space Program",
       "Obsessed with the TattTubers"
     ],
-    "url": "/tatterpedia/places/star-systems/dalderana",
+    "url": "/tatterpedia/places/clusters/local-cluster/dalderana",
     "position": {
       "x": 630,
       "y": 300
@@ -125,7 +125,7 @@
       "Secretive",
       "Hedonistic"
     ],
-    "url": "/tatterpedia/places/star-systems/concordist",
+    "url": "/tatterpedia/places/clusters/local-cluster/concordist",
     "position": {
       "x": 300,
       "y": 260
@@ -147,7 +147,7 @@
       "The Pulsar Only Cooks One Hemisphere.",
       "\"They Think That Nothing Bad Can Happen To Them!\""
     ],
-    "url": "/tatterpedia/places/star-systems/golden-seed",
+    "url": "/tatterpedia/places/clusters/local-cluster/golden-seed",
     "position": {
       "x": 620,
       "y": 575
@@ -168,7 +168,7 @@
     "aspects": [
       "Balkanized Dome City States On Planet, Tentative Off Planet Coalition"
     ],
-    "url": "/tatterpedia/places/star-systems/ceti-daenia",
+    "url": "/tatterpedia/places/clusters/local-cluster/ceti-daenia",
     "position": {
       "x": 100,
       "y": 400
@@ -190,7 +190,7 @@
       "Aggressively Industrialized",
       "The only thing that matters is right now,\nthe future will take care of itself"
     ],
-    "url": "/tatterpedia/places/star-systems/zerzi",
+    "url": "/tatterpedia/places/clusters/local-cluster/zerzi",
     "position": {
       "x": 375,
       "y": 665
@@ -212,7 +212,7 @@
       "It's a prison planet, were you expecting cake?",
       "You can get blood if you find the right stone"
     ],
-    "url": "/tatterpedia/places/star-systems/luxia",
+    "url": "/tatterpedia/places/clusters/local-cluster/luxia",
     "position": {
       "x": 130,
       "y": 620
@@ -481,6 +481,284 @@
       "technology": -1,
       "environment": 0,
       "resources": 0
+    },
+    "aspects": [],
+    "position": {
+      "x": 708.5965004500315,
+      "y": 583.5965004500315
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "68ffcd0cce0f366f73708771"
+    },
+    "name": "Adatharax",
+    "attributes": {
+      "technology": 2,
+      "environment": 2,
+      "resources": -1
+    },
+    "aspects": [
+      "Strength through Unity",
+      "Dathian Planetary Alliance Capitol"
+    ],
+    "url": "/tatterpedia/places/clusters/other-local-cluster/adatharax",
+    "position": {
+      "x": 795,
+      "y": 374.99999999999994
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "68ffcd55ce0f366f73708772"
+    },
+    "name": "Balorn",
+    "attributes": {
+      "technology": 2,
+      "environment": 1,
+      "resources": 1
+    },
+    "aspects": [
+      "First successful colony",
+      "Bearing the brunt of the cold war",
+      "Dathian Planetary Alliance Charter Member"
+    ],
+    "url": "/tatterpedia/places/clusters/other-local-cluster/balorn",
+    "position": {
+      "x": 647.5,
+      "y": 119.52250588359061
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "68ffcd6fce0f366f73708773"
+    },
+    "name": "Clanpali",
+    "attributes": {
+      "technology": -1,
+      "environment": -4,
+      "resources": 3
+    },
+    "aspects": [
+      "Fractured World",
+      "Former Rebel Colony of Flant",
+      "No Man's Land (Shoot first, let the diplomats sort it out.)"
+    ],
+    "url": "/tatterpedia/places/clusters/other-local-cluster/clanpali",
+    "position": {
+      "x": 352.4999999999999,
+      "y": 119.52250588359067
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "68ffcd96ce0f366f73708774"
+    },
+    "name": "Delvar",
+    "attributes": {
+      "technology": -1,
+      "environment": -1,
+      "resources": -2
+    },
+    "aspects": [
+      "Gateway to the Greater Universe",
+      "A nice place to fly through"
+    ],
+    "url": "/tatterpedia/places/clusters/other-local-cluster/delvar",
+    "position": {
+      "x": 205,
+      "y": 375.00000000000006
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "68ffcdb0ce0f366f73708775"
+    },
+    "name": "Egret",
+    "attributes": {
+      "technology": 2,
+      "environment": 2,
+      "resources": -2
+    },
+    "aspects": [
+      "\"Stop treating us like Clanpali!\"",
+      "Looking for seat at the table"
+    ],
+    "url": "/tatterpedia/places/clusters/other-local-cluster/egret",
+    "position": {
+      "x": 352.50000000000006,
+      "y": 630.4774941164094
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "68ffcdc5ce0f366f73708776"
+    },
+    "name": "Flant",
+    "attributes": {
+      "technology": 3,
+      "environment": 2,
+      "resources": 4
+    },
+    "aspects": [
+      "The Prime Directive Protects You",
+      "Arrogant Elitists"
+    ],
+    "url": "/tatterpedia/places/clusters/other-local-cluster/flant",
+    "position": {
+      "x": 647.5,
+      "y": 630.4774941164094
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "69000b6ed73e930cd0a4cef1"
+    },
+    "name": "Azendono",
+    "attributes": {
+      "technology": 1,
+      "environment": -3,
+      "resources": -1
+    },
+    "aspects": [],
+    "position": {
+      "x": 795,
+      "y": 374.99999999999994
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "69000b78d73e930cd0a4cef2"
+    },
+    "name": "Bayanul",
+    "attributes": {
+      "technology": 3,
+      "environment": 1,
+      "resources": 2
+    },
+    "aspects": [],
+    "position": {
+      "x": 708.5965004500315,
+      "y": 166.40349954996844
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "69000b81d73e930cd0a4cef3"
+    },
+    "name": "Crossways",
+    "attributes": {
+      "technology": 2,
+      "environment": -4,
+      "resources": 2
+    },
+    "aspects": [],
+    "position": {
+      "x": 499.99999999999994,
+      "y": 80
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "69000b89d73e930cd0a4cef4"
+    },
+    "name": "Deelrina",
+    "attributes": {
+      "technology": 3,
+      "environment": 0,
+      "resources": 0
+    },
+    "aspects": [],
+    "position": {
+      "x": 291.40349954996844,
+      "y": 166.4034995499685
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "69000b8fd73e930cd0a4cef5"
+    },
+    "name": "Ereul",
+    "attributes": {
+      "technology": 0,
+      "environment": 3,
+      "resources": -2
+    },
+    "aspects": [],
+    "position": {
+      "x": 205,
+      "y": 375.00000000000006
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "69000b98d73e930cd0a4cef6"
+    },
+    "name": "Fuohrko",
+    "attributes": {
+      "technology": 2,
+      "environment": 3,
+      "resources": -1
+    },
+    "aspects": [],
+    "position": {
+      "x": 291.4034995499685,
+      "y": 583.5965004500315
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "69000ba1d73e930cd0a4cef7"
+    },
+    "name": "Glaorkg",
+    "attributes": {
+      "technology": -2,
+      "environment": 0,
+      "resources": 0
+    },
+    "aspects": [],
+    "position": {
+      "x": 500,
+      "y": 670
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "69000ba7d73e930cd0a4cef8"
+    },
+    "name": "Halconar",
+    "attributes": {
+      "technology": 2,
+      "environment": 1,
+      "resources": 1
     },
     "aspects": [],
     "position": {

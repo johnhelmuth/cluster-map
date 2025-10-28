@@ -5,13 +5,19 @@
     "_id": {
       "$oid": "67f97dbc80abff8f6b12d591"
     },
-    "name": "In Dire Straits Cluster only.",
+    "name": "In Dire Straits Known Space",
     "currentClusterId": {
       "$oid": "67f97d8e80abff8f6b12d58f"
     },
     "clusters": [
       {
         "$oid": "67f97d8e80abff8f6b12d58f"
+      },
+      {
+        "$oid": "69000c88d73e930cd0a4cef9"
+      },
+      {
+        "$oid": "68ffce2bce0f366f73708777"
       }
     ]
   },

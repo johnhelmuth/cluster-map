@@ -423,7 +423,6 @@
         ],
         "direction": "center"
       }
-
     ]
   },
   {
@@ -625,6 +624,319 @@
           },
           {
             "$oid": "68196e51a566e351dddce3fb"
+          }
+        ],
+        "direction": "center"
+      }
+    ]
+  },
+  {
+    "type": "cluster",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "68ffce2bce0f366f73708777"
+    },
+    "name": "Other Local Cluster",
+    "systems": [
+      {
+        "$oid": "68ffcd0cce0f366f73708771"
+      },
+      {
+        "$oid": "68ffcd55ce0f366f73708772"
+      },
+      {
+        "$oid": "68ffcd6fce0f366f73708773"
+      },
+      {
+        "$oid": "68ffcd96ce0f366f73708774"
+      },
+      {
+        "$oid": "68ffcdb0ce0f366f73708775"
+      },
+      {
+        "$oid": "68ffcdc5ce0f366f73708776"
+      }
+    ],
+    "straits": [
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "68ffcd0cce0f366f73708771"
+          },
+          {
+            "$oid": "68ffcd55ce0f366f73708772"
+          }
+        ],
+        "direction": "center"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "68ffcd0cce0f366f73708771"
+          },
+          {
+            "$oid": "68ffcd6fce0f366f73708773"
+          }
+        ],
+        "direction": "clockwise"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "68ffcd0cce0f366f73708771"
+          },
+          {
+            "$oid": "68ffcd96ce0f366f73708774"
+          }
+        ],
+        "direction": "clockwise"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "68ffcd55ce0f366f73708772"
+          },
+          {
+            "$oid": "68ffcd6fce0f366f73708773"
+          }
+        ],
+        "direction": "center"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "68ffcd55ce0f366f73708772"
+          },
+          {
+            "$oid": "68ffcdb0ce0f366f73708775"
+          }
+        ],
+        "direction": "clockwise"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "68ffcd6fce0f366f73708773"
+          },
+          {
+            "$oid": "68ffcd96ce0f366f73708774"
+          }
+        ],
+        "direction": "center"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "68ffcd6fce0f366f73708773"
+          },
+          {
+            "$oid": "68ffcdc5ce0f366f73708776"
+          }
+        ],
+        "direction": "clockwise"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "68ffcd96ce0f366f73708774"
+          },
+          {
+            "$oid": "68ffcdb0ce0f366f73708775"
+          }
+        ],
+        "direction": "center"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "68ffcdb0ce0f366f73708775"
+          },
+          {
+            "$oid": "68ffcdc5ce0f366f73708776"
+          }
+        ],
+        "direction": "center"
+      }
+    ]
+  },
+  {
+    "type": "cluster",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "69000c88d73e930cd0a4cef9"
+    },
+    "name": "Neighbor Cluster",
+    "systems": [
+      {
+        "$oid": "69000b6ed73e930cd0a4cef1"
+      },
+      {
+        "$oid": "69000b78d73e930cd0a4cef2"
+      },
+      {
+        "$oid": "69000b81d73e930cd0a4cef3"
+      },
+      {
+        "$oid": "69000b89d73e930cd0a4cef4"
+      },
+      {
+        "$oid": "69000b8fd73e930cd0a4cef5"
+      },
+      {
+        "$oid": "69000b98d73e930cd0a4cef6"
+      },
+      {
+        "$oid": "69000ba1d73e930cd0a4cef7"
+      },
+      {
+        "$oid": "69000ba7d73e930cd0a4cef8"
+      }
+    ],
+    "straits": [
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "69000b6ed73e930cd0a4cef1"
+          },
+          {
+            "$oid": "69000b78d73e930cd0a4cef2"
+          }
+        ],
+        "direction": "center"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "69000b78d73e930cd0a4cef2"
+          },
+          {
+            "$oid": "69000b81d73e930cd0a4cef3"
+          }
+        ],
+        "direction": "center"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "69000b81d73e930cd0a4cef3"
+          },
+          {
+            "$oid": "69000b89d73e930cd0a4cef4"
+          }
+        ],
+        "direction": "center"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "69000b89d73e930cd0a4cef4"
+          },
+          {
+            "$oid": "69000b8fd73e930cd0a4cef5"
+          }
+        ],
+        "direction": "center"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "69000b89d73e930cd0a4cef4"
+          },
+          {
+            "$oid": "69000b98d73e930cd0a4cef6"
+          }
+        ],
+        "direction": "clockwise"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "69000b8fd73e930cd0a4cef5"
+          },
+          {
+            "$oid": "69000b98d73e930cd0a4cef6"
+          }
+        ],
+        "direction": "center"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "69000b8fd73e930cd0a4cef5"
+          },
+          {
+            "$oid": "69000ba1d73e930cd0a4cef7"
+          }
+        ],
+        "direction": "clockwise"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "69000b8fd73e930cd0a4cef5"
+          },
+          {
+            "$oid": "69000ba7d73e930cd0a4cef8"
+          }
+        ],
+        "direction": "clockwise"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "69000b98d73e930cd0a4cef6"
+          },
+          {
+            "$oid": "69000ba1d73e930cd0a4cef7"
+          }
+        ],
+        "direction": "center"
+      },
+      {
+        "type": "strait",
+        "schemaVersion": "1",
+        "systems": [
+          {
+            "$oid": "69000ba1d73e930cd0a4cef7"
+          },
+          {
+            "$oid": "69000ba7d73e930cd0a4cef8"
           }
         ],
         "direction": "center"
