@@ -9,7 +9,7 @@ import {useFormErrors} from "~/composables/use-form-errors";
 
 const {loggedIn, user, fetch: refreshSession, clear} = useUserSession()
 const credentials = reactive({
-  username: '',
+  usernameOrEmail: '',
   password: '',
 });
 
@@ -64,12 +64,12 @@ function focused(event: Event) {
     <AuthState v-slot="{ loggedIn }">
       <div class="form-container">
         <form v-if="! loggedIn" @submit.prevent="login">
-          <label class="form-label" :class="{ error: hasError('username') }" for="username">User name</label>
-          <input class="form-input" :class="{ error: hasError('username') }"
-                 v-model="credentials.username" type="text" id="username" placeholder="Username"
+          <label class="form-label" :class="{ error: hasError('usernameOrEmail') }" for="usernameOrEmail">User name</label>
+          <input class="form-input" :class="{ error: hasError('usernameOrEmail') }"
+                 v-model="credentials.usernameOrEmail" type="text" id="usernameOrEmail" placeholder="Username"
                  @focus="focused" @blur="validateForm"
           />
-          <label class="form-label" :class="{ error: hasError('username') }" for="password">Password</label>
+          <label class="form-label" :class="{ error: hasError('password') }" for="password">Password</label>
           <input class="form-input" :class="{ error: hasError('password') }"
                  v-model="credentials.password" type="password" id="password" placeholder="Password"
                  @focus="focused" @blur="validateForm"

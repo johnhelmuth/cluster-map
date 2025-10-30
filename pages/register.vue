@@ -12,6 +12,7 @@ const {fetch: refreshSession} = useUserSession()
 const registration = reactive({
   name: '',
   username: '',
+  email: '',
   password: '',
   passwordConfirmed: '',
 }) as Reactive<RegisterDocument>;
@@ -68,6 +69,11 @@ function focused(event: Event) {
         <input class="form-input" :class="{ error: hasError('username') }"
                v-model="registration.username" type="text" id="username"
                placeholder="Username" @focus="focused" @blur="validateForm"
+        />
+        <label class="form-label" :class="{ error: hasError('email') }" for="email">Email</label>
+        <input class="form-input" :class="{ error: hasError('email') }"
+               v-model="registration.email" type="text" id="email"
+               placeholder="Email address" @focus="focused" @blur="validateForm"
         />
         <label class="form-label" :class="{ error: hasError('password') }" for="password">Password</label>
         <input class="form-input" :class="{ error: hasError('password') }"
