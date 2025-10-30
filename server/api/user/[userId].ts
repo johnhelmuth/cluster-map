@@ -3,7 +3,7 @@ import {UserDataDocument} from "~/server/document-models/UserDataDocument";
 export default defineEventHandler(async (event ) => {
   const session = await requireUserSession(event);
   const userId = getRouterParam(event, 'userId');
-  if (userId && session?.id && userId === session?.user?.id) {
+  if (userId && session?.id && userId === session?.id) {
     const userData = await UserDataDocument.getUser(userId);
     return userData?.toUserMetadataData();
   }

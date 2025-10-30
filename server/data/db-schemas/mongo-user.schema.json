@@ -4,6 +4,7 @@
     "schemaVersion",
     "type",
     "name",
+    "email",
     "authenticationData"
   ],
   "properties": {
@@ -21,6 +22,12 @@
     },
     "name": {
       "bsonType": "string"
+    },
+    "email": {
+      "bsonType": "string",
+      "pattern": "^(?!\\.)(?!.*\\.\\.)([a-z0-9_'+\\-\\.]*)[a-z0-9_+-]@([a-z0-9][a-z0-9\\-]*\\.)+[a-z]{2,}$",
+      "minLength": 6,
+      "maxLength": 127
     },
     "authenticationData": {
       "bsonType": "array",

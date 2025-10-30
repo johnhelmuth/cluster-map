@@ -10,11 +10,10 @@ import {
 } from "~/server/document-models/UserAuthDataDocument";
 import bcrypt from "bcryptjs";
 import {
-  isLoginDocument,
   isRegisterDocument,
   LoginDocument,
   parseRegisterBody,
-  RegisterDocument
+  RegisterDocument, validateLoginBody
 } from "~/types/UserTypes";
 import {z} from "zod";
 
@@ -22,6 +21,7 @@ export interface UserDataDocumentInterfaceBase extends WithId<Document> {
   schemaVersion: string;
   type: 'user';
   name: string;
+  email: string;
 }
 
 export interface UserDataDocumentInterfaceInDB extends UserDataDocumentInterfaceBase {
@@ -37,6 +37,7 @@ export function isUserDataDocumentInterface(data: any): data is UserDataDocument
     schemaVersion: z.literal(SCHEMA_VERSION),
     type: z.literal('user'),
     name: z.string(),
+    email: z.string().email(),
     authenticationData: z.array(UserAuthDataDocumentZSchema)
   }).safeParse(data);
   return parseResponse.success;
@@ -53,6 +54,7 @@ export class UserDataDocument implements UserDataDocumentInterface {
   schemaVersion = SCHEMA_VERSION;
   type: 'user' = 'user';
   name: string = 'Unknown user';
+  email: string = 'a@example.com';
   authenticationData: Array<UserAuthDataDocument> = [];
 
   constructor(data: any) {
@@ -63,6 +65,7 @@ export class UserDataDocument implements UserDataDocumentInterface {
       this.schemaVersion = data.schemaVersion;
       this.type = data.type;
       this.name = data.name;
+      this.email = data.email;
       if (data?.authenticationData
         && Array.isArray(data?.authenticationData)
         && data.authenticationData.every((authData) => {
@@ -165,6 +168,7 @@ export class UserDataDocument implements UserDataDocumentInterface {
       schemaVersion: this.schemaVersion,
       type: this.type,
       name: this.name,
+      email: this.email,
       authenticationData: authIds
     });
   }
@@ -175,6 +179,7 @@ export class UserDataDocument implements UserDataDocumentInterface {
       schemaVersion: this.schemaVersion,
       type: this.type,
       name: this.name,
+      email: this.email,
       authenticationData: this.authenticationData.map(authData => {
         return authData.toModelData()
       })
@@ -190,20 +195,39 @@ export class UserDataDocument implements UserDataDocumentInterface {
   }
 
   static async login(data: LoginDocument | any) {
-    if (isLoginDocument(data)) {
-      const userAuth = await usersAuthCollection()
-        .findOne({
-          authType: 'username-password',
-          'usernamePassword.username': data.username
+    const validData = validateLoginBody(data);
+    if (validData) {
+      let userAuth: WithId<UserAuthDataDocumentInterface> | UserAuthDataDocumentInterface | undefined | null = null;
+      let userDataDocument;
+      if (validData.isEmail) {
+        userDataDocument = await UserDataDocument.getOneUserWhere({
+          email: validData.usernameOrEmail
         });
-      console.log('UserDataDocument.login() userAuth: ', userAuth);
+        console.log('UserDataDocument.login() queries via email: userDataDocument: ', userDataDocument);
+        if (userDataDocument) {
+          if (userDataDocument.authenticationData.length > 0) {
+            userAuth = userDataDocument.authenticationData.find(udd => udd.authType === AUTHTYPE_USERNAME_PASSWORD);
+          }
+        }
+        console.log('UserDataDocument.login() email search userDataDocument: ', userDataDocument);
+        console.log('UserDataDocument.login() email search userAuth: ', userAuth);
+      } else {
+        userAuth = await usersAuthCollection()
+          .findOne({
+            authType: 'username-password',
+            'usernamePassword.username': validData.usernameOrEmail
+          });
+        console.log('UserDataDocument.login() username search userAuth: ', userAuth);
+      }
       if (userAuth?.usernamePassword) {
-        const matches = await bcrypt.compare(data.password, userAuth.usernamePassword.hash);
+        const matches = await bcrypt.compare(validData.password, userAuth.usernamePassword.hash);
         console.log('UserDataDocument.login() matches: ', matches);
         if (matches) {
-          const userDataDocument = await UserDataDocument.getOneUserWhere({
-            authenticationData: userAuth._id
-          });
+          if (! userDataDocument) {
+            userDataDocument = await UserDataDocument.getOneUserWhere({
+              authenticationData: userAuth._id
+            });
+          }
           console.log('UserDataDocument.login() userDataDocument: ', userDataDocument);
           if (userDataDocument) {
             return userDataDocument;
@@ -234,6 +258,13 @@ export class UserDataDocument implements UserDataDocumentInterface {
       }
       throw createError({statusCode: 400, statusMessage: 'Invalid registration document', data: parseResponse.error});
     }
+    const userDataDocument = await usersCollection()
+      .findOne({
+        email: data.email
+      });
+    if (userDataDocument) {
+      throw createError({statusCode: 400, statusMessage: 'Email already exists.'});
+    }
     const userAuth = await usersAuthCollection()
       .findOne({
         authType: 'username-password',
@@ -256,6 +287,7 @@ export class UserDataDocument implements UserDataDocumentInterface {
       });
       const userDataDocument = UserDataDocument.create({
         name: data.name,
+        email: data.email,
         authenticationData: [
           userAuthData
         ],

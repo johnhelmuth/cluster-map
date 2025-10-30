@@ -21,6 +21,14 @@
       "description": "The name of the user, used to display the user's identity in the UI.",
       "type": "string"
     },
+    "email": {
+      "description": "The email for the user, used for login and password recovery.",
+      "type": "string",
+      "format": "email",
+      "pattern": "^(?!\\.)(?!.*\\.\\.)([a-z0-9_'+\\-\\.]*)[a-z0-9_+-]@([a-z0-9][a-z0-9\\-]*\\.)+[a-z]{2,}$",
+      "minLength": 6,
+      "maxLength": 127
+    },
     "authenticationData": {
       "description": "All the different ways the user can authenticate themselves to the system.",
       "type": "array",
@@ -29,5 +37,8 @@
         "$ref": "https://in-dire-straits.space/data/schemas/user-auth.schema.json"
       }
     }
-  }
+  },
+  "required": [
+    "type", "schemaVersion", "id", "name", "email"
+  ]
 }
