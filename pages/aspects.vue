@@ -13,7 +13,6 @@ const aspects = computed(() => {
       return {characterId: id, characterName: character.name, aspect}
     });
   }).flat();
-  console.log("aspects list", aspectsList);
   return aspectsList;
 });
 
@@ -23,7 +22,7 @@ const filteredAspects = computed(() => {
       return (aspectRow.aspect?.aspectType)
     })
   }
-  return aspects;
+  return [...aspects.value];
 });
 
 useSeoMeta({
@@ -40,7 +39,6 @@ useSeoMeta({
         <input id="aspect-filter" type="checkbox" v-model="showOnlyTypedCharacterAspects" />
       </label>
     </form>
-    <pre>{{ filteredAspects }}</pre>
     <table>
       <caption><h2>Character Aspects</h2></caption>
       <tbody v-if="filteredAspects?.length">
