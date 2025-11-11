@@ -25,6 +25,7 @@ export interface ClusterModelInterface {
   boundingBox: BoundingBoxType;
   aspectRatio: number;
   orientation: ClusterOrientationType;
+  slug: string;
 
   getSystemByName(systemName: string) : SystemModelInterface | null;
 
@@ -75,6 +76,7 @@ export interface ClustersModelInterface {
   addCluster(cluster: ClusterModelInterface) : void;
   getClusterById(id: ClusterIdType) : ClusterModelInterface | undefined;
   getClusterByName(name: string) : ClusterModelInterface | undefined;
+  getClusterBySlugOrId(slugOrId: string) : ClusterModelInterface | undefined
   selectClusterById(id: ClusterIdType): void;
   selectClusterByName(name: string) : void;
   toJSON(key: string) : object

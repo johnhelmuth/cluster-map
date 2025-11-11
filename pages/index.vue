@@ -23,7 +23,7 @@
 
     The rules and systems we are using to play In Dire Straits.
 
-    <h2><NuxtLink to="/map">Cluster Map</NuxtLink></h2>
+    <h2><NuxtLink to="/maps">Cluster Maps</NuxtLink></h2>
 
     <p>
       A standard tool used for discovering information about star systems in the local cluster, and to plan

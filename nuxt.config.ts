@@ -12,6 +12,15 @@ export default defineNuxtConfig({
         },
     },
 
+    routeRules: {
+      "/map": {
+        redirect: {
+          to: "/maps",
+          statusCode: 308
+        },
+      },
+    },
+
     components: [
         {
             path: '~/components/',

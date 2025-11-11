@@ -1,3 +1,4 @@
+import slugify from "slugify";
 import type {SystemIdType, SystemModelInterface} from '@/types/SystemTypes';
 import type {DrawDirectionType, StraitModelDataType, StraitModelInterface} from '@/types/StraitTypes';
 import type {ClusterModelInterface, ClusterIdType, ClusterModelDataType} from "@/types/ClusterTypes";
@@ -14,6 +15,7 @@ export class ClusterModel implements ClusterModelInterface {
     name: string = '';
     systemsMap: Map<SystemIdType, SystemModelInterface>;
     straits: Array<StraitModelInterface>;
+    _slug: string = 'unknown';
 
     constructor(data?: ClusterModelDataType) {
         this.id = '';
@@ -242,6 +244,10 @@ export class ClusterModel implements ClusterModelInterface {
 
     getSystemsMap(): Map<SystemIdType, SystemModelInterface> {
         return this.systemsMap;
+    }
+
+    get slug() {
+      return slugify(this.name, { lower: true });
     }
 
     get systems(): Array<SystemModelInterface> {

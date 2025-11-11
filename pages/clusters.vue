@@ -13,17 +13,6 @@ function addCluster(event: Event) {
   }
 }
 
-function selectCluster(event: Event) {
-  const clusterElement = event.target as HTMLElement;
-  if (clusterElement?.id) {
-    const selectedClusterId = clusterElement.id;
-    const selectedCluster = clustersStore.clusters.getClusterById(selectedClusterId);
-    if (selectedCluster !== clustersStore.clusters.cluster) {
-      clustersStore.clusters.cluster = selectedCluster;
-    }
-  }
-}
-
 </script>
 
 <template>
@@ -32,21 +21,24 @@ function selectCluster(event: Event) {
       <div class="clusters-view">
         <div class="note">Click on a cluster in the list to select.</div>
         <div class="note">TODO: Implement something better looking here.</div>
-        <div class="add-action"><button class="action" @click="addCluster">Add new Cluster</button></div>
+        <div class="add-action">
+          <button class="action" @click="addCluster">Add new Cluster</button>
+        </div>
         <ul class="clusters-list">
           <li class="clusters-list-item"
               :class="aCluster === clustersStore.clusters.cluster ? 'selected-cluster' : ''"
               v-for="aCluster in clustersStore.clusters.clusters"
               :key="aCluster.id"
               :id="aCluster.id"
-              @click="selectCluster"
           >
-            {{ aCluster.id }} - {{ aCluster.name }}
+            <NuxtLink :to="{name: 'map-clusterSlug', params: { clusterSlug: aCluster.slug }}">
+              {{ aCluster.id }} - {{ aCluster.name }}
+            </NuxtLink>
           </li>
         </ul>
       </div>
       <div class="clusters-settings-panel">
-        <ClustersSettingsPanel />
+        <ClustersSettingsPanel/>
       </div>
     </div>
   </InfoPage>
@@ -63,9 +55,11 @@ function selectCluster(event: Event) {
 li.selected-cluster {
   font-weight: bold;
 }
+
 .note {
   margin: 2em;
 }
+
 .add-action {
   margin: auto 2em 2em;
 }

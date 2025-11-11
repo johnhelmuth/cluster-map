@@ -71,6 +71,17 @@ export class ClustersModel implements ClustersModelInterface {
     return [...this.clusters].find(cluster => cluster.name === name);
   }
 
+  getClusterBySlugOrId(slugOrId: string) : ClusterModelInterface | undefined {
+    let cluster = undefined;
+    if (slugOrId) {
+      cluster = this.getClusterById(slugOrId);
+      if (! cluster) {
+        cluster = [...this.clusters].find(cluster => cluster.slug === slugOrId);
+      }
+    }
+    return cluster;
+  }
+
   selectClusterById(id: ClusterIdType): void {
     const selectedCluster = this.getClusterById(id);
     if (selectedCluster) {

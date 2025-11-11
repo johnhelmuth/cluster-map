@@ -14,7 +14,6 @@ defineProps<{
 
 const emit = defineEmits<{
   "system-selected": [system: SystemModelInterface];
-  "cluster-selected": [cluster: ClusterModelInterface];
 }>();
 
 const iconExpandedName = 'material-symbols:expand-all-rounded'
@@ -37,10 +36,9 @@ function selectSystem(system: SystemModelInterface | undefined) {
 
 function clusterSelected(event: Event) {
   const targetSelect = event.target as HTMLSelectElement;
-  const clusterId = targetSelect.value;
-  const newCluster = clustersStore.clusters.getClusterById(clusterId);
-  if (newCluster) {
-    emit('cluster-selected', newCluster);
+  const clusterSlug = targetSelect.value;
+  if (clusterSlug) {
+    navigateTo({ name: 'map-clusterSlug', params: { clusterSlug } });
   }
 }
 
@@ -51,7 +49,7 @@ function clusterSelected(event: Event) {
     <h1>
       <select class="clusterSelect" @change="clusterSelected">
         <option v-for="clusterItem in clustersStore.clusters.clusters"
-                :value="clusterItem.id"
+                :value="clusterItem.slug"
                 :key="clusterItem.id"
                 :id="clusterItem.id"
                 :selected="clusterItem === cluster"
