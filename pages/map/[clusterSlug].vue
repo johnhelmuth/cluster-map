@@ -5,9 +5,11 @@ import {useUserScopeStore} from '~/stores/use-user-scope-store'
 import type {RoutePlannerServiceInterface} from "~/types/RoutePlannerServiceTypes";
 import type {SelectedSystemsListInterface, SelectedSystemsServiceInterface} from "~/types/SystemsSelectedListTypes";
 import type {SystemModelInterface} from "~/types/SystemTypes";
+import {ClusterModel} from "~/models/ClusterModel";
 
 const clustersStore = useClustersStore();
 const route = useRoute();
+const router = useRouter();
 
 const {routePlannerService, selectedSystemsService} = useUserScopeStore() as {
   routePlannerService: RoutePlannerServiceInterface,
@@ -19,17 +21,46 @@ const cluster = computed(() => {
   if (slugOrId && typeof slugOrId === "string") {
     const clust = clustersStore.clusters.getClusterBySlugOrId(slugOrId);
     if (clust) {
+      if (clust.id === slugOrId) {
+        return navigateTo(
+            { name: 'map-clusterSlug', params: { clusterSlug: clust.slug } },
+            {redirectCode: 308}
+        );
+      }
       return clust;
     }
+    throw createError({ statusCode: 404, statusMessage: 'No cluster with that name or ID.'})
   }
-});
+}) as ComputedRef<ClusterModel | undefined>;
+
+useHead({
+  link: [
+    {
+      rel: "canonical",
+      href: computed(() => {
+        if (cluster.value instanceof ClusterModel) {
+          const canonRoute = router.resolve({name: 'map-clusterSlug', params: { clusterSlug: cluster.value.slug }});
+          return canonRoute.fullPath;
+        }
+      })
+    }
+  ]
+})
 
 useSeoMeta({
-  title: cluster?.value?.name,
+  title: computed(() => {
+    if (cluster.value instanceof ClusterModel) {
+      return cluster?.value?.name
+    }
+  })
 });
 
 useServerSeoMeta({
-  title: cluster?.value?.name,
+  title: computed(() => {
+    if (cluster.value instanceof ClusterModel) {
+      return cluster?.value?.name
+    }
+  })
 });
 
 function systemSelected(system: SystemModelInterface) {
@@ -78,19 +109,15 @@ function planTrip(selectedSystemsList: SelectedSystemsListInterface) {
       />
       <div v-else class="no-data-display">
         No cluster with that name or ID.
-        <NuxtLink to="/map">Return to maps.</NuxtLink>
+        <NuxtLink to="/maps">Return to maps.</NuxtLink>
       </div>
     </template>
     <template v-slot:controls>
       <ClusterMapControlsPanel
-          v-if="cluster"
           :cluster="cluster"
           @system-selected="systemSelected"
           :plan="routePlannerService.getRoutePlanForCluster(cluster)"
       />
-      <div v-else class="no-data-control">
-        &nbsp;
-      </div>
     </template>
   </Bezels>
 </template>

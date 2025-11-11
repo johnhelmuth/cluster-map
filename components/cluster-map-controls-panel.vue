@@ -48,6 +48,9 @@ function clusterSelected(event: Event) {
   <div class="cluster-map-controls">
     <h1>
       <select class="clusterSelect" @change="clusterSelected">
+        <option v-if="! cluster" disabled selected>
+          No Cluster Selected
+        </option>
         <option v-for="clusterItem in clustersStore.clusters.clusters"
                 :value="clusterItem.slug"
                 :key="clusterItem.id"
@@ -58,7 +61,7 @@ function clusterSelected(event: Event) {
         </option>
       </select>
     </h1>
-    <div class="controls">
+    <div v-if="!! cluster?.systems" class="controls">
       <Icon id="accordion-button" class="button-icon accordion-button" @click="expandCards"
             :name="expandCollapseIcon"/>
     </div>

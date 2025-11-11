@@ -1,6 +1,7 @@
 <script setup lang="ts">
 
 import type {SystemModelInterface} from "@/types/SystemTypes";
+import type {RoutePlanRefType} from "~/types/RoutePlannerTypes";
 
 const props = defineProps<{
   system: SystemModelInterface | undefined,
@@ -12,7 +13,7 @@ defineEmits< {
   selected: [system: SystemModelInterface | undefined]
 } >();
 
-const isSelected = computed(() => (props.system?.getSelected() || false));
+const isSelected = computed(() => (props.system && props.system?.getSelected() || false));
 
 // TODO: Move these into a settings structure modifiable by the user.
 const attributesFormat="detailed";

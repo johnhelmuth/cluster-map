@@ -12,7 +12,6 @@ import type {DrawDirectionType, StraitModelInterface} from "@/types/StraitTypes"
 import type {SystemModelDataType} from "@/types/SystemTypes";
 import type {StraitModelDataType} from "@/types/StraitTypes";
 
-
 export type ClusterIdType = IdType;
 
 export interface ClusterModelInterface {

@@ -46,11 +46,20 @@ useServerSeoMeta({
         :extraNavLinks="extraNavLinks"
     />
     <ContentRenderer v-if="data" :value="data"/>
-    <div v-else>Page not found</div>
+    <div class="not-found" v-else>
+      <h1>Page not found</h1>
+      <p>Go to <NuxtLink :to="{ path: '/tatterpedia' }">Tatterpedia home</NuxtLink></p>
+    </div>
   </InfoPage>
 </template>
 
 <style scoped>
 
+div.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
 </style>
