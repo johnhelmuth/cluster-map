@@ -49,15 +49,6 @@ function mapView() {
   showMapView.value = true;
 }
 
-function mapViewChanged(newMapViewStyles: MapStylesStoreType) {
-  for (const propName of ['debug', 'mapStyle'] as Array<MapStylesStoreKeyType>) {
-    if (newMapViewStyles.hasOwnProperty(propName)) {
-      // @ts-ignore - I don't know why I get a complaint about mapStylesStore[propname].
-      mapStylesStore[propName] = newMapViewStyles[propName];
-    }
-  }
-}
-
 function mapViewClosed() {
   showMapView.value = false;
   closeModal();
@@ -97,9 +88,7 @@ function mapViewClosed() {
     <MapClusterStyleModal
         v-model="showMapView"
         @closed="mapViewClosed"
-        @changed="mapViewChanged"
-        :debug="mapStylesStore.debug"
-        :mapStyle="mapStylesStore.mapStyle"
+        :mapStyleParams="mapStylesStore"
     />
   </div>
 </template>

@@ -1,26 +1,15 @@
 <script setup lang="ts">
 
-import {MAP_VIEW_STYLES_DEFAULT, mapViewStyleLabels, type MapViewStylesType} from "@/types/BasicTypes";
+import {mapViewStyleLabels, type MapViewStylesType} from "@/types/BasicTypes";
 import { VueFinalModal } from 'vue-final-modal'
 
 const props = defineProps<{
-  debug: boolean,
-  mapStyle: MapViewStylesType,
+  mapStyleParams: { debug: boolean, mapStyle: MapViewStylesType },
 }>();
 
 const emit = defineEmits<{
   (e: 'closed'): void,
-  (e: 'changed'): void,
 }>();
-
-const localMapStyles = reactive({
-  debug: (props.debug || false),
-  mapStyle: (props.mapStyle + ''),
-});
-
-watch(localMapStyles, (newMapStyles) => {
-  emit('changed', newMapStyles);
-})
 
 </script>
 
@@ -36,10 +25,10 @@ watch(localMapStyles, (newMapStyles) => {
     <div class="content">
       <h3>System Layout</h3>
       <div v-for="styleData in mapViewStyleLabels">
-        <label><input type="radio" :value="styleData.key" name="mapStyle" v-model="localMapStyles.mapStyle" style="margin-right: 1rem;"/>{{styleData.label}}</label>
+        <label><input type="radio" :value="styleData.key" name="mapStyle" v-model="mapStyleParams.mapStyle"/>{{styleData.label}}</label>
       </div>
       <h3>Others</h3>
-      <label><input type="checkbox" name="debug" v-model="localMapStyles.debug" style="margin-right: 1rem;"/>Enable debug</label>
+      <label><input type="checkbox" name="debug" v-model="mapStyleParams.debug"/>Enable debug</label>
     </div>
   </VueFinalModal>
 </template>
@@ -84,5 +73,8 @@ watch(localMapStyles, (newMapStyles) => {
 .dynamic-modal-content .content {
   display: flex;
   flex-direction: column;
+}
+input[type="checkbox"], input[type="radio"] {
+  margin-right: 1rem;
 }
 </style>
