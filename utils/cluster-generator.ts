@@ -50,7 +50,7 @@ function slipstreamGuarantee(systems: Array<{id: string, name: string, attribute
       minAttributes: Number.MAX_SAFE_INTEGER,
       maxAttributes: -Number.MAX_SAFE_INTEGER
     });
-  if (implementGuarantee && lowestIndex > 0 && lowestIndex < systems.length && highestIndex > 0 && highestIndex < systems.length) {
+  if (implementGuarantee && lowestIndex >= 0 && lowestIndex < systems.length && highestIndex >= 0 && highestIndex < systems.length) {
     systems[lowestIndex].attributes.technology = 2;
     systems[highestIndex].attributes.technology = 2;
   }
