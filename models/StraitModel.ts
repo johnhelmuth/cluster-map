@@ -1,19 +1,43 @@
-import type {DrawDirectionType, StraitModelInterface} from "@/types/StraitTypes";
-import type {SystemModelInterface} from "@/types/SystemTypes";
 import type {PointType} from "@/types/GeometryTypes";
 import {SCHEMA_VERSION} from "@/constants";
-import type {MapViewStylesType} from "@/types/BasicTypes";
-import {mapViewStyleLabels} from "@/types/BasicTypes";
+import type {MapViewStylesType} from "@/types/MapViewTypes";
 import { circularGraphSystemsRadius } from '@/utils/cluster-generator';
+import type {SystemIdType, SystemModel} from "~/models/SystemModel";
+import {straitParse} from "~/utils/import-validator";
 
-export class StraitModel implements StraitModelInterface {
+export type DrawDirectionType = 'clockwise' | 'center' | 'counterclockwise';
 
-    systemA: SystemModelInterface;
-    systemB: SystemModelInterface;
+/**
+ * Strait model types
+ *
+ * A Strait is a path that an FTL drive can follow between star systems.
+ */
+
+/** StraitModelDataType
+ *
+ * Defines the data describing a strait on the wire, in an import/export file, or in a database.
+ *
+ * A Strait is a path that an FTL drive can follow between star systems.
+ *
+ * systems is a 2 element array of system Ids
+ * direction is a direction the strait should be curved if drawn from the positions in the system data, clockwise,
+ *   center (i.e. no curve) or counterclockwise.
+ */
+export type StraitModelData = {
+    type: 'strait',
+    schemaVersion: string,
+    systems: Array<SystemIdType>,
+    direction?: DrawDirectionType,
+};
+
+export class StraitModel {
+
+    systemA: SystemModel;
+    systemB: SystemModel;
 
     _drawDirections: { [K in MapViewStylesType]: DrawDirectionType };
 
-    constructor(systemA: SystemModelInterface, systemB: SystemModelInterface) {
+    constructor(systemA: SystemModel, systemB: SystemModel) {
         this.systemA = systemA;
         this.systemB = systemB;
         this._drawDirections = {
@@ -23,7 +47,7 @@ export class StraitModel implements StraitModelInterface {
         }
     }
 
-    getOtherSystem(system: SystemModelInterface): SystemModelInterface | undefined {
+    getOtherSystem(system: SystemModel): SystemModel | undefined {
         if (this.systemA === system) {
             return this.systemB;
         }
@@ -36,7 +60,7 @@ export class StraitModel implements StraitModelInterface {
         return `${this.systemA.id || 'unknown'}:${this.systemB.id || 'unknown'}`;
     }
 
-    includes(system: SystemModelInterface): boolean {
+    includes(system: SystemModel): boolean {
         return (this.systemA === system || this.systemB === system);
     }
 

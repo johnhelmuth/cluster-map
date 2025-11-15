@@ -1,22 +1,24 @@
 <script setup lang="ts">
 
-import {useClustersStore} from "~/stores/use-clusters-store";
+import {useUniversesStore} from "~/stores/use-universes-store";
 import {createCluster} from "~/utils/cluster-generator";
 
-const clustersStore = useClustersStore();
+const universeStore = useUniversesStore();
 
 function addCluster(event: Event) {
-  const newCluster = createCluster('', '', getRandomIntInclusive(4, 9));
-  const notUnique = !! clustersStore.clusters.getClusterById(newCluster.id);
-  if (! notUnique) {
-    clustersStore.clusters.addCluster(newCluster);
+  if (universeStore.universe) {
+    const newCluster = createCluster('', '', getRandomIntInclusive(4, 9));
+    const notUnique = !!universeStore.universe.getClusterById(newCluster.id);
+    if (!notUnique) {
+      universeStore.universe.addCluster(newCluster);
+    }
   }
 }
 
 </script>
 
 <template>
-  <InfoPage page_title="Clusters">
+  <InfoPage page_title="Universe">
     <div class="clusters-page">
       <div class="clusters-view">
         <div class="note">Click on a cluster in the list to select.</div>
@@ -24,10 +26,10 @@ function addCluster(event: Event) {
         <div class="add-action">
           <button class="action" @click="addCluster">Add new Cluster</button>
         </div>
-        <ul class="clusters-list">
+        <ul class="clusters-list" v-if="universeStore.universe">
           <li class="clusters-list-item"
-              :class="aCluster === clustersStore.clusters.cluster ? 'selected-cluster' : ''"
-              v-for="aCluster in clustersStore.clusters.clusters"
+              :class="aCluster === universeStore.universe.cluster ? 'selected-cluster' : ''"
+              v-for="aCluster in universeStore.universe.clusters"
               :key="aCluster.id"
               :id="aCluster.id"
           >
@@ -36,9 +38,6 @@ function addCluster(event: Event) {
             </NuxtLink>
           </li>
         </ul>
-      </div>
-      <div class="clusters-settings-panel">
-        <ClustersSettingsPanel/>
       </div>
     </div>
   </InfoPage>
