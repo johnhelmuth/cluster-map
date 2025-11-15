@@ -1,6 +1,6 @@
-import type {SystemAttributesInterface, SystemAttributesKeyType, SystemIdType} from "@/types/SystemTypes";
+import type {SystemAttributesInterface, SystemAttributesKeyType} from "@/models/SystemModel";
 import type {attributeFormatType, attributeValueType, attributeRatingMetaType} from "@/types/BasicTypes";
-import {SystemAttributesDefaults} from "@/types/SystemTypes";
+import {SystemAttributesDefaults} from "@/models/SystemModel";
 
 export const attributesMeta: { [K in SystemAttributesKeyType]: { name: string, abbrev: string } } = {
   "technology": {
@@ -24,7 +24,7 @@ export type AttributeRatingDescriptorType = {
   color?: string;
 }
 
-export const attributeRatingDescriptors = {
+export const attributeRatingDescriptors: AttributeRatingDescriptorsType = {
   "technology": new Map<number, AttributeRatingDescriptorType>([
     [-4, { "name": "Stone age" }],
     [-3, { "name": "Metallurgy" }],

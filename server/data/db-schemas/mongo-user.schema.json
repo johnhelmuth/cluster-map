@@ -1,0 +1,39 @@
+{
+  "bsonType": "object",
+  "required": [
+    "schemaVersion",
+    "type",
+    "name",
+    "email",
+    "authenticationData"
+  ],
+  "properties": {
+    "_id": {
+      "bsonType": "objectId"
+    },
+    "schemaVersion": {
+      "bsonType": "string"
+    },
+    "type": {
+      "bsonType": "string",
+      "enum": [
+        "user"
+      ]
+    },
+    "name": {
+      "bsonType": "string"
+    },
+    "email": {
+      "bsonType": "string",
+      "pattern": "^(?!\\.)(?!.*\\.\\.)([a-z0-9_'+\\-\\.]*)[a-z0-9_+-]@([a-z0-9][a-z0-9\\-]*\\.)+[a-z]{2,}$",
+      "minLength": 6,
+      "maxLength": 127
+    },
+    "authenticationData": {
+      "bsonType": "array",
+      "items": {
+        "bsonType": "objectId"
+      }
+    }
+  }
+}

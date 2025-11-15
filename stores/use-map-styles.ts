@@ -1,4 +1,4 @@
-import {isValidMapStyle, MAP_VIEW_STYLES_DEFAULT, type MapViewStylesType} from "~/types/BasicTypes";
+import {isValidMapStyle, MAP_VIEW_STYLES_DEFAULT, type MapViewStylesType} from "~/types/MapViewTypes";
 
 export type MapStylesStoreType = { debug: boolean, mapStyle: MapViewStylesType };
 export type MapStylesStoreKeyType = keyof MapStylesStoreType;
