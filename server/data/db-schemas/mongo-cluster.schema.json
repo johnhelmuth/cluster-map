@@ -23,7 +23,7 @@
     },
     "systems": {
       "bsonType": "array",
-      "min": 1,
+      "minItems": 1,
       "items": {
         "bsonType": "objectId"
       }
@@ -49,8 +49,8 @@
           },
           "systems": {
             "bsonType": "array",
-            "min": 2,
-            "max": 2,
+            "minItems": 2,
+            "maxItems": 2,
             "items": {
               "bsonType": "objectId"
             }
