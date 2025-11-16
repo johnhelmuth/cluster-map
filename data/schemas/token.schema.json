@@ -1,0 +1,34 @@
+A{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://in-dire-straits.space/data/schemas/token.schema.json",
+  "title": "Token",
+  "description": "A cryptographic token used to prove control of an the email address. Used for either email verification or password reset.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "A unique identifier for this token.",
+      "type": "string"
+    },
+    "tokenType": {
+      "description": "The type of token, 'verification' or 'reset', used for email verification or password reset, respectively.",
+      "title": "Token type",
+      "enum": ["verification", "reset"]
+    },
+    "token": {
+      "description": "The cryptographic token itself",
+      "title": "Cryptographic token",
+      "type": "string"
+    },
+    "expiry": {
+      "description": "A date-time value representing the time the token should expire.",
+      "title": "Expiration time",
+      "type": "string",
+      "format": "date-time"
+    },
+    "userId":  {
+      "description": "The unique identifier for the user to which this token applies.",
+      "type": "string"
+    }
+  },
+  "required": ["tokenType", "token", "expiry", "userId"]
+}

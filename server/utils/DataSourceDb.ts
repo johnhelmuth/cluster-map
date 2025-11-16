@@ -5,16 +5,18 @@ import * as mongoDB from 'mongodb';
 import {UniverseDataDocument} from "~/server/document-models/UniverseDataDocument";
 import {UserDataDocumentInterfaceInDB} from "~/server/document-models/UserDataDocument";
 import {UserAuthDataDocumentInterface} from "~/server/document-models/UserAuthDataDocument";
+import {TokenDataDocument} from "~/server/document-models/TokenDataDocument";
 import {SCHEMA_VERSION} from "~/constants";
 
 export const collections: {
   universes?: mongoDB.Collection<UniverseDataDocument>,
+  tokens?: mongoDB.Collection<TokenDataDocument>,
   users?: mongoDB.Collection<UserDataDocumentInterfaceInDB>,
-  usersAuth?: mongoDB.Collection<UserAuthDataDocumentInterface>,
+  usersAuth?: mongoDB.Collection<UserAuthDataDocumentInterface>
 } = {};
 
 function isCollectionKey(collName: string): collName is keyof typeof collections {
-  return ['universes', 'users', 'usersAuth'].includes(collName);
+  return ['universes', 'tokens', 'users', 'usersAuth'].includes(collName);
 }
 
 export function collection(collName: string) {
@@ -29,6 +31,10 @@ export function collection(collName: string) {
 
 export function universesCollection() {
   return collection("universes") as mongoDB.Collection<UniverseDataDocument>;
+}
+
+export function tokensCollection() {
+  return collection("tokens") as mongoDB.Collection<TokenDataDocument>;
 }
 
 export function usersCollection() {

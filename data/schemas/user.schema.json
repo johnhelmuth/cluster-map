@@ -21,13 +21,25 @@
       "description": "The name of the user, used to display the user's identity in the UI.",
       "type": "string"
     },
-    "email": {
-      "description": "The email for the user, used for login and password recovery.",
-      "type": "string",
-      "format": "email",
-      "pattern": "^(?!\\.)(?!.*\\.\\.)([a-z0-9_'+\\-\\.]*)[a-z0-9_+-]@([a-z0-9][a-z0-9\\-]*\\.)+[a-z]{2,}$",
-      "minLength": 6,
-      "maxLength": 127
+    "emailInfo": {
+      "description": "Information about the user's email address",
+      "type": "object",
+      "properties": {
+        "email": {
+          "description": "The email for the user, used for login and password recovery.",
+          "type": "string",
+          "format": "email",
+          "pattern": "^(?!\\.)(?!.*\\.\\.)([a-z0-9_'+\\-\\.]*)[a-z0-9_+-]@([a-z0-9][a-z0-9\\-]*\\.)+[a-z]{2,}$",
+          "minLength": 6,
+          "maxLength": 127
+        },
+        "verifiedAt": {
+          "description": "The date-time the user verified their email address.",
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["email"]
     },
     "authenticationData": {
       "description": "All the different ways the user can authenticate themselves to the system.",
@@ -39,6 +51,6 @@
     }
   },
   "required": [
-    "type", "schemaVersion", "id", "name", "email"
+    "type", "schemaVersion", "id", "name", "emailInfo"
   ]
 }

@@ -53,13 +53,25 @@ export default defineNuxtConfig({
 
     css: ['~/assets/main.css', 'vue-final-modal/style.css'],
 
+    nodemailer: {
+      from: '"Tatternet Support" <do-not-reply@in-dire-straits.space>',
+      host: '',
+      port: 0,
+      secure: false,
+      auth: {
+        user: '',
+        pass: '',
+      }
+    },
+
     modules: [
+      '@nuxt/content',
       '@nuxt/icon',
       '@vue-final-modal/nuxt',
       '@vueuse/nuxt',
-      '@nuxt/content',
+      'nuxt-auth-utils',
       'nuxt-mongodb',
-      'nuxt-auth-utils'
+      'nuxt-nodemailer',
     ],
 
     hooks: {

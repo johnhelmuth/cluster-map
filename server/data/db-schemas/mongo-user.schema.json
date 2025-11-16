@@ -4,7 +4,7 @@
     "schemaVersion",
     "type",
     "name",
-    "email",
+    "emailInfo",
     "authenticationData"
   ],
   "properties": {
@@ -23,11 +23,23 @@
     "name": {
       "bsonType": "string"
     },
-    "email": {
-      "bsonType": "string",
-      "pattern": "^(?!\\.)(?!.*\\.\\.)([a-z0-9_'+\\-\\.]*)[a-z0-9_+-]@([a-z0-9][a-z0-9\\-]*\\.)+[a-z]{2,}$",
-      "minLength": 6,
-      "maxLength": 127
+    "emailInfo": {
+      "description": "Information about the user's email address",
+      "type": "object",
+      "properties": {
+        "email": {
+          "description": "The email for the user, used for login and password recovery.",
+          "bsonType": "string",
+          "pattern": "^(?!\\.)(?!.*\\.\\.)([a-z0-9_'+\\-\\.]*)[a-z0-9_+-]@([a-z0-9][a-z0-9\\-]*\\.)+[a-z]{2,}$",
+          "minLength": 6,
+          "maxLength": 127
+        },
+        "verifiedAt": {
+          "description": "The datetime the user verified their email address, as a unix epoch integer",
+          "bsonType": "date"
+        }
+      },
+      "required": ["email"]
     },
     "authenticationData": {
       "bsonType": "array",
