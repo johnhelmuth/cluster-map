@@ -29,6 +29,7 @@
     "nuxt-auth-utils": "^0.5.20",
     "nuxt": "^4.2.2",
     "nuxt-mongodb": "^1.0.13",
+    "nuxt-nodemailer": "^1.1.4",
     "vue": "^3.5.25",
     "vue-final-modal": "^4.5.5",
     "vue-router": "*"

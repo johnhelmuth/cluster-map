@@ -1,0 +1,30 @@
+{
+  "title": "Token",
+  "description": "A cryptographic token used to prove control of an the email address. Used for either email verification or password reset.",
+  "bsonType": "object",
+  "properties": {
+    "_id": {
+      "bsonType": "objectId"
+    },
+    "tokenType": {
+      "description": "The type of token, 'verification' or 'reset', used for email verification or password reset, respectively.",
+      "title": "Token type",
+      "enum": ["verification", "reset"]
+    },
+    "token": {
+      "description": "The cryptographic token itself",
+      "title": "Cryptographic token",
+      "bsonType": "string"
+    },
+    "expiry": {
+      "description": "The date time the token should expire.",
+      "title": "Expiration time",
+      "bsonType": "date"
+    },
+    "userId":  {
+      "description": "The unique identifier for the user to which this token applies.",
+      "bsonType": "objectId"
+    }
+  },
+  "required": ["tokenType", "token", "expiry", "userId"]
+}

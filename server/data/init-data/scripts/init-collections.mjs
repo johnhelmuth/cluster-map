@@ -3,6 +3,7 @@ import mongoUniverseSchema from '../../db-schemas/mongo-universe.schema.json' wi
 import mongoClusterSchema from '../../db-schemas/mongo-cluster.schema.json' with { type: 'json'};
 import mongoSystemSchema from '../../db-schemas/mongo-system.schema.json' with { type: 'json'};
 
+import mongoTokenSchema from '../../db-schemas/mongo-token.schema.json' with { type: 'json'};
 import mongoUserSchema from '../../db-schemas/mongo-user.schema.json' with { type: 'json'};
 import mongoUserAuthSchema from '../../db-schemas/mongo-user-auth.schema.json' with { type: 'json'};
 
@@ -10,6 +11,7 @@ export const mongoCollections = {
   universes: mongoUniverseSchema,
   clusters: mongoClusterSchema,
   systems: mongoSystemSchema,
+  tokens: mongoTokenSchema,
   users: mongoUserSchema,
   usersAuth: mongoUserAuthSchema,
 }
@@ -24,6 +26,15 @@ async function initCollection(db, name, schema) {
   })
 }
 
+export async function initCollections(db) {
+  for (const collName in mongoCollections) {
+    await initCollection(db, collName, mongoCollections[collName]);
+  }
+}
+
+/*
+ * Utility functions to reset specific collections without doing all the other collections.
+ */
 export async function initUniversesCollection(db) {
   return initCollection(db, 'universes', mongoUniverseSchema);
 }
@@ -36,16 +47,14 @@ export async function initSystemsCollection(db) {
   return initCollection(db, 'systems', mongoSystemSchema);
 }
 
+export async function initTokensCollection(db) {
+  return initCollection(db, 'tokens', mongoTokenSchema);
+}
+
 export async function initUsersCollection(db) {
   return initCollection(db, 'users', mongoUserSchema);
 }
 
 export async function initAuthCollection(db) {
   return initCollection(db, 'usersAuth', mongoUserAuthSchema);
-}
-
-export async function initCollections(db) {
-  for (const collName in mongoCollections) {
-    await initCollection(db, collName, mongoCollections[collName]);
-  }
 }

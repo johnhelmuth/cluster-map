@@ -17,11 +17,54 @@ import {
 } from "~/types/UserTypes";
 import {z} from "zod";
 
+export const DateTimeZSchema = z.string().datetime({offset: true});
+
+export type DateTimeString = z.infer<typeof DateTimeZSchema>;
+
+export function isDateTimeString(data: any): data is DateTimeString {
+  const parseResponse = DateTimeZSchema.safeParse(data);
+  return parseResponse.success;
+}
+
+export interface EmailInfoInterface {
+  email: string;
+  verifiedAt?: string;
+}
+
+const EmailInfoZSchema = z.object({
+  email: z.string().email(),
+  verifiedAt: DateTimeZSchema.optional(),
+});
+
+export function isEmailInfo(data: any): data is EmailInfoInterface {
+  const parseResponse = EmailInfoZSchema.safeParse(data);
+  return parseResponse.success;
+}
+
+export class EmailInfoDataDocument implements EmailInfoInterface {
+  email = 'a@example.com';
+  verifiedAt?: DateTimeString;
+
+  constructor(data?: EmailInfoInterface) {
+    if (isEmailInfo(data)) {
+      this.email = data.email;
+      if (data.hasOwnProperty('verifiedAt')) {
+        this.verifiedAt = data.verifiedAt;
+      }
+    }
+  }
+
+  static isEmailInfoDataDocument(data: any): data is EmailInfoDataDocument {
+    return data instanceof EmailInfoDataDocument;
+  }
+
+}
+
 export interface UserDataDocumentInterfaceBase extends WithId<Document> {
   schemaVersion: string;
   type: 'user';
   name: string;
-  email: string;
+  emailInfo: EmailInfoInterface;
 }
 
 export interface UserDataDocumentInterfaceInDB extends UserDataDocumentInterfaceBase {
@@ -37,7 +80,7 @@ export function isUserDataDocumentInterface(data: any): data is UserDataDocument
     schemaVersion: z.literal(SCHEMA_VERSION),
     type: z.literal('user'),
     name: z.string(),
-    email: z.string().email(),
+    emailInfo: EmailInfoZSchema,
     authenticationData: z.array(UserAuthDataDocumentZSchema)
   }).safeParse(data);
   return parseResponse.success;
@@ -54,7 +97,7 @@ export class UserDataDocument implements UserDataDocumentInterface {
   schemaVersion = SCHEMA_VERSION;
   type: 'user' = 'user';
   name: string = 'Unknown user';
-  email: string = 'a@example.com';
+  emailInfo = new EmailInfoDataDocument({email: 'a@example.com'});
   authenticationData: Array<UserAuthDataDocument> = [];
 
   constructor(data: any) {
@@ -65,7 +108,9 @@ export class UserDataDocument implements UserDataDocumentInterface {
       this.schemaVersion = data.schemaVersion;
       this.type = data.type;
       this.name = data.name;
-      this.email = data.email;
+      if (isEmailInfo(data.emailInfo)) {
+        this.emailInfo = new EmailInfoDataDocument(data.emailInfo);
+      }
       if (data?.authenticationData
         && Array.isArray(data?.authenticationData)
         && data.authenticationData.every((authData) => {
@@ -88,6 +133,10 @@ export class UserDataDocument implements UserDataDocumentInterface {
   static create(data: any): UserDataDocument {
     initDocument(data, 'user');
     return new UserDataDocument(data);
+  }
+
+  isVerified() {
+    return !! this.emailInfo.verifiedAt;
   }
 
   static async getUsersWhere(query: any) {
@@ -168,7 +217,7 @@ export class UserDataDocument implements UserDataDocumentInterface {
       schemaVersion: this.schemaVersion,
       type: this.type,
       name: this.name,
-      email: this.email,
+      emailInfo: this.emailInfo,
       authenticationData: authIds
     });
   }
@@ -179,7 +228,7 @@ export class UserDataDocument implements UserDataDocumentInterface {
       schemaVersion: this.schemaVersion,
       type: this.type,
       name: this.name,
-      email: this.email,
+      emailInfo: this.emailInfo,
       authenticationData: this.authenticationData.map(authData => {
         return authData.toModelData()
       })
@@ -201,7 +250,7 @@ export class UserDataDocument implements UserDataDocumentInterface {
       let userDataDocument;
       if (validData.isEmail) {
         userDataDocument = await UserDataDocument.getOneUserWhere({
-          email: validData.usernameOrEmail
+          'emailInfo.email': validData.usernameOrEmail
         });
         console.log('UserDataDocument.login() queries via email: userDataDocument: ', userDataDocument);
         if (userDataDocument) {
@@ -260,7 +309,7 @@ export class UserDataDocument implements UserDataDocumentInterface {
     }
     const userDataDocument = await usersCollection()
       .findOne({
-        email: data.email
+        'emailInfo.email': data.email
       });
     if (userDataDocument) {
       throw createError({statusCode: 400, statusMessage: 'Email already exists.'});
@@ -287,7 +336,9 @@ export class UserDataDocument implements UserDataDocumentInterface {
       });
       const userDataDocument = UserDataDocument.create({
         name: data.name,
-        email: data.email,
+        emailInfo: {
+          email: data.email
+        },
         authenticationData: [
           userAuthData
         ],
