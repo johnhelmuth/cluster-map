@@ -27,6 +27,10 @@ const {data: news} = await useAsyncData(route.path, async () => {
         </div>
       </li>
     </ul>
+    <div v-else class="no-news">
+      <p>There is no news yet.</p>
+      <p>Maybe this is good news?</p>
+    </div>
   </InfoPage>
 </template>
 
