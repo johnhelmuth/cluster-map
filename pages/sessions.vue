@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { isInViewport } from '@/utils/utils';
 
 const route = useRoute()
 
@@ -11,6 +12,15 @@ const {data: sessions} = await useAsyncData(route.path, async () => {
       .all()
   ;
   return data;
+});
+
+onMounted(() => {
+  if (import.meta.client) {
+    const lastSummaryEl = document.querySelector('.info-content ul li:last-child') as HTMLElement;
+    if (lastSummaryEl && ! isInViewport(lastSummaryEl)) {
+      lastSummaryEl.scrollIntoView({behavior: 'smooth'});
+    }
+  }
 });
 
 function uitDate(uitDateTime: string): string {
@@ -93,6 +103,11 @@ function showEndTime(sessionIndex: number) {
 </template>
 
 <style scoped>
+
+:deep(.info-content) {
+  background-color: var(--color-background-mute)
+
+}
 ul {
   padding-inline-start: 0;
   --vert-line-start-percent: 94.40%;
@@ -116,13 +131,14 @@ li {
   text-align: center;
   margin-bottom: 0.75rem;
   justify-content: center;
-  border: 1px solid var(--color-border);
+  background-color: hsl(from var(--color-background-soft) h s l / 40%);
+  border: none;
   border-radius: 0.33rem;
 }
 
 li div {
   padding: 0.5rem;
-  background-color: var(--color-background-mute);
+  background-color: var(--color-background);
   border-radius: 0.33rem;
 }
 

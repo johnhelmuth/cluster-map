@@ -54,3 +54,25 @@ export function isClustersModelDataType(data : object | ClustersModelDataType) :
     && (data as ClustersModelDataType).clusters !== undefined
     && ((data as ClustersModelDataType).clusters?.length === 0 || (data as ClustersModelDataType).clusters?.length > 0)
 }
+
+/**
+ * Is an element in the viewport, i.e. "above the fold"?
+ *
+ * Lifted from https://www.javascripttutorial.net/dom/css/check-if-an-element-is-visible-in-the-viewport/
+ *
+ * @param el {HTMLElement}
+ *
+ * @returns boolean
+ */
+export function isInViewport(el: HTMLElement) {
+  if (import.meta.client) {
+    const rect = el.getBoundingClientRect();
+    return (
+      rect.top >= 0 &&
+      rect.left >= 0 &&
+      rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+  }
+  return true;
+}

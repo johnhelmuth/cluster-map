@@ -29,6 +29,7 @@ export default defineContentConfig({
         }),
         'in_game_start': z.string(),
         'in_game_end': z.string(),
+        'publish_date': z.string(),
       })
     })
   }
