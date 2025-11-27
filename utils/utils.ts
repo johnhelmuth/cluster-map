@@ -76,3 +76,23 @@ export function isInViewport(el: HTMLElement) {
   }
   return true;
 }
+
+/**
+ * Pads a string `s` with leading zeros so that it has exactly `totDigits` characters.
+ *
+ * @param s
+ * @param totDigits
+ *
+ * @returns {string}
+ */
+export function leadingZeros(s: string, totDigits: number) {
+  const prefixedS = '0'.repeat(totDigits) + s;
+  return prefixedS.substring(prefixedS.length - totDigits);
+}
+
+export function dateFormat(d: Date) {
+  const dateYear = d.getFullYear().toString();
+  const dateMonth = leadingZeros((d.getMonth() + 1).toString(10),2);
+  const dateDayOfMonth = leadingZeros(d.getDate().toString(10), 2);
+  return [dateYear, dateMonth, dateDayOfMonth].join('-');
+}

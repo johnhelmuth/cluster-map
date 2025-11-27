@@ -1,22 +1,5 @@
 <script setup lang="ts">
 
-const {data: story} = await useAsyncData('most-recent-news', async () => {
-  // Only shows stories newer than 3 weeks.
-  const STALE_AGE = 3 * 7;
-  const stale_date = new Date();
-  stale_date.setDate(stale_date.getDate() - STALE_AGE);
-  const stale_day = stale_date.toISOString().substring(0, 10);
-
-
-  const data = await queryCollection('content')
-      .where('path', 'LIKE', '/news/%')
-      .where('path', 'NOT LIKE', '/news/%/%')
-      .where('publish_date', '>=', stale_day)
-      .order('publish_date', 'DESC')
-      .first()
-  ;
-  return data;
-});
 </script>
 
 <template>
@@ -58,24 +41,7 @@ const {data: story} = await useAsyncData('most-recent-news', async () => {
       </p>
     </section>
 
-    <section class="latest-news-section">
-      <h2>
-        Latest site news
-      </h2>
-      <article class="latest-news" v-if="story">
-        <h3 class="story-header">{{ story.title }}</h3>
-        <p class="story-date">Published {{ story.publish_date }}</p>
-        <ContentRenderer v-if="story" :value="story" class="story-body"/>
-        <NuxtLink class="more-news-link" to="/news">More news...</NuxtLink>
-      </article>
-      <article class="latest-news" v-else>
-        <h2>
-          No recent news.
-        </h2>
-        <p>You should probably bug the webmaster about that.</p>
-        <NuxtLink class="more-news-link" to="/news">Older news...</NuxtLink>
-      </article>
-    </section>
+    <LatestNews class="latest-news-section"/>
 
   </InfoPage>
 </template>
@@ -87,6 +53,10 @@ const {data: story} = await useAsyncData('most-recent-news', async () => {
   grid-template-columns: 2fr 1fr;
   grid-template-rows: min-content min-content;
   grid-template-areas: "intro intro"
+                       "content content";
+}
+:deep(div.info-box > div.info-content[class]:has(section.latest-news-section)) {
+  grid-template-areas: "intro intro"
                        "content sidebar";
 }
 
@@ -97,7 +67,7 @@ const {data: story} = await useAsyncData('most-recent-news', async () => {
 }
 
 @media (max-width: 1300px) {
-  :deep(div.info-box > div.info-content[class]) {
+  :deep(div.info-box > div.info-content[class]:has(section.latest-news-section)) {
     grid-template-columns: 1fr;
     grid-template-areas: "intro"
       "content"
@@ -110,44 +80,5 @@ section.intro {
 section.site-links {
   grid-area: content;
   height: min-content;
-}
-
-section.latest-news-section h2 {
-  margin: 1rem 0 0;
-  text-align: center;
-}
-
-article.latest-news {
-  grid-area: sidebar;
-  background-color: var(--color-background);
-  box-shadow:       0 0 .90rem var(--color-action-background),
-              inset 0 0 .50rem var(--color-action-background);
-  border-radius: 1rem;
-  padding: .75rem;
-  margin: .5rem .5rem auto 1rem;
-}
-
-article.latest-news h3.story-header {
-  padding: 0.5rem 1rem 0;
-  text-align: center;
-}
-
-article.latest-news .story-date {
-  margin-left: 1rem;
-  margin-right: 1rem;
-  font-size: 1rem;
-  text-align: right;
-  margin-bottom: 0;
-}
-
-article.latest-news .story-body {
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
-.more-news-link {
-  display: block;
-  text-align: right;
-  margin-right: 2rem;
 }
 </style>

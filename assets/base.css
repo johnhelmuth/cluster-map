@@ -33,6 +33,8 @@
   --vt-c-amber-lightest: hsl(45 85% 80%);
   --vt-c-amber-brightest: hsl(45 90% 95%);
 
+  --vt-c-orange: hsl(28, 92%, 58%);
+
   --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
   --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
   --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);
