@@ -3,8 +3,7 @@ import type {SystemModelInterface} from "@/types/SystemTypes";
 import type {PointType} from "@/types/GeometryTypes";
 import {SCHEMA_VERSION} from "@/constants";
 import type {MapViewStylesType} from "@/types/BasicTypes";
-import {mapViewStyleLabels} from "@/types/BasicTypes";
-import { circularGraphSystemsRadius } from '@/utils/cluster-generator';
+import {circularGraphSystemsRadius} from '@/utils/cluster-generator';
 
 export class StraitModel implements StraitModelInterface {
 
@@ -165,9 +164,8 @@ export class StraitModel implements StraitModelInterface {
                 curveRadius = radius;
                 break;
             case 'circular':
-                const systemsRadius = circularGraphSystemsRadius();
                 if (index === 0) {
-                    curveRadius = systemsRadius; // radius * 1.25;
+                    curveRadius = circularGraphSystemsRadius(); // radius * 1.25;
                 } else {
                     curveRadius = radius;
                 }
