@@ -6,8 +6,6 @@ import {SystemDataDocument} from "~/server/document-models/SystemDataDocument";
 import {StraitDataDocument} from "~/server/document-models/StraitDataDocument";
 import {SCHEMA_VERSION} from "~/constants";
 
-import clusterMongoSchema from '~/server/data/db-schemas/mongo-cluster.schema.json';
-
 export interface ClusterDataDocumentInterface extends WithId<Document> {
   schemaVersion: string;
   type: 'cluster';
@@ -66,9 +64,5 @@ export class ClusterDataDocument implements ClusterDataDocumentInterface {
 
   static create(data: any): ClusterDataDocument {
     return new ClusterDataDocument(data);
-  }
-
-  static mongoSchemaValidator() {
-    return clusterMongoSchema
   }
 }

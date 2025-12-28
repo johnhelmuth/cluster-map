@@ -1,6 +1,5 @@
 import {Document, ObjectId} from "mongodb";
 import {SCHEMA_VERSION} from "~/constants";
-import clusterMongoSchema from "~/server/data/db-schemas/mongo-cluster.schema.json";
 
 export interface StraitDataDocumentInterface extends Document {
   schemaVersion: string;
@@ -33,10 +32,6 @@ export class StraitDataDocument implements StraitDataDocumentInterface {
 
   static create(data: any): StraitDataDocument {
     return new StraitDataDocument(data);
-  }
-
-  static mongoSchemaValidator() {
-    return clusterMongoSchema.properties.straits;
   }
 
   static isStraitDataDocument(data: any): data is StraitDataDocument {

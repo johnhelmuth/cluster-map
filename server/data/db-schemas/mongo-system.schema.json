@@ -21,19 +21,19 @@
       "properties": {
         "technology": {
           "description": "The rating for the Technology level of the system, range -4 to 4.",
-          "bsonType": "integer",
+          "bsonType": "int",
           "minimum": -4,
           "maximum": 4
         },
         "environment": {
           "description": "The rating for the Environment level of the system, range -4 to 4.",
-          "bsonType": "integer",
+          "bsonType": "int",
           "minimum": -4,
           "maximum": 4
         },
         "resources": {
           "description": "The rating for the Resources level of the system, range -4 to 4.",
-          "bsonType": "integer",
+          "bsonType": "int",
           "minimum": -4,
           "maximum": 4
         }

@@ -22,6 +22,10 @@ onMounted(async () => {
     <header>
       <NuxtLink to="/"><Logo/></NuxtLink>
       <SearchDropdown v-if="route.path !== '/search'" />
+      <UserProfileMenu>
+        <NuxtLink to="/me">Profile page</NuxtLink>
+        <NuxtLink to="/logout">Log out</NuxtLink>
+      </UserProfileMenu>
       <BurgerMenu class="on-right">
         <ThemeSwitch class="theme-switch" />
         <NuxtLink to="/tatterpedia">Tatterpedia</NuxtLink>
