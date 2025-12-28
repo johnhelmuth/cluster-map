@@ -1,0 +1,43 @@
+[
+  {
+    "schemaVersion": "1",
+    "type": "universe",
+    "_id": {
+      "$oid": "67f97dbc80abff8f6b12d591"
+    },
+    "name": "In Dire Straits Known Space",
+    "currentClusterId": {
+      "$oid": "67f97d8e80abff8f6b12d58f"
+    },
+    "clusters": [
+      {
+        "$oid": "67f97d8e80abff8f6b12d58f"
+      },
+      {
+        "$oid": "69000c88d73e930cd0a4cef9"
+      },
+      {
+        "$oid": "68ffce2bce0f366f73708777"
+      }
+    ]
+  },
+  {
+    "schemaVersion": "1",
+    "type": "universe",
+    "_id": {
+      "$oid": "68196973a566e351dddce3eb"
+    },
+    "name": "Two random clusters.",
+    "currentClusterId": {
+      "$oid": "681969f2a566e351dddce3ec"
+    },
+    "clusters": [
+      {
+        "$oid": "681969f2a566e351dddce3ec"
+      },
+      {
+        "$oid": "68196a21a566e351dddce3ed"
+      }
+    ]
+  }
+]

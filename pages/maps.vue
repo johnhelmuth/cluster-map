@@ -1,6 +1,8 @@
 <script setup lang="ts">
 
-import {useClustersStore} from "~/stores/use-clusters-store";
+import {useUniversesStore} from "~/stores/use-universes-store";
+
+const universeStore = useUniversesStore();
 
 useSeoMeta({
   title: 'Cluster Maps',
@@ -9,17 +11,17 @@ useServerSeoMeta({
   title: 'Cluster Maps',
 });
 
-const clustersStore = useClustersStore();
+const universesStore = useUniversesStore();
 
 </script>
 
 <template>
   <InfoPage page_title="Cluster Maps">
     <div class="cluster-maps">
-      <ul class="cluster-map-list">
+      <ul class="cluster-map-list" v-if="universeStore.universe">
         <li class="clusters-map-item"
-            :class="cluster === clustersStore.clusters.cluster ? 'selected-cluster' : ''"
-            v-for="cluster in clustersStore.clusters.clusters"
+            :class="cluster === universeStore.universe.cluster ? 'selected-cluster' : ''"
+            v-for="cluster in universeStore.universe.clusters"
             :key="cluster.id"
             :id="cluster.id"
         >

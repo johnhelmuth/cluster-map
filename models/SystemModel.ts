@@ -1,30 +1,90 @@
-import type {AspectType, attributeValueType, MapViewStylesType} from '@/types/BasicTypes';
+import type {AspectType, attributeValueType, IdType} from '@/types/BasicTypes';
+import type {MapViewStylesType} from '@/types/MapViewTypes';
 import {attributeValues} from '@/types/BasicTypes';
-import type {StraitModelInterface} from "@/types/StraitTypes";
-import type {ClusterModelInterface} from "@/types/ClusterTypes";
-import type {
-  SystemAttributesInterface,
-  SystemAttributesKeyType,
-  SystemIdType,
-  SystemModelDataType,
-  SystemModelInterface
-} from "@/types/SystemTypes";
-import {SystemAttributesDefaults} from "@/types/SystemTypes"
 import type {PointType} from "@/types/GeometryTypes";
 import {
   getPositionCircular, getPositionLinear
 } from "~/utils/cluster-generator";
 import { rotatePosition } from "~/utils/utils";
 import {SCHEMA_VERSION} from "@/constants";
+import {isPointType} from "@/types/GeometryTypes";
+import type {StraitModel} from "~/models/StraitModel";
+import type {ClusterModel} from "~/models/ClusterModel";
+import {straitParse, systemParse} from "~/utils/import-validator";
 
-export default class SystemModel implements SystemModelInterface {
+/**
+ * System Attributes types
+ */
+export interface SystemAttributesInterface {
+  technology: attributeValueType;
+  environment: attributeValueType;
+  resources: attributeValueType;
+}
+
+export type SystemAttributesKeyType = keyof SystemAttributesInterface;
+
+export const SystemAttributesDefaults: SystemAttributesInterface = {
+  technology: 0 as attributeValueType,
+  environment: 0 as attributeValueType,
+  resources: 0 as attributeValueType
+}
+
+export function attributeIsInRange(attrValue : number) {
+  return (attrValue >= -4 && attrValue <= 4);
+}
+export function isSystemAttributes(attributes: SystemAttributesInterface | undefined): attributes is SystemAttributesInterface {
+  if (! attributes) {
+    return false;
+  }
+  if (! attributes?.hasOwnProperty("technology") || typeof attributes.technology !== "number" || ! attributeIsInRange(attributes.technology)) {
+    return false;
+  }
+  if (! attributes?.hasOwnProperty("environment") || typeof attributes.environment !== "number" || ! attributeIsInRange(attributes.environment)) {
+    return false;
+  }
+  if (! attributes?.hasOwnProperty("resources") || typeof attributes.resources !== "number" || ! attributeIsInRange(attributes.resources)) {
+    return false;
+  }
+  return true;
+}
+
+/**
+ * SystemIdType
+ */
+export type SystemIdType = IdType;
+
+/**
+ * System Model Data types
+ */
+export interface SystemModelData {
+  type: 'system',
+  schemaVersion: string,
+  id: SystemIdType;
+  name: string;
+  url?: string;
+  attributes?: SystemAttributesInterface;
+  aspects?: Array<AspectType>;
+  position?: PointType;
+}
+
+export function isSystemModelData(data: any) : data is SystemModelData {
+  return systemParse(data).valid;
+}
+
+/*
+ * SystemModel class
+ *
+ * Encapsulates the business logic of what a System is and how it relates to other components.
+ */
+export class SystemModel {
   id: SystemIdType;
   name: string;
   url: string;
   attributes: SystemAttributesInterface;
   aspects: Array<AspectType>;
-  cluster: ClusterModelInterface;
   position: PointType;
+
+  cluster: ClusterModel;
   selected: boolean;
 
   /**
@@ -33,10 +93,10 @@ export default class SystemModel implements SystemModelInterface {
    * TODO: Generate a UUID of some type for new SystemModels with no `data.id` specified.
    * TODO: Use the ClusterModel to track names of Systems in the Cluster to ensure they are unique.
    *
-   * @param cluster {ClusterModelInterface}
-   * @param data {SystemModelDataType}
+   * @param cluster {ClusterModel}
+   * @param data {SystemModelData}
    */
-  constructor(cluster: ClusterModelInterface, data: SystemModelDataType) {
+  constructor(cluster: ClusterModel, data: SystemModelData) {
     this.cluster = cluster;
     this.id = '';
     this.name = 'Unknown system name';
@@ -54,14 +114,14 @@ export default class SystemModel implements SystemModelInterface {
         this.id = data.id || '';
       }
       if ("url" in data) {
-        this.url = data.url;
+        this.url = data.url || '';
       }
     }
-    this.cluster.addSystem(this as SystemModelInterface);
+    this.cluster.addSystem(this as SystemModel);
   }
 
-  private constructAttributes(data: SystemModelDataType) {
-    if ("attributes" in data) {
+  private constructAttributes(data: SystemModelData) {
+    if ("attributes" in data && isSystemAttributes(data.attributes)) {
       const dataAttributes = data.attributes;
       let attrib : SystemAttributesKeyType;
       for (attrib in SystemAttributesDefaults as SystemAttributesInterface) {
@@ -72,14 +132,14 @@ export default class SystemModel implements SystemModelInterface {
     }
   }
 
-  private constructAspects(data: SystemModelDataType) {
+  private constructAspects(data: SystemModelData) {
     if ("aspects" in data) {
-      this.aspects = [...data.aspects];
+      this.aspects = [...(data.aspects || [])];
     }
   }
 
-  private constructPosition(data: SystemModelDataType) {
-    if ("position" in data) {
+  private constructPosition(data: SystemModelData) {
+    if ("position" in data && isPointType(data.position)) {
       this.position = { ...data.position };
     }
   }
@@ -100,8 +160,8 @@ export default class SystemModel implements SystemModelInterface {
     }
   }
 
-  connectTo(system: SystemModelInterface) {
-    this.cluster.connectSystems(this as SystemModelInterface, system);
+  connectTo(system: SystemModel) {
+    this.cluster.connectSystems(this as SystemModel, system);
   }
 
   setName(name: string) : string {
@@ -128,16 +188,16 @@ export default class SystemModel implements SystemModelInterface {
     return this.aspects.length-1;
   }
 
-  getConnections(): Array<StraitModelInterface> {
-    return this.cluster.getStraitsBySystem(this as SystemModelInterface);
+  getConnections(): Array<StraitModel> {
+    return this.cluster.getStraitsBySystem(this);
   }
 
-  getConnectedSystems(): Array<SystemModelInterface> | undefined {
+  getConnectedSystems(): Array<SystemModel> | undefined {
     const straits = this.getConnections();
     if (straits?.length) {
       const connectedSystems = straits
         .map(strait => strait.getOtherSystem(this))
-        .filter(sys => !! sys) as Array<SystemModelInterface>;
+        .filter(sys => !! sys) as Array<SystemModel>;
       if (!! connectedSystems && connectedSystems instanceof Array) {
         return connectedSystems;
       }

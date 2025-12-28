@@ -6,6 +6,7 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
+    "devssl": "NODE_TLS_REJECT_UNAUTHORIZED=0 nuxt dev --https --ssl-cert localhost.pem --ssl-key localhost-key.pem",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
@@ -21,9 +22,13 @@
     "@nuxt/icon": "^2.1.1",
     "@vue-final-modal/nuxt": "^1.0.3",
     "@vueuse/nuxt": "^14.1.0",
+    "bcryptjs": "^3.0.2",
     "better-sqlite3": "^12.5.0",
+    "bson": "^6.10.3",
     "minisearch": "^7.2.0",
+    "nuxt-auth-utils": "^0.5.20",
     "nuxt": "^4.2.2",
+    "nuxt-mongodb": "^1.0.13",
     "vue": "^3.5.25",
     "vue-final-modal": "^4.5.5",
     "vue-router": "*"
@@ -34,6 +39,9 @@
     },
     "@nuxt/content": {
       "@nuxtjs/mdc": "^0.17.2"
+    },
+    "nuxt-mongodb": {
+      "mongodb": "5.8.x"
     }
   },
   "devDependencies": {

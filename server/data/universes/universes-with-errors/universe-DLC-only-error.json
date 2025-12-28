@@ -1,0 +1,334 @@
+{
+  "schemaVersion": "1",
+  "type": "universe",
+  "id": "1",
+  "name": "In Dire Straits Cluster only.",
+  "currentClusterId": "DLC",
+  "clusters": [
+    {
+      "schemaVersion": "1",
+      "type": "cluster",
+      "id": "DLC",
+      "name": "In Dire Straits Cluster",
+      "systems": [
+        {
+          "type": "system",
+          "name": "Avarax",
+          "attributes": {
+            "technology": -2,
+            "environment": -1,
+            "resources": -1
+          },
+          "aspects": [
+            "Recovering from a Devastating Invasion",
+            "\"We're Blockaded for Our Own Good\""
+          ],
+          "position": {
+            "x": 130,
+            "y": 130
+          }
+        },
+        {
+          "schemaVersion": "1",
+          "type": "system",
+          "id": "1",
+          "name": "Willful",
+          "attributes": {
+            "technology": 0,
+            "environment": 0,
+            "resources": -1
+          },
+          "aspects": [
+            "Clawed our Way off the Planet, What's next?",
+            "Need More Unobtainium"
+          ],
+          "position": {
+            "x": 650,
+            "y": 90
+          }
+        },
+        {
+          "schemaVersion": "1",
+          "type": "system",
+          "id": "2",
+          "name": "Bane's Eye",
+          "attributes": {
+            "technology": 3,
+            "environment": 0,
+            "resources": -2
+          },
+          "aspects": [
+            "Ambitious, but methodical for their own survival",
+            "Our god is always watching what we do"
+          ],
+          "position": {
+            "x": 895,
+            "y": 200
+          }
+        },
+        {
+          "schemaVersion": "1",
+          "type": "system",
+          "id": "3",
+          "name": "Dragongull's Cry",
+          "attributes": {
+            "technology": 0,
+            "environment": 0,
+            "resources": 1
+          },
+          "aspects": [
+            "Everything Can Be Found In The Ocean",
+            "\"Never Trust a Human\""
+          ],
+          "position": {
+            "x": 875,
+            "y": 475
+          }
+        },
+        {
+          "schemaVersion": "1",
+          "type": "system",
+          "id": "4",
+          "name": "Dalderana",
+          "attributes": {
+            "technology": 0,
+            "environment": 1,
+            "resources": -1
+          },
+          "aspects": [
+            "Owe those bastards for our Space Program",
+            "Obsessed with the TattTubers"
+          ],
+          "position": {
+            "x": 630,
+            "y": 300
+          }
+        },
+        {
+          "schemaVersion": "1",
+          "type": "system",
+          "id": "5",
+          "name": "Concordist",
+          "attributes": {
+            "technology": 0,
+            "environment": 0,
+            "resources": 1
+          },
+          "aspects": [
+            "Secretive",
+            "Hedonistic"
+          ],
+          "position": {
+            "x": 300,
+            "y": 260
+          }
+        },
+        {
+          "schemaVersion": "1",
+          "type": "system",
+          "id": "6",
+          "name": "Golden Seed",
+          "attributes": {
+            "technology": -2,
+            "environment": 1,
+            "resources": 4
+          },
+          "aspects": [
+            "The Pulsar Only Cooks One Hemisphere.",
+            "\"They Think That Nothing Bad Can Happen To Them!\""
+          ],
+          "position": {
+            "x": 620,
+            "y": 575
+          }
+        },
+        {
+          "schemaVersion": "1",
+          "type": "system",
+          "id": "7",
+          "name": "Ceti Daenia",
+          "attributes": {
+            "technology": 0,
+            "environment": -2,
+            "resources": -1
+          },
+          "aspects": [
+            "Balkanized Dome City States On Planet, Tentative Off Planet Coalition"
+          ],
+          "position": {
+            "x": 100,
+            "y": 400
+          }
+        },
+        {
+          "schemaVersion": "1",
+          "type": "system",
+          "id": "8",
+          "name": "Zerzi",
+          "attributes": {
+            "technology": 1,
+            "environment": -2,
+            "resources": 2
+          },
+          "aspects": [
+            "Aggressively Industrialized",
+            "The only thing that matters is right now,\nthe future will take care of itself"
+          ],
+          "position": {
+            "x": 375,
+            "y": 665
+          }
+        },
+        {
+          "schemaVersion": "1",
+          "type": "system",
+          "id": "9",
+          "name": "Luxia",
+          "attributes": {
+            "technology": 1,
+            "environment": -1,
+            "resources": -2
+          },
+          "aspects": [
+            "It's a prison planet, were you expecting cake?",
+            "You can get blood if you find the right stone"
+          ],
+          "position": {
+            "x": 130,
+            "y": 620
+          }
+        }
+      ],
+      "straits": [
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "0",
+            "1"
+          ]
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "1",
+            "2"
+          ]
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "1",
+            "4"
+          ]
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "1",
+            "3"
+          ]
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "2",
+            "3"
+          ]
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "3",
+            "4"
+          ]
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "3",
+            "5"
+          ]
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "3",
+            "6"
+          ]
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "4",
+            "5"
+          ]
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "5",
+            "6"
+          ]
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "5",
+            "7"
+          ]
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "6",
+            "7"
+          ]
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "6",
+            "8"
+          ]
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "7",
+            "8"
+          ]
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "7",
+            "9"
+          ]
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "1",
+          "systems": [
+            "8",
+            "9"
+          ]
+        }
+      ]
+    }
+  ]
+}

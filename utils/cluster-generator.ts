@@ -1,14 +1,13 @@
 
-import type { ClusterIdType, ClusterModelInterface } from "@/types/ClusterTypes";
-import type {SystemAttributesInterface, SystemIdType, SystemModelInterface} from "@/types/SystemTypes";
-import {ClusterModel} from "@/models/ClusterModel";
+import type {SystemAttributesInterface, SystemIdType, SystemModelData} from "@/models/SystemModel"
+import {isSystemAttributes, SystemAttributesDefaults, SystemModel} from "@/models/SystemModel"
+import {type ClusterIdType, ClusterModel} from "@/models/ClusterModel";
+import type { attributeValueType } from "@/types/BasicTypes";
 import {
-  type attributeValueType,
   type ClusterOrientationType,
   MAP_VIEW_STYLES_DEFAULT,
   type MapViewStylesType
-} from "@/types/BasicTypes";
-import SystemModel from "@/models/SystemModel";
+} from "@/types/MapViewTypes";
 import type {PointType} from "@/types/GeometryTypes.js";
 
 export function getRandomIntInclusive(min: number, max: number) {
@@ -26,9 +25,12 @@ export function rollDice(): attributeValueType {
   return total as attributeValueType;
 }
 
-function slipstreamGuarantee(systems: Array<{id: string, name: string, attributes: SystemAttributesInterface}>) {
+function slipstreamGuarantee(systems: Array<SystemModelData>) {
   const {implementGuarantee, lowestIndex, highestIndex} =
     systems.reduce((res, system, index) => {
+      if (! isSystemAttributes(system.attributes)) {
+        system.attributes = SystemAttributesDefaults;
+      }
       const { technology, environment, resources } = system.attributes;
       const totalAttributes = technology + environment + resources;
       if (totalAttributes < res.minAttributes) {
@@ -51,8 +53,14 @@ function slipstreamGuarantee(systems: Array<{id: string, name: string, attribute
       maxAttributes: -Number.MAX_SAFE_INTEGER
     });
   if (implementGuarantee && lowestIndex >= 0 && lowestIndex < systems.length && highestIndex >= 0 && highestIndex < systems.length) {
-    systems[lowestIndex].attributes.technology = 2;
-    systems[highestIndex].attributes.technology = 2;
+    const lowestSystem = systems[lowestIndex];
+    const highestSystem = systems[highestIndex];
+    if (isSystemAttributes(lowestSystem.attributes)) {
+      lowestSystem.attributes.technology = 2;
+    }
+    if (isSystemAttributes(highestSystem.attributes)) {
+      highestSystem.attributes.technology = 2;
+    }
   }
 }
 
@@ -187,7 +195,7 @@ export function createCluster(id: ClusterIdType, name: string, numberSystems: nu
   }
   const newCluster = new ClusterModel({id, name});
 
-  const systemsData: Array<{id: string, name: string, attributes: SystemAttributesInterface, position: PointType}> = [];
+  const systemsData: Array<SystemModelData> = [];
   for (let i = 0; i < numberSystems; i++) {
     const id: SystemIdType = String.fromCharCode(65+i ) + (1024 + floor(random() * 1024)).toString(16);
     const name: string = "System " + (i*10 + floor(random()*10)).toString();
@@ -202,7 +210,7 @@ export function createCluster(id: ClusterIdType, name: string, numberSystems: nu
 
   slipstreamGuarantee(systemsData);
 
-  const systems: SystemModelInterface[] = systemsData.map((systemData) => new SystemModel(newCluster, systemData));
+  const systems: SystemModel[] = systemsData.map((systemData) => new SystemModel(newCluster, systemData));
 
   for (const [index, system] of systems.entries()) {
     if (index < systems.length-1) {

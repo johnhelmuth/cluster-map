@@ -42,13 +42,32 @@ export default defineNuxtConfig({
         }
     },
 
+    runtimeConfig: {
+        oauth: {
+            github: {
+                clientId: "", // defaults to empty string
+                clientSecret: "", // defaults to empty string
+            },
+        },
+    },
+
     css: ['~/assets/main.css', 'vue-final-modal/style.css'],
 
     modules: [
-        '@nuxt/icon',
-        '@vue-final-modal/nuxt',
-        '@vueuse/nuxt',
-        '@nuxt/content',
+      '@nuxt/icon',
+      '@vue-final-modal/nuxt',
+      '@vueuse/nuxt',
+      '@nuxt/content',
+      'nuxt-mongodb',
+      'nuxt-auth-utils'
     ],
+
+    hooks: {
+        close: (nuxt) => {
+            if (!nuxt.options._prepare) {
+                process.exit()
+            }
+        }
+    }
 
 })

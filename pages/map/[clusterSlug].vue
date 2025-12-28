@@ -1,35 +1,35 @@
 <script setup lang="ts">
 
-import {useClustersStore} from "~/stores/use-clusters-store";
+import {useUniversesStore} from "~/stores/use-universes-store";
 import {useUserScopeStore} from '~/stores/use-user-scope-store'
-import type {RoutePlannerServiceInterface} from "~/types/RoutePlannerServiceTypes";
-import type {SelectedSystemsListInterface, SelectedSystemsServiceInterface} from "~/types/SystemsSelectedListTypes";
-import type {SystemModelInterface} from "~/types/SystemTypes";
+import type {SelectedSystemsService} from "~/models/SelectedSystemsService";
 import {ClusterModel} from "~/models/ClusterModel";
 
-const clustersStore = useClustersStore();
+const universesStore = useUniversesStore();
 const route = useRoute();
 const router = useRouter();
 
 const {routePlannerService, selectedSystemsService} = useUserScopeStore() as {
-  routePlannerService: RoutePlannerServiceInterface,
-  selectedSystemsService: SelectedSystemsServiceInterface
+  routePlannerService: RoutePlannerService,
+  selectedSystemsService: SelectedSystemsService
 };
 
 const cluster = computed(() => {
   const slugOrId = route.params.clusterSlug;
-  if (slugOrId && typeof slugOrId === "string") {
-    const clust = clustersStore.clusters.getClusterBySlugOrId(slugOrId);
-    if (clust) {
-      if (clust.id === slugOrId) {
-        return navigateTo(
-            { name: 'map-clusterSlug', params: { clusterSlug: clust.slug } },
-            {redirectCode: 308}
-        );
+  if (universesStore.universe) {
+    if (slugOrId && typeof slugOrId === "string") {
+      const clust = universesStore.universe.getClusterBySlugOrId(slugOrId);
+      if (clust) {
+        if (clust.id === slugOrId) {
+          return navigateTo(
+              {name: 'map-clusterSlug', params: {clusterSlug: clust.slug}},
+              {redirectCode: 308}
+          );
+        }
+        return clust;
       }
-      return clust;
+      throw createError({statusCode: 404, statusMessage: 'No cluster with that name or ID.'})
     }
-    throw createError({ statusCode: 404, statusMessage: 'No cluster with that name or ID.'})
   }
 }) as ComputedRef<ClusterModel | undefined>;
 

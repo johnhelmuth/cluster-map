@@ -1,0 +1,353 @@
+{
+  "type": "cluster",
+  "schemaVersion": "1",
+  "id": "DLC",
+  "name": "In Dire Straits Cluster",
+  "systems": [
+    {
+      "type": "system",
+      "schemaVersion": "1",
+      "id": "0",
+      "name": "Avarax",
+      "aspects": [
+        "Recovering from a Devastating Invasion",
+        "\"We're Blockaded for Our Own Good\""
+      ],
+      "attributes": {
+        "technology": -2,
+        "environment": -1,
+        "resources": -1
+      },
+      "url": "/tatterpedia/places/clusters/local-cluster/avarax",
+      "position": {
+        "x": 130,
+        "y": 130
+      }
+    },
+    {
+      "type": "system",
+      "schemaVersion": "1",
+      "id": "1",
+      "name": "Willful",
+      "aspects": [
+        "Clawed our Way off the Planet, What's next?",
+        "Need More Unobtainium"
+      ],
+      "attributes": {
+        "technology": 0,
+        "environment": 0,
+        "resources": -1
+      },
+      "url": "/tatterpedia/places/clusters/local-cluster/willful",
+      "position": {
+        "x": 650,
+        "y": 90
+      }
+    },
+    {
+      "type": "system",
+      "schemaVersion": "1",
+      "id": "2",
+      "name": "Bane's Eye",
+      "aspects": [
+        "Ambitious, but methodical for their own survival",
+        "Our god is always watching what we do"
+      ],
+      "attributes": {
+        "technology": 3,
+        "environment": 0,
+        "resources": -2
+      },
+      "url": "/tatterpedia/places/clusters/local-cluster/banes-eye",
+      "position": {
+        "x": 895,
+        "y": 200
+      }
+    },
+    {
+      "type": "system",
+      "schemaVersion": "1",
+      "id": "3",
+      "name": "Dragongull's Cry",
+      "aspects": [
+        "Everything Can Be Found In The Ocean",
+        "\"Never Trust a Human\""
+      ],
+      "attributes": {
+        "technology": 0,
+        "environment": 0,
+        "resources": 1
+      },
+      "url": "/tatterpedia/places/clusters/local-cluster/dragongulls-cry",
+      "position": {
+        "x": 875,
+        "y": 475
+      }
+    },
+    {
+      "type": "system",
+      "schemaVersion": "1",
+      "id": "4",
+      "name": "Dalderana",
+      "aspects": [
+        "Owe those bastards for our Space Program",
+        "Obsessed with the TattTubers"
+      ],
+      "attributes": {
+        "technology": 0,
+        "environment": 1,
+        "resources": -1
+      },
+      "url": "/tatterpedia/places/clusters/local-cluster/dalderana",
+      "position": {
+        "x": 630,
+        "y": 300
+      }
+    },
+    {
+      "type": "system",
+      "schemaVersion": "1",
+      "id": "5",
+      "name": "Concordist",
+      "aspects": [
+        "Secretive",
+        "Hedonistic"
+      ],
+      "attributes": {
+        "technology": 0,
+        "environment": 0,
+        "resources": 1
+      },
+      "url": "/tatterpedia/places/clusters/local-cluster/concordist",
+      "position": {
+        "x": 300,
+        "y": 260
+      }
+    },
+    {
+      "type": "system",
+      "schemaVersion": "1",
+      "id": "6",
+      "name": "Golden Seed",
+      "aspects": [
+        "The Pulsar Only Cooks One Hemisphere.",
+        "\"They Think That Nothing Bad Can Happen To Them!\""
+      ],
+      "attributes": {
+        "technology": -2,
+        "environment": 1,
+        "resources": 4
+      },
+      "url": "/tatterpedia/places/clusters/local-cluster/golden-seed",
+      "position": {
+        "x": 620,
+        "y": 575
+      }
+    },
+    {
+      "type": "system",
+      "schemaVersion": "1",
+      "id": "7",
+      "name": "Ceti Daenia",
+      "aspects": [
+        "Balkanized Dome City States On Planet, Tentative Off Planet Coalition"
+      ],
+      "attributes": {
+        "technology": 0,
+        "environment": -2,
+        "resources": -1
+      },
+      "url": "/tatterpedia/places/clusters/local-cluster/ceti-daenia",
+      "position": {
+        "x": 100,
+        "y": 400
+      }
+    },
+    {
+      "type": "system",
+      "schemaVersion": "1",
+      "id": "8",
+      "name": "Zerzi",
+      "aspects": [
+        "Aggressively Industrialized",
+        "The only thing that matters is right now,\nthe future will take care of itself"
+      ],
+      "attributes": {
+        "technology": 1,
+        "environment": -2,
+        "resources": 2
+      },
+      "url": "/tatterpedia/places/clusters/local-cluster/zerzi",
+      "position": {
+        "x": 375,
+        "y": 665
+      }
+    },
+    {
+      "type": "system",
+      "schemaVersion": "1",
+      "id": "9",
+      "name": "Luxia",
+      "aspects": [
+        "It's a prison planet, were you expecting cake?",
+        "You can get blood if you find the right stone"
+      ],
+      "attributes": {
+        "technology": 1,
+        "environment": -1,
+        "resources": -2
+      },
+      "url": "/tatterpedia/places/clusters/local-cluster/luxia",
+      "position": {
+        "x": 130,
+        "y": 620
+      }
+    }
+  ],
+  "straits": [
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "0",
+        "1"
+      ],
+      "direction": "clockwise"
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "1",
+        "2"
+      ],
+      "direction": "clockwise"
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "1",
+        "3"
+      ],
+      "direction": "clockwise"
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "1",
+        "4"
+      ],
+      "direction": "clockwise"
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "2",
+        "3"
+      ],
+      "direction": "clockwise"
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "3",
+        "4"
+      ],
+      "direction": "clockwise"
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "3",
+        "5"
+      ],
+      "direction": "clockwise"
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "3",
+        "6"
+      ],
+      "direction": "clockwise"
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "4",
+        "5"
+      ],
+      "direction": "clockwise"
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "5",
+        "6"
+      ],
+      "direction": "counterclockwise"
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "5",
+        "7"
+      ],
+      "direction": "counterclockwise"
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "6",
+        "7"
+      ],
+      "direction": "clockwise"
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "6",
+        "8"
+      ],
+      "direction": "clockwise"
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "7",
+        "8"
+      ],
+      "direction": "counterclockwise"
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "7",
+        "9"
+      ],
+      "direction": "counterclockwise"
+    },
+    {
+      "type": "strait",
+      "schemaVersion": "1",
+      "systems": [
+        "8",
+        "9"
+      ],
+      "direction": "clockwise"
+    }
+  ]
+}
