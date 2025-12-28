@@ -1,9 +1,9 @@
 
-import type {RoutePlannerServiceInterface} from "@/types/RoutePlannerServiceTypes";
-import type {ClusterIdType, ClusterModelInterface} from "@/types/ClusterTypes";
-import type {RoutePlanType, RoutePlanRefType} from "@/types/RoutePlannerTypes";
 
-export class RoutePlannerService implements RoutePlannerServiceInterface {
+import type {ClusterIdType, ClusterModel} from "~/models/ClusterModel";
+import type {RoutePlanRefType, RoutePlanType} from "~/utils/route-planner";
+
+export class RoutePlannerService {
 
   _routePlans : Map<ClusterIdType, RoutePlanRefType>;
 
@@ -11,7 +11,7 @@ export class RoutePlannerService implements RoutePlannerServiceInterface {
     this._routePlans = new Map<ClusterIdType, RoutePlanRefType>();
   }
 
-  getRoutePlanForCluster(cluster: ClusterModelInterface | undefined) : RoutePlanRefType | undefined {
+  getRoutePlanForCluster(cluster?: ClusterModel | undefined) : RoutePlanRefType | undefined {
     if (! cluster) {
       return undefined;
     }
@@ -21,12 +21,12 @@ export class RoutePlannerService implements RoutePlannerServiceInterface {
         return routePlan;
       }
     }
-    const routePlan = ref([] as RoutePlanType);
+    const routePlan = ref([] as RoutePlanType) as RoutePlanRefType;
     this._routePlans.set(cluster.id, routePlan);
     return routePlan;
   }
 
-  deleteRoutePlanForCluster(cluster: ClusterModelInterface) : void {
+  deleteRoutePlanForCluster(cluster: ClusterModel) : void {
     const routePlan = this.getRoutePlanForCluster(cluster);
     if (routePlan) {
       routePlan.value = [];

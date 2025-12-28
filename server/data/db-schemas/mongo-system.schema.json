@@ -1,0 +1,70 @@
+{
+  "bsonType": "object",
+  "required": ["schemaVersion", "type", "name", "attributes", "aspects", "position"],
+  "properties": {
+    "_id": {
+      "bsonType": "objectId"
+    },
+    "schemaVersion": {
+      "bsonType": "string"
+    },
+    "type": {
+      "bsonType": "string",
+      "enum": ["system"]
+    },
+    "name": {
+      "bsonType": "string"
+    },
+    "attributes": {
+      "bsonType": "object",
+      "required": ["technology", "environment", "resources"],
+      "properties": {
+        "technology": {
+          "description": "The rating for the Technology level of the system, range -4 to 4.",
+          "bsonType": "integer",
+          "minimum": -4,
+          "maximum": 4
+        },
+        "environment": {
+          "description": "The rating for the Environment level of the system, range -4 to 4.",
+          "bsonType": "integer",
+          "minimum": -4,
+          "maximum": 4
+        },
+        "resources": {
+          "description": "The rating for the Resources level of the system, range -4 to 4.",
+          "bsonType": "integer",
+          "minimum": -4,
+          "maximum": 4
+        }
+      }
+    },
+    "aspects": {
+      "bsonType": "array",
+      "items": {
+        "bsonType": "string"
+      }
+    },
+    "position": {
+      "bsonType": "object",
+      "required": ["x", "y"],
+      "properties": {
+        "x": {
+          "bsonType": "number",
+          "minimum": 0,
+          "maximum": 1000
+        },
+        "y": {
+          "bsonType": "number",
+          "minimum": 0,
+          "maximum": 1000
+        },
+        "z": {
+          "bsonType": "number",
+          "minimum": 0,
+          "maximum": 1000
+        }
+      }
+    }
+  }
+}

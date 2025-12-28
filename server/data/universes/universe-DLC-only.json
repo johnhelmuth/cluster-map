@@ -1,6 +1,8 @@
 {
   "schemaVersion": "1",
-  "type": "clusters",
+  "type": "universe",
+  "id": "1",
+  "name": "In Dire Straits Cluster only.",
   "currentClusterId": "DLC",
   "clusters": [
     {

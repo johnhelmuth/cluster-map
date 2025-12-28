@@ -2,9 +2,17 @@
 
 import {ModalsContainer} from 'vue-final-modal'
 
+import { useUniversesStore } from "~/stores/use-universes-store";
+
 const router = useRouter();
 const route = useRoute();
 
+const universesStore = useUniversesStore();
+
+onMounted(async () => {
+  await universesStore.initUniverses();
+  await universesStore.initDefaultUniverse();
+})
 </script>
 
 <template>
@@ -21,7 +29,8 @@ const route = useRoute();
         <NuxtLink to="/rules-and-systems">Rules & Systems</NuxtLink>
         <NuxtLink to="/search">Search</NuxtLink>
         <NuxtLink to="/maps">Maps</NuxtLink>
-        <NuxtLink to="/clusters">Clusters</NuxtLink>
+        <NuxtLink to="/universe">Current universe</NuxtLink>
+        <NuxtLink to="/universes">Universes</NuxtLink>
         <NuxtLink to="/news">Site news</NuxtLink>
         <NuxtLink to="/settings">Settings</NuxtLink>
         <NuxtLink to="/about">About</NuxtLink>

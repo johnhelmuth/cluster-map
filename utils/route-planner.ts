@@ -1,16 +1,21 @@
-import type {ClusterModelInterface} from "@/types/ClusterTypes";
-import type {SystemModelInterface} from "@/types/SystemTypes";
-import type {RoutePlannerInterface, RoutePlanType} from "@/types/RoutePlannerTypes";
 
-export class RoutePlanner implements RoutePlannerInterface {
 
-  cluster: ClusterModelInterface;
+import type {SystemModel} from "~/models/SystemModel";
+import type {ClusterModel} from "~/models/ClusterModel";
+import type {Ref} from "vue";
 
-  constructor(cluster: ClusterModelInterface) {
+export type RoutePlanType = Array<SystemModel>;
+export type RoutePlanRefType = Ref<RoutePlanType>;
+
+export class RoutePlanner {
+
+  cluster: ClusterModel;
+
+  constructor(cluster: ClusterModel) {
     this.cluster = cluster;
   }
 
-  plan(systemA: SystemModelInterface, systemB: SystemModelInterface): RoutePlanType | undefined {
+  plan(systemA: SystemModel, systemB: SystemModel): RoutePlanType | undefined {
 
     const systemsMap = this.cluster.systemsMap;
 
@@ -39,12 +44,12 @@ export class RoutePlanner implements RoutePlannerInterface {
     return shortestPlan;
   }
 
-  findRoutes(systemA: SystemModelInterface, systemB: SystemModelInterface, routePlan: RoutePlanType): RoutePlanType[] | undefined {
+  findRoutes(systemA: SystemModel, systemB: SystemModel, routePlan: RoutePlanType): RoutePlanType[] | undefined {
     if (routePlan?.includes(systemA)) {
       return undefined;
     }
     const newRoutePlans: Array<RoutePlanType> = [];
-    const connectedSystems = systemA.getConnectedSystems() || [] as Array<SystemModelInterface>;
+    const connectedSystems = systemA.getConnectedSystems() || [] as Array<SystemModel>;
     if (connectedSystems.includes(systemB)) {
       const newRoutePlan = [...routePlan, systemA, systemB] as RoutePlanType;
       newRoutePlans.push(newRoutePlan);
@@ -66,6 +71,6 @@ export class RoutePlanner implements RoutePlannerInterface {
   }
 }
 
-export function createRoutePlanner(cluster: ClusterModelInterface): RoutePlannerInterface {
+export function createRoutePlanner(cluster: ClusterModel): RoutePlanner {
   return new RoutePlanner(cluster);
 }

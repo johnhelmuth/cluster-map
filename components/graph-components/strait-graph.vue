@@ -1,12 +1,12 @@
 <script setup lang="ts">
 
-import type {StraitModelInterface} from "@/types/StraitTypes";
-import type {RoutePlanRefType} from "@/types/RoutePlannerTypes";
-import type {MapViewStylesType} from "~/types/BasicTypes";
+import type {StraitModel} from "@/models/StraitModel";
+import type {MapViewStylesType} from "~/types/MapViewTypes";
 import {systemRadiusByStyleAndNumberOfSystems} from '~/utils/cluster-generator'
+import type {RoutePlanRefType} from "~/utils/route-planner";
 
 const props = defineProps<{
-  strait: StraitModelInterface,
+  strait: StraitModel,
   plan?: RoutePlanRefType,
   index: number,
   debug: boolean,
@@ -49,7 +49,7 @@ const path = computed(() => {
 
   let straitPath = `M ${sysAPos.value.x} ${sysAPos.value.y} `;
 
-  if (pathType === 'straight' || straitLength < radius.value) {
+  if (straitLength < radius.value) {
     straitPath += `L ${sysBPos.value.x} ${sysBPos.value.y}`;
 
   } else if (pathType === 'curved') {

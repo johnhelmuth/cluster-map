@@ -1,0 +1,491 @@
+[
+  {
+    "schemaVersion": "1",
+    "type": "system",
+    "_id": {
+      "$oid": "67fd9f279e23e2b5f1e22174"
+    },
+    "name": "Avarax",
+    "attributes": {
+      "technology": -2,
+      "environment": -1,
+      "resources": -1
+    },
+    "aspects": [
+      "Recovering from a Devastating Invasion",
+      "\"We're Blockaded for Our Own Good\""
+    ],
+    "url": "/tatterpedia/places/star-systems/avarax",
+    "position": {
+      "x": 130,
+      "y": 130
+    }
+  },
+  {
+    "schemaVersion": "1",
+    "type": "system",
+    "_id": {
+      "$oid": "67fd9f329e23e2b5f1e22175"
+    },
+    "name": "Willful",
+    "attributes": {
+      "technology": 0,
+      "environment": 0,
+      "resources": -1
+    },
+    "aspects": [
+      "Clawed our Way off the Planet, What's next?",
+      "Need More Unobtainium"
+    ],
+    "url": "/tatterpedia/places/star-systems/willful",
+    "position": {
+      "x": 650,
+      "y": 90
+    }
+  },
+  {
+    "schemaVersion": "1",
+    "type": "system",
+    "_id": {
+      "$oid": "67fd9f3d9e23e2b5f1e22176"
+    },
+    "name": "Bane's Eye",
+    "attributes": {
+      "technology": 3,
+      "environment": 0,
+      "resources": -2
+    },
+    "aspects": [
+      "Ambitious, but methodical for their own survival",
+      "Our god is always watching what we do"
+    ],
+    "url": "/tatterpedia/places/star-systems/banes-eye",
+    "position": {
+      "x": 895,
+      "y": 200
+    }
+  },
+  {
+    "schemaVersion": "1",
+    "type": "system",
+    "_id": {
+      "$oid": "67fd9f479e23e2b5f1e22177"
+    },
+    "name": "Dragongull's Cry",
+    "attributes": {
+      "technology": 0,
+      "environment": 0,
+      "resources": 1
+    },
+    "aspects": [
+      "Everything Can Be Found In The Ocean",
+      "\"Never Trust a Human\""
+    ],
+    "url": "/tatterpedia/places/star-systems/dragongulls-cry",
+    "position": {
+      "x": 875,
+      "y": 475
+    }
+  },
+  {
+    "schemaVersion": "1",
+    "type": "system",
+    "_id": {
+      "$oid": "67fd9f4f9e23e2b5f1e22178"
+    },
+    "name": "Dalderana",
+    "attributes": {
+      "technology": 0,
+      "environment": 1,
+      "resources": -1
+    },
+    "aspects": [
+      "Owe those bastards for our Space Program",
+      "Obsessed with the TattTubers"
+    ],
+    "url": "/tatterpedia/places/star-systems/dalderana",
+    "position": {
+      "x": 630,
+      "y": 300
+    }
+  },
+  {
+    "schemaVersion": "1",
+    "type": "system",
+    "_id": {
+      "$oid": "67fd9f559e23e2b5f1e22179"
+    },
+    "name": "Concordist",
+    "attributes": {
+      "technology": 0,
+      "environment": 0,
+      "resources": 1
+    },
+    "aspects": [
+      "Secretive",
+      "Hedonistic"
+    ],
+    "url": "/tatterpedia/places/star-systems/concordist",
+    "position": {
+      "x": 300,
+      "y": 260
+    }
+  },
+  {
+    "schemaVersion": "1",
+    "type": "system",
+    "_id": {
+      "$oid": "67fd9f5e9e23e2b5f1e2217a"
+    },
+    "name": "Golden Seed",
+    "attributes": {
+      "technology": -2,
+      "environment": 1,
+      "resources": 4
+    },
+    "aspects": [
+      "The Pulsar Only Cooks One Hemisphere.",
+      "\"They Think That Nothing Bad Can Happen To Them!\""
+    ],
+    "url": "/tatterpedia/places/star-systems/golden-seed",
+    "position": {
+      "x": 620,
+      "y": 575
+    }
+  },
+  {
+    "schemaVersion": "1",
+    "type": "system",
+    "_id": {
+      "$oid": "67fd9f699e23e2b5f1e2217b"
+    },
+    "name": "Ceti Daenia",
+    "attributes": {
+      "technology": 0,
+      "environment": -2,
+      "resources": -1
+    },
+    "aspects": [
+      "Balkanized Dome City States On Planet, Tentative Off Planet Coalition"
+    ],
+    "url": "/tatterpedia/places/star-systems/ceti-daenia",
+    "position": {
+      "x": 100,
+      "y": 400
+    }
+  },
+  {
+    "schemaVersion": "1",
+    "type": "system",
+    "_id": {
+      "$oid": "67fd9f709e23e2b5f1e2217c"
+    },
+    "name": "Zerzi",
+    "attributes": {
+      "technology": 1,
+      "environment": -2,
+      "resources": 2
+    },
+    "aspects": [
+      "Aggressively Industrialized",
+      "The only thing that matters is right now,\nthe future will take care of itself"
+    ],
+    "url": "/tatterpedia/places/star-systems/zerzi",
+    "position": {
+      "x": 375,
+      "y": 665
+    }
+  },
+  {
+    "schemaVersion": "1",
+    "type": "system",
+    "_id": {
+      "$oid": "67fd9f789e23e2b5f1e2217d"
+    },
+    "name": "Luxia",
+    "attributes": {
+      "technology": 1,
+      "environment": -1,
+      "resources": -2
+    },
+    "aspects": [
+      "It's a prison planet, were you expecting cake?",
+      "You can get blood if you find the right stone"
+    ],
+    "url": "/tatterpedia/places/star-systems/luxia",
+    "position": {
+      "x": 130,
+      "y": 620
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "68196b16a566e351dddce3ee"
+    },
+    "name": "System 2",
+    "attributes": {
+      "technology": 2,
+      "environment": -1,
+      "resources": -2
+    },
+    "aspects": [],
+    "position": {
+      "x": 795,
+      "y": 374.99999999999994
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "68196c21a566e351dddce3ef"
+    },
+    "name": "System 17",
+    "attributes": {
+      "technology": -3,
+      "environment": 3,
+      "resources": -1
+    },
+    "aspects": [],
+    "position": {
+      "x": 683.9294915483264,
+      "y": 144.35971267193116
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "68196c26a566e351dddce3f0"
+    },
+    "name": "System 25",
+    "attributes": {
+      "technology": 0,
+      "environment": 0,
+      "resources": 0
+    },
+    "aspects": [],
+    "position": {
+      "x": 434.3563244828872,
+      "y": 87.39626590636203
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "68196c2da566e351dddce3f1"
+    },
+    "name": "System 34",
+    "attributes": {
+      "technology": 0,
+      "environment": 1,
+      "resources": -3
+    },
+    "aspects": [],
+    "position": {
+      "x": 234.21418396878636,
+      "y": 247.0042969603204
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "68196c31a566e351dddce3f2"
+    },
+    "name": "System 44",
+    "attributes": {
+      "technology": -1,
+      "environment": 1,
+      "resources": 1
+    },
+    "aspects": [],
+    "position": {
+      "x": 234.21418396878636,
+      "y": 502.9957030396797
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "68196c35a566e351dddce3f3"
+    },
+    "name": "System 52",
+    "attributes": {
+      "technology": 1,
+      "environment": 0,
+      "resources": -1
+    },
+    "aspects": [],
+    "position": {
+      "x": 434.35632448288726,
+      "y": 662.603734093638
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "68196c39a566e351dddce3f4"
+    },
+    "name": "System 67",
+    "attributes": {
+      "technology": -1,
+      "environment": 4,
+      "resources": -1
+    },
+    "aspects": [],
+    "position": {
+      "x": 683.9294915483264,
+      "y": 605.6402873280688
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "68196dafa566e351dddce3f5"
+    },
+    "name": "System 5",
+    "attributes": {
+      "technology": 1,
+      "environment": -1,
+      "resources": 1
+    },
+    "aspects": [],
+    "position": {
+      "x": 795,
+      "y": 374.99999999999994
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "68196deca566e351dddce3f6"
+    },
+    "name": "System 14",
+    "attributes": {
+      "technology": 2,
+      "environment": 0,
+      "resources": -3
+    },
+    "aspects": [],
+    "position": {
+      "x": 708.5965004500315,
+      "y": 166.40349954996844
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "681b5bc4a566e351dddce3fc"
+    },
+    "name": "System 24",
+    "attributes": {
+      "technology": 2,
+      "environment": -1,
+      "resources": -3
+    },
+    "aspects": [],
+    "position": {
+      "x": 499.99999999999994,
+      "y": 80
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "68196e3da566e351dddce3f7"
+    },
+    "name": "System 37",
+    "attributes": {
+      "technology": -1,
+      "environment": 0,
+      "resources": 1
+    },
+    "aspects": [],
+    "position": {
+      "x": 291.40349954996844,
+      "y": 166.4034995499685
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "68196e41a566e351dddce3f8"
+    },
+    "name": "System 40",
+    "attributes": {
+      "technology": 1,
+      "environment": 0,
+      "resources": -2
+    },
+    "aspects": [],
+    "position": {
+      "x": 205,
+      "y": 375.00000000000006
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "68196e46a566e351dddce3f9"
+    },
+    "name": "System 52",
+    "attributes": {
+      "technology": 1,
+      "environment": 1,
+      "resources": 1
+    },
+    "aspects": [],
+    "position": {
+      "x": 291.4034995499685,
+      "y": 583.5965004500315
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "68196e4ca566e351dddce3fa"
+    },
+    "name": "System 67",
+    "attributes": {
+      "technology": -1,
+      "environment": 0,
+      "resources": 2
+    },
+    "aspects": [],
+    "position": {
+      "x": 500,
+      "y": 670
+    }
+  },
+  {
+    "type": "system",
+    "schemaVersion": "1",
+    "_id": {
+      "$oid": "68196e51a566e351dddce3fb"
+    },
+    "name": "System 79",
+    "attributes": {
+      "technology": -1,
+      "environment": 0,
+      "resources": 0
+    },
+    "aspects": [],
+    "position": {
+      "x": 708.5965004500315,
+      "y": 583.5965004500315
+    }
+  }
+]
