@@ -78,8 +78,8 @@ export const registerBodyZSchema = z.object({
         });
         return z.NEVER;
       }
+      data.username = emailToUsername(data.email);
     }
-    data.username = emailToUsername(data.email);
     return data;
   })
   .refine((data) => data.password === data.passwordConfirmed, {

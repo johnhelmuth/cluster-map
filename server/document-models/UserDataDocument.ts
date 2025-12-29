@@ -13,7 +13,8 @@ import {
   isRegisterDocument,
   LoginDocument,
   parseRegisterBody,
-  RegisterDocument, validateLoginBody
+  RegisterDocument,
+  validateLoginBody
 } from "~/types/UserTypes";
 import {z} from "zod";
 
@@ -52,6 +53,15 @@ export class EmailInfoDataDocument implements EmailInfoInterface {
         this.verifiedAt = data.verifiedAt;
       }
     }
+  }
+
+  toModelData(): EmailInfoInterface {
+    const { email, verifiedAt } = this;
+    const data = { email } as EmailInfoInterface;
+    if (verifiedAt) {
+      data.verifiedAt = verifiedAt;
+    }
+    return data;
   }
 
   static isEmailInfoDataDocument(data: any): data is EmailInfoDataDocument {
@@ -217,7 +227,7 @@ export class UserDataDocument implements UserDataDocumentInterface {
       schemaVersion: this.schemaVersion,
       type: this.type,
       name: this.name,
-      emailInfo: this.emailInfo,
+      emailInfo: this.emailInfo.toModelData(),
       authenticationData: authIds
     });
   }
