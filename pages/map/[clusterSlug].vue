@@ -13,8 +13,15 @@ const router = useRouter();
 
 const {routePlannerService, selectedSystemsService} = useUserScopeStore() as {
   routePlannerService: RoutePlannerServiceInterface,
-  selectedSystemsService: SelectedSystemsServiceInterface
+  selectedSystemsService?: SelectedSystemsServiceInterface
 };
+
+onMounted(() => {
+  const selectedSystemsList = getSelectedSystemList();
+  if (selectedSystemsList) {
+    planTrip(selectedSystemsList);
+  }
+})
 
 const cluster = computed(() => {
   const slugOrId = route.params.clusterSlug;
@@ -63,13 +70,18 @@ useServerSeoMeta({
   })
 });
 
+function getSelectedSystemList() {
+  if (cluster.value && selectedSystemsService) {
+    const selectedSystemsList = selectedSystemsService.getSelectedSystemsForCluster(cluster.value.id);
+    return selectedSystemsList;
+  }
+}
+
 function systemSelected(system: SystemModelInterface) {
-  if (cluster.value) {
-    const selectedSystemsList = selectedSystemsService.getSelectedSystemsForCluster(cluster.value);
-    if (selectedSystemsList) {
-      selectedSystemsList.selectSystem(system);
-      planTrip(selectedSystemsList);
-    }
+  const selectedSystemsList = getSelectedSystemList();
+  if (selectedSystemsList) {
+    selectedSystemsList.selectSystem(system);
+    planTrip(selectedSystemsList);
   }
 }
 

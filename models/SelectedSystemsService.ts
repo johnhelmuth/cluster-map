@@ -1,6 +1,11 @@
-import type {SelectedSystemsListInterface, SelectedSystemsServiceInterface} from "@/types/SystemsSelectedListTypes";
+import type {
+  SelectedSystemsListHydratedDataType,
+  SelectedSystemsListInterface, SelectedSystemsServiceDataType,
+  SelectedSystemsServiceInterface
+} from "@/types/SystemsSelectedListTypes";
 import type {ClusterIdType, ClusterModelInterface} from "@/types/ClusterTypes";
 import {SelectedSystemsList} from "@/models/SelectedSystemsList";
+import type {SystemModelInterface} from "~/types/SystemTypes";
 
 
 export class SelectedSystemsService implements SelectedSystemsServiceInterface {
@@ -11,12 +16,26 @@ export class SelectedSystemsService implements SelectedSystemsServiceInterface {
     this._selectedSystemsForCluster = new Map<ClusterIdType, SelectedSystemsListInterface>();
   }
 
-  getSelectedSystemsForCluster(cluster: ClusterModelInterface) : SelectedSystemsListInterface | undefined {
-    if (this._selectedSystemsForCluster.has(cluster.id)) {
-      return this._selectedSystemsForCluster.get(cluster.id);
+  loadData(data: Array<[ClusterIdType, SelectedSystemsListHydratedDataType]>): void {
+    if (data && Array.isArray(data)) {
+      this.deleteAllSelectedSystems();
+      data.forEach(([clusterId, selectedSystemListData]) => {
+        const selectedSystemsList = this.getSelectedSystemsForCluster(clusterId);
+        if (selectedSystemsList) {
+          selectedSystemListData.forEach((system) => {
+            selectedSystemsList.selectSystem(system);
+          })
+        }
+      })
     }
-    const selectedSystemsList = new SelectedSystemsList(cluster);
-    this._selectedSystemsForCluster.set(cluster.id, selectedSystemsList);
+  }
+
+  getSelectedSystemsForCluster(clusterId: ClusterIdType) : SelectedSystemsListInterface | undefined {
+    if (this._selectedSystemsForCluster.has(clusterId)) {
+      return this._selectedSystemsForCluster.get(clusterId);
+    }
+    const selectedSystemsList = new SelectedSystemsList([]);
+    this._selectedSystemsForCluster.set(clusterId, selectedSystemsList);
     return selectedSystemsList;
   }
 
@@ -24,4 +43,12 @@ export class SelectedSystemsService implements SelectedSystemsServiceInterface {
     this._selectedSystemsForCluster.clear();
   }
 
+  toJSON() : SelectedSystemsServiceDataType {
+    return [...this._selectedSystemsForCluster.entries()].map(([clusterId, selectedSystemsList]) => {
+      return [
+          clusterId,
+          selectedSystemsList.selectedSystems.map((system) => system.id)
+      ]
+    });
+  }
 }

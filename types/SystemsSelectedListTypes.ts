@@ -1,18 +1,21 @@
 import type {SystemIdType, SystemModelInterface} from "@/types/SystemTypes";
-import type {ClusterModelInterface, ClustersModelInterface} from "@/types/ClusterTypes";
+import type {ClusterIdType, ClusterModelInterface} from "@/types/ClusterTypes";
 
-
-export type SelectedSystemLogType = { seq: number, system: SystemModelInterface };
-export type SelectedSystemMapType = Map<SystemIdType, SelectedSystemLogType>;
+export type SelectedSystemsListDataType = Array<SystemIdType>;
+export type SelectedSystemsListHydratedDataType = Array<SystemModelInterface>;
+export type SelectedSystemsServiceDataType = Array<[ClusterIdType, SelectedSystemsListDataType]>;
 
 export interface SelectedSystemsListInterface {
-  size: number;
+  length: number;
   maxSelected: boolean;
-  selectedSystems: Array<SystemModelInterface>;
+  selectedSystems: SelectedSystemsListHydratedDataType;
   selectSystem(system: SystemModelInterface) : void;
+  toJSON(): SelectedSystemsListDataType;
 }
 
 export interface SelectedSystemsServiceInterface {
-  getSelectedSystemsForCluster(cluster: ClusterModelInterface) : SelectedSystemsListInterface | undefined;
+  loadData(data: Array<[ClusterIdType, SelectedSystemsListHydratedDataType]>): void;
+  getSelectedSystemsForCluster(clusterId: ClusterIdType) : SelectedSystemsListInterface | undefined;
   deleteAllSelectedSystems() : void;
+  toJSON() : SelectedSystemsServiceDataType
 }
