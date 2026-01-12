@@ -11,7 +11,8 @@ import {initDocument} from "~/server/utils/DataSourceDb";
 
 
 export const USER_AUTH_DATA_TYPE = 'user-auth';
-export interface UserAuthDataDocumentInterface extends WithId<Document>  {
+
+export interface UserAuthDataDocumentInterface extends WithId<Document> {
   schemaVersion: string;
   type: typeof USER_AUTH_DATA_TYPE;
   authType: AuthenticationTypeType;
@@ -31,7 +32,7 @@ export const UserAuthDataDocumentZSchema = z.object({
   }).optional()
 })
 
-export interface UserAuthMetadataDocumentInterface extends WithId<Document>  {
+export interface UserAuthMetadataDocumentInterface extends WithId<Document> {
   id: AuthIdType,
   authType: AuthenticationTypeType;
   username?: string;
@@ -68,7 +69,7 @@ export class UserAuthDataDocument implements UserAuthDataDocumentInterface {
 
   static create(data: any) {
     initDocument(data, 'user-auth');
-    return new UserAuthDataDocument(data);
+    return new UserAuthDataDocument(this.fromDBData(data));
   }
 
   static isUserAuthDataDocument(data: any): data is UserAuthDataDocumentInterface {
@@ -76,7 +77,20 @@ export class UserAuthDataDocument implements UserAuthDataDocumentInterface {
   }
 
   async save() {
-    return usersAuthCollection().insertOne(this);
+    return usersAuthCollection().updateOne({
+        _id: this._id
+      },
+      {$set: this.toDBData()},
+      {upsert: true}
+    );
+  }
+
+  toDBData() {
+    return this;
+  }
+
+  static fromDBData(data: any) {
+    return data;
   }
 
   toModelData() {

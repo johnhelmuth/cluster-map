@@ -5,12 +5,12 @@ import * as mongoDB from 'mongodb';
 import {UniverseDataDocument} from "~/server/document-models/UniverseDataDocument";
 import {UserDataDocumentInterfaceInDB} from "~/server/document-models/UserDataDocument";
 import {UserAuthDataDocumentInterface} from "~/server/document-models/UserAuthDataDocument";
-import {TokenDataDocument} from "~/server/document-models/TokenDataDocument";
+import {TokenDataDocumentInterfaceInDb} from "~/server/document-models/TokenDataDocument";
 import {SCHEMA_VERSION} from "~/constants";
 
 export const collections: {
   universes?: mongoDB.Collection<UniverseDataDocument>,
-  tokens?: mongoDB.Collection<TokenDataDocument>,
+  tokens?: mongoDB.Collection<TokenDataDocumentInterfaceInDb>,
   users?: mongoDB.Collection<UserDataDocumentInterfaceInDB>,
   usersAuth?: mongoDB.Collection<UserAuthDataDocumentInterface>
 } = {};
@@ -34,7 +34,7 @@ export function universesCollection() {
 }
 
 export function tokensCollection() {
-  return collection("tokens") as mongoDB.Collection<TokenDataDocument>;
+  return collection("tokens") as mongoDB.Collection<TokenDataDocumentInterfaceInDb>;
 }
 
 export function usersCollection() {

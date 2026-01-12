@@ -29,7 +29,6 @@ function validateForm() {
 }
 
 async function register() {
-  console.log('registration: ', registration);
   if (!validateForm()) {
     return;
   }

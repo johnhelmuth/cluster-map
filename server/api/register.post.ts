@@ -21,6 +21,9 @@ export default defineEventHandler(async (event) => {
       if (! UserDataDocument.isUserDataDocument(userDataDocument)) {
         response.status = 500;
         response.message = 'Unknown Error, user not created?';
+      } else {
+        const emailService = useEmailService(event);
+        await emailService.sendVerificationEmail(userDataDocument);
       }
     } catch (error: any) {
       console.error('register.post.ts caught error creating a new user: error: ', error);

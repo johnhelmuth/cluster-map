@@ -105,7 +105,6 @@ export class UniversesManager {
 
   async getUniverse(universeId: UniverseIdType) {
     const universeMetadata = this._universesMetadataStatusMap.get(universeId);
-    console.log('UniversesManager.getUniverse() universeMetadata: ', universeMetadata);
     if (! universeMetadata) {
       throw new Error(`No universe metadata for universe ID ${universeId}`);
     }
@@ -116,7 +115,6 @@ export class UniversesManager {
     if (! universeData) {
       throw new Error(`No universe data for universe ID ${universeId} found.`);
     }
-    console.log('UniversesManager.getUniverse() universeData: ', universeData);
     if (! isUniverseModelData(universeData)) {
       const parsedResponse = universeParse(universeData);
       console.error(`UniversesManager.getUniverse(), invalid universeData for universeId ${universeId} parsedResponse: `, parsedResponse);

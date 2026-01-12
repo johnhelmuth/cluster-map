@@ -1,4 +1,4 @@
-A{
+{
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://in-dire-straits.space/data/schemas/token.schema.json",
   "title": "Token",
@@ -17,7 +17,8 @@ A{
     "token": {
       "description": "The cryptographic token itself",
       "title": "Cryptographic token",
-      "type": "string"
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_\\-]{21}$"
     },
     "expiry": {
       "description": "A date-time value representing the time the token should expire.",

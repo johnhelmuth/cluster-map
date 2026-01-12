@@ -7,7 +7,10 @@
     "type": "user",
     "name": "John Helmuth",
     "emailInfo": {
-      "email": "john@helmuth.org"
+      "email": "john@helmuth.org",
+      "verifiedAt": {
+        "$date": "2025-12-31T22:29:52.171Z"
+      }
     },
     "authenticationData": [
       {
@@ -23,7 +26,10 @@
     "type": "user",
     "name": "John Player",
     "emailInfo": {
-      "email": "john+player@helmuth.org"
+      "email": "john+player@helmuth.org",
+      "verifiedAt": {
+        "$date": "2025-12-31T22:29:52.171Z"
+      }
     },
     "authenticationData": [
       {

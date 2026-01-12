@@ -17,6 +17,7 @@ import {
   validateLoginBody
 } from "~/types/UserTypes";
 import {z} from "zod";
+import {parseTokenDataDocumentInterfaceErrors, TokenDataDocument} from "~/server/document-models/TokenDataDocument";
 
 export const DateTimeZSchema = z.string().datetime({offset: true});
 
@@ -27,9 +28,14 @@ export function isDateTimeString(data: any): data is DateTimeString {
   return parseResponse.success;
 }
 
-export interface EmailInfoInterface {
+export interface EmailInfoInterfaceBase {
   email: string;
-  verifiedAt?: string;
+}
+export interface EmailInfoInterface extends EmailInfoInterfaceBase {
+  verifiedAt?: DateTimeString;
+}
+export interface EmailInfoInterfaceDB extends EmailInfoInterfaceBase {
+  verifiedAt?: Date;
 }
 
 const EmailInfoZSchema = z.object({
@@ -55,9 +61,28 @@ export class EmailInfoDataDocument implements EmailInfoInterface {
     }
   }
 
+  toDBData(): EmailInfoInterfaceDB {
+    const dbData = {
+      email: this.email,
+    } as EmailInfoInterfaceDB;
+    if (this.verifiedAt) {
+      dbData.verifiedAt = new Date(this.verifiedAt);
+    }
+    return dbData
+  }
+
+  static fromDBData(data: any) {
+    if (data.verifiedAt) {
+      if (data.verifiedAt instanceof Date) {
+        data.verifiedAt = data.verifiedAt.toISOString();
+      }
+    }
+    return data;
+  }
+
   toModelData(): EmailInfoInterface {
-    const { email, verifiedAt } = this;
-    const data = { email } as EmailInfoInterface;
+    const {email, verifiedAt} = this;
+    const data = {email} as EmailInfoInterface;
     if (verifiedAt) {
       data.verifiedAt = verifiedAt;
     }
@@ -65,9 +90,8 @@ export class EmailInfoDataDocument implements EmailInfoInterface {
   }
 
   static isEmailInfoDataDocument(data: any): data is EmailInfoDataDocument {
-    return data instanceof EmailInfoDataDocument;
+    return isEmailInfo(data);
   }
-
 }
 
 export interface UserDataDocumentInterfaceBase extends WithId<Document> {
@@ -86,19 +110,24 @@ export interface UserDataDocumentInterface extends UserDataDocumentInterfaceBase
 }
 
 export function isUserDataDocumentInterface(data: any): data is UserDataDocumentInterface {
-  const parseResponse = z.object({
+  const parseResponse = parseUserDataDocumentInterfaceErrors(data)
+  return parseResponse.success;
+}
+
+export function parseUserDataDocumentInterfaceErrors(data: any) {
+  return z.object({
     schemaVersion: z.literal(SCHEMA_VERSION),
     type: z.literal('user'),
     name: z.string(),
     emailInfo: EmailInfoZSchema,
     authenticationData: z.array(UserAuthDataDocumentZSchema)
   }).safeParse(data);
-  return parseResponse.success;
 }
 
 export interface UserMetadataData {
   id: UserIdType;
   name: string;
+  verifiedAt: string;
   authenticationData: Array<UserAuthMetadataDocumentInterface>
 }
 
@@ -127,26 +156,41 @@ export class UserDataDocument implements UserDataDocumentInterface {
           return UserAuthDataDocument.isUserAuthDataDocument(authData);
         })
       ) {
-        const authenticationDataDocuments = data?.authenticationData
+        this.authenticationData = data?.authenticationData
           .map((authData) => {
             return UserAuthDataDocument.create(authData);
-          })
-        this.authenticationData = authenticationDataDocuments;
+          });
       }
+    } else {
+      console.error('UserDataDocument.constructor() invalid data supplied: ', parseUserDataDocumentInterfaceErrors(data));
+      throw new Error('UserDataDocument.constructor() invalid data supplied.');
     }
   }
 
   static isUserDataDocument(data: any): data is UserDataDocument {
-    return data instanceof UserDataDocument;
+    return isUserDataDocumentInterface(data);
   }
 
   static create(data: any): UserDataDocument {
     initDocument(data, 'user');
-    return new UserDataDocument(data);
+    return new UserDataDocument(this.fromDBData(data));
   }
 
-  isVerified() {
-    return !! this.emailInfo.verifiedAt;
+  static fromDBData(data: any) {
+    data.emailInfo = EmailInfoDataDocument.fromDBData(data.emailInfo);
+    return data;
+  }
+
+  toDBData() {
+    const authIds = this.authenticationData.map(authData => authData._id);
+    return {
+      _id: this._id,
+      schemaVersion: this.schemaVersion,
+      type: this.type,
+      name: this.name,
+      emailInfo: this.emailInfo.toDBData(),
+      authenticationData: authIds
+    }
   }
 
   static async getUsersWhere(query: any) {
@@ -217,18 +261,28 @@ export class UserDataDocument implements UserDataDocumentInterface {
     ];
   }
 
+  async setVerified() {
+    this.emailInfo.verifiedAt = (new Date()).toISOString();
+    console.log('UserDataDocument.setVerifiedAt', this);
+    await this.save();
+  }
+
+  async generateVerificationToken() {
+    return TokenDataDocument.createNewTokenForUser(this._id.toHexString(), 'verification');
+  }
+
   async save() {
     await Promise.all(this.authenticationData.map(
       authData => authData.save()
     ));
-    const authIds = this.authenticationData.map(authData => authData._id);
-    return usersCollection().insertOne({
-      _id: this._id,
-      schemaVersion: this.schemaVersion,
-      type: this.type,
-      name: this.name,
-      emailInfo: this.emailInfo.toModelData(),
-      authenticationData: authIds
+    const userDoc = this.toDBData();
+
+    return usersCollection().updateOne({
+      _id: this._id
+    }, {
+      $set: userDoc
+    }, {
+      upsert: true
     });
   }
 
@@ -246,11 +300,15 @@ export class UserDataDocument implements UserDataDocumentInterface {
   }
 
   toUserMetadataData(): UserMetadataData {
-    return {
+    const doc = {
       id: this._id.toHexString(),
       name: this.name,
       authenticationData: this.authenticationData.map(authData => authData.toUserAuthMetadataData())
+    } as UserMetadataData;
+    if (this.emailInfo.verifiedAt) {
+      doc.verifiedAt = this.emailInfo.verifiedAt;
     }
+    return doc;
   }
 
   static async login(data: LoginDocument | any) {
@@ -282,7 +340,7 @@ export class UserDataDocument implements UserDataDocumentInterface {
         const matches = await bcrypt.compare(validData.password, userAuth.usernamePassword.hash);
         console.log('UserDataDocument.login() matches: ', matches);
         if (matches) {
-          if (! userDataDocument) {
+          if (!userDataDocument) {
             userDataDocument = await UserDataDocument.getOneUserWhere({
               authenticationData: userAuth._id
             });

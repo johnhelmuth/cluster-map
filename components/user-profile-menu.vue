@@ -8,8 +8,8 @@ const {setCurrentOpenModal, closeModal} = useModalStateStore('userMenu', toggleU
 const initials = computed(() => {
   if (loggedIn.value && user.value) {
     const username = user.value?.authenticationData[0]?.username;
-    if (username) {
-      return username[0].toUpperCase();
+    if (username && typeof username === "string") {
+      return username.charAt(0).toUpperCase();
     }
   }
 });
@@ -36,7 +36,7 @@ function toggleUserMenu() {
         </div>
         <Teleport to="body">
           <Transition name="slide">
-            <nav v-show="isActive" class="user-menu-list" :class="{ 'active': isActive }">
+            <nav v-show="isActive" class="user-menu-list" :class="{ 'active': isActive }" @click="toggleUserMenu">
               <div class="face-front">
                 <slot></slot>
               </div>

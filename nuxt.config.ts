@@ -61,7 +61,12 @@ export default defineNuxtConfig({
       auth: {
         user: '',
         pass: '',
-      }
+      },
+      dkim: {
+        domainName: '',
+        keySelector: '',
+        privateKey: '',
+      },
     },
 
     modules: [

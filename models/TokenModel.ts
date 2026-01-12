@@ -4,6 +4,8 @@ import type {UserIdType} from "~/models/UserModel";
 export type TokenIdType = IdType;
 export type TokenTypeType = 'verification' | 'reset';
 
+export const TOKEN_PATTERN = /^[A-Za-z0-9_\-]{21}$/;
+
 export interface TokenModelData {
   id: TokenIdType;
   tokenType: TokenTypeType;
