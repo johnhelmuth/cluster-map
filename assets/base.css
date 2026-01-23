@@ -102,6 +102,13 @@
   --color-fill-map-blue: var(--vt-c-blue-soft);
 }
 
+@font-face {
+  font-family: 'Fate Core';
+  src: local('Fate Core Font.ttf'),
+       url('/fonts/Fate-Core-Font/Fate Core Font.ttf');
+
+}
+
 *,
 *::before,
 *::after {
