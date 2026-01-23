@@ -1,0 +1,1 @@
+I acquired this font on DriveThruRpg: [Art's Polyhedral Dice D6 Font with Pips](https://www.drivethrurpg.com/en/product/58769)

@@ -1,0 +1,1 @@
+I acquired this font by downloading it from [Fate-SRD's Official Licensing Page](https://fate-srd.com/official-licensing-fate).
