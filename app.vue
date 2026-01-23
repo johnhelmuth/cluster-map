@@ -22,6 +22,7 @@ const route = useRoute();
         <NuxtLink to="/search">Search</NuxtLink>
         <NuxtLink to="/maps">Maps</NuxtLink>
         <NuxtLink to="/clusters">Clusters</NuxtLink>
+        <NuxtLink to="/dice-roller">Dice roller</NuxtLink>
         <NuxtLink to="/news">Site news</NuxtLink>
         <NuxtLink to="/settings">Settings</NuxtLink>
         <NuxtLink to="/about">About</NuxtLink>

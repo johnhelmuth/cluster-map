@@ -106,6 +106,12 @@
   font-family: 'Fate Core';
   src: local('Fate Core Font.ttf'),
        url('/fonts/Fate-Core-Font/Fate Core Font.ttf');
+}
+
+@font-face {
+  font-family: 'ArtsD6Pipped';
+  src: local('ArtsPolyhedralDiceD6Pips.ttf'),
+       url('/fonts/Arts_Polyhedral/ArtsPolyhedralDiceD6Pips.ttf');
 
 }
 

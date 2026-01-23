@@ -96,3 +96,37 @@ export function dateFormat(d: Date) {
   const dateDayOfMonth = leadingZeros(d.getDate().toString(10), 2);
   return [dateYear, dateMonth, dateDayOfMonth].join('-');
 }
+
+export function dateTimeFormat(d: Date) {
+  const dateF = dateFormat(d);
+  const timeHour = leadingZeros(d.getHours().toString(), 2);
+  const timeMinute = leadingZeros(d.getMinutes().toString(), 2);
+  const timeSecond = leadingZeros(d.getSeconds().toString(), 2);
+  const timeF = [timeHour, timeMinute, timeSecond].join(':');
+  return [dateF, timeF].join(' ');
+}
+
+const ladder = new Map<number, string>([
+  [-4, 'Horrifying'],
+  [-3, 'Catastrophic'],
+  [-2, 'Terrible'],
+  [-1, 'Poor'],
+  [ 0, 'Mediocre'],
+  [ 1, 'Average '],
+  [ 2, 'Fair'],
+  [ 3, 'Good'],
+  [ 4, 'Great'],
+  [ 5, 'Superb'],
+  [ 6, 'Fantastic'],
+  [ 7, 'Epic'],
+  [ 8, 'Legendary'],
+]);
+
+export function getLadderDescription(dieValue: number) {
+  dieValue = Math.max(dieValue, -4);
+  dieValue = Math.min(dieValue, 8);
+  if (ladder.has(dieValue)) {
+    return ladder.get(dieValue) as string;
+  }
+  return ladder.get(0) as string;
+}
