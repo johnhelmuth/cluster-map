@@ -96,14 +96,14 @@ export function dateFormat(d: Date) {
   const dateDayOfMonth = leadingZeros(d.getDate().toString(10), 2);
   return [dateYear, dateMonth, dateDayOfMonth].join('-');
 }
-
-export function dateTimeFormat(d: Date) {
-  const dateF = dateFormat(d);
+export function timeFormat(d: Date) {
   const timeHour = leadingZeros(d.getHours().toString(), 2);
   const timeMinute = leadingZeros(d.getMinutes().toString(), 2);
   const timeSecond = leadingZeros(d.getSeconds().toString(), 2);
-  const timeF = [timeHour, timeMinute, timeSecond].join(':');
-  return [dateF, timeF].join(' ');
+  return [timeHour, timeMinute, timeSecond].join(':');
+}
+export function dateTimeFormat(d: Date) {
+  return [dateFormat(d), timeFormat(d)].join(' ');
 }
 
 const ladder = new Map<number, string>([

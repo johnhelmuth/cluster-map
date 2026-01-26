@@ -5,6 +5,7 @@ import type {DiceRollInterface, DieType} from "~/models/DiceService";
 
 defineProps<{
   diceRoll: DiceRollInterface | undefined,
+  logEntryTime?: string,
   inTable?: boolean,
 }>();
 
@@ -47,7 +48,10 @@ function formatDieByType(dieType: DieType, dieValue: number) {
 </script>
 
 <template>
-  <div v-if="diceRoll" class="dice-roll-results" :class="{ 'in-table': inTable, [`die-type-${diceRoll.parsedRoll.dieType}`]: true }">
+  <div v-if="diceRoll" class="dice-roll-results"
+       :class="{ 'in-table': inTable, [`die-type-${diceRoll.parsedRoll.dieType}`]: true, 'has-log-entry-time': !!logEntryTime }"
+       :title="`${logEntryTime ? 'Rolled at ' + logEntryTime : ''}`"
+  >
     <div class="roll-dice">
       <template v-for="(rollDie, index) of diceRoll.diceResults" :key="index">
         <div class="roll-die" :class="`roll-die-${index}`">{{
@@ -56,7 +60,7 @@ function formatDieByType(dieType: DieType, dieValue: number) {
         </div>
       </template>
     </div>
-    <div class="roll-dice-total">= {{ totalDice(diceRoll.diceResults) }}</div>
+    <div class="roll-dice-total">= <span class="dice-roll-total-value">{{ totalDice(diceRoll.diceResults) }}</span></div>
     <div class="roll-modifier">{{
         diceRoll.parsedRoll.modifier ? formatRollModifier(diceRoll.parsedRoll.modifier) : ''
       }}
@@ -65,38 +69,51 @@ function formatDieByType(dieType: DieType, dieValue: number) {
          :title="(diceRoll.parsedRoll.dieType === 'fudge' ? getLadderDescription(diceRoll.diceTotal) : '')">
       = <span class="roll-total-value">{{ diceRoll.diceTotal }}</span>
     </div>
+    <div v-if="diceRoll.parsedRoll.dieType === 'fudge'" class="ladder-adj">
+      {{ getLadderDescription(diceRoll.diceTotal) }}
+    </div>
     <div class="roll-description">
       {{ diceRoll.parsedRoll.description }}
-      <span v-if="diceRoll.parsedRoll.dieType === 'fudge'" class="ladder-adj">{{ getLadderDescription(diceRoll.diceTotal) + '! ' }}</span>
     </div>
   </div>
 </template>
 
 <style scoped>
 
-.dice-roll-results:not(.in-table) {
-  display: grid;
-  grid-template-columns: 12rem 3rem 3rem 3rem auto;
-  grid-auto-rows: auto;
-  grid-row-gap: 0.75rem;
+.dice-roll-results {
+  --dice-size-multiplier: 1;
+  --remPixels: 1rem;
   align-items: center;
+  justify-items: center;
+  min-height: 3rem;
+}
+.dice-roll-results:not(.in-table) {
+  --dice-size-multiplier: 1.5;
+  display: grid;
+  grid-template-columns: min-content 4rem max-content 5rem 7rem minmax(min-content, max-content);
+  grid-template-rows: minmax(min-content, max-content);
+  grid-template-areas: "dice dicetotal modifier total adjective description";
+  grid-auto-rows: auto;
 }
 .dice-roll-results.in-table {
-  grid-column: 2/-1;
+  grid-column: 1/-1;
+  grid-row: 1/4;
   display: grid;
   grid-template-columns: subgrid;
-  justify-items: center;
-  align-items: end;
+  grid-template-rows: subgrid;
+  grid-auto-rows: auto;
 }
 
 .dice-roll-results:not(.in-table) .roll-dice {
-  max-width: 8rem;
+  grid-template-columns: repeat(auto-fit, calc(var(--dice-size-multiplier) * var(--remPixels)));
+  max-width: calc(var(--dice-size-multiplier) * 5 * var(--remPixels));
 }
 
 .dice-roll-results .roll-dice {
-  max-width: 5rem;
+  grid-template-columns: repeat(auto-fit, calc(var(--dice-size-multiplier) * var(--remPixels)));
+  max-width: calc(var(--dice-size-multiplier) * 5 * var(--remPixels));
+  grid-area: dice;
   display: grid;
-  grid-template-columns: repeat(auto-fit, 1rem);
   grid-auto-flow: row;
   justify-content: space-between;
   align-items: center;
@@ -117,16 +134,45 @@ function formatDieByType(dieType: DieType, dieValue: number) {
   line-height: 1;
 }
 
-.dice-roll-results .roll-total > .roll-total-value {
+.dice-roll-results .roll-dice-total {
+  grid-area: dicetotal;
+}
+.dice-roll-results .roll-dice-total > .dice-roll-total-value {
   font-weight: bold;
+  font-style: italic;
+  font-size: 120%
 }
 
-.dice-roll-results .roll-description .ladder-adj {
+.dice-roll-results .roll-modifier {
+  grid-area: modifier;
+}
+.dice-roll-results .roll-total {
+  grid-area: total;
+}
+.dice-roll-results .ladder-adj {
+  grid-area: adjective;
   font-weight: bold;
 }
-.dice-roll-results .roll-description, li.roll-log-header .roll-description {
+.dice-roll-results .roll-total > .roll-total-value {
+  font-weight: bold;
+  font-size: 120%
+}
+
+.dice-roll-results .roll-description {
+  grid-area: description;
   justify-self: start;
   margin-left: .75rem;
 }
 
+@container (width < 600px) {
+  .dice-roll-results:not(.in-table) {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: max-content max-content max-content;
+    grid-template-areas:  "dice        dicetotal   blank"
+                          "modifier    total       adjective"
+                          "description description description";
+    grid-auto-rows: auto;
+    gap: 0.75rem;
+  }
+}
 </style>

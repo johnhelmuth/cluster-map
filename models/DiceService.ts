@@ -47,9 +47,7 @@ export class DiceService {
 
 
   rollDice(diceExpression: string): DiceRollInterface | undefined {
-    // console.group('DiceService.rollDice()');
     const parsedRoll = this.parseDiceExpression(diceExpression);
-    // console.log('parsedRoll', parsedRoll);
     if (parsedRoll) {
       const {numDice, dieType, modifier} = parsedRoll;
       let diceTotal = 0;
@@ -63,13 +61,10 @@ export class DiceService {
       }
       diceTotal += modifier;
       const diceRoll = {diceTotal, diceResults, parsedRoll };
-      // console.log('diceRoll: ', diceRoll);
-      this.diceLog.unshift({timestamp: Date.now(), diceRoll});
+      this.diceLog.push({timestamp: Date.now(), diceRoll});
       this.lastResult = diceRoll;
-      // console.groupEnd();
       return diceRoll;
     }
-    // console.groupEnd();
   }
 
   validNumDice(matches: RegExpMatchArray) {
@@ -87,11 +82,10 @@ export class DiceService {
 
   validDieType(matches: RegExpMatchArray) {
     let dieType = false as false | DieType;
-    // console.group('validDieType');
-    // console.log('matches[2]: ', matches[2]);
     if (Array.isArray(matches) && matches.length > 2 && typeof matches[2] !== 'undefined') {
-      if (dieTypeSymbolMap.has(matches[2])) {
-        dieType = dieTypeSymbolMap.get(matches[2]) as DieType;
+      const dieSymbol = matches[2].toLowerCase()
+      if (dieTypeSymbolMap.has(dieSymbol)) {
+        dieType = dieTypeSymbolMap.get(dieSymbol) as DieType;
       } else {
         const numDieType = parseInt(matches[2]);
         if (! isNaN(numDieType) && numDieType > 0) {
@@ -99,8 +93,6 @@ export class DiceService {
         }
       }
     }
-    // console.log('dieType: ', dieType);
-    // console.groupEnd();
     return dieType;
   }
 
@@ -118,10 +110,8 @@ export class DiceService {
   }
 
   parseDiceExpression(expression: DiceExpressionType) {
-    // console.group('DiceService.parseDiceExpression()');
     const parseRegex = /^(?:(?:\s*([0-9]*)d([0-9]+|f)){0,1}\s*([+-][0-9]+){0,1}){0,1}\s*(.*)$/i;
     const matches = expression.match(parseRegex);
-    // console.log('matches: ', matches);
     if (matches) {
       const numDice = this.validNumDice(matches);
       const dieType = this.validDieType(matches);
@@ -130,9 +120,7 @@ export class DiceService {
       if (matches.length > 4 && typeof matches[4] !== 'undefined') {
         description = matches[4].trim();
       }
-      // console.log('from matches: numDice, dieType, modifier, description: ', numDice, dieType, modifier, description)
       if (numDice !== false && dieType !== false && modifier !== false) {
-        // console.groupEnd();
         return {
           expression,
           dieType,
@@ -141,7 +129,6 @@ export class DiceService {
           description
         }
       }
-      // console.groupEnd();
     }
   }
 
@@ -158,6 +145,7 @@ export class DiceService {
   }
 
   clearDiceLog() {
-    this.diceLog = [] as DiceLogEntryInterface[];;
+    this.diceLog.splice(0, this.diceLog.length);
+    this.lastResult = undefined;
   }
 }
