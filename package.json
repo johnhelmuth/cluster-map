@@ -37,6 +37,6 @@
     }
   },
   "devDependencies": {
-    "@iconify-json/material-symbols": "^1.2.47"
+    "@iconify-json/material-symbols": "^1.2.53"
   }
 }
