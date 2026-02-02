@@ -2,6 +2,8 @@ import type {PointType} from "@/types/GeometryTypes.js";
 import type {ClustersModelDataType} from "@/types/ClusterTypes";
 import type {BoundingBoxType, ClusterOrientationType, PositionThing, PositionThingList} from "@/types/BasicTypes";
 import {getMapDimensions} from "~/utils/cluster-generator";
+import type {DiceLogEntryInterface} from "~/models/DiceService";
+import {getParseDiceLog} from "~/utils/import-validator";
 
 export function getBoundingBox(things: PositionThingList) : BoundingBoxType {
 
@@ -53,6 +55,15 @@ export function isClustersModelDataType(data : object | ClustersModelDataType) :
     && typeof (data as ClustersModelDataType).currentClusterId === 'string'
     && (data as ClustersModelDataType).clusters !== undefined
     && ((data as ClustersModelDataType).clusters?.length === 0 || (data as ClustersModelDataType).clusters?.length > 0)
+}
+
+export function isDiceLog(data: any): data is DiceLogEntryInterface[] {
+  if (data && Array.isArray(data)) {
+    const parseDiceLog = getParseDiceLog();
+    const diceLogParseResponse = parseDiceLog(JSON.stringify(data));
+    return diceLogParseResponse.valid;
+  }
+  return false;
 }
 
 /**

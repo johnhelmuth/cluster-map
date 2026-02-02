@@ -1,4 +1,5 @@
 import Chance from 'chance';
+import {isDiceLog} from "~/utils/utils";
 
 const chance = new Chance();
 
@@ -45,6 +46,19 @@ export class DiceService {
 
   diceLog = [] as DiceLogEntryInterface[];
 
+  constructor(diceLog: DiceLogEntryInterface[]) {
+    this.loadDiceLog(diceLog);
+  }
+
+  loadDiceLog(diceLog: DiceLogEntryInterface[]) {
+    if (diceLog && isDiceLog(diceLog)) {
+      this.diceLog = diceLog;
+      if (! this.lastResult && this.diceLog.length > 0) {
+        const diceLogEntry = this.diceLog[this.diceLog.length-1] as DiceLogEntryInterface;
+        this.lastResult = diceLogEntry.diceRoll;
+      }
+    }
+  }
 
   rollDice(diceExpression: string): DiceRollInterface | undefined {
     const parsedRoll = this.parseDiceExpression(diceExpression);

@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://in-dire-straits.space/data/schemas/dice-roll.schema.json",
+  "title": "Dice roll",
+  "description": "A dice roll, including the type and number of dice, the result of each of the dice, a modifier, and a description.",
+  "type": "object",
+  "properties": {
+    "diceTotal": {
+      "type": "integer",
+      "title": "Dice total",
+      "description": "The sum of all the dice in the roll plus the modifier."
+    },
+    "diceResults": {
+      "type": "array",
+      "title": "Dice results",
+      "description": "The value rolled on each individual die.",
+      "items": {
+        "type": "integer"
+      },
+      "minItems": 1
+    },
+    "parsedRoll": {
+      "type": "object",
+      "title": "Parsed roll",
+      "description": "The original expression for the roll and the parsed attributes of the roll.",
+      "properties": {
+        "expression": {
+          "type": "string",
+          "title": "Dice expression",
+          "minLength": 2
+        },
+        "numDice": {
+          "type": "integer",
+          "title": "Number of Dice",
+          "description": "The number of dice rolled."
+        },
+        "dieType": {
+          "anyOf": [
+            { "enum": ["fudge"] },
+            { "type": "integer" }
+          ],
+          "title": "Die type",
+          "description": "The type of dice, either an integer for the number of faces, or 'fudge' for a Fudge dice with values -1, 0, or 1."
+        },
+        "modifier": {
+          "type": "integer",
+          "title": "Modifier",
+          "description": "A number to add to the total of the rolled dice."
+        },
+        "description": {
+          "type": "string",
+          "title": "Roll description",
+          "description": "A description for the roll, usually why it is being rolled. Can be empty."
+        }
+      },
+      "required": ["expression", "numDice", "dieType", "modifier"]
+    }
+  },
+  "required": [
+    "diceTotal", "diceResults", "parsedRoll"
+  ]
+}

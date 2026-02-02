@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://in-dire-straits.space/data/schemas/dice-log.schema.json",
+  "title": "Dice log",
+  "description": "A log of dice rolls, with timestamps when they happened.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "timestamp": {
+        "type": "integer",
+        "title": "Timestamp",
+        "description": "Unix epoch when dice were rolled"
+      },
+      "diceRoll": {
+        "$ref": "https://in-dire-straits.space/data/schemas/dice-roll.schema.json"
+      }
+    },
+    "required": ["timestamp", "diceRoll"]
+  },
+  "minItems": 0
+}

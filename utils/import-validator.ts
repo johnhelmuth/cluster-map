@@ -5,6 +5,8 @@ import straitSchema from '@/data/schemas/strait.schema.json';
 import systemSchema from '@/data/schemas/system.schema.json';
 import clusterSchema from '@/data/schemas/cluster.schema.json';
 import clustersSchema from '@/data/schemas/clusters.schema.json';
+import diceRollSchema from '@/data/schemas/dice-roll.schema.json';
+import diceLogSchema from '@/data/schemas/dice-log.schema.json';
 
 
 export function getParseClusters() : Parse {
@@ -17,5 +19,16 @@ export function getParseClusters() : Parse {
     mode: "lax",
     includeErrors: true,
   });
+  return parse;
+}
+
+export function getParseDiceLog() : Parse {
+  const parse = parser(diceLogSchema, {
+    schemas: {
+      "https://in-dire-straits.space/data/schemas/dice-roll.schema.json": diceRollSchema,
+    },
+    mode: "lax",
+    includeErrors: true,
+  })
   return parse;
 }

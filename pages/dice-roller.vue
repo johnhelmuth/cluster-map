@@ -25,11 +25,15 @@ function rollTheDice(diceExpr: string) {
         <DiceRollControl @roll-the-dice="rollTheDice" />
       </section>
       <section class="section dice-roll-result">
-        <DiceRollResult v-if="diceService.lastResult" :dice-roll="diceService.lastResult"/>
-        <div v-else class="empty-dice-results"></div>
+        <ClientOnly>
+          <DiceRollResult v-if="diceService.lastResult" :dice-roll="diceService.lastResult"/>
+          <div v-else class="empty-dice-results"></div>
+        </ClientOnly>
       </section>
       <section class="section dice-log-section">
-        <DiceLog />
+        <ClientOnly>
+          <DiceLog />
+        </ClientOnly>
       </section>
     </main>
   </InfoPage>
