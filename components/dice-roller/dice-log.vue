@@ -16,7 +16,7 @@ watch(diceService.diceLog, () => {
   if (diceLog.value) {
     const lastLogEntry = diceLog.value.querySelector('li:last-child');
     if (lastLogEntry) {
-      lastLogEntry.scrollIntoView({ behavior: 'smooth'});
+      lastLogEntry.scrollIntoView({ block: 'end', behavior: 'smooth'});
     }
   }
 })
@@ -61,16 +61,15 @@ watch(diceService.diceLog, () => {
   position: absolute;
   top: 1rem;
   right: 1rem;
-  justify-self: flex-end;
-  align-self: flex-end;
 }
 
 .dice-log-wrapper {
   display: grid;
   grid-template-columns: min-content 4rem min-content max-content 7rem minmax(min-content, max-content);
-  grid-template-rows: minmax(min-content, max-content);
+  grid-template-rows: 1fr;
   grid-template-areas: "dice dicetotal modifier total adjective description";
-  justify-content: start;
+  align-items: start;
+  width: calc(100% - 2rem);
   margin-top: 1rem;
 }
 
@@ -80,9 +79,10 @@ watch(diceService.diceLog, () => {
   grid-template-columns: subgrid;
   grid-template-rows: subgrid;
   align-items: end;
-  justify-content: center;
+  justify-items: center;
   gap: .75rem;
   padding-bottom: .5rem;
+  margin-bottom: 0;
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -100,11 +100,10 @@ ul.dice-log {
   grid-column: 1 / -1;
   display: grid;
   grid-template-columns: subgrid;
-  grid-auto-rows: minmax(2rem, max-content);
   gap: 0.75rem;
   align-items: end;
   padding: 0 1rem 1rem;
-  height: 87cqh;
+  max-height: 87cqh;
   overflow-y: auto;
   scrollbar-color: initial;
 }
@@ -126,14 +125,8 @@ li.roll-log-entry > * {
 }
 
 @container (width < 600px) {
-  ul.dice-log {
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    row-gap: 0;
-    grid-template-areas:  "dice        dicetotal   blank"
-                          "modifier    total       adjective"
-                          "description description description";
-    grid-auto-rows: minmax(2rem, auto) minmax(2rem, auto) minmax(2rem, auto);
+  .dice-log-wrapper {
+    display: revert;
   }
 
   .roll-log-header {

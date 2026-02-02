@@ -101,7 +101,6 @@ function formatDieByType(dieType: DieType, dieValue: number) {
   display: grid;
   grid-template-columns: subgrid;
   grid-template-rows: subgrid;
-  grid-auto-rows: auto;
 }
 
 .dice-roll-results:not(.in-table) .roll-dice {
@@ -115,7 +114,7 @@ function formatDieByType(dieType: DieType, dieValue: number) {
   grid-area: dice;
   display: grid;
   grid-auto-flow: row;
-  justify-content: space-between;
+  justify-items: center;
   align-items: center;
   column-gap: .25rem;
 }
@@ -165,9 +164,9 @@ function formatDieByType(dieType: DieType, dieValue: number) {
 }
 
 @container (width < 600px) {
-  .dice-roll-results:not(.in-table) {
+  .dice-roll-results:not(.in-table),
+  .dice-roll-results.in-table {
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: max-content max-content max-content;
     grid-template-areas:  "dice        dicetotal   blank"
                           "modifier    total       adjective"
                           "description description description";

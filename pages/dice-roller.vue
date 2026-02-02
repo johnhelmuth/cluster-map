@@ -2,16 +2,12 @@
 
 import {useDiceStore} from "~/stores/use-dice-store";
 import DiceRollResult from "~/components/dice-roller/dice-roll-result.vue";
-import type {DiceExpressionType} from "~/models/DiceService";
 import DiceRollControl from "~/components/dice-roller/dice-roll-control.vue";
 import DiceLog from "~/components/dice-roller/dice-log.vue";
 
 const diceService = useDiceStore()
 
-const diceExpression = ref('' as DiceExpressionType);
-
 function rollTheDice(diceExpr: string) {
-  diceExpr = diceExpr ? diceExpr : diceExpression.value;
   if (diceExpr) {
     diceService.rollDice(diceExpr);
   }
