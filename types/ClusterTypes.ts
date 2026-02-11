@@ -7,10 +7,8 @@
  * These StraitModelInterface objects are shared between the 2 SystemModelInterface objects it connects.
  */
 import type {BoundingBoxType, ClusterOrientationType, IdType, MapViewStylesType} from "@/types/BasicTypes";
-import type { SystemIdType, SystemModelInterface} from "@/types/SystemTypes";
-import type {DrawDirectionType, StraitModelInterface} from "@/types/StraitTypes";
-import type {SystemModelDataType} from "@/types/SystemTypes";
-import type {StraitModelDataType} from "@/types/StraitTypes";
+import type { SystemIdType, SystemModelInterface, SystemModelDataType} from "@/types/SystemTypes";
+import type {DrawDirectionType, StraitModelInterface, StraitModelDataType} from "@/types/StraitTypes";
 
 export type ClusterIdType = IdType;
 

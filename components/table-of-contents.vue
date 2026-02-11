@@ -52,13 +52,17 @@ function handleExtraNavPreLink(preLink: { text: string, 'handler-tag': string },
   //       and allow other components to use this, and to define, load, and handle plugins to other types of extra links.
   switch (preLink['handler-tag']) {
     case 'pick-random':
-      const linkTo = pickRandomFromList(fromList);
-      if (linkTo?.id) {
-        const linkToUri = `#${linkTo.id}`;
-        router.push(linkToUri);
-        scrollToHeader(linkToUri)
-      }
+      handleRandomPick(fromList);
       break;
+  }
+}
+
+function handleRandomPick(fromList: TocLink[]) {
+  const linkTo = pickRandomFromList(fromList);
+  if (linkTo?.id) {
+    const linkToUri = `#${linkTo.id}`;
+    router.push(linkToUri);
+    scrollToHeader(linkToUri)
   }
 }
 

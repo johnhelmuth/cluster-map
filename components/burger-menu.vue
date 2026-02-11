@@ -30,7 +30,7 @@ function toggleActive() {
           <div class="face-front">
             <slot></slot>
           </div>
-          <div class="face-back"><img src="/images/Grulvax.svg"></div>
+          <div class="face-back"><img src="/images/Grulvax.svg" alt="Image of Jithal working in the maintenance tunnels."></div>
         </nav>
       </Transition>
     </Teleport>
