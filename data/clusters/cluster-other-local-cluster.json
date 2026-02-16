@@ -135,6 +135,8 @@
         "A6b8",
         "B785"
       ],
+      "discovered": "7587",
+      "discoveredFrom": "A6b8",
       "direction": "center"
     },
     {
@@ -144,6 +146,8 @@
         "A6b8",
         "C633"
       ],
+      "discovered": "7867",
+      "discoveredFrom": "A6b8",
       "direction": "clockwise"
     },
     {
@@ -153,6 +157,8 @@
         "A6b8",
         "D74b"
       ],
+      "discovered": "7849",
+      "discoveredFrom": "A6b8",
       "direction": "clockwise"
     },
     {
@@ -162,6 +168,8 @@
         "B785",
         "C633"
       ],
+      "discovered": "7542",
+      "discoveredFrom": "C633",
       "direction": "center"
     },
     {
@@ -171,6 +179,8 @@
         "B785",
         "E794"
       ],
+      "discovered": "7901",
+      "discoveredFrom": "E794",
       "direction": "clockwise"
     },
     {
@@ -180,6 +190,8 @@
         "C633",
         "D74b"
       ],
+      "discovered": "7880",
+      "discoveredFrom": "C633",
       "direction": "center"
     },
     {
@@ -189,6 +201,8 @@
         "C633",
         "F786"
       ],
+      "discovered": "7538",
+      "discoveredFrom": "F786",
       "direction": "clockwise"
     },
     {
@@ -198,6 +212,8 @@
         "D74b",
         "E794"
       ],
+      "discovered": "7822",
+      "discoveredFrom": "E794",
       "direction": "center"
     },
     {
@@ -207,6 +223,8 @@
         "E794",
         "F786"
       ],
+      "discovered": "7630",
+      "discoveredFrom": "F786",
       "direction": "center"
     }
   ]

@@ -27,6 +27,16 @@
       "description": "Which direction to curve the strait when drawn, 'clockwise', 'center', or 'counterclockwise'",
       "type": "string",
       "enum": ["clockwise", "center", "counterclockwise"]
+    },
+    "discovered": {
+      "description": "The in game year the strait was discovered.",
+      "type": "string",
+      "minLength": 4,
+      "maxLength": 4
+    },
+    "discoveredFrom": {
+      "description": "The system id property of the system from which the first strait jump was made.",
+      "type": "string"
     }
   },
   "required": [ "type", "schemaVersion", "systems" ]
