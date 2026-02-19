@@ -3,9 +3,12 @@ import {isDiceLog} from "~/utils/utils";
 
 const chance = new Chance();
 
+export const DICE_ROLLS_FOR_STATS = 1000000;
+
 export type DiceExpressionType = string;
 
 export type DieType = 'fudge' | number;
+export type DieTypeNumDiceType = string; // "NumDice:DieType"
 
 export type DieTypeMetadata = {
   symbol: string;
@@ -21,10 +24,14 @@ export const dieTypeSymbolMap = new Map<string, DieType>([
   ]
 )
 
-export interface DiceRollInterface {
-  diceTotal: number;
-  diceResults: number[] | undefined;
-  parsedRoll: parsedRollInterface;
+const RNGTypesList = ['myRand', 'chance'];
+export type RNGTypesType = 'myRand' | 'chance'
+export const RNG_DEFAULT: RNGTypesType = 'chance';
+export function isRNGTypesType(data: any): data is RNGTypesType {
+  if (typeof data === 'string') {
+    return RNGTypesList.includes(data)
+  }
+  return false;
 }
 
 export interface parsedRollInterface {
@@ -35,19 +42,55 @@ export interface parsedRollInterface {
   description: string;
 }
 
+export interface DiceRollRawInterface {
+  diceTotal: number;
+  diceResults: number[];
+  RNGUsed: RNGTypesType;
+}
+
+export interface DiceRollInterface extends DiceRollRawInterface {
+  parsedRoll: parsedRollInterface;
+}
+
 export interface DiceLogEntryInterface {
   timestamp: number; // Unix epoch when dice were rolled.
   diceRoll: DiceRollInterface;
 }
 
+/**
+ * Dice Stats types
+ */
+export interface ReportForDieTypeResult {
+  result: number,
+  count: number,
+}
+
+export interface ReportForDieTypeInterface {
+  RNGUsed: RNGTypesType;
+  dieType: DieType,
+  numDice: number;
+  count: number,
+  total: number,
+  reportForResult: ReportForDieTypeResult[]
+}
+
+export type ReportForDice = Map<DieTypeNumDiceType, ReportForDieTypeInterface>;
+
 export class DiceService {
+
+  _RNGDefault: RNGTypesType;
 
   lastResult?: DiceRollInterface;
 
   diceLog = [] as DiceLogEntryInterface[];
 
-  constructor(diceLog: DiceLogEntryInterface[]) {
+  constructor(diceLog: DiceLogEntryInterface[], rngUsed?: RNGTypesType) {
+    this._RNGDefault = typeof rngUsed !== 'undefined' ? rngUsed : RNG_DEFAULT;
     this.loadDiceLog(diceLog);
+  }
+
+  get RNGDefault() {
+    return this._RNGDefault;
   }
 
   loadDiceLog(diceLog: DiceLogEntryInterface[]) {
@@ -63,22 +106,67 @@ export class DiceService {
   rollDice(diceExpression: string): DiceRollInterface | undefined {
     const parsedRoll = this.parseDiceExpression(diceExpression);
     if (parsedRoll) {
-      const {numDice, dieType, modifier} = parsedRoll;
-      let diceTotal = 0;
-      let diceResults = [] as number[];
-      for (let d = 0; d < numDice; d++) {
-        const r = this.rollADieType(dieType);
-        if (typeof r !== "undefined") {
-          diceTotal += r;
-          diceResults.push(r);
-        }
-      }
-      diceTotal += modifier;
-      const diceRoll = {diceTotal, diceResults, parsedRoll };
+      const diceRollRaw = this._rollDiceRaw(parsedRoll.dieType, parsedRoll.numDice);
+      const diceRoll = { ...diceRollRaw, parsedRoll}
+      diceRoll.diceTotal += parsedRoll.modifier;
       this.diceLog.push({timestamp: Date.now(), diceRoll});
       this.lastResult = diceRoll;
       return diceRoll;
     }
+  }
+
+  _rollDiceRaw(dieType: DieType, numDice: number, RNG?: RNGTypesType) : DiceRollRawInterface {
+    const RNGUsed = RNG || this._RNGDefault;
+    let diceTotal = 0;
+    let diceResults = [] as number[];
+    for (let d = 0; d < numDice; d++) {
+      const r = this.rollADieType(dieType, RNGUsed);
+      if (typeof r !== "undefined") {
+        diceTotal += r;
+        diceResults.push(r);
+      }
+    }
+    return {diceTotal, diceResults, RNGUsed };
+  }
+
+  runDiceForStats(diceExpression: string, numRolls = DICE_ROLLS_FOR_STATS, RNG?: RNGTypesType) : ReportForDieTypeInterface {
+    const RNGUsed = RNG || this._RNGDefault;
+    const parsed = this.parseDiceExpression(diceExpression)
+    if (! parsed) {
+      throw new Error(`Dice expression "${diceExpression}" not parsable.`);
+    }
+    const { dieType, numDice } = parsed;
+
+    let total = 0;
+    let count = 0;
+    const resultsMap = new Map<number, ReportForDieTypeResult>();
+
+    for (let r=0; r < numRolls; r++) {
+      const {diceTotal, diceResults} = this._rollDiceRaw(dieType, numDice, RNGUsed);
+      total += diceTotal;
+      count ++;
+      if (resultsMap.has(diceTotal)) {
+        const report = resultsMap.get(diceTotal);
+        if (report) {
+          report.count++;
+        }
+      } else {
+        const report = {
+          result: diceTotal,
+          count: 1,
+        }
+        resultsMap.set(diceTotal, report);
+      }
+    }
+
+    return {
+      RNGUsed,
+      dieType,
+      numDice,
+      total,
+      count,
+      reportForResult: [...resultsMap.values()].sort((a, b) => a.result - b.result)
+    };
   }
 
   validNumDice(matches: RegExpMatchArray) {
@@ -146,14 +234,16 @@ export class DiceService {
     }
   }
 
-
-  rollADieType(dieType: DieType) {
+  rollADieType(dieType: DieType, RNG?: RNGTypesType) {
     if (typeof dieType === 'number') {
-      return chance.integer({ min: 1, max: dieType})
+      return this.randomInRange(1, dieType, RNG)
     } else if (dieTypeMetadata.has(dieType)) {
       const dieMetadata = dieTypeMetadata.get(dieType)
       if (dieMetadata) {
-        return chance.integer(dieMetadata.chanceOptions);
+        const { min, max } = dieMetadata.chanceOptions;
+        if (typeof min === 'number' && typeof max === 'number') {
+          return this.randomInRange(min, max, RNG);
+        }
       }
     }
   }
@@ -162,4 +252,54 @@ export class DiceService {
     this.diceLog.splice(0, this.diceLog.length);
     this.lastResult = undefined;
   }
+
+  randomInRange(min: number, max: number, RNG?: RNGTypesType) {
+    const RNGToUse = RNG || this._RNGDefault;
+    if (RNGToUse === 'chance') {
+      return chance.integer({ min, max });
+    } else {
+      return myRand.randomInRange(min, max);
+    }
+  }
 }
+
+const UINT32_MAX = 0xFFFFFFFF;
+const RAND_BUFFER_SIZE = 100;
+
+class Random {
+  randomBuffer: Uint32Array | undefined = undefined;
+  next: number = 0;
+
+  constructor() {
+    this.next = RAND_BUFFER_SIZE; // Only call fillRandomBuffer() if getNext() is called.
+  }
+
+  fillRandomBuffer() {
+    if (! this.randomBuffer) {
+      this.randomBuffer = new Uint32Array(RAND_BUFFER_SIZE);
+    }
+    self.crypto.getRandomValues(this.randomBuffer);
+    this.next = 0;
+  }
+
+  randomInRange(min: number, max: number) {
+    const num = this.getNext();
+    return Math.floor((num/UINT32_MAX)*(max - min + 1)+min);
+  }
+
+  isFilledBuffer(data: any): data is Uint32Array {
+    return data instanceof Uint32Array;
+  }
+
+  getNext() {
+    if (! this.randomBuffer || this.next >= this.randomBuffer.length) {
+      this.fillRandomBuffer();
+    }
+    if (! this.isFilledBuffer(this.randomBuffer)) {
+      throw new Error('Uninitialized random buffer.');
+    }
+    return this.randomBuffer[this.next++] as number;
+  }
+}
+
+let myRand = new Random();

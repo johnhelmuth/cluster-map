@@ -20,21 +20,18 @@ function rollTheDice(diceExpr: string) {
   <InfoPage page_title="Dice roller">
     <main>
       <section class="controls-section">
-        <DiceRollControlFixed diceExpression="4dF" @roll-the-dice="rollTheDice" />
-        <DiceRollControlFixed diceExpression="2d6" @roll-the-dice="rollTheDice" />
-        <DiceRollControl @roll-the-dice="rollTheDice" />
+        <DiceRollControlFixed diceExpression="4dF" @roll-the-dice="rollTheDice"/>
+        <DiceRollControlFixed diceExpression="2d6" @roll-the-dice="rollTheDice"/>
+        <DiceRollControl @roll-the-dice="rollTheDice"/>
       </section>
-      <section class="section dice-roll-result">
-        <ClientOnly>
+      <ClientOnly>
+        <section class="section dice-roll-result">
           <DiceRollResult v-if="diceService.lastResult" :dice-roll="diceService.lastResult"/>
-          <div v-else class="empty-dice-results"></div>
-        </ClientOnly>
-      </section>
-      <section class="section dice-log-section">
-        <ClientOnly>
-          <DiceLog />
-        </ClientOnly>
-      </section>
+        </section>
+        <section class="section dice-log-section">
+          <DiceLog/>
+        </section>
+      </ClientOnly>
     </main>
   </InfoPage>
 </template>
@@ -57,6 +54,7 @@ section {
 section.dice-log-section {
   flex: 2 1 auto;
 }
+
 .dice-roll-result .empty-dice-results {
   min-height: 3rem;
 }
