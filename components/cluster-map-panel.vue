@@ -26,8 +26,9 @@ const isDebug = computed(() => mapStylesStore.debug);
 const clusterOrientation = computed(() => {
   switch (mapStylesStore.mapStyle) {
     case 'linear':
-    case 'circular':
       return 'landscape';
+    case 'circular':
+      return 'square';
     case 'data':
       return props?.cluster?.orientation || 'landscape';
   }
@@ -57,40 +58,41 @@ function mapViewClosed() {
 </script>
 
 <template>
-  <div class="cluster-map-panel">
-    <!-- TODO: Move the 2 sets of systems/straits into a single SVG file and use CSS to
-          show/hide the SVG group (<g>) tags as appropriate. Then see about doing a SVG transition between the two
-          groups.
-    . -->
-    <SVGClusterGraph
-        v-if="cluster"
-        :class="[clusterOrientation, mapStylesStore.mapStyle]"
-        :cluster="cluster"
-        :plan="plan"
-        @system-selected="selectSystem"
-        :debug="isDebug"
-        :mapStyle="mapStylesStore.mapStyle"
-    />
-    <SVGClusterGraph
-        v-if="cluster && clusterOrientation !== 'square'"
-        :class="[otherOrientation, mapStylesStore.mapStyle]"
-        :cluster="cluster"
-        :plan="plan"
-        @system-selected="selectSystem"
-        :debug="isDebug"
-        :mapStyle="mapStylesStore.mapStyle"
-        :rotate-cluster="true"/>
+    <div class="cluster-map-panel" :class="mapStylesStore.mapStyle">
+      <!-- TODO: Move the 2 sets of systems/straits into a single SVG file and use CSS to
+            show/hide the SVG group (<g>) tags as appropriate. Then see about doing a SVG transition between the two
+            groups.
+      . -->
+      <SVGClusterGraph
+          v-if="cluster"
+          :class="[clusterOrientation, mapStylesStore.mapStyle]"
+          :cluster="cluster"
+          :plan="plan"
+          @system-selected="selectSystem"
+          :debug="isDebug"
+          :mapStyle="mapStylesStore.mapStyle"
+      />
+      <SVGClusterGraph
+          v-if="cluster && clusterOrientation !== 'square'"
+          :class="[otherOrientation, mapStylesStore.mapStyle]"
+          :cluster="cluster"
+          :plan="plan"
+          @system-selected="selectSystem"
+          :debug="isDebug"
+          :mapStyle="mapStylesStore.mapStyle"
+          :rotate-cluster="true"
+      />
 
-    <MapLegend class="map-legend"/>
+      <MapLegend class="map-legend"/>
 
-    <Icon class="map-control" name="material-symbols:eye-tracking-outline-rounded" @click="mapView"/>
+      <Icon class="map-control" name="material-symbols:eye-tracking-outline-rounded" @click="mapView"/>
 
-    <MapClusterStyleModal
-        v-model="showMapView"
-        @closed="mapViewClosed"
-        :mapStyleParams="mapStylesStore"
-    />
-  </div>
+      <MapClusterStyleModal
+          v-model="showMapView"
+          @closed="mapViewClosed"
+          :mapStyleParams="mapStylesStore"
+      />
+    </div>
 </template>
 
 
@@ -119,11 +121,11 @@ function mapViewClosed() {
 }
 
 @container map-panel (orientation: portrait) {
-  .cluster-map-panel svg.landscape {
+  .cluster-map-panel:not(.circular) svg.landscape {
     display: none;
   }
 
-  .cluster-map-panel svg.portrait {
+  .cluster-map-panel:not(.circular) svg.portrait {
     display: block;
   }
 }

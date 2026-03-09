@@ -1,4 +1,3 @@
-import type {PointType} from "@/types/GeometryTypes";
 
 export type attributeValueType = -4 | -3 | -2 | -1 | 0 | 1 | 2 | 3 | 4;
 
@@ -23,21 +22,10 @@ export const mapViewStyleLabels = [
 ];
 const ValidMapViewStyles = mapViewStyleLabels.map(o => o.key);
 
-export const MAP_VIEW_STYLES_DEFAULT = 'data' as MapViewStylesType;
+export const MAP_VIEW_STYLES_DEFAULT = 'circular' as MapViewStylesType;
 
 export function isValidMapStyle(aMapStyle: any): aMapStyle is MapViewStylesType {
   return typeof aMapStyle === 'string' && ValidMapViewStyles.includes(aMapStyle as MapViewStylesType);
 }
 
 export type ClusterOrientationType = 'portrait' | 'square' | 'landscape';
-
-export type BoundingBoxType = {
-  upperLeft: PointType;
-  lowerRight: PointType;
-};
-
-export type PositionThing = {
-  position: PointType;
-};
-
-export type PositionThingList = Array<PositionThing>;

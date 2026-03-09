@@ -10,11 +10,10 @@ import type {
   SystemModelInterface
 } from "@/types/SystemTypes";
 import {SystemAttributesDefaults} from "@/types/SystemTypes"
-import type {PointType} from "@/types/GeometryTypes";
+import {type PointType, rotatePosition} from "@/utils/geometry";
 import {
   getPositionCircular, getPositionLinear
 } from "~/utils/cluster-generator";
-import { rotatePosition } from "~/utils/utils";
 import {SCHEMA_VERSION} from "@/constants";
 
 export default class SystemModel implements SystemModelInterface {

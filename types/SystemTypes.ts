@@ -1,7 +1,7 @@
 import type {attributeValueType, IdType, AspectType, MapViewStylesType} from "@/types/BasicTypes";
 import type {StraitModelInterface} from "@/types/StraitTypes";
 import type {ClusterModelInterface} from "@/types/ClusterTypes";
-import type { PointType } from "@/types/GeometryTypes";
+import type { PointType } from "@/utils/geometry";
 
 /**
  * System model types

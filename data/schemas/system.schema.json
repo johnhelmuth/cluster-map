@@ -12,7 +12,7 @@
     "schemaVersion": {
       "description": "The version of the schema for the data.",
       "type": "string",
-      "const": "1"
+      "const": "2"
     },
     "id": {
       "description": "Unique identifier for the system.",

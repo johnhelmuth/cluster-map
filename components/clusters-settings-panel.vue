@@ -4,12 +4,13 @@ import {useClustersStore} from "~/stores/use-clusters-store";
 import {useUserScopeStore} from "~/stores/use-user-scope-store";
 import type {Ref} from "vue";
 import type {ClusterIdType, ClustersModelDataType} from "~/types/ClusterTypes";
+import { getParseClusters } from '~/utils/import-validator';
 
 const clustersStore = useClustersStore();
 
 const {routePlannerService, selectedSystemsService} = useUserScopeStore();
 
-const {files, open, reset, onCancel, onChange} = useFileDialog({
+const {open, reset, onChange} = useFileDialog({
   accept: 'application/json', // Set to accept only JSON files
 })
 
@@ -95,7 +96,7 @@ function updateClusters(data: ClustersModelDataType | object) {
 }
 
 onChange((files) => {
-  if (files) {
+  if (files && files[0]) {
     importFile.value = files[0];
   }
   importError.value = undefined;

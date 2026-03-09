@@ -1,5 +1,5 @@
 
-import type { ClusterIdType, ClusterModelInterface } from "@/types/ClusterTypes";
+import type {ClusterIdType, ClusterModelInterface, ClustersModelInterface} from "@/types/ClusterTypes";
 import type {SystemAttributesInterface, SystemIdType, SystemModelInterface} from "@/types/SystemTypes";
 import {ClusterModel} from "@/models/ClusterModel";
 import {
@@ -9,7 +9,7 @@ import {
   type MapViewStylesType
 } from "@/types/BasicTypes";
 import SystemModel from "@/models/SystemModel";
-import type {PointType} from "@/types/GeometryTypes.js";
+import type {PointType} from "@/utils/geometry";
 
 export function getRandomIntInclusive(min: number, max: number) {
   const minCeiled = Math.ceil(min);
@@ -51,15 +51,18 @@ function slipstreamGuarantee(systems: Array<{id: string, name: string, attribute
       maxAttributes: -Number.MAX_SAFE_INTEGER
     });
   if (implementGuarantee && lowestIndex >= 0 && lowestIndex < systems.length && highestIndex >= 0 && highestIndex < systems.length) {
-    systems[lowestIndex].attributes.technology = 2;
-    systems[highestIndex].attributes.technology = 2;
+    if (systems?.[lowestIndex] && systems?.[highestIndex]) {
+      systems[lowestIndex].attributes.technology = 2;
+      systems[highestIndex].attributes.technology = 2;
+    }
   }
 }
 
 function getNextOpenSystem(index: number, cluster: ClusterModelInterface): SystemModelInterface | undefined{
   for (let i = index; i < cluster.systems.length; i++ ) {
-    if (cluster.systems[i].getConnections().length === 0) {
-      return cluster.systems[i];
+    const system = cluster.systems[i];
+    if (system && system.getConnections().length === 0) {
+      return system;
     }
   }
 }
@@ -68,18 +71,21 @@ const { floor, random, cos, sin, PI, max, min } = Math;
 
 const systemSizeMap = {
   data: [
-    { threshold: Number.MAX_SAFE_INTEGER, radius: 80},
+    { threshold: 8, radius: 70 },
+    { threshold: 10, radius: 60 },
+    { threshold: 15, radius: 30 },
+    { threshold: Number.MAX_SAFE_INTEGER, radius: 20},
   ],
   circular: [
-    { threshold: 8, radius: 80 },
-    { threshold: 10, radius: 70 },
-    { threshold: 15, radius: 40 },
+    { threshold: 8, radius: 70 },
+    { threshold: 10, radius: 50 },
+    { threshold: 15, radius: 30 },
     { threshold: Number.MAX_SAFE_INTEGER, radius: 20},
   ],
   linear: [
     { threshold: 3, radius: 80 },
     { threshold: 6, radius: 50 },
-    { threshold: 11, radius: 30 },
+    { threshold: 11, radius: 25 },
     { threshold: 15, radius: 20 },
     { threshold: Number.MAX_SAFE_INTEGER, radius: 10},
   ],
@@ -87,31 +93,35 @@ const systemSizeMap = {
 
 export function systemRadiusByStyleAndNumberOfSystems(mapStyle: MapViewStylesType | undefined, numSystems: number): number {
   const {baseRadius} = getMapDimensions();
+  let r = baseRadius;
   for (const {threshold, radius} of systemSizeMap[mapStyle || MAP_VIEW_STYLES_DEFAULT]) {
     if (numSystems <= threshold) {
-      return radius;
+      r = radius;
+      break;
     }
   }
-  return baseRadius;
+  return r;
 }
 
 export function getMapDimensions() {
 
+  const top = 0;
+  const left = 0;
   const width = 1000;
   const height = 750;
   const baseRadius = 80;
-  const borderX = baseRadius;
-  const borderY = baseRadius;
+  const borderX = 120;
+  const borderY = 120;
   const center: PointType = {
-    x: width / 2,
-    y: height / 2,
+    x: (width-left) / 2,
+    y: (height-top) / 2,
   }
   // noinspection JSSuspiciousNameCombination
   const centerPortrait = {
     x: center.y,
     y: center.x,
   };
-  return { width, height, baseRadius, borderX, borderY, center, centerPortrait };
+  return { top, left, width, height, baseRadius, borderX, borderY, center, centerPortrait };
 }
 
 export function circularGraphSystemsRadius(): number {
@@ -146,22 +156,16 @@ export function getPositionCircular(index: number, numPoints: number, rotate = f
  */
 export function getPositionLinear(index: number, numPoints: number, rotate = false) : PointType {
 
-  const {width, height, borderX, borderY, center} = getMapDimensions();
+  const {width, height, borderX, center} = getMapDimensions();
 
-  let x, y;
-  const perSystem = (width / numPoints);
+  const spaceToDraw = (width - borderX * 2); // Use width & borderX for both orientations.
 
-  if (! rotate) {
+  const perSystem = (spaceToDraw / numPoints);
 
-    x = (perSystem / 2 + index * perSystem);
-    y = center.y;
+  const positionAlongLine = (borderX + perSystem / 2 + index * perSystem);
 
-  } else {
-
-    // noinspection JSSuspiciousNameCombination
-    x = center.y;
-    y = (perSystem / 2 + index * perSystem);
-  }
+  const x = rotate ? center.y : positionAlongLine; // Use center.y in both orientations, on diff coords.
+  const y = ! rotate ? center.y : positionAlongLine;
 
   return {x, y}
 }
@@ -177,7 +181,7 @@ function getPosition(index: number, numSystems: number, orientation = 'square' a
   return getPositionCircular(index, numSystems);
 }
 
-export function createCluster(id: ClusterIdType, name: string, numberSystems: number = 9) {
+export function createCluster(id: ClusterIdType, name: string, numberSystems: number = 9, clusters: ClustersModelInterface): ClusterModelInterface {
 
   if (! id) {
     id = getRandomIntInclusive(1000,9999).toString(16)
@@ -185,7 +189,7 @@ export function createCluster(id: ClusterIdType, name: string, numberSystems: nu
   if (! name) {
     name = `Cluster ${id}`;
   }
-  const newCluster = new ClusterModel({id, name});
+  const newCluster = new ClusterModel({id, name}, clusters);
 
   const systemsData: Array<{id: string, name: string, attributes: SystemAttributesInterface, position: PointType}> = [];
   for (let i = 0; i < numberSystems; i++) {
@@ -206,8 +210,11 @@ export function createCluster(id: ClusterIdType, name: string, numberSystems: nu
 
   for (const [index, system] of systems.entries()) {
     if (index < systems.length-1) {
-      const strait = newCluster.connectSystems(system, systems[index+1]);
-      strait?.setDrawDirection('center', 'data');
+      const nextSystem = systems[index+1];
+      if (nextSystem) {
+        const strait = newCluster.connectSystems(system, nextSystem);
+        strait?.setDrawDirection('center', 'data');
+      }
     } else {
       break;
     }

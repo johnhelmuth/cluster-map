@@ -2,22 +2,18 @@
 // import {reactive, watch} from "vue";
 
 import {ClustersModel} from "~/models/ClustersModel";
-import clusterJsonDLC from "~/data/clusters/cluster-DLC.json";
-import clusterJson1652 from "~/data/clusters/cluster-1652.json";
-import clusterJson2Systems from "~/data/clusters/cluster-3.json";
-import clusterJsonDLCCoreNeighbor from "~/data/clusters/cluster-DLC-neighbor-coreward.json";
-import clusterJsonOLC from "~/data/clusters/cluster-other-local-cluster.json";
+// import clusterJsonDLC from "~/data/clusters/cluster-DLC.json";
+// import clusterJson1652 from "~/data/clusters/cluster-1652.json";
+// import clusterJson2Systems from "~/data/clusters/cluster-3.json";
+// import clusterJsonDLCCoreNeighbor from "~/data/clusters/cluster-DLC-neighbor-coreward.json";
+// import clusterJsonOLC from "~/data/clusters/cluster-other-local-cluster.json";
+import clusterJsonInDireStraits from "~/data/clusters/clusters-in-dire-straits-campaign.json";
+
 import type {ClustersModelInterface} from "~/types/ClusterTypes";
+import {isClustersModelDataType} from "~/utils/utils";
 
 const defaultClustersData = {
-    currentClusterId: clusterJsonDLC.id,
-    clusters: [
-        clusterJsonDLC,
-        clusterJsonDLCCoreNeighbor,
-        clusterJsonOLC,
-        // clusterJson1652,
-        // clusterJson2Systems
-    ]
+    ...clusterJsonInDireStraits
 };
 
 let clustersData;
@@ -32,6 +28,10 @@ let clustersData;
 //     }
 // }
 clustersData = clustersData || defaultClustersData;
+if (! isClustersModelDataType(clustersData)) {
+  throw new Error('Invalid clustersData type!');
+}
+
 const clusters: ClustersModelInterface = reactive(new ClustersModel(clustersData));
 
 export function useClustersStore() {

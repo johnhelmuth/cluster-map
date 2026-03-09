@@ -12,22 +12,58 @@
     "schemaVersion": {
       "description": "The version of the schema for the data.",
       "type": "string",
-      "const": "1"
+      "const": "2"
     },
-    "systems": {
-      "description": "The id property of the 2 systems this strait connects.",
-      "type": "array",
-      "items": {
-        "type": "string"
-      },
-      "minItems": 2,
-      "maxItems": 2
+    "straitPointA": {
+      "description": "The first strait point for the strait, identified by the id property of the 2 cluster/system pairs this strait connects.",
+      "$ref": "#/$defs/straitPoint"
+    },
+    "straitPointB": {
+      "description": "The second strait point for the strait, identified by the id property of the 2 cluster/system pairs this strait connects.",
+      "$ref": "#/$defs/straitPoint"
     },
     "direction": {
       "description": "Which direction to curve the strait when drawn, 'clockwise', 'center', or 'counterclockwise'",
       "type": "string",
-      "enum": ["clockwise", "center", "counterclockwise"]
+      "enum": [
+        "clockwise",
+        "center",
+        "counterclockwise"
+      ]
+    },
+    "galacticDirection": {
+      "description": "The galactic direction from the first cluster/system to the second cluster/system.",
+      "enum": [
+        "coreward",
+        "rimward",
+        "spinward",
+        "counterspinward"
+      ]
     }
   },
-  "required": [ "type", "schemaVersion", "systems" ]
+  "required": [
+    "type",
+    "schemaVersion",
+    "straitPointA",
+    "straitPointB"
+  ],
+  "$defs": {
+    "straitPoint": {
+      "type": "object",
+      "properties": {
+        "clusterId": {
+          "type": "string",
+          "description": "The id of the cluster to be connected. If this is different between the 2 strait points on a strait, then this is a cluster strait."
+        },
+        "systemId": {
+          "type": "string",
+          "description": "The id of the system to be connected."
+        }
+      },
+      "required": [
+        "clusterId",
+        "systemId"
+      ]
+    }
+  }
 }

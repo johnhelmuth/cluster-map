@@ -64,6 +64,7 @@
   --color-action-hover: var(--vt-c-green-lightest);
   --color-action-text: var(--vt-c-text-light-1);
   --color-highlight: var(--vt-c-indigo-lightest);
+  --color-highlight2: var(--vt-c-orange);
 
   --color-stroke-map: var(--vt-c-black);
   --color-fill-map-blue: var(--vt-c-blue);
@@ -97,6 +98,7 @@
   --color-action-hover: var(--vt-c-green-soft);
   --color-action-text: var(--vt-c-text-light-2);
   --color-highlight: var(--vt-c-indigo-lightest);
+  --color-highlight2: var(--vt-c-orange);
 
   --color-stroke-map: var(--vt-c-white-soft);
   --color-fill-map-blue: var(--vt-c-blue-soft);

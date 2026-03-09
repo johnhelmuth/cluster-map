@@ -3,7 +3,6 @@
 import type {SystemModelInterface} from "@/types/SystemTypes";
 import type {RoutePlanRefType} from "@/types/RoutePlannerTypes";
 import {type MapViewStylesType} from "@/types/BasicTypes";
-import {rotatePosition} from "~/utils/utils";
 
 const props = defineProps<{
   system: SystemModelInterface,
@@ -37,7 +36,7 @@ const radius = computed(() => {
 
 const maxStraitRadius = computed(() => {
   if (props?.mapStyle && props?.system) {
-    const direction = props?.shouldRotate ? 'right' : 'left';
+    const direction = props?.shouldRotate ? 'counterclockwise' : 'clockwise';
     return Math.max(props.system.cluster.maxStraitRadius(props.mapStyle, radius.value, direction) * 0.40, radius.value);
   }
   return 80;
@@ -77,6 +76,7 @@ const environmentColor = computed(() => getEnvironmentColor(props.system.attribu
 <style scoped>
 circle {
   fill: var(--color-background-mute);
+  fill-opacity:1;
 }
 
 circle.firstRing {
