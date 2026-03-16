@@ -128,7 +128,7 @@ export default class SystemModel implements SystemModelInterface {
   }
 
   getConnections(): Array<StraitModelInterface> {
-    return this.cluster.getStraitsBySystem(this as SystemModelInterface);
+    return this.cluster.getStraitsBySystem(this as SystemModelInterface, false);
   }
 
   getConnectedSystems(): Array<SystemModelInterface> | undefined {
@@ -146,10 +146,6 @@ export default class SystemModel implements SystemModelInterface {
 
   getSelected(): boolean {
     return this.selected;
-  }
-
-  toggleSelected(): void {
-    this.selected = ! this.selected;
   }
 
   toJSON(key: string) : object {

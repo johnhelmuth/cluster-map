@@ -8,7 +8,7 @@ import { getParseClusters } from '~/utils/import-validator';
 
 const clustersStore = useClustersStore();
 
-const {routePlannerService, selectedSystemsService} = useUserScopeStore();
+const {routePlannerService} = useUserScopeStore();
 
 const {open, reset, onChange} = useFileDialog({
   accept: 'application/json', // Set to accept only JSON files
@@ -90,7 +90,7 @@ function downloadJSON(data: any, filename: string) {
 function updateClusters(data: ClustersModelDataType | object) {
   if (data && isClustersModelDataType(data)) {
     routePlannerService.deleteAllRoutePlans();
-    selectedSystemsService.deleteAllSelectedSystems();
+    routePlannerService.selectedSystemsList.clearSelectedSystems();
     clustersStore.clusters.parseClustersData(data);
   }
 }

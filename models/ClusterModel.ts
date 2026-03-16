@@ -108,15 +108,22 @@ export class ClusterModel implements ClusterModelInterface {
     return this.systems.findIndex((system: SystemModelInterface) => system.id === systemId);
   }
 
-  getStraitsBySystem(system: SystemModelInterface): Array<StraitModelInterface> {
-    const straits = this.straits.filter((strait) => {
-        return strait.straitPointA.system === system || strait.straitPointB.system === system
+  getStraitsBySystem(system: SystemModelInterface, interCluster = false): Array<StraitModelInterface> {
+    if (! interCluster) {
+      const straits = this.straits.filter((strait) => {
+          const {
+            straitPointA: { cluster: clusterA, system: systemA },
+            straitPointB: { cluster: clusterB, system: systemB }
+          } = strait;
+          return (systemA === system || systemB === system) && clusterA === clusterB
+        }
+      );
+      if (straits?.length) {
+        return straits;
       }
-    );
-    if (straits?.length) {
-      return straits;
+      return [];
     }
-    return [];
+    return this.clusters?.getAllStraitsBySystem(system) || [];
   }
 
   /**

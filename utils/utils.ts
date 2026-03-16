@@ -60,3 +60,7 @@ export function dateFormat(d: Date) {
   const dateDayOfMonth = leadingZeros(d.getDate().toString(10), 2);
   return [dateYear, dateMonth, dateDayOfMonth].join('-');
 }
+
+export function fround(f: number) {
+  return Math.fround(f);
+}

@@ -2,6 +2,7 @@ import {getMapDimensions} from "~/utils/cluster-generator";
 import type {DrawDirectionType} from "~/types/StraitTypes";
 
 import { intersectBezierLine, type LineType, type BezierCubicLineType } from "~/utils/geometry-lib/bezier-line-intersect";
+import {fround} from "~/utils/utils";
 
 export type PointType = {
   x: number;
@@ -38,8 +39,8 @@ export type ViewBoxType = {
 
 export function rotateAroundPosition(a: PointType, center: PointType, angle: number) {
   const transPos = { x: a.x - center.x, y: a.y - center.y };
-  const x = transPos.x * Math.cos(angle) - transPos.y * Math.sin(angle) + center.x;
-  const y = transPos.y * Math.cos(angle) + transPos.x * Math.sin(angle) + center.y;
+  const x = fround(transPos.x * Math.cos(angle) - transPos.y * Math.sin(angle) + center.x);
+  const y = fround(transPos.y * Math.cos(angle) + transPos.x * Math.sin(angle) + center.y);
   return { x, y };
 }
 
@@ -48,8 +49,8 @@ export function rotatePosition(position : PointType) : PointType {
   const rotationAngle = Math.PI / 2
   const translateDiff = { x: center.x - centerPortrait.x, y: center.y - centerPortrait.y };
   const transPos = { x: center.x - position.x, y: center.y - position.y };
-  const x = transPos.x * Math.cos(rotationAngle) - transPos.y * Math.sin(rotationAngle) + center.x - translateDiff.x;
-  const y = transPos.y * Math.cos(rotationAngle) + transPos.x * Math.sin(rotationAngle) + center.y - translateDiff.y;
+  const x = fround(transPos.x * Math.cos(rotationAngle) - transPos.y * Math.sin(rotationAngle) + center.x - translateDiff.x);
+  const y = fround(transPos.y * Math.cos(rotationAngle) + transPos.x * Math.sin(rotationAngle) + center.y - translateDiff.y);
 
   return { x, y };
 }

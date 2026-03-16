@@ -1,12 +1,11 @@
 <script setup lang="ts">
 
 import type {SystemModelInterface} from "@/types/SystemTypes";
-import type {RoutePlanRefType} from "@/types/RoutePlannerTypes";
 import {type MapViewStylesType} from "@/types/BasicTypes";
+import {useUserScopeStore} from "~/stores/use-user-scope-store";
 
 const props = defineProps<{
   system: SystemModelInterface,
-  plan?: RoutePlanRefType,
   mapStyle?: MapViewStylesType | undefined,
   shouldRotate: boolean,
 }>();
@@ -14,6 +13,8 @@ const props = defineProps<{
 defineEmits<{
   selected: [system: SystemModelInterface | undefined]
 }>();
+
+const {routePlannerService} = useUserScopeStore();
 
 const showInfoInside = computed(() => {
   return props.mapStyle !== 'linear';
@@ -25,7 +26,9 @@ const sysPos = computed(() => {
   return props.system.getPosition(props.mapStyle, props.shouldRotate);
 });
 
-const isSelected = computed(() => props.system.getSelected());
+const isSelected = computed(() => {
+  return (props.system && routePlannerService.selectedSystemsList.systemIsSelected(props.system) || false)
+});
 
 const radius = computed(() => {
   if (props?.mapStyle) {

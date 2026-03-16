@@ -65,7 +65,7 @@ export interface ClusterModelInterface {
 
   areConnected(systemA: SystemModelInterface, systemB: SystemModelInterface) : boolean
 
-  getStraitsBySystem(system: SystemModelInterface) : Array<StraitModelInterface>;
+  getStraitsBySystem(system: SystemModelInterface, interCluster?: boolean) : Array<StraitModelInterface>;
 
   /**
    * Gets the straits in cluster in order of the systems. Exclude Cluster Straits.
@@ -103,6 +103,7 @@ export interface ClustersModelInterface {
   selectClusterById(id: ClusterIdType): void;
   selectClusterByName(name: string) : void;
   getClusterStraitsByCluster(cluster: ClusterModelInterface): Array<StraitModelInterface>;
+  getAllStraitsBySystem(system: SystemModelInterface): Array<StraitModelInterface>;
   getSystemByStraitPointId(straitPoint: StraitPointDataType): SystemModelInterface | undefined;
   areConnected(systemA: SystemModelInterface, systemB: SystemModelInterface) : boolean;
   hasClusterStraits(cluster: ClusterModelInterface): boolean;

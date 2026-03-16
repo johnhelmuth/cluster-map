@@ -1,11 +1,10 @@
 <script setup lang="ts">
 
 import type {SystemModelInterface} from "@/types/SystemTypes";
-import type {RoutePlanRefType} from "~/types/RoutePlannerTypes";
+import {useUserScopeStore} from "~/stores/use-user-scope-store";
 
 const props = defineProps<{
   system: SystemModelInterface | undefined,
-  plan?: RoutePlanRefType,
   systemInfoCardClosed?: boolean
 }>();
 
@@ -13,7 +12,10 @@ defineEmits< {
   selected: [system: SystemModelInterface | undefined]
 } >();
 
-const isSelected = computed(() => (props.system && props.system?.getSelected() || false));
+
+const {routePlannerService} = useUserScopeStore();
+
+const isSelected = computed(() => (props.system && routePlannerService.selectedSystemsList.systemIsSelected(props.system) || false));
 
 // TODO: Move these into a settings structure modifiable by the user.
 const attributesFormat="detailed";
@@ -22,10 +24,10 @@ const attributesFormat="detailed";
 
 <template>
   <div class="system-info-card accordion-control" :class="{ selected: isSelected }" @click="$emit('selected', system)">
-    <h2>
+    <h3>
       <span v-if="system?.url"><NuxtLink :to="system.url">{{ system?.name || 'Unknown' }}</NuxtLink></span>
       <span v-else>{{ system?.name || 'Unknown' }}</span>
-    </h2>
+    </h3>
     <div class="system-info accordion" :class="{ open: ! systemInfoCardClosed }">
       <SystemAttributes :attributes="system?.attributes || undefined" :attributesFormat="attributesFormat"/>
       <SystemAspects :aspects="system?.aspects || undefined" />
@@ -35,7 +37,11 @@ const attributesFormat="detailed";
 
 <style scoped>
 
-.selected h2 {
+h3 {
+  font-size: 1.25rem;
+}
+
+.selected h3 {
   font-weight: bold;
 }
 

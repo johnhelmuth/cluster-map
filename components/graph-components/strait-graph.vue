@@ -1,20 +1,21 @@
 <script setup lang="ts">
 
 import type {StraitModelInterface, StraitParametersType} from "@/types/StraitTypes";
-import type {RoutePlanRefType} from "@/types/RoutePlannerTypes";
 import type {MapViewStylesType} from "~/types/BasicTypes";
 import {systemRadiusByStyleAndNumberOfSystems} from '~/utils/cluster-generator'
 import {getCubicParameters, getQuadControlPoint} from "~/utils/geometry";
 import {curveArc, curveCubic, curveQuadratic, pathStraight} from "~/utils/svg-utils";
+import {useUserScopeStore} from "~/stores/use-user-scope-store";
 
 const props = defineProps<{
   strait: StraitModelInterface,
-  plan?: RoutePlanRefType,
   index: number,
   debug: boolean,
   mapStyle: MapViewStylesType,
   shouldRotate: boolean,
 }>();
+
+const { routePlannerService } = useUserScopeStore();
 
 const sysAPos = computed(() => {
   return props.strait.straitPointA.system.getPosition(props.mapStyle, props.shouldRotate);
@@ -24,18 +25,7 @@ const sysBPos = computed(() => {
 })
 
 const isInRoutePlan = computed(() => {
-  if (props.plan?.value) {
-    let lastSystem = null;
-    for (const system of props.plan.value) {
-      if (lastSystem !== null) {
-        if (props.strait.includes(lastSystem) && props.strait.includes(system)) {
-          return true;
-        }
-      }
-      lastSystem = system;
-    }
-  }
-  return false;
+  return routePlannerService.straitInRoutePlan(props.strait);
 });
 
 

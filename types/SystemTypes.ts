@@ -44,7 +44,6 @@ export interface SystemModelInterface {
   getConnections(): Array<StraitModelInterface>;
   getConnectedSystems(): Array<SystemModelInterface> | undefined;
   getSelected(): boolean;
-  toggleSelected(): void;
 
   toJSON(key: string): object;
 }

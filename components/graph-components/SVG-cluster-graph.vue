@@ -1,14 +1,12 @@
 <script setup lang="ts">
 
 import type {ClusterModelInterface} from "@/types/ClusterTypes";
-import type {RoutePlanRefType} from "@/types/RoutePlannerTypes";
 import type {SystemModelInterface} from "@/types/SystemTypes";
 import type {MapViewStylesType} from "~/types/BasicTypes";
 import type {ViewBoxType} from "~/utils/geometry";
 
 const props = defineProps<{
   cluster: ClusterModelInterface,
-  plan?: RoutePlanRefType,
   debug: boolean,
   mapStyle: MapViewStylesType,
   rotateCluster?: boolean
@@ -65,7 +63,7 @@ function selectSystem(system: SystemModelInterface | undefined) {
     <template v-slot:straits>
       <template v-for="[systemId, straits] in cluster.getStraitsInSystemOrder()">
         <template v-for="(strait, index) in straits" :key="index">
-          <StraitGraph :strait="strait" :plan="plan" :index="index"
+          <StraitGraph :strait="strait" :index="index"
                        :data-systemId="systemId"
                        :debug="debug"
                        :mapStyle="mapStyle"
@@ -98,7 +96,6 @@ function selectSystem(system: SystemModelInterface | undefined) {
             :mapStyle="mapStyle"
             :id="system.id"
             @selected="selectSystem"
-            :plan="plan"
             :should-rotate="shouldRotate"
         ></SystemGraph>
       </template>

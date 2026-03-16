@@ -4,11 +4,12 @@ import {
   lineDetails
 } from "~/utils/geometry";
 import type {DrawDirectionType} from "~/types/StraitTypes";
+import {fround} from "~/utils/utils";
 
 export function pathStraight(a: PointType, b: PointType) {
   return [
-    `M ${a.x} ${a.y}`,
-    `L ${b.x} ${b.y}`
+    `M ${fround(a.x)} ${fround(a.y)}`,
+    `L ${fround(b.x)} ${fround(b.y)}`
   ].join(' ');
 }
 
@@ -18,8 +19,8 @@ export function curveCubic(a: PointType, b: PointType, curveRadius: number, dire
     getCubicParameters(a, b, curveRadius, direction);
 
   return [
-    `M ${a.x} ${a.y}`,
-    `C ${cubicControlPoint1.x} ${cubicControlPoint1.y}, ${cubicControlPoint2.x} ${cubicControlPoint2.y}, ${b.x} ${b.y}`
+    `M ${fround(a.x)} ${fround(a.y)}`,
+    `C ${fround(cubicControlPoint1.x)} ${fround(cubicControlPoint1.y)}, ${fround(cubicControlPoint2.x)} ${fround(cubicControlPoint2.y)}, ${fround(b.x)} ${fround(b.y)}`
   ].join(' ');
 }
 
@@ -29,8 +30,8 @@ export function curveQuadratic(a: PointType, b: PointType, curveRadius: number, 
   const quadControlPoint = getQuadControlPoint(normalAngle, curveRadius, midPoint, direction);
 
   return [
-    `M ${a.x} ${a.y}`,
-    `Q ${quadControlPoint.x} ${quadControlPoint.y}, ${b.x} ${b.y}`
+    `M ${fround(a.x)} ${fround(a.y)}`,
+    `Q ${fround(quadControlPoint.x)} ${fround(quadControlPoint.y)}, ${fround(b.x)} ${fround(b.y)}`
   ].join(' ');
 }
 
@@ -41,7 +42,7 @@ export function curveArc(
   sweepFlag: 0 | 1 = 0
 ) {
   return [
-    `M ${a.x} ${a.y}`,
-    `A ${curveRadius} ${curveRadius} ${xAxisRotation} ${largeArcFlag} ${sweepFlag} ${b.x} ${b.y}`
+    `M ${fround(a.x)} ${fround(a.y)}`,
+    `A ${fround(curveRadius)} ${fround(curveRadius)} ${xAxisRotation} ${largeArcFlag} ${sweepFlag} ${fround(b.x)} ${fround(b.y)}`
   ].join(' ');
 }

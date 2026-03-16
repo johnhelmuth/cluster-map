@@ -10,6 +10,7 @@ import {
 } from "@/types/BasicTypes";
 import SystemModel from "@/models/SystemModel";
 import type {PointType} from "@/utils/geometry";
+import {fround} from "~/utils/utils";
 
 export function getRandomIntInclusive(min: number, max: number) {
   const minCeiled = Math.ceil(min);
@@ -142,8 +143,8 @@ export function getPositionCircular(index: number, numPoints: number, rotate = f
 
   const translateDiff = ! rotate ? { x: 0, y: 0 } : { x: center.x - centerPortrait.x, y: center.y - centerPortrait.y };
 
-  const x = cos(angle) * systemsRadius + center.x - translateDiff.x;
-  const y = sin(angle) * systemsRadius + center.y - translateDiff.y;
+  const x = fround(cos(angle) * systemsRadius + center.x - translateDiff.x);
+  const y = fround(sin(angle) * systemsRadius + center.y - translateDiff.y);
 
   return {x, y}
 }
@@ -164,8 +165,8 @@ export function getPositionLinear(index: number, numPoints: number, rotate = fal
 
   const positionAlongLine = (borderX + perSystem / 2 + index * perSystem);
 
-  const x = rotate ? center.y : positionAlongLine; // Use center.y in both orientations, on diff coords.
-  const y = ! rotate ? center.y : positionAlongLine;
+  const x = fround(rotate ? center.y : positionAlongLine); // Use center.y in both orientations, on diff coords.
+  const y = fround(! rotate ? center.y : positionAlongLine);
 
   return {x, y}
 }

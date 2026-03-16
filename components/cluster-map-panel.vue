@@ -2,18 +2,22 @@
 
 import type {ClusterModelInterface} from "~/types/ClusterTypes.js";
 import type {SystemModelInterface} from "~/types/SystemTypes";
-import type {RoutePlanRefType} from "~/types/RoutePlannerTypes";
-import {type MapStylesStoreKeyType, type MapStylesStoreType, useMapStyles} from "~/stores/use-map-styles";
+import {useMapStyles} from "~/stores/use-map-styles";
 import {useModalStateStore} from "~/stores/use-modal-state-store";
+import {useUserScopeStore} from "~/stores/use-user-scope-store";
 
 const props = defineProps<{
   cluster?: ClusterModelInterface | undefined,
-  plan?: RoutePlanRefType
+  message?: string | undefined,
 }>();
 
 const emit = defineEmits<{
   "system-selected": [system: SystemModelInterface];
+  "plan-selected": [index: number];
+  "swap-endpoints": [];
 }>();
+
+const { routePlannerService } = useUserScopeStore();
 
 const {setCurrentOpenModal, closeModal} = useModalStateStore('clusterStyleModal', mapViewClosed);
 
@@ -38,6 +42,11 @@ const otherOrientation = computed(() => {
   return oppositeOrientation(clusterOrientation.value);
 });
 
+const planDetailsStartOpened = computed(() => {
+  const clusterInCurrentPlan = routePlannerService?.clusterInCurrentPlan(props.cluster);
+  return clusterInCurrentPlan;
+})
+
 function selectSystem(system: SystemModelInterface | undefined) {
   if (!system) {
     return;
@@ -55,6 +64,14 @@ function mapViewClosed() {
   closeModal();
 }
 
+function selectPlan(planIndex: number) {
+  emit('plan-selected', planIndex);
+}
+function swapEndPoints() {
+  emit("swap-endpoints");
+}
+
+
 </script>
 
 <template>
@@ -67,7 +84,6 @@ function mapViewClosed() {
           v-if="cluster"
           :class="[clusterOrientation, mapStylesStore.mapStyle]"
           :cluster="cluster"
-          :plan="plan"
           @system-selected="selectSystem"
           :debug="isDebug"
           :mapStyle="mapStylesStore.mapStyle"
@@ -76,7 +92,6 @@ function mapViewClosed() {
           v-if="cluster && clusterOrientation !== 'square'"
           :class="[otherOrientation, mapStylesStore.mapStyle]"
           :cluster="cluster"
-          :plan="plan"
           @system-selected="selectSystem"
           :debug="isDebug"
           :mapStyle="mapStylesStore.mapStyle"
@@ -92,6 +107,18 @@ function mapViewClosed() {
           @closed="mapViewClosed"
           :mapStyleParams="mapStylesStore"
       />
+
+      <MessageBlock v-if="message">
+        <div class="message">{{ message }}</div>
+      </MessageBlock>
+      <MessageBlock v-if="! message && routePlannerService.routePlans?.length">
+        <PlanDetails :max-plans-per-group="5" :max_groups="3"
+                     :cluster="cluster"
+                     :start-opened="planDetailsStartOpened"
+                     @plan-selected="selectPlan"
+                     @swap="swapEndPoints"
+        />
+      </MessageBlock>
     </div>
 </template>
 
@@ -138,6 +165,13 @@ function mapViewClosed() {
   right: .4rem;
   top: .4rem;
   padding: .7rem;
+}
+
+.message {
+  background-color: var(--color-background);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  cursor: wait;
 }
 
 </style>

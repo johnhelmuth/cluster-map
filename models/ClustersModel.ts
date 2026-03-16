@@ -160,6 +160,15 @@ export class ClustersModel implements ClustersModelInterface {
     }
   }
 
+  getAllStraitsBySystem(system: SystemModelInterface) {
+    const cluster = system.cluster;
+
+    const clusterStraitsFromSystem = cluster.getClusterStraits()
+      .filter(strait => strait.straitPointA.system === system || strait.straitPointB.system === system)
+    const straitsFromSystem = cluster.getStraitsBySystem(system);
+    return [...(new Set([...straitsFromSystem, ...clusterStraitsFromSystem])).values()];
+  }
+
   areConnected(systemA: SystemModelInterface, systemB: SystemModelInterface) {
     const clusterA = this.getClusterById(systemA.cluster.id);
     if (clusterA) {

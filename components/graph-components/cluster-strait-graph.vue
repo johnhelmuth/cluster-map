@@ -5,6 +5,7 @@ import {type ClusterModelInterface, DEFAULT_GALACTIC_DIRECTION, galacticDirectio
 import type {DrawDirectionType, StraitModelInterface} from "~/types/StraitTypes";
 import {getQuadrant, type ViewBoxType} from "@/utils/geometry";
 import {curveCubic, pathStraight} from '@/utils/svg-utils';
+import {useUserScopeStore} from "~/stores/use-user-scope-store";
 
 const props = defineProps<{
   clusterStrait: StraitModelInterface,
@@ -15,6 +16,8 @@ const props = defineProps<{
   mapStyle: MapViewStylesType,
   shouldRotate: boolean,
 }>();
+
+const { routePlannerService } = useUserScopeStore();
 
 const straitOriginInCluster = computed(() => {
   return props.clusterStrait.straitPointA.cluster.id == props.cluster.id
@@ -243,11 +246,14 @@ function handleClick(e: MouseEvent) {
     }
   }
 }
+
+const isInRoutePlan = computed(() => routePlannerService.straitInRoutePlan(props.clusterStrait))
 </script>
 
 <template>
-  <g @click="handleClick">
-    <path class="cluster-strait" :d="straitPath" fill="none"/>
+  <g class="cluster-strait"  @click="handleClick" :class="{'in-route-plan' : isInRoutePlan}">
+    <path class="main" :d="straitPath" fill="none"/>
+    <path class="selected" :d="straitPath" fill="none"/>
     <text class="cluster-strait-direction"
           :x="directionLabelPosition.x"
           :y="directionLabelPosition.y"
@@ -261,11 +267,35 @@ function handleClick(e: MouseEvent) {
 </template>
 
 <style scoped>
-.cluster-strait {
+.cluster-strait .main {
   stroke: var(--color-highlight2);
   stroke-width: 1rem;
   filter: blur(.25rem);
   cursor: pointer;
+}
+.cluster-strait.in-route-plan .main {
+  stroke-width: 1.25rem;
+}
+
+.cluster-strait .selected {
+  display: none;
+}
+
+.cluster-strait.in-route-plan .selected {
+  display: block;
+  stroke-width: 0.675rem;
+  stroke: hsl(180, 100%, 100%, 80%);
+  filter: blur(4px);
+  animation: 1s ease-in-out 0.1s infinite alternate cluster-strait-throb;
+}
+
+@keyframes cluster-strait-throb {
+  from {
+    stroke-width: 0.5rem;
+  }
+  to {
+    stroke-width: 1rem;
+  }
 }
 
 .cluster-strait-direction {

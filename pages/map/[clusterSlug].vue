@@ -2,8 +2,6 @@
 
 import {useClustersStore} from "~/stores/use-clusters-store";
 import {useUserScopeStore} from '~/stores/use-user-scope-store'
-import type {RoutePlannerServiceInterface} from "~/types/RoutePlannerServiceTypes";
-import type {SelectedSystemsListInterface, SelectedSystemsServiceInterface} from "~/types/SystemsSelectedListTypes";
 import type {SystemModelInterface} from "~/types/SystemTypes";
 import {ClusterModel} from "~/models/ClusterModel";
 
@@ -11,10 +9,9 @@ const clustersStore = useClustersStore();
 const route = useRoute();
 const router = useRouter();
 
-const {routePlannerService, selectedSystemsService} = useUserScopeStore() as {
-  routePlannerService: RoutePlannerServiceInterface,
-  selectedSystemsService: SelectedSystemsServiceInterface
-};
+const {routePlannerService} = useUserScopeStore();
+
+const message = ref<string>('');
 
 const cluster = computed(() => {
   const slugOrId = route.params.clusterSlug;
@@ -65,35 +62,37 @@ useServerSeoMeta({
 
 function systemSelected(system: SystemModelInterface) {
   if (cluster.value) {
-    const selectedSystemsList = selectedSystemsService.getSelectedSystemsForCluster(cluster.value);
-    if (selectedSystemsList) {
-      selectedSystemsList.selectSystem(system);
-      planTrip(selectedSystemsList);
+    if (routePlannerService.selectedSystemsList) {
+      routePlannerService.selectedSystemsList.selectSystem(system);
+      if (!routePlannerService.selectedSystemsList.isMaxSelected) {
+        routePlannerService.deleteAllRoutePlans();
+        return;
+      }
+      const [systemA, systemB] = routePlannerService.selectedSystemsList.selectedSystems;
+      if (!systemA || !systemB) {
+        throw new Error("Weird that no systems are selected but planTrip() was called.");
+      }
+      message.value = 'Calculating navigation parameters...';
+      setTimeout(() => {
+        routePlannerService.plan(systemA, systemB);
+        message.value = '';
+      }, 0)
     }
   }
 }
 
-function planTrip(selectedSystemsList: SelectedSystemsListInterface) {
-
-  if (cluster.value) {
-    if (!selectedSystemsList.maxSelected) {
-      routePlannerService.deleteRoutePlanForCluster(cluster.value);
-      return;
-    }
-    const routePlan = routePlannerService.getRoutePlanForCluster(cluster.value);
-    if (!routePlan) {
-      return;
-    }
-    const [systemA, systemB] = selectedSystemsList.selectedSystems;
-    if (!systemA || !systemB) {
-      throw new Error("Weird that no systems are selected but planTrip() was called.");
-    }
-    const routePlanner = createRoutePlanner(cluster.value);
-    const routePlanRaw = routePlanner.plan(systemA, systemB);
-    if (routePlanRaw) {
-      routePlan.value = routePlanRaw;
-    }
+function planSelected(planIndex: number) {
+  if (typeof routePlannerService.hasPlan(planIndex) !== "undefined") {
+    routePlannerService.setRoutePlan(planIndex);
   }
+}
+
+function swapEndpoints() {
+  message.value = 'Recalculating navigation parameters...';
+  setTimeout(() => {
+    routePlannerService.swapEndpoints();
+    message.value = '';
+  }, 0)
 }
 
 </script>
@@ -104,8 +103,10 @@ function planTrip(selectedSystemsList: SelectedSystemsListInterface) {
       <ClusterMapPanel
           v-if="cluster"
           :cluster="cluster"
+          :message="message"
           @system-selected="systemSelected"
-          :plan="routePlannerService.getRoutePlanForCluster(cluster)"
+          @plan-selected="planSelected"
+          @swap-endpoints="swapEndpoints"
       />
       <div v-else class="no-data-display">
         No cluster with that name or ID.
@@ -116,7 +117,6 @@ function planTrip(selectedSystemsList: SelectedSystemsListInterface) {
       <ClusterMapControlsPanel
           :cluster="cluster"
           @system-selected="systemSelected"
-          :plan="routePlannerService.getRoutePlanForCluster(cluster)"
       />
     </template>
   </Bezels>

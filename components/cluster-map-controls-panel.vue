@@ -2,19 +2,26 @@
 
 import {useClustersStore} from "~/stores/use-clusters-store";
 import type {ClusterModelInterface} from "~/types/ClusterTypes";
-import type {RoutePlanRefType} from "~/types/RoutePlannerTypes";
 import type {SystemModelInterface} from "~/types/SystemTypes";
+import {useUserScopeStore} from "~/stores/use-user-scope-store";
 
 const clustersStore = useClustersStore();
 
 defineProps<{
-  cluster?: ClusterModelInterface | undefined,
-  plan?: RoutePlanRefType,
+  cluster?: ClusterModelInterface | undefined
 }>();
 
 const emit = defineEmits<{
   "system-selected": [system: SystemModelInterface];
 }>();
+
+const { routePlannerService } = useUserScopeStore();
+
+const originSystem = computed(() => routePlannerService.originSystem)
+const destinationSystem = computed(() => routePlannerService.destinationSystem)
+const isInterClusterTrip = computed(() => {
+  return originSystem.value?.cluster !== destinationSystem.value?.cluster;
+})
 
 const iconExpandedName = 'material-symbols:expand-all-rounded'
 const iconCollapsedName = 'material-symbols:collapse-all-rounded'
@@ -38,7 +45,7 @@ function clusterSelected(event: Event) {
   const targetSelect = event.target as HTMLSelectElement;
   const clusterSlug = targetSelect.value;
   if (clusterSlug) {
-    navigateTo({ name: 'map-clusterSlug', params: { clusterSlug } });
+    navigateTo({name: 'map-clusterSlug', params: {clusterSlug}});
   }
 }
 
@@ -61,18 +68,32 @@ function clusterSelected(event: Event) {
         </option>
       </select>
     </h1>
-    <div v-if="!! cluster?.systems" class="controls">
-      <Icon id="accordion-button" class="button-icon accordion-button" @click="expandCards"
-            :name="expandCollapseIcon"/>
+    <div v-if="originSystem || destinationSystem" class="route-options-container">
+      <h2>Desired route</h2>
+      <span v-if="originSystem" class="origin-system">
+        {{ originSystem.name }}<span v-if="isInterClusterTrip"> in {{ originSystem.cluster.name }}</span>
+      </span>
+      <span v-if="destinationSystem" class="origin-system">
+         to {{ destinationSystem.name }}<span v-if="isInterClusterTrip"> in {{ destinationSystem.cluster.name }}</span>
+      </span>
+    </div>
+    <div class="systems-list-container">
+      <div class="control-group">
+        <h2>Systems</h2>
+        <div v-if="!! cluster?.systems" class="controls">
+          <Icon id="accordion-button" class="button-icon accordion-button" @click="expandCards"
+                :name="expandCollapseIcon"/>
+        </div>
+      </div>
     </div>
     <div class="panel-body">
-      <SystemInfoCard v-if="!! cluster?.systems"
-                      v-for="system in cluster?.systems || [] as Array<SystemModelInterface | undefined>"
-                      :system="system"
-                      :key="system.id"
-                      @selected="selectSystem"
-                      :plan="plan"
-                      :system-info-card-closed="systemInfoCardClosed"
+      <SystemInfoCard
+          v-if="!! cluster?.systems" class="systems-list"
+          v-for="system in cluster?.systems || [] as Array<SystemModelInterface | undefined>"
+          :system="system"
+          :key="system.id"
+          @selected="selectSystem"
+          :system-info-card-closed="systemInfoCardClosed"
       />
     </div>
   </div>
@@ -105,7 +126,6 @@ h1 {
   text-align: center;
   font-size: .75rem;
   font-weight: bold;
-
 }
 
 h1 > select {
@@ -119,31 +139,20 @@ h1 > select {
   color: var(--color-heading);
 }
 
-.controls {
+.control-group {
   margin-top: 0.25rem;
   display: flex;
   flex-direction: row;
   font-size: 1rem;
-  justify-content: flex-end;
+  align-items: center;
+}
+
+.control-group h2 {
+  flex: 1 1 auto;
 }
 
 .controls .button-icon {
-  margin: 0.25rem 0.5rem;
-}
-
-.controls button {
-  background-color: var(--color-background);
-  border: none;
-  border-radius: 0.25rem;
-  width: 5rem;
-  height: 1.5rem;
-  box-shadow: inset -0.1rem -0.1rem 0.1rem grey,
-  inset 0.1rem 0.1rem 0.1rem lightgrey;
-}
-
-.controls button:hover {
-  box-shadow: inset 0.1rem 0.1rem 0.1rem grey,
-  inset -0.1rem -0.1rem 0.1rem lightgrey;
+  margin: 0 0.5rem;
 }
 
 .panel-body {
