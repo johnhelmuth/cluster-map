@@ -3,7 +3,7 @@
 const route = useRoute()
 
 const {data: news} = await useAsyncData(route.path, async () => {
-  const data = await queryCollection('content')
+  const data = await queryCollection('news')
       // .select('id', 'title', 'description', 'path', 'meta', 'publish_date')
       .where('path', 'LIKE', '/news/%')
       .where('path', 'NOT LIKE', '/news/%/%')

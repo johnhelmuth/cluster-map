@@ -20,7 +20,7 @@ const staleDatePeriods = [1, 2, 3, 4].map(weeks => {
 const today = dateFormat(new Date());
 const {data: story} = await useAsyncData('most-recent-news', async () => {
   // Only shows stories newer than the oldest date in stale_dates.
-  const data = await queryCollection('content')
+  const data = await queryCollection('news')
       .where('path', 'LIKE', '/news/%')
       .where('path', 'NOT LIKE', '/news/%/%')
       .where('publish_date', '<=', today)

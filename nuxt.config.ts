@@ -19,6 +19,12 @@ export default defineNuxtConfig({
           statusCode: 308
         },
       },
+      "/sessions": {
+        redirect: {
+          to: "/campaigns/campaign-1",
+          statusCode: 308
+        }
+      }
     },
 
     components: [
