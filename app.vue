@@ -2,7 +2,6 @@
 
 import {ModalsContainer} from 'vue-final-modal'
 
-const router = useRouter();
 const route = useRoute();
 
 </script>
@@ -17,8 +16,8 @@ const route = useRoute();
       <BurgerMenu class="on-right">
         <ThemeSwitch class="theme-switch" />
         <NuxtLink to="/tatterpedia">Tatterpedia</NuxtLink>
-        <NuxtLink to="/sessions">Sessions</NuxtLink>
         <NuxtLink to="/rules-and-systems">Rules & Systems</NuxtLink>
+        <NuxtLink to="/campaigns">Campaigns</NuxtLink>
         <NuxtLink to="/search">Search</NuxtLink>
         <NuxtLink to="/maps">Maps</NuxtLink>
         <NuxtLink to="/clusters">Clusters</NuxtLink>
