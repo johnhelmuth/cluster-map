@@ -235,6 +235,7 @@ export function createCluster(id: ClusterIdType, name: string, numberSystems: nu
       }
     }
   }
+  clusters.connectCluster(newCluster);
   return newCluster;
 }
 

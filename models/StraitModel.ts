@@ -45,6 +45,26 @@ export class StraitModel implements StraitModelInterface {
     }
   }
 
+  getOtherCluster(cluster: ClusterModelInterface) {
+    if (this.straitPointA.cluster === cluster) {
+      return this.straitPointB.cluster;
+    }
+    if (this.straitPointB.cluster === cluster) {
+      return this.straitPointA.cluster;
+    }
+  }
+
+  getOtherStraitPoint(straitPoint: StraitPointInterface): StraitPointInterface {
+    if (straitPoint === this.straitPointA) {
+      return this.straitPointB;
+    }
+    return this.straitPointA;
+  }
+
+  straitOriginInCluster(cluster: ClusterModelInterface): boolean {
+    return (this.straitPointA.cluster.id === cluster.id);
+  }
+
   isClusterStrait() {
     return (this.straitPointA.cluster.id !== this.straitPointB.cluster.id);
   }

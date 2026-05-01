@@ -23,6 +23,8 @@
     "@vueuse/nuxt": "^14.2.1",
     "better-sqlite3": "^12.6.2",
     "minisearch": "^7.2.0",
+    "ngraph.forcelayout": "^3.3.1",
+    "ngraph.graph": "^20.1.2",
     "nuxt": "^4.3.1",
     "vue": "^3.5.30",
     "vue-final-modal": "^4.5.5",

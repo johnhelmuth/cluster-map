@@ -6,11 +6,11 @@ import type {
   StraitModelInterface,
   StraitPointDataType
 } from '@/types/StraitTypes';
-import type {
-  ClusterModelInterface,
-  ClusterIdType,
-  ClusterModelDataType,
-  ClustersModelInterface
+import {
+  type ClusterModelInterface,
+  type ClusterIdType,
+  type ClusterModelDataType,
+  type ClustersModelInterface, GalacticDirections
 } from "@/types/ClusterTypes";
 import SystemModel from "@/models/SystemModel";
 import {StraitModel} from "@/models/StraitModel";
@@ -50,6 +50,15 @@ export class ClusterModel implements ClusterModelInterface {
 
   hasClusterStraits(): boolean {
     return !!(this.clusters?.hasClusterStraits(this));
+  }
+
+  getUnusedClusterStraitDirections() {
+    const usedDirections = this.getClusterStraits().map(strait => strait.galacticDirection);
+    if (usedDirections.length < 1) {
+      return [...GalacticDirections];
+    }
+    const galacticDirectionsSet = new Set(GalacticDirections);
+    return [...galacticDirectionsSet.difference(new Set(usedDirections))];
   }
 
   addSystem(system: SystemModelInterface): void {
@@ -305,7 +314,7 @@ export class ClusterModel implements ClusterModelInterface {
     return systemStraitMap;
   }
 
-  getClusterStraits() {
+  getClusterStraits(): StraitModelInterface[] {
     if (this.clusters) {
       return this.clusters.getClusterStraitsByCluster(this)
     }

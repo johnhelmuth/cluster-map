@@ -9,7 +9,8 @@ const props = defineProps<{
   cluster: ClusterModelInterface,
   debug: boolean,
   mapStyle: MapViewStylesType,
-  rotateCluster?: boolean
+  rotateCluster?: boolean,
+  hideClusterStraits?: boolean,
 }>();
 
 const emit = defineEmits<{
@@ -21,6 +22,10 @@ const shouldRotate = computed(() => {
     return true;
   }
   return false;
+});
+
+const hideInterStraits = computed(() => {
+  return !! props.hideClusterStraits;
 });
 
 const viewBoxValues = computed(() => {
@@ -73,7 +78,7 @@ function selectSystem(system: SystemModelInterface | undefined) {
       </template>
     </template>
     <template v-slot:cluster-straits>
-      <template v-if="cluster.hasClusterStraits()">
+      <template v-if="! hideInterStraits && cluster.hasClusterStraits()">
         <ClusterStraitGraph
             v-if="cluster.hasClusterStraits()"
             v-for="(clusterStrait, index) in cluster.getClusterStraits()"

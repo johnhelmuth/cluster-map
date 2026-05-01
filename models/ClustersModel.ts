@@ -1,14 +1,20 @@
-import type {
-  ClusterIdType, ClusterModelDataType,
-  ClusterModelInterface,
-  ClustersModelDataType,
-  ClustersModelInterface
+import {
+  type ClusterIdType,
+  type ClusterModelDataType,
+  type ClusterModelInterface,
+  type ClustersModelDataType,
+  type ClustersModelInterface,
+  DEFAULT_GALACTIC_DIRECTION,
+  galacticDirectionOpposites,
+  type GalacticDirectionType
 } from "@/types/ClusterTypes";
 import {ClusterModel} from "@/models/ClusterModel";
 import {SCHEMA_VERSION} from "@/constants";
 import type {SystemIdType, SystemModelInterface} from "~/types/SystemTypes";
 import type {StraitModelDataType, StraitModelInterface, StraitPointDataType} from "~/types/StraitTypes";
+import {getRandomIntInclusive} from "~/utils/cluster-generator";
 
+const MAX_CLUSTER_STRAITS = 4;
 
 export class ClustersModel implements ClustersModelInterface {
   _cluster: ClusterModelInterface | undefined;
@@ -188,6 +194,57 @@ export class ClustersModel implements ClustersModelInterface {
     return !! clusterStraits.length;
   }
 
+  connectCluster(clusterA: ClusterModelInterface) {
+    console.log('ClustersModel.connectCluster()', clusterA);
+    const clustersList = [...this._clusters.values()].filter(c => {
+      if (c.id === clusterA.id) {
+        return false;
+      }
+      const clusterStraits = c.getClusterStraits();
+      return clusterStraits.length < MAX_CLUSTER_STRAITS;
+    })
+
+    if (clustersList.length > 0) {
+      const clusterIndex = getRandomIntInclusive(0, clustersList.length - 1);
+      const clusterB = clustersList[clusterIndex];
+      if (clusterB) {
+        const openDirections = clusterB.getUnusedClusterStraitDirections();
+        let directionIndex = 0;
+        if (openDirections.length > 1) {
+          directionIndex = getRandomIntInclusive(0, openDirections.length-1)
+        }
+        const galacticDirection = galacticDirectionOpposites[openDirections[directionIndex] as GalacticDirectionType || DEFAULT_GALACTIC_DIRECTION]
+        const systemsA = [...clusterA.getSystemsMap().values()]
+            .filter(s => {
+              const straits = this.getClusterStraitsBySystem(s);
+              return straits.length === 0;
+            })
+        ;
+        if (systemsA.length > 0) {
+          const systemsB = [...clusterB.getSystemsMap().values()]
+              .filter(s => {
+                const straits = this.getClusterStraitsBySystem(s);
+                return straits.length === 0;
+              });
+          if (systemsB.length > 0) {
+            // Pick 1 from systemsB and 1 from systemsA and create a strait from it.
+            const indexA = getRandomIntInclusive(0, systemsA.length - 1);
+            const indexB = getRandomIntInclusive(0, systemsB.length - 1);
+            const systemA = systemsA[indexA];
+            const systemB = systemsB[indexB];
+            if (typeof systemA !== "undefined" && typeof systemB !== "undefined") {
+              const strait = clusterA.connectSystems(systemA, systemB);
+              if (strait) {
+                strait.setGalacticDirection(galacticDirection);
+              }
+            }
+          }
+        }
+
+      }
+    }
+  }
+
   clusterIsInStrait(cluster: ClusterModelInterface, strait: StraitModelInterface): boolean {
     return (strait.straitPointA.cluster === cluster || strait.straitPointB.cluster === cluster);
   }
@@ -195,6 +252,13 @@ export class ClustersModel implements ClustersModelInterface {
   getClusterStraitsByCluster(cluster: ClusterModelInterface) {
     const straits = this._filterClusterStraits((strait) => {
       return (strait.straitPointA.cluster === cluster || strait.straitPointB.cluster === cluster);
+    });
+    return straits;
+  }
+
+  getClusterStraitsBySystem(system: SystemModelInterface) {
+    const straits = this._filterClusterStraits((strait) => {
+      return strait.straitPointA.system === system || strait.straitPointB.system === system;
     });
     return straits;
   }

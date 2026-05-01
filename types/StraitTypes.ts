@@ -47,6 +47,10 @@ export interface StraitModelInterface {
 
   getOtherSystem(system: SystemModelInterface): SystemModelInterface | undefined;
 
+  getOtherCluster(cluster: ClusterModelInterface): ClusterModelInterface | undefined;
+
+  straitOriginInCluster(cluster: ClusterModelInterface): boolean;
+
   includes(system: SystemModelInterface): boolean;
 
   getStraitIndex(): number;
@@ -54,6 +58,8 @@ export interface StraitModelInterface {
   isClusterStrait(): boolean;
 
   getStraitPointInCluster(cluster: ClusterModelInterface): StraitPointInterface | undefined;
+
+  getOtherStraitPoint(straitPoint: StraitPointInterface): StraitPointInterface;
 
   straitLine(mapStyle: MapViewStylesType, rotate: boolean, direction: DrawDirectionType): LineDetailsType;
 

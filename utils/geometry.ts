@@ -179,4 +179,67 @@ export function getQuadrant(pos: PointType, viewBox: ViewBoxType): 1 | 2 | 3 | 4
   return quadrant;
 }
 
+
+/**
+ * Generated here: https://www.mathopenref.com/coordpolycalc.html
+ *
+ * Pentagon
+ * 1 50,0
+ * 2 2,35
+ * 3 21,90
+ * 4 79,90
+ * 5 98,35
+ *
+ * Star
+ * 1 50,0
+ * 3 21,90
+ * 5 98,35
+ * 2 2,35
+ * 4 79,90
+ *
+ */
+
+/**
+ * [
+ *     {
+ *         "x": 100,
+ *         "y": 50
+ *     },
+ *     {
+ *         "x": 65.45084971874738,
+ *         "y": 97.55282581475768
+ *     },
+ *     {
+ *         "x": 9.549150281252636,
+ *         "y": 79.38926261462366
+ *     },
+ *     {
+ *         "x": 9.549150281252622,
+ *         "y": 20.61073738537635
+ *     },
+ *     {
+ *         "x": 65.45084971874736,
+ *         "y": 2.447174185242318
+ *     }
+ * ]
+ * @param numSides
+ * @param viewBox
+ */
+export function regularPolygon(numSides: number, viewBox: ViewBoxType) {
+  const points = [] as PointType[];
+  const angleStep = (Math.PI * 2 / numSides);
+  const isPortraitOrientation = (viewBox.width < viewBox.height);
+  const radius = isPortraitOrientation
+      ? viewBox.width / 2
+      : viewBox.height / 2;
+  for (let i = 0; i < numSides; i++) {
+    const angle = (i * angleStep);
+    const x = viewBox.x + radius + Math.cos(angle) * radius;
+    const y = viewBox.y + radius + Math.sin(angle) * radius;
+    points.push({ x, y })
+  }
+  return points;
+}
+
+
 export { intersectBezierLine, type LineType, type BezierCubicLineType };

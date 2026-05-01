@@ -89,8 +89,8 @@ function showMap(event: Event) {
                         }}/{{ straitPoint.system.name }}</span>
                         {{ clusterStrait?.galacticDirection }} to
                         <span class="cluster-strait-point">{{
-                            straitPoint.cluster.name
-                          }}/{{ straitPoint.system.name }}</span>
+                            clusterStrait.getOtherStraitPoint(straitPoint).cluster.name
+                          }}/{{ clusterStrait.getOtherStraitPoint(straitPoint).system.name }}</span>
                     </template>
                   </p>
                 </li>

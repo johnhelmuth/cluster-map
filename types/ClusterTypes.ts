@@ -31,8 +31,10 @@ export const galacticDirectionOpposites = {
   spinward: 'counterspinward',
   rimward: 'coreward',
   counterspinward: 'spinward',
-}
-export const DEFAULT_GALACTIC_DIRECTION = 'coreward';
+} as const;
+export const GalacticDirections = ['coreward', 'rimward', 'spinward', 'counterspinward'] as GalacticDirectionType[];
+
+export const DEFAULT_GALACTIC_DIRECTION = 'coreward' as GalacticDirectionType;
 
 export interface ClusterModelInterface {
   id: ClusterIdType;
@@ -49,7 +51,9 @@ export interface ClusterModelInterface {
 
   hasClusterStraits(): boolean;
 
-  getClusterStraits(): Array<StraitModelInterface>
+  getClusterStraits(): Array<StraitModelInterface>;
+
+  getUnusedClusterStraitDirections(): GalacticDirectionType[];
 
   getSystemByName(systemName: string) : SystemModelInterface | null;
 
@@ -106,8 +110,10 @@ export interface ClustersModelInterface {
   getAllStraitsBySystem(system: SystemModelInterface): Array<StraitModelInterface>;
   getSystemByStraitPointId(straitPoint: StraitPointDataType): SystemModelInterface | undefined;
   areConnected(systemA: SystemModelInterface, systemB: SystemModelInterface) : boolean;
+  connectCluster(cluster: ClusterModelInterface) : void;
   hasClusterStraits(cluster: ClusterModelInterface): boolean;
   getClusterStraits(): Array<StraitModelInterface>;
+  getClusterStraitsBySystem(system: SystemModelInterface): Array<StraitModelInterface>;
   clusterIsInStrait(cluster: ClusterModelInterface, strait: StraitModelInterface): boolean;
   saveClusterStraitForPostImport(cluster: ClusterModelInterface, straitData: StraitModelDataType): void;
   toJSON(key: string) : object
