@@ -35,6 +35,8 @@ const clusterOrientation = computed(() => {
       return 'square';
     case 'data':
       return props?.cluster?.orientation || 'landscape';
+    case 'forcedirected':
+      return 'square'; // Don't bother with the rotation stuff for now.
   }
 });
 

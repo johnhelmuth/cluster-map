@@ -14,15 +14,16 @@ export type attributeRatingMetaType = {
   color?: string
 };
 
-export type MapViewStylesType = 'data' | 'circular' | 'linear';
+export type MapViewStylesType = 'data' | 'circular' | 'linear' | 'forcedirected';
 export const mapViewStyleLabels = [
   {key: 'data' as MapViewStylesType, label: 'Layout from data'},
   {key: 'circular' as MapViewStylesType, label: 'Circular Layout'},
   {key: 'linear' as MapViewStylesType, label: 'Linear Layout'},
+  {key: 'forcedirected' as MapViewStylesType, label: 'Force Directed Layout'},
 ];
 const ValidMapViewStyles = mapViewStyleLabels.map(o => o.key);
 
-export const MAP_VIEW_STYLES_DEFAULT = 'circular' as MapViewStylesType;
+export const MAP_VIEW_STYLES_DEFAULT = 'forcedirected' as MapViewStylesType;
 
 export function isValidMapStyle(aMapStyle: any): aMapStyle is MapViewStylesType {
   return typeof aMapStyle === 'string' && ValidMapViewStyles.includes(aMapStyle as MapViewStylesType);

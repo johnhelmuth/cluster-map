@@ -7,6 +7,7 @@ import {useUserScopeStore} from "~/stores/use-user-scope-store";
 const props = defineProps<{
   system: SystemModelInterface,
   mapStyle?: MapViewStylesType | undefined,
+  position?: PointType,
   shouldRotate: boolean,
 }>();
 
@@ -23,6 +24,10 @@ const ringGap = 5;
 const bgDiscGap = 3;
 
 const sysPos = computed(() => {
+  console.log('props.position', props.position);
+  if (typeof props.position !== 'undefined') {
+    return props.position;
+  }
   return props.system.getPosition(props.mapStyle, props.shouldRotate);
 });
 

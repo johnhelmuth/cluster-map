@@ -13,14 +13,24 @@ const props = defineProps<{
   debug: boolean,
   mapStyle: MapViewStylesType,
   shouldRotate: boolean,
+  pointA?: PointType,
+  pointB?: PointType,
 }>();
 
 const { routePlannerService } = useUserScopeStore();
 
 const sysAPos = computed(() => {
+  console.log('sysAPos: props.mapStyle', props.mapStyle);
+  if (props.mapStyle === 'forcedirected') {
+    console.log('sysAPos: props.pointA', props.pointA);
+    return props.pointA!;
+  }
   return props.strait.straitPointA.system.getPosition(props.mapStyle, props.shouldRotate);
 })
 const sysBPos = computed(() => {
+  if (props.mapStyle === 'forcedirected') {
+    return props.pointB!;
+  }
   return props.strait.straitPointB.system.getPosition(props.mapStyle, props.shouldRotate);
 })
 
@@ -74,6 +84,9 @@ const straitParams = ref(props.debug
 
 const path = computed(() => {
 
+  let straitPath = pathStraight(sysAPos.value, sysBPos.value);
+  return straitPath
+
   const direction = props.strait.getDrawDirection(props.mapStyle);
 
   const pathType = (props.mapStyle === 'circular' && props.index === 0
@@ -99,7 +112,6 @@ const path = computed(() => {
     };
   }
 
-  let straitPath = pathStraight(sysAPos.value, sysBPos.value);
   if (length >= radius.value) {
     if (pathType === 'curved') {
       const useQuadratic = false;

@@ -4,6 +4,7 @@ import type {ClusterModelInterface} from "@/types/ClusterTypes";
 import type {SystemModelInterface} from "@/types/SystemTypes";
 import type {MapViewStylesType} from "~/types/BasicTypes";
 import type {ViewBoxType} from "~/utils/geometry";
+import { LayoutSystemsService } from "~/utils/LayoutSystemsService"
 
 const props = defineProps<{
   cluster: ClusterModelInterface,
@@ -12,6 +13,18 @@ const props = defineProps<{
   rotateCluster?: boolean,
   hideClusterStraits?: boolean,
 }>();
+
+const layoutService = computed(() => (new LayoutSystemsService(props.cluster,
+    props.mapStyle,
+    props.rotateCluster,
+    {
+      iterations: 10000,
+      physicsSettings: {
+        springLength: 40,
+        gravity: -10000,
+      }
+    })));
+
 
 const emit = defineEmits<{
   systemSelected: [system: SystemModelInterface | undefined]
@@ -29,6 +42,10 @@ const hideInterStraits = computed(() => {
 });
 
 const viewBoxValues = computed(() => {
+  const layoutViewBox = layoutService.value.viewBox;
+  if (typeof layoutViewBox !== "undefined") {
+    return layoutViewBox;
+  }
   const { top, left, width, height } = getMapDimensions();
   const viewBox = { x: top, y: left, width: width, height: height } as ViewBoxType;
   if (shouldRotate.value) {
@@ -66,15 +83,15 @@ function selectSystem(system: SystemModelInterface | undefined) {
       />
     </template>
     <template v-slot:straits>
-      <template v-for="[systemId, straits] in cluster.getStraitsInSystemOrder()">
-        <template v-for="(strait, index) in straits" :key="index">
-          <StraitGraph :strait="strait" :index="index"
-                       :data-systemId="systemId"
-                       :debug="debug"
-                       :mapStyle="mapStyle"
-                       :should-rotate="shouldRotate"
-          />
-        </template>
+      <template v-for="straitPos in layoutService.linkPositions()">
+        <StraitGraph :strait="straitPos.strait" :index="0"
+                     :data-systemId="straitPos.fromSystem.id"
+                     :debug="debug"
+                     :mapStyle="mapStyle"
+                     :should-rotate="shouldRotate"
+                     :pointA="straitPos.fromPosition"
+                     :pointB="straitPos.toPosition"
+        />
       </template>
     </template>
     <template v-slot:cluster-straits>
@@ -95,13 +112,14 @@ function selectSystem(system: SystemModelInterface | undefined) {
       </template>
     </template>
     <template v-slot:systems>
-      <template v-if="true" v-for="system in cluster.systems" :key="system.id">
+      <template v-if="true" v-for="node in layoutService.nodePositions()" :key="node.data.id">
         <SystemGraph
-            :system="system"
+            :system="node.data"
             :mapStyle="mapStyle"
-            :id="system.id"
+            :id="node.data.id"
             @selected="selectSystem"
             :should-rotate="shouldRotate"
+            :position="node.position"
         ></SystemGraph>
       </template>
       <template v-if="debug">

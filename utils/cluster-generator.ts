@@ -70,6 +70,13 @@ function getNextOpenSystem(index: number, cluster: ClusterModelInterface): Syste
 
 const { floor, random, cos, sin, PI, max, min } = Math;
 
+export type SystemSizeMapType = {
+  [k in MapViewStylesType]: {
+    threshold: number,
+    radius: number,
+  }[]
+}
+
 const systemSizeMap = {
   data: [
     { threshold: 8, radius: 70 },
@@ -90,7 +97,14 @@ const systemSizeMap = {
     { threshold: 15, radius: 20 },
     { threshold: Number.MAX_SAFE_INTEGER, radius: 10},
   ],
-};
+  forcedirected: [
+    // { threshold: 3, radius: 80 },
+    // { threshold: 6, radius: 50 },
+    // { threshold: 11, radius: 25 },
+    // { threshold: 15, radius: 20 },
+    { threshold: Number.MAX_SAFE_INTEGER, radius: 40},
+  ],
+} as SystemSizeMapType;
 
 export function systemRadiusByStyleAndNumberOfSystems(mapStyle: MapViewStylesType | undefined, numSystems: number): number {
   const {baseRadius} = getMapDimensions();

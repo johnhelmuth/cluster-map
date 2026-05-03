@@ -2,13 +2,7 @@
 
 import {useClustersStore} from "~/stores/use-clusters-store";
 import {type ViewBoxType} from "~/utils/geometry";
-import type {ClusterStraitPosition} from "~/utils/LayoutService";
-
-type PositionedObjectType<T> = {
-  id: string;
-  data: T;
-  position: PointType;
-}
+import type {ClusterStraitPosition} from "~/utils/LayoutClustersService";
 
 const props = defineProps<{
   viewBox: ViewBoxType
@@ -27,7 +21,7 @@ const viewBoxString = computed(() => {
 
 const clustersStore = useClustersStore();
 
-const layoutService = computed(() => (new LayoutService(clustersStore.clusters,
+const layoutService = computed(() => (new LayoutClustersService(clustersStore.clusters,
     {
       iterations: 10000,
       physicsSettings: {
@@ -49,16 +43,16 @@ function getPathForStraitPosition(straitPos: ClusterStraitPosition) {
          preserveAspectRatio="xMidYMid meet">
       <rect class="background" :x="viewBoxC.x" :y="viewBoxC.y" :width="viewBoxC.width" :height="viewBoxC.height"/>
 
-      <template v-if="layoutService.straits.length" v-for="straitPos in layoutService.straitPositions()">
+      <template v-if="layoutService.straits.length" v-for="straitPos in layoutService.linkPositions()">
         <path :id="`strait-${straitPos.strait.id.replace(/:/g,'-')}`" :d="getPathForStraitPosition(straitPos)" stroke-width="5" stroke="orange"/>
       </template>
 
       <template v-if="layoutService.clusters.length"
-                v-for="(clusterPosition, index) in layoutService.clusterPositions()">
+                v-for="(clusterPosition, index) in layoutService.nodePositions()">
         <circle :cx="clusterPosition.position.x" :cy="clusterPosition.position.y" r="30" fill="black" fill-opacity="1"/>
         <SVGClusterGraph
             class="cluster-icon"
-            :cluster="clusterPosition.cluster"
+            :cluster="clusterPosition.data"
             :debug="false"
             mapStyle="circular"
             :hide-cluster-straits="true"
@@ -67,9 +61,9 @@ function getPathForStraitPosition(straitPos: ClusterStraitPosition) {
             :y="clusterPosition.position.y-50"
         />
 <!--        <circle :cx="clusterPosition.position.x" :cy="clusterPosition.position.y" r="5" fill="red" fill-opacity="1"/>-->
-        <text class="cluster-id" :x="clusterPosition.position.x-(clusterPosition.cluster.name.length)"
+        <text class="cluster-id" :x="clusterPosition.position.x-(clusterPosition.data.name.length)"
               :y="clusterPosition.position.y">
-          {{ clusterPosition.cluster.name }}
+          {{ clusterPosition.data.name }}
         </text>
       </template>
     </svg>
