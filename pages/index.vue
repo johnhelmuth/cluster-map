@@ -8,6 +8,8 @@
       <p>
         <strong>In Dire Straits</strong> is a Space Opera RPG campaign created and played by the In Dire Straits
         players using the Fate Core System ruleset.
+
+        Hi, mom!
       </p>
     </section>
     <section class="site-links">
