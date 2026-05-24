@@ -6,7 +6,8 @@ if (process.env.CONTENT_LOCAL_PATH) {
   sourceConnection.cwd = process.env.CONTENT_LOCAL_PATH;
 } else {
   sourceConnection.repository = {
-    url: process.env.GH_URL || 'https://github.com/johnhelmuth/in-dire-straits-content/tree/feat/campaign-sessions',
+    url: process.env.GH_URL || 'https://github.com/johnhelmuth/in-dire-straits-content',
+    branch: 'feat/campaign-sessions',
     auth: {
       token: process.env.GH_TOKEN
     }
