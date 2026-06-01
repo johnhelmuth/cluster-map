@@ -70,7 +70,7 @@ h1 {
   box-shadow: inset -0.125rem -0.125rem 0.125rem lightgrey,
   inset 0.125rem 0.125rem 0.125rem #777;
   padding: 1rem;
-  position: relative;
+  anchor-name: --info-content;
 }
 
 .info-content h1, .info-content h2, .info-content h3, .info-content h4, .info-content h5, .info-content h6 {

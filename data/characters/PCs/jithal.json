@@ -1,38 +1,75 @@
 {
   "type": "character",
   "schemaVersion": "1",
-  "id": "XXXX",
-  "name": "",
-  "playerName": "",
-  "description": "",
-  "campaigns": [],
+  "id": "jithal",
+  "name": "Jithal",
+  "playerName": "Kit",
+  "description": "4 armed, eyeless, lamia who sees through radar",
+  "campaigns": ["campaign-1"],
   "characterType": "PC",
   "refresh": 3,
   "fatePoints": 3,
   "aspects": [
     {
       "aspectType": "High Concept",
-      "name": ""
+      "name": "Last Grulvaxian Expert Engineer"
     },
     {
       "aspectType": "Trouble",
-      "name": ""
+      "name": "Stranger in a Strange Land"
+    },
+    {
+      "name": "Jithal can fix that"
+    },
+    {
+      "name": "Soft spot for scientists"
+    },
+    {
+      "name": "Charmingly Curious"
     }
 
   ],
   "traitType": "skill",
   "traits": [
     {
-      "name": "",
+      "name": "Engineering",
       "rank": 4
     },
     {
-      "name": "",
+      "name": "Will",
       "rank": 3
     },
     {
-      "name": "",
+      "name": "Notice",
       "rank": 3
+    },
+    {
+      "name": "Academics",
+      "rank": 2
+    },
+    {
+      "name": "Provoke",
+      "rank": 2
+    },
+    {
+      "name": "Athletics",
+      "rank": 2
+    },
+    {
+      "name": "Pilot",
+      "rank": 1
+    },
+    {
+      "name": "Stealth",
+      "rank": 1
+    },
+    {
+      "name": "Rapport",
+      "rank": 1
+    },
+    {
+      "name": "Investigate",
+      "rank": 1
     }
   ],
   "tracks": [
@@ -101,18 +138,6 @@
         "name": "",
         "freeInvokes": 0,
         "state": "free"
-      }
-    }
-  ],
-  "stunts": [
-    {
-      "name": "",
-      "description": "",
-      "parameters": {
-        "trait": "",
-        "modifier": 2,
-        "actions": ["Overcome"],
-        "modificationType": "roll"
       }
     }
   ]

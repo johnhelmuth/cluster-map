@@ -1,0 +1,162 @@
+{
+  "type": "character",
+  "schemaVersion": "1",
+  "id": "chris",
+  "name": "\"Chris\", of the Starfighter Chrysalis",
+  "playerName": "Evan",
+  "description": "A'' \"Thri-kreen\"-style ant-man. Two feet worth of articulating black antennae covered with spines like tube-cleaning brushes. Brassy carapace moulted every few days. Ant-like face, black mandibles. Wide compound eyes, each lens a subtly different shade, sees in black-and-white at a wide angle. Two true-arms from the shoulder, and two shorter footarms from the lower ribs. Two sets of joints on each limb. Similarly oddly jointed lower limbs. (Lower locked to mimic human motions.) Vestigial wings (more nubs than anything) Walks bipedally to put people at ease, quadrupedally on foot-arms when alone. A minimally patched, torn, gray, monochrome flight suit for the benefit of mammals identifying his role.  Speaks in clicks and chirps, and sawing his antennae on each other to make noise. (Enjoys violins.) Flame-retardant somewhat-torn system-agnostic flight suit and jacket: minimally patched. Thinks it puts aliens at ease. Bandolier: Click-to-speech device + bags/slots for rip-bags, syringes, pheromone inhalers, stims + painkillers and epinephrine (for mammals).",
+  "campaigns": ["campaign-1"],
+  "characterType": "PC",
+  "refresh": 3,
+  "fatePoints": 3,
+  "aspects": [
+    {
+      "aspectType": "High Concept",
+      "name": "Escort Pilot From An Infamous Swarm Species"
+    },
+    {
+      "aspectType": "Trouble",
+      "name": "The Syndicate Sources the Substrates of My Pheromones"
+    },
+    {
+      "name": "Craving Help On The Search For The Princess"
+    },
+    {
+      "name": "No One Should Have To Face Danger Alone"
+    },
+    {
+      "name": "Slow To Trust"
+    }
+
+  ],
+  "traitType": "skill",
+  "traits": [
+    {
+      "name": "Pilot",
+      "rank": 4
+    },
+    {
+      "name": "Fight",
+      "rank": 3
+    },
+    {
+      "name": "Athletics",
+      "rank": 3
+    },
+    {
+      "name": "Provoke",
+      "rank": 2
+    },
+    {
+      "name": "Notice",
+      "rank": 2
+    },
+    {
+      "name": "Physique",
+      "rank": 2
+    },
+    {
+      "name": "Academics",
+      "rank": 1
+    },
+    {
+      "name": "Engineering",
+      "rank": 1
+    },
+    {
+      "name": "Rapport",
+      "rank": 1
+    },
+    {
+      "name": "Will",
+      "rank": 1
+    },
+    {
+      "name": "Stealth",
+      "rank": 1
+    }
+  ],
+  "tracks": [
+    {
+      "trackId": "stress",
+      "trackLabel": "Stress",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 1
+        },
+        {
+          "isUsed": false,
+          "soakValue": 2
+        },
+        {
+          "isUsed": false,
+          "soakValue": 3
+        }
+      ]
+    },
+    {
+      "trackId": "consequence-mild",
+      "trackLabel": "Mild",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 2
+        }
+      ],
+      "aspect": {
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    },
+    {
+      "trackId": "consequence-moderate",
+      "trackLabel": "Moderate",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 4
+        }
+      ],
+      "aspect": {
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    },
+    {
+      "trackId": "consequence-severe",
+      "trackLabel": "Severe",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 6
+        }
+      ],
+      "aspect":{
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    }
+  ],
+  "stunts": [
+    {
+      "name": "Specialist: Orbital Mechanics",
+      "description": ""
+    },
+    {
+      "name": "Tough as Nails",
+      "description": "Once per session, at the cost of a fate point, I can reduce the severity of a moderate consequence that's physical in nature to a mild consequence (if your mild consequence slot is free), or erase a mild consequence altogether."
+    },
+    {
+      "name": "Inhaler of Soldier-Caste Pheromones",
+      "description": "Once per scene, as a free action, can inhale a type of pheromone, and creates an Aspect like \"Fixated on [Soldier-Caste Priority]\""
+    }
+  ]
+}

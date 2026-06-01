@@ -129,9 +129,10 @@ function clearTags() {
 
 <style scoped>
 .character-filter-container {
-  position: absolute;
-  right: .5rem;
-  top: .5rem;
+  position: fixed;
+  position-anchor: --info-content;
+  right: calc(anchor(right) + .5rem);
+  top: calc(anchor(top) + .5rem);
   display: flex;
   flex-direction: column;
   border: 1px solid transparent;

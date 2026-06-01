@@ -143,7 +143,7 @@ function TraitViewTypeChanged(e: Event) {
         <li v-for="trait in sortedTraits" class="trait-item property-item">
           <div class="rank list-label">{{ getLadderLabel(trait.rank) }} ({{
               formatTraitRank(trait.rank)
-            }}):
+            }})
           </div>
           <div class="value name">{{ trait.name }}</div>
         </li>
@@ -188,32 +188,58 @@ div.trait-list ul {
   width: 100%;
   grid-column: 1 / -1;
   padding-left: 0;
-}
-ul.viewtype-pyramid {
   display: grid;
-  grid-template-columns: max-content max-content;
+  grid-template-columns: auto 1fr;
+  grid-template-areas: "rank name";
   grid-auto-rows: min-content;
 }
 
-ul.viewtype-pyramid li.trait-item {
+div.trait-list ul li.trait-item {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+  column-gap: 1rem;
+}
+div.trait-list ul li.trait-item div.rank {
+  grid-area: rank;
+}
+div.trait-list ul li.trait-item div.name {
+  grid-area: name;
+}
+div.trait-list ul.viewtype-name {
+  grid-template-areas: "name rank";
+}
+div.trait-list ul.viewtype-name li.trait-item div.list-label {
+  text-align: left;
+}
+div.trait-list ul.viewtype-name li.trait-item div.value {
+  text-align: right;
+}
+div.trait-list ul.viewtype-pyramid {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  grid-template-areas: "rank names";
+}
+
+div.trait-list ul.viewtype-pyramid li.trait-item {
   grid-column: 1 / -1;
   display: grid;
   grid-template-columns: subgrid;
 }
 
-ul.viewtype-pyramid li.trait-item div.rank {
-  grid-column: 1 / 2;
+div.trait-list ul.viewtype-pyramid li.trait-item div.rank {
+  grid-area: rank;
   font-size: inherit;
 }
 
-ul.viewtype-pyramid li.trait-item .traits-ranked-row {
-  grid-column: 2 / -1;
+div.trait-list ul.viewtype-pyramid li.trait-item .traits-ranked-row {
+  grid-area: names;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: center;
   justify-content: flex-start;
-  gap: 1rem;
+  gap: .5rem;
 }
 
 .traits-ranked-row .name {
@@ -228,18 +254,10 @@ ul.viewtype-pyramid li.trait-item .traits-ranked-row {
 }
 
 @container (width < 38rem) {
-  ul.viewtype-pyramid {
-    grid-template-columns: max-content;
-    grid-auto-rows: min-content;
+  div.trait-list ul.viewtype-pyramid {
   }
-  ul.viewtype-pyramid li.trait-item div.rank {
-    grid-column: 1 / -1;
-    text-align: left;
-  }
-  ul.viewtype-pyramid li.trait-item .traits-ranked-row {
-    grid-column: 1 / -1;
-    margin-left: 1.5rem;
-    margin-top: 0.25rem;
+  div.trait-list ul li.trait-item {
+    column-gap: .5rem;
   }
 }
 
@@ -247,7 +265,7 @@ ul.viewtype-pyramid li.trait-item .traits-ranked-row {
  * This container size only shows up in a narrow single column window, the pyramid needs to shrink here.
  */
 @container (width < 33rem) {
-  ul.viewtype-pyramid li.trait-item {
+  div.trait-list ul.viewtype-pyramid li.trait-item {
     font-size: 0.8rem;
   }
 }

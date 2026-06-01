@@ -1,50 +1,54 @@
 {
   "type": "character",
   "schemaVersion": "1",
-  "id": "steven-irwin",
-  "name": "Dr. Steven Irwin",
-  "playerName": "Jon T.",
-  "characterType": "PC",
+  "id": "jim-dade",
+  "name": "Jim Dade",
+  "playerName": "Robert L",
   "campaigns": ["campaign-1"],
-  "description": "A middle-aged field biologist eager to document the \"infinite diversity in infinite combinations\" of life in the galaxy.",
+  "characterType": "PC",
+  "description": "Currently morphed to appear as a military grown vat clone. Vat clones look all the same. They look kind of like Lee Majors in his prime.",
   "refresh": 3,
   "fatePoints": 3,
   "aspects": [
     {
       "aspectType": "High Concept",
-      "name": "Old-Fashioned Explorer-Naturalist"
+      "name": "Charismatic cyborg military infiltration scout"
     },
     {
       "aspectType": "Trouble",
-      "name": "Dr. Crimini Has It Out For Me"
+      "name": "Hiding from assassins with unknown motivations"
     },
     {
-      "name": "My Good Friend Jithal"
+      "name": "Modified Cyber-Heart that requires constant sugar intake"
     },
     {
-      "name": "There's No Glory in Killing"
+      "name": "Uses their cover to hide the cold calculations"
     },
     {
-      "name": "Professor Ravenwood was Right"
+      "name": "Dangerous AI-predictive combat reflex responses"
     }
 
   ],
   "traitType": "skill",
   "traits": [
     {
-      "name": "Academics",
+      "name": "Rapport",
       "rank": 4
     },
     {
-      "name": "Physique",
+      "name": "Deceive",
       "rank": 3
     },
     {
-      "name": "Rapport",
+      "name": "Notice",
       "rank": 3
     },
     {
-      "name": "Contacts",
+      "name": "Burglary",
+      "rank": 2
+    },
+    {
+      "name": "Fight",
       "rank": 2
     },
     {
@@ -52,15 +56,11 @@
       "rank": 2
     },
     {
-      "name": "Stealth",
-      "rank": 2
+      "name": "Athletics",
+      "rank": 1
     },
     {
-      "name": "Will",
-      "rank": 2
-    },
-    {
-      "name": "Fight",
+      "name": "Drive",
       "rank": 1
     },
     {
@@ -68,11 +68,7 @@
       "rank": 1
     },
     {
-      "name": "Notice",
-      "rank": 1
-    },
-    {
-      "name": "Pilot",
+      "name": "Stealth",
       "rank": 1
     }
   ],
@@ -147,35 +143,28 @@
   ],
   "stunts": [
     {
-      "name": "Animal Handler",
-      "description": "+2 to Overcome with Rapport when calming animals",
+      "name": "Feint",
+      "description": "When it looks like you're going to go right, you go left. And vice versa. +2 to create advantages with Deceive that relate to confusion and misdirection in physical combat. (adapted from http://dfrpg-resources.wikispaces.com/Stunts)",
       "parameters": {
-        "trait": "Rapport",
+        "trait": "Deceive",
         "modifier": 2,
-        "actions": ["Overcome"],
+        "actions": ["CaA"],
         "modificationType": "roll"
       }
     },
     {
-      "name": "Toxin Exposure",
-      "description": "+2 to Overcome with Physique when resisting poison",
-      "parameters": {
-        "trait": "Physique",
-        "modifier": 2,
-        "actions": ["Overcome"],
-        "modificationType": "roll"
-      }
+      "name": "Hatpin Maestro",
+      "description": "You don’t ever have to spend a fate point to declare that you have the proper tools for lockpicking or disabling a device, even in extreme situations (like being imprisoned and separated from all your stuff). This source of opposition is just off the table. (adapted from Spirit of the Century SRD, §6.6.2)"
     },
     {
-      "name": "Indomitable",
-      "description": "+2 to Defend with Will against fear or intimidation",
+      "name": "Houdini",
+      "description": "You could be found by the police standing next to a burned-down church with a handful of matches and a can of gasoline and still get away scot-free. +2 to Deceive when using it to defend against attempts to discern or prove your involvement in a crime. (adapted from http://dfrpg-resources.wikispaces.com/Stunts)",
       "parameters": {
-        "trait": "Will",
+        "trait": "Deceive",
         "modifier": 2,
         "actions": ["Defend"],
         "modificationType": "roll"
       }
     }
-
   ]
 }

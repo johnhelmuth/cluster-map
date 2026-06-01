@@ -42,7 +42,6 @@ export const parseUserPreferences = parser(userPreferencesSchema, {
 })
 
 export function isUserPreferences(data: any): data is UserPreferencesData {
-  console.log('isUserPreferences() data', data);
   const parseResults = parseUserPreferences(JSON.stringify(data));
   if (! parseResults?.valid) {
     console.warn('Invalid user preferences. parseResults: ', parseResults);

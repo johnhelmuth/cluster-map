@@ -6,7 +6,7 @@
   "playerName": "Pete",
   "characterType": "PC",
   "campaigns": ["campaign-1"],
-  "description": "Short, 2nd rate Han Solo looking guy.",
+  "description": "Short, 2nd rate Han Solo looking human.",
   "refresh": 3,
   "fatePoints": 3,
   "aspects": [
@@ -17,6 +17,9 @@
     {
       "aspectType": "Trouble",
       "name": "They think they are better than me"
+    },
+    {
+      "name": "I was an Explorer Scout and have Outdoors experience"
     }
   ],
   "traitType": "skill",
@@ -32,6 +35,51 @@
     {
       "name": "Pilot",
       "rank": 3
+    },
+    {
+      "name": "Provoke",
+      "rank": 2
+    },
+    {
+      "name": "Athletics",
+      "rank": 2
+    },
+    {
+      "name": "Fight",
+      "rank": 2
+    },
+    {
+      "name": "Rapport",
+      "rank": 1
+    },
+    {
+      "name": "Engineering",
+      "rank": 1
+    },
+    {
+      "name": "Notice",
+      "rank": 1
+    },
+    {
+      "name": "Deceive",
+      "rank": 1
+    },
+    {
+      "name": "Empathy",
+      "rank": 1
+    }
+  ],
+  "stunts": [
+    {
+      "name": "Tuck and Roll Under Fire",
+      "description": "+2 on Athletics checks when Defending from ranged weapon fire when there is cover near by me",
+      "parameters": {
+        "trait": "Athletics",
+        "modifier": 2,
+        "actions": ["Defend"],
+        "modificationType": "roll"
+      }
+
     }
   ],
   "tracks": [
