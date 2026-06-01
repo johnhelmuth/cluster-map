@@ -36,6 +36,12 @@ useSeoMeta({
       <p>The stories of the player characters of the In Dire Straits setting, separated by campaign, and listed session by session.</p>
 
       <h2>
+        <NuxtLink to="/characters">Characters</NuxtLink>
+      </h2>
+
+      <p>A list of characters and their character sheets from the game.</p>
+
+      <h2>
         <NuxtLink to="/maps">Cluster Maps</NuxtLink>
       </h2>
 
