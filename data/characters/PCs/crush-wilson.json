@@ -1,0 +1,118 @@
+{
+  "type": "character",
+  "schemaVersion": "1",
+  "id": "crush-wilson",
+  "name": "\"Crush\" Wilson",
+  "playerName": "Jon T.",
+  "characterType": "PC",
+  "description": "He's a Bearble with a taste for thrills and fixing things.",
+  "campaigns": ["one-shot-1"],
+  "refresh": 3,
+  "fatePoints": 3,
+  "aspects": [
+    {
+      "aspectType": "High Concept",
+      "name": "Surfer-Dude Bearble Engineer"
+    },
+    {
+      "aspectType": "Trouble",
+      "name": "The Girls in Every Port Have Unionized"
+    },
+    {
+      "aspectType": "Reason to Race",
+      "name": "I must ride the biggest wave"
+    }
+  ],
+  "traitType": "skill",
+  "traits": [
+    {
+      "name": "Engineering",
+      "rank": 5
+    },
+    {
+      "name": "Pilot",
+      "rank": 4
+    },
+    {
+      "name": "Empathy",
+      "rank": 4
+    },
+    {
+      "name": "Athletics",
+      "rank": 3
+    },
+    {
+      "name": "Stealth",
+      "rank": 3
+    }
+  ],
+  "tracks": [
+    {
+      "trackId": "stress",
+      "trackLabel": "Stress",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 1
+        },
+        {
+          "isUsed": false,
+          "soakValue": 2
+        },
+        {
+          "isUsed": false,
+          "soakValue": 3
+        }
+      ]
+    },
+    {
+      "trackId": "consequence-mild",
+      "trackLabel": "Mild",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 2
+        }
+      ],
+      "aspect": {
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    },
+    {
+      "trackId": "consequence-moderate",
+      "trackLabel": "Moderate",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 4
+        }
+      ],
+      "aspect": {
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    },
+    {
+      "trackId": "consequence-severe",
+      "trackLabel": "Severe",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 6
+        }
+      ],
+      "aspect":{
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    }
+  ]
+}

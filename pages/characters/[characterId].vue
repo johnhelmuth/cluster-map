@@ -1,19 +1,23 @@
 <script setup lang="ts">
 
 import {useCharactersStore} from "~/stores/use-characters-store";
-import type {TraitViewTypesKeys} from "~/types/character/CharacterTypes";
+
+import {type TraitViewTypesKeys} from "~/types/character/CharacterTypes";
 
 const route = useRoute();
-const characters = useCharactersStore();
+const { getCharacter} = useCharactersStore();
+const { userPreferences } = useUserPreferences();
 
 const character = computed(() => {
   const characterId = route.params.characterId as string;
-  return characters.getCharacter(characterId);
+  return getCharacter(characterId);
 });
 
-const traitsViewType = computed(() => {
-  return "pyramid" as TraitViewTypesKeys;
-});
+const traitsViewType = ref('name' as TraitViewTypesKeys);
+
+onMounted(() => {
+  traitsViewType.value = userPreferences.characterSheet.traitViewStyle;
+})
 
 const page_title = computed(() => {
   return "Character - " + character.value?.name;
@@ -23,6 +27,12 @@ useSeoMeta({
   title: () => `Character` + (character.value?.name ? ` - ${character?.value.name}` : '')
 })
 
+function viewTypeChanged(viewType: TraitViewTypesKeys) {
+  if (viewType) {
+    traitsViewType.value = viewType;
+  }
+}
+
 </script>
 
 <template>
@@ -30,6 +40,7 @@ useSeoMeta({
     <CharacterSheet v-if="character"
                     :character="character"
                     :traits-view-type="traitsViewType"
+                    @traitViewTypeChanged="viewTypeChanged"
     />
     <div v-else>Loading...</div>
   </InfoPage>

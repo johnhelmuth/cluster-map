@@ -1,0 +1,109 @@
+{
+  "type": "character",
+  "schemaVersion": "1",
+  "id": "bogart-wiley",
+  "name": "Bogart \"Cousin Big Boy\" Wiley",
+  "playerName": "Jon T",
+  "characterType": "PC",
+  "campaigns": ["one-shot-2"],
+  "description": "The face with a lot of contacts.",
+  "refresh": 3,
+  "fatePoints": 3,
+  "aspects": [
+    {
+      "aspectType": "High Concept",
+      "name": "The Ultimate Cousin"
+    },
+    {
+      "aspectType": "Trouble",
+      "name": "I've made many more promises than I owed to me"
+    },
+    {
+      "name": "I'm stealing this because I want my connections to stay relevant"
+    }
+  ],
+  "traitType": "skill",
+  "traits": [
+    {
+      "name": "Contacts",
+      "rank": 4
+    },
+    {
+      "name": "Rapport",
+      "rank": 3
+    },
+    {
+      "name": "Empathy",
+      "rank": 3
+    }
+  ],
+  "tracks": [
+    {
+      "trackId": "stress",
+      "trackLabel": "Stress",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 1
+        },
+        {
+          "isUsed": false,
+          "soakValue": 2
+        },
+        {
+          "isUsed": false,
+          "soakValue": 3
+        }
+      ]
+    },
+    {
+      "trackId": "consequence-mild",
+      "trackLabel": "Mild",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 2
+        }
+      ],
+      "aspect": {
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    },
+    {
+      "trackId": "consequence-moderate",
+      "trackLabel": "Moderate",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 4
+        }
+      ],
+      "aspect": {
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    },
+    {
+      "trackId": "consequence-severe",
+      "trackLabel": "Severe",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 6
+        }
+      ],
+      "aspect":{
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    }
+  ]
+}

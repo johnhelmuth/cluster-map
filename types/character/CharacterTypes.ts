@@ -25,6 +25,15 @@ export const TraitViewTypes = {
 };
 export type TraitViewTypesKeys = keyof typeof TraitViewTypes;
 
+export const CharacterTypes = {
+  "NPC": "Non-Player Character",
+  "PC": "Player Character",
+  "mob": "Mob",
+  "ship": "Ship",
+}
+
+export type CharacterTypesKeys = keyof typeof CharacterTypes;
+
 export interface AspectData {
   name: string,
   description: string,
@@ -54,24 +63,26 @@ export const ActionTypes = {
   "Attack": "Attack"
 }
 
-export type ActionTypesKeys = typeof ActionTypes[keyof typeof ActionTypes];
+export type ActionTypesKeys = keyof typeof ActionTypes;
 
 export const ModificationTypes = {
   "roll": "Roll",
   "effect": "effect"
 }
 
-export type ModificationTypesKeys = typeof ModificationTypes[keyof typeof ModificationTypes];
+export type ModificationTypesKeys = keyof typeof ModificationTypes;
+
+export type StuntParametersData = {
+  trait?: string,
+  modifier?: number,
+  actions?: Array<ActionTypesKeys>,
+  modificationType?: ModificationTypesKeys
+}
 
 export interface StuntData {
-  name: string,
-  description: string,
-  parameters: {
-    trait: string,
-    modifier: number,
-    actions: Array<ActionTypesKeys>,
-    modificationType: ModificationTypesKeys
-  }
+  name?: string,
+  description?: string,
+  parameters?: StuntParametersData
 }
 
 export interface BoxData {
@@ -98,6 +109,9 @@ export interface CharacterData {
   schemaVersion: string,
   id: string,
   name: string,
+  playerName: string,
+  characterType?: CharacterTypesKeys,
+  campaigns: Array<string>,
   description: string,
   refresh: number,
   fatePoints: number,
@@ -105,5 +119,6 @@ export interface CharacterData {
   traitType: TraitTypesKeys,
   traits: Array<TraitData>,
   stunts: Array<StuntData>,
-  tracks: Array<TrackData>
+  tracks: Array<TrackData>,
+  tags: Array<string>,
 }

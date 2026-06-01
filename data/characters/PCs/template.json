@@ -1,0 +1,117 @@
+{
+  "type": "character",
+  "schemaVersion": "1",
+  "id": "XXXX",
+  "name": "",
+  "playerName": "",
+  "description": "",
+  "refresh": 3,
+  "fatePoints": 3,
+  "aspects": [
+    {
+      "aspectType": "High Concept",
+      "name": ""
+    },
+    {
+      "aspectType": "Trouble",
+      "name": ""
+    }
+
+  ],
+  "traitType": "skill",
+  "traits": [
+    {
+      "name": "",
+      "rank": 4
+    },
+    {
+      "name": "",
+      "rank": 3
+    },
+    {
+      "name": "",
+      "rank": 3
+    }
+  ],
+  "tracks": [
+    {
+      "trackId": "stress",
+      "trackLabel": "Stress",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 1
+        },
+        {
+          "isUsed": false,
+          "soakValue": 2
+        },
+        {
+          "isUsed": false,
+          "soakValue": 3
+        }
+      ]
+    },
+    {
+      "trackId": "consequence-mild",
+      "trackLabel": "Mild",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 2
+        }
+      ],
+      "aspect": {
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    },
+    {
+      "trackId": "consequence-moderate",
+      "trackLabel": "Moderate",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 4
+        }
+      ],
+      "aspect": {
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    },
+    {
+      "trackId": "consequence-severe",
+      "trackLabel": "Severe",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 6
+        }
+      ],
+      "aspect":{
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    }
+  ],
+  "stunts": [
+    {
+      "name": "",
+      "description": "",
+      "parameters": {
+        "trait": "",
+        "modifier": 2,
+        "actions": ["Overcome"],
+        "modificationType": "roll"
+      }
+    }
+  ]
+}

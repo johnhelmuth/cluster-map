@@ -1,0 +1,181 @@
+{
+  "type": "character",
+  "schemaVersion": "1",
+  "id": "steven-irwin",
+  "name": "Dr. Steven Irwin",
+  "playerName": "Jon T.",
+  "characterType": "PC",
+  "campaigns": ["campaign-1"],
+  "description": "",
+  "refresh": 3,
+  "fatePoints": 3,
+  "aspects": [
+    {
+      "aspectType": "High Concept",
+      "name": "Old-Fashioned Explorer-Naturalist"
+    },
+    {
+      "aspectType": "Trouble",
+      "name": "Dr. Crimini Has It Out For Me"
+    },
+    {
+      "name": "My Good Friend Jithal"
+    },
+    {
+      "name": "There's No Glory in Killing"
+    },
+    {
+      "name": "Professor Ravenwood was Right"
+    }
+
+  ],
+  "traitType": "skill",
+  "traits": [
+    {
+      "name": "Academics",
+      "rank": 4
+    },
+    {
+      "name": "Physique",
+      "rank": 3
+    },
+    {
+      "name": "Rapport",
+      "rank": 3
+    },
+    {
+      "name": "Contacts",
+      "rank": 2
+    },
+    {
+      "name": "Shoot",
+      "rank": 2
+    },
+    {
+      "name": "Stealth",
+      "rank": 2
+    },
+    {
+      "name": "Will",
+      "rank": 2
+    },
+    {
+      "name": "Fight",
+      "rank": 1
+    },
+    {
+      "name": "Investigate",
+      "rank": 1
+    },
+    {
+      "name": "Notice",
+      "rank": 1
+    },
+    {
+      "name": "Pilot",
+      "rank": 1
+    }
+  ],
+  "tracks": [
+    {
+      "trackId": "stress",
+      "trackLabel": "Stress",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 1
+        },
+        {
+          "isUsed": false,
+          "soakValue": 2
+        },
+        {
+          "isUsed": false,
+          "soakValue": 3
+        }
+      ]
+    },
+    {
+      "trackId": "consequence-mild",
+      "trackLabel": "Mild",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 2
+        }
+      ],
+      "aspect": {
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    },
+    {
+      "trackId": "consequence-moderate",
+      "trackLabel": "Moderate",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 4
+        }
+      ],
+      "aspect": {
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    },
+    {
+      "trackId": "consequence-severe",
+      "trackLabel": "Severe",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 6
+        }
+      ],
+      "aspect":{
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    }
+  ],
+  "stunts": [
+    {
+      "name": "Animal Handler",
+      "description": "+2 to Overcome with Rapport when calming animals",
+      "parameters": {
+        "trait": "Rapport",
+        "modifier": 2,
+        "actions": ["Overcome"],
+        "modificationType": "roll"
+      }
+    },
+    {
+      "name": "Toxin Exposure",
+      "description": "+2 to Overcome with Physique when resisting poison",
+      "parameters": {
+        "trait": "Physique",
+        "modifier": 2,
+        "actions": ["Overcome"],
+        "modificationType": "roll"
+      }
+    },
+    {
+      "name": "Indomitable",
+      "description": "+2 to Defend with Will against fear or intimidation",
+      "parameters": {
+        "trait": "Will",
+        "modifier": 2,
+        "actions": ["Defend"],
+        "modificationType": "roll"
+      }
+    }
+
+  ]
+}

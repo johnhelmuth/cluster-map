@@ -1,0 +1,122 @@
+{
+  "type": "character",
+  "schemaVersion": "1",
+  "id": "lou-dobb",
+  "name": "Lou Dobb",
+  "playerName": "Pete",
+  "characterType": "PC",
+  "campaigns": ["one-shot-1"],
+  "description": "He's a vat clone, so he looks like Lee Majors.",
+  "refresh": 3,
+  "fatePoints": 3,
+  "aspects": [
+    {
+      "aspectType": "High Concept",
+      "name": "Competitive Vat Clone Pilot"
+    },
+    {
+      "aspectType": "Trouble",
+      "name": "Dohpaz Vito is Not Sure I Was a Good Investment"
+    },
+    {
+      "aspectType": "Reason to Race",
+      "name": "If I Can't Be the Best, I'll Be Unique"
+    },
+    {
+      "name": "Vat Clones Don't Panic"
+    }
+
+  ],
+  "traitType": "skill",
+  "traits": [
+    {
+      "name": "Pilot",
+      "rank": 5
+    },
+    {
+      "name": "Physique",
+      "rank": 4
+    },
+    {
+      "name": "Athletics",
+      "rank": 4
+    },
+    {
+      "name": "Will",
+      "rank": 3
+    },
+    {
+      "name": "Stealth",
+      "rank": 3
+    }
+  ],
+  "tracks": [
+    {
+      "trackId": "stress",
+      "trackLabel": "Stress",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 1
+        },
+        {
+          "isUsed": false,
+          "soakValue": 2
+        },
+        {
+          "isUsed": false,
+          "soakValue": 3
+        }
+      ]
+    },
+    {
+      "trackId": "consequence-mild",
+      "trackLabel": "Mild",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 2
+        }
+      ],
+      "aspect": {
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    },
+    {
+      "trackId": "consequence-moderate",
+      "trackLabel": "Moderate",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 4
+        }
+      ],
+      "aspect": {
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    },
+    {
+      "trackId": "consequence-severe",
+      "trackLabel": "Severe",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 6
+        }
+      ],
+      "aspect":{
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    }
+  ]
+}

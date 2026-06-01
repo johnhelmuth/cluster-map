@@ -8,11 +8,15 @@ const props = defineProps<{
   traitsViewType: TraitViewTypesKeys
 }>();
 
+const emit = defineEmits<{
+  traitViewTypeChanged: [viewType: TraitViewTypesKeys]
+}>();
+
 function toggleBox(trackId: string, boxIndex: number): void {
   if (props.character) {
     props.character.toggleBox(trackId, boxIndex);
   } else {
-    console.warn('CharacterSheet.toggleStressBox() Received toggle-stress action from StressConsequenceList with no character in scope.');
+    console.warn('CharacterSheet.toggleStressBox() Received toggle-stress action from StressConsequenceList with no characters in scope.');
   }
 }
 function useTrackInvoke(trackId: string): void {
@@ -26,11 +30,15 @@ function useCharacterAspectInvoke(aspectIndex: number): void {
   }
 }
 
+function traitTypeChanged(viewType: TraitViewTypesKeys): void {
+  emit('traitViewTypeChanged', viewType)
+}
+
 </script>
 
 <template>
   <div v-if="character" class="sheet">
-    <IdentityList :name="character.name" :description="character.description" class="identity-list block first-three-columns"/>
+    <IdentityList :name="character.name" :description="character.description" :player-name="character.playerName" class="identity-list block first-three-columns"/>
     <RefreshList v-if="typeof character.refresh !== 'undefined' && typeof character.fatePoints !== 'undefined'" :refresh="character.refresh" :fatePoints="character.fatePoints" class="refresh-list block last-column" />
     <AspectList
         :aspects="character.aspects"
@@ -43,6 +51,7 @@ function useCharacterAspectInvoke(aspectIndex: number): void {
         :traitType="character.traitType"
         :traits="character.traits"
         :view-type="traitsViewType"
+        @traitViewTypeChanged="traitTypeChanged"
         class="block trait-list right-half"
     />
     <TrackList
@@ -54,14 +63,26 @@ function useCharacterAspectInvoke(aspectIndex: number): void {
     />
     <StuntList
         v-if="character.stunts && character.stunts.length"
+        :character="character"
         :stunts="character.stunts"
         class="block stunt-list right-half"
     />
+    <TagsList
+      v-if="character.tags && character.tags.length"
+      :tags="character.tags"
+      class="block tags-list left-half"
+      />
   </div>
   <div v-else>Loading...</div>
 </template>
 
 <style scoped>
+
+.sheet {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 1rem;
+}
 
 .all-columns {
   grid-column: 1 / 5;
@@ -99,12 +120,6 @@ ul, :deep(ul) {
   list-style-type: none;
 }
 
-.sheet {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 1rem;
-}
-
 .block {
   min-width: 10rem;
   container-name: block;
@@ -138,5 +153,9 @@ ul .list-label, :deep(ul .list-label) {
 
 .value, :deep(.value) {
   font-weight: bold;
+}
+
+.tags-list {
+  margin-top: 2rem;
 }
 </style>

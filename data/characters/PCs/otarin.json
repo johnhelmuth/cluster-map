@@ -1,0 +1,110 @@
+{
+  "type": "character",
+  "schemaVersion": "1",
+  "id": "otarin",
+  "name": "Otarin",
+  "playerName": "Kit",
+  "characterType": "PC",
+  "campaigns": ["one-shot-2"],
+  "description": "",
+  "refresh": 3,
+  "fatePoints": 3,
+  "aspects": [
+    {
+      "aspectType": "High Concept",
+      "name": "Sticky Fingered Career Thief"
+    },
+    {
+      "aspectType": "Trouble",
+      "name": "Fragile Ego"
+    },
+    {
+      "name": "To prove I'm the best"
+    }
+
+  ],
+  "traitType": "skill",
+  "traits": [
+    {
+      "name": "Burglary",
+      "rank": 4
+    },
+    {
+      "name": "Stealth",
+      "rank": 3
+    },
+    {
+      "name": "Athletics",
+      "rank": 3
+    }
+  ],
+  "tracks": [
+    {
+      "trackId": "stress",
+      "trackLabel": "Stress",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 1
+        },
+        {
+          "isUsed": false,
+          "soakValue": 2
+        },
+        {
+          "isUsed": false,
+          "soakValue": 3
+        }
+      ]
+    },
+    {
+      "trackId": "consequence-mild",
+      "trackLabel": "Mild",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 2
+        }
+      ],
+      "aspect": {
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    },
+    {
+      "trackId": "consequence-moderate",
+      "trackLabel": "Moderate",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 4
+        }
+      ],
+      "aspect": {
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    },
+    {
+      "trackId": "consequence-severe",
+      "trackLabel": "Severe",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 6
+        }
+      ],
+      "aspect":{
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    }
+  ]
+}

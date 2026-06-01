@@ -1,0 +1,56 @@
+{
+  "type": "character",
+  "schemaVersion": "1",
+  "id": "1",
+  "name": "Carla",
+  "characterType": "NPC",
+  "aspects": [
+    {
+      "name": "Valuable assistant",
+      "freeInvokes": 0
+    }],
+  "traitType": "approach",
+  "traits": [
+    {
+      "name": "Careful",
+      "rank": 3
+    },
+    {
+      "name": "Clever",
+      "rank": 2
+    },
+    {
+      "name": "Forceful",
+      "rank": 2
+    },
+    {
+      "name": "Flashy",
+      "rank": 1
+    },
+    {
+      "name": "Quickly",
+      "rank": 1
+    },
+    {
+      "name": "Sneaky",
+      "rank": 0
+    }
+  ],
+  "tracks": [
+    {
+      "trackId": "stress",
+      "trackLabel": "Stress",
+      "boxes": [
+        {
+          "isUsed": true,
+          "soakValue": 1
+        },
+        {
+          "isUsed": false,
+          "soakValue": 1
+        }
+      ]
+    }
+  ],
+  "tags": ["assistant", "plucky", "sarcastic"]
+}

@@ -32,9 +32,9 @@ function useInvoke(trackId: string) {
           <StressBox
               v-for="index in track.boxes.length"
               :key="index-1"
-              :soak-number="track.boxes[index-1].soakValue"
+              :soak-number="track.boxes[index-1]?.soakValue"
               :show-soak-amount="track.showSoakAmount"
-              :is-checked="track.boxes[index-1].isUsed || false"
+              :is-checked="track.boxes[index-1]?.isUsed || false"
               @toggle-box="toggleBox(track.trackId, index-1)"
           />
         </div>

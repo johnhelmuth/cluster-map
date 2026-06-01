@@ -6,7 +6,11 @@ import type {
   TraitLabelsTypeKeys,
   TraitTypesKeys
 } from "~/types/character/CharacterTypes";
-export { type ParseResult } from "@exodus/schemasafe";
+import { characters as rawCharacters } from '~/utils/character-importer';
+
+import type { ParseResult } from "@exodus/schemasafe";
+
+const UNASSIGNED_CAMPAIGN = 'unassigned-campaign';
 
 const traitLabels = new Map<TraitTypesKeys, TraitLabelsType>([
   ["skill", {singular: "Skill", plural: "Skills"}],
@@ -66,30 +70,59 @@ export function useCharactersStore() {
   const loaded = ref(false);
   const error = ref(false);
 
+  const parseErrors = ref([] as Array<ParseResult>);
+  rawCharacters.forEach((characterDoc) => {
+    if (parseAsCharacterData(characterDoc)) {
+      const characterModel = new CharacterModel(characterDoc);
+      characters.set(characterModel.id, characterModel);
+    } else {
+      const parseResults = parseCharacter(JSON.stringify(characterDoc));
+      // @ts-ignore
+      parseErrors.value.push(parseResults)
+    }
+  })
+  if (parseErrors.value.length > 0) {
+    error.value = true;
+  }
+
   function getCharacter(characterId: string) : CharacterModel | undefined {
     return characters.has(characterId) && characters.get(characterId) || undefined;
   }
 
-  const parseErrors = ref([] as Array<ParseResult>);
-  queryCollection('characters').all()
-      .then(characterDocs => {
-        characterDocs.forEach((characterDoc) => {
-          console.log('useCharactersStore() characterDoc: ', characterDoc);
-          if (parseAsCharacterData(characterDoc.meta.body)) {
-            const characterModel = new CharacterModel(characterDoc.meta.body);
-            characters.set(characterModel.id, characterModel);
-          } else {
-            const parseResults = parseCharacter(JSON.stringify(characterDoc.meta.body));
-            parseErrors.value.push(parseResults)
-          }
-        })
-        if (parseErrors.value.length > 0) {
-          error.value = true;
-        }
-      })
-      .catch(err => {
-        error.value = err;
-      });
+  function getCharactersByTag(tag: string) {
+    const charactersList = [];
+    for (const [characterId, character] of characters) {
+      if (character?.tags && character.tags.includes(tag)) {
+        charactersList.push(character);
+      }
+    }
+    return charactersList;
+  }
+
+  function getCharacterCampaigns() {
+    const campaignSet = new Set<string>([UNASSIGNED_CAMPAIGN]);
+    for (const character of characters.values()) {
+      character.campaigns.forEach(campaign => campaignSet.add(campaign));
+    }
+    return campaignSet;
+  }
+
+  function getCharacterTags() {
+    const tagsSet = new Set<string>();
+    for (const character of characters.values()) {
+      character.tags.forEach(tag => tagsSet.add(tag));
+    }
+    return tagsSet;
+  }
+
+  function getCampaignTitle(campaign: string) {
+
+    return campaign
+      .replace(/-/g, ' ')
+      .split(' ')
+      .map((t) => t.charAt(0).toUpperCase() + t.slice(1))
+      .join(' ');
+  }
 
   return {
     loaded,
@@ -97,8 +130,13 @@ export function useCharactersStore() {
     parseErrors,
     characters,
     getCharacter,
+    getCharactersByTag,
+    getCharacterTags,
+    getCharacterCampaigns,
+    getCampaignTitle,
     getTraitLabel,
     formatTraitRank,
-    getLadderLabel
+    getLadderLabel,
+    UNASSIGNED_CAMPAIGN
   }
 }

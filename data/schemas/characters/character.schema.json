@@ -16,16 +16,38 @@
       "const": "1"
     },
     "id": {
+      "title": "ID",
       "description": "Unique identifier for the character.",
       "type": "string"
     },
     "name": {
+      "title": "Name",
       "description": "The name of the character.",
       "type": "string"
+    },
+    "playerName": {
+      "description": "The name of the player of the character.",
+      "type": "string"
+    },
+    "campaigns": {
+      "title": "Campaigns",
+      "description": "A list of campaigns this character is in.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "title": "Campaign name",
+        "description": "The name of one of the campaigns the character is in."
+      }
     },
     "description": {
       "description": "The description of the character.",
       "type": "string"
+    },
+    "characterType": {
+      "title": "Character type",
+      "description": "The type of character, PC, NPC, Mob, Ship, etc.",
+      "type": "string",
+      "enum": ["PC", "NPC", "ship", "mob"]
     },
     "refresh": {
       "description": "The current minimum number of Fate points the player of this character starts with at the beginning of a session.",
@@ -52,6 +74,7 @@
               "High Concept",
               "Trouble",
               "Relationship",
+              "Reason to Race",
               "Other"
             ]
           },
@@ -229,6 +252,17 @@
         "required": [
           "trackId"
         ]
+      }
+    },
+    "tags": {
+      "title": "Tags",
+      "description": "Arbitrary tags to be applied to the character.",
+      "type": "array",
+      "items": {
+        "title": "Tag",
+        "description": "A tag that applies to a character.",
+        "type": "string",
+        "minLength": 2
       }
     }
   },

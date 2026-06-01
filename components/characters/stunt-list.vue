@@ -1,9 +1,11 @@
 <script setup lang="ts">
 
 import type {StuntData} from "~/types/character/CharacterTypes";
+import type {CharacterModel} from "~/models/character/CharacterModel";
 
 const props = defineProps<{
-  "stunts": StuntData[]
+  "character": CharacterModel,
+  "stunts": StuntData[],
 }>();
 
 </script>
@@ -12,9 +14,10 @@ const props = defineProps<{
   <div>
     <h3>Stunts</h3>
     <ul>
-      <li v-for="stunt in stunts" class="stunt-item property-item">
+      <li v-for="(stunt, indx) in stunts" class="stunt-item property-item">
         <h4>{{ stunt.name }}</h4>
         <p>{{ stunt.description }}</p>
+        <p v-if="character.stuntDiceExpression(indx)?.description">{{ character.stuntDiceExpression(indx)?.description}}</p>
       </li>
     </ul>
   </div>

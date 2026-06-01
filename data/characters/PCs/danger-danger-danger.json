@@ -1,0 +1,109 @@
+{
+  "type": "character",
+  "schemaVersion": "1",
+  "id": "danger-danger-danger",
+  "name": "Danger Danger Danger",
+  "playerName": "Pete",
+  "characterType": "PC",
+  "campaigns": ["one-shot-2"],
+  "description": "Baloran teenager who ran off for adventure, looks like a gangly aquamarince Shrek",
+  "refresh": 3,
+  "fatePoints": 3,
+  "aspects": [
+    {
+      "aspectType": "High Concept",
+      "name": "Punk Rock Gun-Runner Extraordinaire"
+    },
+    {
+      "aspectType": "Trouble",
+      "name": "Draft Dodging Danger Seeker"
+    },
+    {
+      "name": "Flantians are Gatekeeping the Galaxy"
+    }
+  ],
+  "traitType": "skill",
+  "traits": [
+    {
+      "name": "Pilot",
+      "rank": 4
+    },
+    {
+      "name": "Shoot",
+      "rank": 3
+    },
+    {
+      "name": "Notice",
+      "rank": 3
+    }
+  ],
+  "tracks": [
+    {
+      "trackId": "stress",
+      "trackLabel": "Stress",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 1
+        },
+        {
+          "isUsed": false,
+          "soakValue": 2
+        },
+        {
+          "isUsed": false,
+          "soakValue": 3
+        }
+      ]
+    },
+    {
+      "trackId": "consequence-mild",
+      "trackLabel": "Mild",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 2
+        }
+      ],
+      "aspect": {
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    },
+    {
+      "trackId": "consequence-moderate",
+      "trackLabel": "Moderate",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 4
+        }
+      ],
+      "aspect": {
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    },
+    {
+      "trackId": "consequence-severe",
+      "trackLabel": "Severe",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 6
+        }
+      ],
+      "aspect":{
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    }
+  ]
+}
