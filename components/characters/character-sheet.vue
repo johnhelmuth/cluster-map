@@ -67,6 +67,11 @@ function traitTypeChanged(viewType: TraitViewTypesKeys): void {
         :stunts="character.stunts"
         class="block stunt-list right-half"
     />
+    <NotesBlock
+      v-if="character.notes && character.notes.length"
+      :notes="character.notes"
+      class="block notes-block all-columns"
+    />
     <TagsList
       v-if="character.tags && character.tags.length"
       :tags="character.tags"

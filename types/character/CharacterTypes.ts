@@ -120,5 +120,6 @@ export interface CharacterData {
   traits: Array<TraitData>,
   stunts: Array<StuntData>,
   tracks: Array<TrackData>,
+  notes: Array<string>,
   tags: Array<string>,
 }

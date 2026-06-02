@@ -4,7 +4,7 @@
   "id": "chris",
   "name": "\"Chris\", of the Starfighter Chrysalis",
   "playerName": "Evan",
-  "description": "A'' \"Thri-kreen\"-style ant-man. Two feet worth of articulating black antennae covered with spines like tube-cleaning brushes. Brassy carapace moulted every few days. Ant-like face, black mandibles. Wide compound eyes, each lens a subtly different shade, sees in black-and-white at a wide angle. Two true-arms from the shoulder, and two shorter footarms from the lower ribs. Two sets of joints on each limb. Similarly oddly jointed lower limbs. (Lower locked to mimic human motions.) Vestigial wings (more nubs than anything) Walks bipedally to put people at ease, quadrupedally on foot-arms when alone. A minimally patched, torn, gray, monochrome flight suit for the benefit of mammals identifying his role.  Speaks in clicks and chirps, and sawing his antennae on each other to make noise. (Enjoys violins.) Flame-retardant somewhat-torn system-agnostic flight suit and jacket: minimally patched. Thinks it puts aliens at ease. Bandolier: Click-to-speech device + bags/slots for rip-bags, syringes, pheromone inhalers, stims + painkillers and epinephrine (for mammals).",
+  "description": "A \"Thri-kreen\"-style ant-man. \n\nTwo feet worth of articulating black antennae covered with spines like tube-cleaning brushes. Brassy carapace moulted every few days. \n\nAnt-like face, black mandibles. Wide compound eyes, each lens a subtly different shade, sees in black-and-white at a wide angle. \n\nTwo true-arms from the shoulder, and two shorter footarms from the lower ribs. Two sets of joints on each limb. \n\nSimilarly oddly jointed lower limbs. (Lower locked to mimic human motions.) Vestigial wings (more nubs than anything)",
   "campaigns": ["campaign-1"],
   "characterType": "PC",
   "refresh": 3,
@@ -158,5 +158,16 @@
       "name": "Inhaler of Soldier-Caste Pheromones",
       "description": "Once per scene, as a free action, can inhale a type of pheromone, and creates an Aspect like \"Fixated on [Soldier-Caste Priority]\""
     }
+  ],
+  "notes": [
+    "Walks bipedally to put people at ease, quadrupedally on foot-arms when alone. A minimally patched, torn, gray, monochrome flight suit for the benefit of mammals identifying his role.",
+    "",
+    "Speaks in clicks and chirps, and sawing his antennae on each other to make noise. (Enjoys violins.)",
+    "",
+    "Flame-retardant somewhat-torn system-agnostic flight suit and jacket: minimally patched. Thinks it puts aliens at ease.",
+    "",
+    "Bandolier: Click-to-speech device + bags/slots for rip-bags, syringes, pheromone inhalers, stims + painkillers and epinephrine (for mammals).",
+    "",
+    "\"Am I missing the human element?\" check-phrase."
   ]
 }

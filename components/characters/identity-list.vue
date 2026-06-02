@@ -14,7 +14,7 @@ const props = defineProps<{
       <p>Player: {{ playerName }}</p>
     </div>
     <div v-if="description" class="character-description">
-      <p>{{ description }}</p>
+      <MDC :value="description" />
     </div>
   </div>
 </template>

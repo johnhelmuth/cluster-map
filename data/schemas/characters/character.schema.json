@@ -254,6 +254,15 @@
         ]
       }
     },
+    "notes": {
+      "title": "Notes",
+      "description": "Section for notes about the character",
+      "type": "array",
+      "items": {
+        "description": "A line of a multi-text notes field. Supports Markdown",
+        "type": "string"
+      }
+    },
     "tags": {
       "title": "Tags",
       "description": "Arbitrary tags to be applied to the character.",
