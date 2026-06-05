@@ -140,7 +140,7 @@
   "stunts": [
     {
       "name": "Feint",
-      "description": "When it looks like you're going to go right, you go left. And vice versa. +2 to create advantages with Deceive that relate to confusion and misdirection in physical combat. (adapted from http://dfrpg-resources.wikispaces.com/Stunts)",
+      "description": "When it looks like you're going to go right, you go left. And vice versa. +2 to create advantages with Deceive that relate to confusion and misdirection in physical combat.\n\n(adapted from http://dfrpg-resources.wikispaces.com/Stunts)",
       "parameters": {
         "trait": "Deceive",
         "modifier": 2,
@@ -150,11 +150,11 @@
     },
     {
       "name": "Hatpin Maestro",
-      "description": "You don’t ever have to spend a fate point to declare that you have the proper tools for lockpicking or disabling a device, even in extreme situations (like being imprisoned and separated from all your stuff). This source of opposition is just off the table. (adapted from Spirit of the Century SRD, §6.6.2)"
+      "description": "You don’t ever have to spend a fate point to declare that you have the proper tools for lockpicking or disabling a device, even in extreme situations (like being imprisoned and separated from all your stuff). This source of opposition is just off the table.\n\n(adapted from Spirit of the Century SRD, §6.6.2)"
     },
     {
       "name": "Houdini",
-      "description": "You could be found by the police standing next to a burned-down church with a handful of matches and a can of gasoline and still get away scot-free. +2 to Deceive when using it to defend against attempts to discern or prove your involvement in a crime. (adapted from http://dfrpg-resources.wikispaces.com/Stunts)",
+      "description": "You could be found by the police standing next to a burned-down church with a handful of matches and a can of gasoline and still get away scot-free. +2 to Deceive when using it to defend against attempts to discern or prove your involvement in a crime.\n\n(adapted from http://dfrpg-resources.wikispaces.com/Stunts)",
       "parameters": {
         "trait": "Deceive",
         "modifier": 2,
@@ -167,7 +167,9 @@
     "#### Biography",
     "",
     "\"Jim\" got mortally wounded and left for dead on a routine scouting mission one day. His company retrieved him. They rebuilt him. They made him better.",
+    "",
     "It wasn’t a routine mission after all. They could not let the information he gathered die with him. What information? Jim doesn’t know. They had to replace part of his brain. How much? The new \"Jim\" doesn’t really care. All he knows is that his tour has been extended for everyone involved to recoup the costs of saving his life with cybernetic implants.",
+    "",
     "Now someone has been going around killing off or abducting all the scout infiltrator cyborgs like himself. Who could it be?",
     "",
     "* A division of the military trying to cover up that dangerously buggy combat reflexes they programmed into him?",
@@ -177,6 +179,7 @@
     "* Maybe it’s \"The General\"?",
     "",
     "\"The General\" swooped in, provided Jim with a cover identity (Jim Dade) and a classified codename to get resources. Then \"The General\" ordered him to lie low while they figured all of this out. As a matter of fact, go join this specific ship crew. \"The General\" promises to call and send Jim on missions to investigate who is out to kill off his cybernetics model.",
+    "",
     "Oh, and \"The General\" still has missions for Jim to complete with orders to, \"try not to expose your real identity or capabilities, okay?\". The only other mission Jim has been sent on (other than joining the current crew) was a pet retrieval mission for \"The General\". Jim kind of suspects he was sent in as a disposable asset on that one.",
     "",
     "#### Inventory",

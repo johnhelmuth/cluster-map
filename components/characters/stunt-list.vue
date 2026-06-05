@@ -16,7 +16,7 @@ const props = defineProps<{
     <ul>
       <li v-for="(stunt, indx) in stunts" class="stunt-item property-item">
         <h4>{{ stunt.name }}</h4>
-        <p>{{ stunt.description }}</p>
+        <MDC v-if="stunt.description" :value="stunt.description"/>
         <p v-if="character.stuntDiceExpression(indx)?.description">{{ character.stuntDiceExpression(indx)?.description}}</p>
       </li>
     </ul>
