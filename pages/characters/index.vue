@@ -38,14 +38,19 @@ const filterCampaigns = computed(() => new Set<string>(filterParams.value?.campa
 const filterCharacterTypes = computed(() => new Set<string>(filterParams.value?.characterTypes || Object.keys(CharacterTypes)));
 const filterTags = computed(() => filterParams.value?.tags?.length ? new Set<string>(filterParams.value?.tags || getCharacterTags()) : undefined);
 
-function compareCharToFilter(character: CharacterModel) {
-  if (filterCampaigns.value.size > 0 && filterCampaigns.value.intersection(new Set<string>(character?.campaigns.length ? character.campaigns : [UNASSIGNED_CAMPAIGN])).size < 1) {
+type CharacterFiltersType = {
+  campaigns:  globalThis.ComputedRef<Set<string>>,
+  characterTypes:  globalThis.ComputedRef<Set<string>>,
+  tags:  globalThis.ComputedRef<Set<string>>,
+}
+function compareCharToFilter(character: CharacterModel, filters: CharacterFiltersType) {
+  if (filters.campaigns.value.size > 0 && filters.campaigns.value.intersection(new Set<string>(character?.campaigns.length ? character.campaigns : [UNASSIGNED_CAMPAIGN])).size < 1) {
     return false;
   }
-  if (filterCharacterTypes.value.size && (! character?.characterType || ! filterCharacterTypes.value.has(character?.characterType))) {
+  if (filters.characterTypes.value.size && (! character?.characterType || ! filters.characterTypes.value.has(character?.characterType))) {
     return false;
   }
-  if (filterTags.value?.size && (character?.tags.length === 0 || filterTags.value.intersection(new Set<string>(character.tags)).size < 1)) {
+  if (filters.tags.value?.size && (character?.tags.length === 0 || filters.tags.intersection(new Set<string>(character.tags)).size < 1)) {
     return false;
   }
   return true;
