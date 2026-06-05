@@ -36,21 +36,21 @@ const { characters, getCampaignTitle, getCharacterCampaigns, getCharacterTags, U
 
 const filterCampaigns = computed(() => new Set<string>(filterParams.value?.campaigns || getCharacterCampaigns()));
 const filterCharacterTypes = computed(() => new Set<string>(filterParams.value?.characterTypes || Object.keys(CharacterTypes)));
-const filterTags = computed(() => filterParams.value?.tags?.length ? new Set<string>(filterParams.value?.tags || getCharacterTags()) : undefined);
+const filterTags = computed(() => new Set<string>(filterParams.value?.tags || []));
 
 type CharacterFiltersType = {
-  campaigns:  globalThis.ComputedRef<Set<string>>,
-  characterTypes:  globalThis.ComputedRef<Set<string>>,
-  tags:  globalThis.ComputedRef<Set<string>>,
+  campaigns:  Set<string>,
+  characterTypes:  Set<string>,
+  tags:  Set<string>,
 }
 function compareCharToFilter(character: CharacterModel, filters: CharacterFiltersType) {
-  if (filters.campaigns.value.size > 0 && filters.campaigns.value.intersection(new Set<string>(character?.campaigns.length ? character.campaigns : [UNASSIGNED_CAMPAIGN])).size < 1) {
+  if (filters.campaigns.size > 0 && filters.campaigns.intersection(new Set<string>(character?.campaigns.length ? character.campaigns : [UNASSIGNED_CAMPAIGN])).size < 1) {
     return false;
   }
-  if (filters.characterTypes.value.size && (! character?.characterType || ! filters.characterTypes.value.has(character?.characterType))) {
+  if (filters.characterTypes.size && (! character?.characterType || ! filters.characterTypes.has(character?.characterType))) {
     return false;
   }
-  if (filters.tags.value?.size && (character?.tags.length === 0 || filters.tags.intersection(new Set<string>(character.tags)).size < 1)) {
+  if (filters.tags.size > 0 && (character?.tags.length === 0 || filters.tags.intersection(new Set<string>(character.tags)).size < 1)) {
     return false;
   }
   return true;
@@ -58,8 +58,13 @@ function compareCharToFilter(character: CharacterModel, filters: CharacterFilter
 
 const chars = computed(() => {
   const charMap = new Map<string, Array<CharacterModel>>();
+  const filters = {
+    campaigns: filterCampaigns.value,
+    characterTypes: filterCharacterTypes.value,
+    tags: filterTags.value
+  }
   characters.forEach((character, id) => {
-    const matches = compareCharToFilter(character);
+    const matches = compareCharToFilter(character, filters);
     if (matches) {
       if (character.campaigns.length === 0) {
         const campaignChars = charMap.get(UNASSIGNED_CAMPAIGN) || [];
