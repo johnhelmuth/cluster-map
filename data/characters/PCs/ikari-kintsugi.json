@@ -1,87 +1,48 @@
 {
   "type": "character",
   "schemaVersion": "1",
-  "id": "delano-mack",
-  "name": "Delano Mack",
-  "playerName": "Pete",
+  "id": "ikari-kintsugi",
+  "name": "Ikari Kintsugi",
+  "playerName": "Bea",
+  "description": "Young woman in dark attire with gold colored scarring.",
+  "campaigns": [
+    "one-shot-3"
+  ],
   "characterType": "PC",
-  "campaigns": ["campaign-1"],
-  "description": "Short, 2nd rate Han Solo looking human.",
   "refresh": 3,
   "fatePoints": 3,
   "aspects": [
     {
       "aspectType": "High Concept",
-      "name": "Independent Carrier, Captain of the Jitterbug"
+      "name": "Well Connected Pickpocket"
     },
     {
       "aspectType": "Trouble",
-      "name": "I'm kind of a big deal right now"
+      "name": "Abrasive to Authority"
     },
     {
-      "name": "I was an Explorer Scout and have Outdoors experience"
+      "aspectType": "Oneshot Reason",
+      "name": "Low class serving girl on the Lam",
+      "description": "Kintsugi stole some jewelry from Lady Ariana Zanetti, and was lying low in an inn on the road between Alodon and Abilene.\n\nShe was working as a serving girl there when the murder of Lady Charrisse Grant took place."
     },
     {
-      "name": "I know when a Navy officer has it in for me."
+      "aspectType": "Relationship",
+      "name": "Murrieta Owes Me Money"
     }
   ],
   "traitType": "skill",
   "traits": [
     {
-      "name": "Investigate",
+      "name": "Burglary",
       "rank": 4
     },
     {
-      "name": "Shoot",
-      "rank": 3
-    },
-    {
-      "name": "Pilot",
-      "rank": 3
-    },
-    {
-      "name": "Provoke",
-      "rank": 2
-    },
-    {
-      "name": "Athletics",
-      "rank": 2
-    },
-    {
-      "name": "Fight",
-      "rank": 2
-    },
-    {
       "name": "Rapport",
-      "rank": 1
-    },
-    {
-      "name": "Engineering",
-      "rank": 1
+      "rank": 3
     },
     {
       "name": "Notice",
-      "rank": 1
-    },
-    {
-      "name": "Deceive",
-      "rank": 1
-    },
-    {
-      "name": "Empathy",
-      "rank": 1
-    }
-  ],
-  "stunts": [
-    {
-      "name": "Tuck and Roll Under Fire",
-      "description": "+2 on Athletics checks when Defending from ranged weapon fire when there is cover near by me",
-      "parameters": {
-        "trait": "Athletics",
-        "modifier": 2,
-        "actions": ["Defend"],
-        "modificationType": "roll"
-      }
+      "rank": 3
     }
   ],
   "tracks": [
@@ -142,11 +103,14 @@
           "soakValue": 6
         }
       ],
-      "aspect":{
+      "aspect": {
         "name": "",
         "freeInvokes": 0,
         "state": "free"
       }
     }
+  ],
+  "notes": [
+    "Known alias: Elise."
   ]
 }

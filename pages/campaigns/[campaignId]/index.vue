@@ -4,10 +4,10 @@ import { isInViewport } from '~/utils/utils';
 const route = useRoute()
 
 const {data} = await useAsyncData(`campaign-${route.params.campaignId}`, async () => {
-  const campaignId = route.params.campaignId || '1';
+  const campaignId = route.params.campaignId;
   const data = await queryCollection('campaigns')
       .select('id', 'title', 'description', 'path', 'meta', 'in_game_start', 'in_game_end')
-      .where('path', 'LIKE', `/campaigns/campaign-${campaignId}/%`)
+      .where('path', 'LIKE', `/campaigns/${campaignId}/%`)
       .where('path', 'NOT LIKE', '/campaigns/%/%/%')
       .where('path', 'NOT LIKE', '/campaigns/%/.navigation')
       .order('in_game_start', 'ASC')
@@ -20,7 +20,7 @@ const {data} = await useAsyncData(`campaign-${route.params.campaignId}`, async (
   if (dataCampaignsMeta && dataCampaignsMeta.length > 0) {
     const dataCampaignChildrenMeta = dataCampaignsMeta[0];
     if (dataCampaignChildrenMeta && typeof dataCampaignChildrenMeta.children !== 'undefined') {
-      const dataCampaignMeta = dataCampaignChildrenMeta.children.filter((campaign) => campaign.path === `/campaigns/campaign-${campaignId}`);
+      const dataCampaignMeta = dataCampaignChildrenMeta.children.filter((campaign) => campaign.path === `/campaigns/${campaignId}`);
       if (dataCampaignMeta && dataCampaignMeta.length > 0 && typeof dataCampaignMeta[0] !== 'undefined') {}
       campaignMeta = dataCampaignMeta[0];
     }

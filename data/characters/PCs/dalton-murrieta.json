@@ -1,87 +1,43 @@
 {
   "type": "character",
   "schemaVersion": "1",
-  "id": "delano-mack",
-  "name": "Delano Mack",
+  "id": "dalton-murrieta",
+  "name": "Dalton Murrieta",
   "playerName": "Pete",
+  "description": "",
+  "campaigns": ["one-shot-3"],
   "characterType": "PC",
-  "campaigns": ["campaign-1"],
-  "description": "Short, 2nd rate Han Solo looking human.",
   "refresh": 3,
   "fatePoints": 3,
   "aspects": [
     {
       "aspectType": "High Concept",
-      "name": "Independent Carrier, Captain of the Jitterbug"
+      "name": "Shady Interstellar Trader"
     },
     {
       "aspectType": "Trouble",
-      "name": "I'm kind of a big deal right now"
+      "name": "Lady Zanetti Wants her Money!"
     },
     {
-      "name": "I was an Explorer Scout and have Outdoors experience"
-    },
-    {
-      "name": "I know when a Navy officer has it in for me."
+      "aspectType": "Oneshot Reason",
+      "name": "I owe Ikari money from last time",
+      "description": "Murrieta acquired a data card from Ikari Kintsugi that she lifted from another spacer merchant, in exchange for some Seed cash and one of those fancy spacer pocket watches.\n\nThe card was the other merchant's anonymous crypto currency, that needs to be exchanged in Bane's Eye."
     }
+
   ],
   "traitType": "skill",
   "traits": [
     {
-      "name": "Investigate",
+      "name": "Deceive",
       "rank": 4
     },
     {
-      "name": "Shoot",
-      "rank": 3
-    },
-    {
-      "name": "Pilot",
-      "rank": 3
-    },
-    {
-      "name": "Provoke",
-      "rank": 2
-    },
-    {
-      "name": "Athletics",
-      "rank": 2
-    },
-    {
-      "name": "Fight",
-      "rank": 2
-    },
-    {
-      "name": "Rapport",
-      "rank": 1
-    },
-    {
-      "name": "Engineering",
-      "rank": 1
-    },
-    {
-      "name": "Notice",
-      "rank": 1
-    },
-    {
-      "name": "Deceive",
-      "rank": 1
-    },
-    {
       "name": "Empathy",
-      "rank": 1
-    }
-  ],
-  "stunts": [
+      "rank": 3
+    },
     {
-      "name": "Tuck and Roll Under Fire",
-      "description": "+2 on Athletics checks when Defending from ranged weapon fire when there is cover near by me",
-      "parameters": {
-        "trait": "Athletics",
-        "modifier": 2,
-        "actions": ["Defend"],
-        "modificationType": "roll"
-      }
+      "name": "Investigate",
+      "rank": 3
     }
   ],
   "tracks": [
@@ -148,5 +104,8 @@
         "state": "free"
       }
     }
+  ],
+  "notes": [
+    "Nickname: Murri"
   ]
 }

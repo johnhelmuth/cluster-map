@@ -19,6 +19,10 @@ const emit = defineEmits<{
 
 const attrs = useAttrs();
 
+const descriptionIsOpen = ref(false);
+const iconExpandedName = 'material-symbols:expand-all-rounded'
+const iconCollapsedName = 'material-symbols:collapse-all-rounded'
+
 function useInvoke(trackId: string) {
   emit('useInvoke', trackId);
 }
@@ -38,34 +42,65 @@ const aspectClasses = computed(() => {
   }
 })
 
+function toggleAccordion() {
+  descriptionIsOpen.value = !descriptionIsOpen.value;
+}
 </script>
 
 <template>
-  <div class="aspect-name value" :class="aspectClasses">{{ aspect?.name || ' ' }}</div>
-  <div v-if="aspect?.freeInvokes" class="aspect-invokes">
-    <StressBox v-for="index in aspect.freeInvokes"
-               class=""
-               :key="index-1"
-               :soak-number="1"
-               :show-soak-amount="false"
-               :is-checked="false"
-               @toggle-box="useInvoke(trackId)"
-    />
+  <div class="aspect-container" :class="aspect?.freeInvokes > 0 ? 'has-invokes' : ''">
+    <div class="aspect-name value" :class="aspectClasses">{{ aspect?.name || ' ' }}
+    </div>
+    <div v-if="aspect?.freeInvokes" class="aspect-invokes">
+      <StressBox v-for="index in aspect.freeInvokes"
+                 class=""
+                 :key="index-1"
+                 :soak-number="1"
+                 :show-soak-amount="false"
+                 :is-checked="false"
+                 @toggle-box="useInvoke(trackId)"
+      />
+    </div>
+    <Icon v-if="aspect?.description" class="button-icon accordion-button" :name="descriptionIsOpen ? iconExpandedName : iconCollapsedName" @click="toggleAccordion"/>
+    <div v-if="aspect?.description" class="aspect-description" :class="descriptionIsOpen ? 'open' : 'closed'" @click="toggleAccordion">
+      <MDC :value="aspect.description" />
+    </div>
   </div>
 </template>
 
 <style scoped>
+div.aspect-container {
+  display: grid;
+  grid-template-columns: 4fr 1fr 1fr;
+  grid-auto-rows: min-content;
+  grid-template-areas: "name name accordion-icon"
+                       "description description description";
+  align-items: center;
+}
+div.aspect-container.has-invokes {
+  grid-template-areas: "name invokes accordion-icon"
+                       "description description description";
+}
 .aspect-name {
   font-weight: bold;
   font-style: italic;
   font-size: 1.1rem;
   padding-left: 1rem;
   text-indent: -1rem;
+  grid-area: name;
+  display: flex;
+  justify-content: space-between;
+  margin-right: .5rem;
+  align-items: center;
 }
 .aspect-name.value.is-empty {
   border-bottom: 1px solid var(--color-border);
 }
+.accordion-button {
+  grid-area: accordion-icon;
+}
 .aspect-invokes {
+  grid-area: invokes;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -75,5 +110,13 @@ const aspectClasses = computed(() => {
 .aspect-invokes :deep(.stress-box-container) {
   width: 1rem;
   height: 1rem;
+}
+.aspect-description {
+  grid-area: description;
+  font-size: .9rem;
+  font-style: italic;
+}
+.aspect-description.closed {
+  display: none;
 }
 </style>

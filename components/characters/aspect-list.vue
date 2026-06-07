@@ -38,20 +38,4 @@ function useInvoke(aspectIndex: number) {
 
 <style scoped>
 
-.aspect-item.property-item {
-  grid-template-columns: 1fr 2fr 1fr;
-}
-
-:deep(.aspect-item.property-item .aspect-name) {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 1rem;
-}
-
-:deep(.aspect-item.property-item .aspect-name.aspect-name-spread) {
-  grid-column: 2 / 4;
-}
-
 </style>

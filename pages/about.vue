@@ -22,6 +22,7 @@ useSeoMeta({
       <li>Kit</li>
       <li>Evan</li>
       <li>Pete</li>
+      <li>Bea</li>
     </ul>
   </InfoPage>
 </template>
