@@ -1494,6 +1494,119 @@
           "direction": "center"
         }
       ]
+    },
+    {
+      "type": "cluster",
+      "schemaVersion": "2",
+      "id": "cluster-2",
+      "name": "Campaign 2 cluster - Option C",
+      "systems": [
+        {
+          "type": "system",
+          "schemaVersion": "2",
+          "id": "cl2A",
+          "name": "To be named A",
+          "attributes": {
+            "technology": 1,
+            "environment": 4,
+            "resources": 3
+          },
+          "aspects": [],
+          "position": {
+            "x": 755,
+            "y": 375
+          }
+        },
+        {
+          "type": "system",
+          "schemaVersion": "2",
+          "id": "cl2B",
+          "name": "Torrin",
+          "attributes": {
+            "technology": 3,
+            "environment": -1,
+            "resources": -1
+          },
+          "aspects": [],
+          "position": {
+            "x": 500,
+            "y": 120
+          }
+        },
+        {
+          "type": "system",
+          "schemaVersion": "2",
+          "id": "cl2C",
+          "name": "To be named C",
+          "attributes": {
+            "technology": 1,
+            "environment": 1,
+            "resources": 0
+          },
+          "aspects": [],
+          "position": {
+            "x": 245,
+            "y": 375
+          }
+        },
+        {
+          "type": "system",
+          "schemaVersion": "2",
+          "id": "cl2D",
+          "name": "Cyron",
+          "attributes": {
+            "technology": 1,
+            "environment": 0,
+            "resources": 0
+          },
+          "aspects": [],
+          "position": {
+            "x": 500,
+            "y": 630
+          }
+        }
+      ],
+      "straits": [
+        {
+          "type": "strait",
+          "schemaVersion": "2",
+          "straitPointA": {
+            "clusterId": "cluster-2",
+            "systemId": "cl2A"
+          },
+          "straitPointB": {
+            "clusterId": "cluster-2",
+            "systemId": "cl2B"
+          },
+          "direction": "center"
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "2",
+          "straitPointA": {
+            "clusterId": "cluster-2",
+            "systemId": "cl2B"
+          },
+          "straitPointB": {
+            "clusterId": "cluster-2",
+            "systemId": "cl2C"
+          },
+          "direction": "center"
+        },
+        {
+          "type": "strait",
+          "schemaVersion": "2",
+          "straitPointA": {
+            "clusterId": "cluster-2",
+            "systemId": "cl2B"
+          },
+          "straitPointB": {
+            "clusterId": "cluster-2",
+            "systemId": "cl2D"
+          },
+          "direction": "center"
+        }
+      ]
     }
   ]
 }
