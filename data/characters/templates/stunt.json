@@ -1,0 +1,11 @@
+
+{
+  "name": "",
+  "description": "",
+  "parameters": {
+    "trait": "",
+    "modifier": 2,
+    "actions": ["Overcome"],
+    "modificationType": "roll"
+  }
+}

@@ -24,10 +24,10 @@ const emit = defineEmits<{
 }>();
 
 const campaignsList = computed(() => {
-  return getCharacterCampaigns();
+  return [...getCharacterCampaigns()].sort();
 })
 const tagsList = computed(() => {
-  return getCharacterTags();
+  return [...getCharacterTags()].sort();
 })
 
 const filterIconClosedName = 'material-symbols:filter-list-rounded';

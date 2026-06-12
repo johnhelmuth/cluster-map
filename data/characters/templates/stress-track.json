@@ -1,0 +1,16 @@
+
+{
+  "trackId": "stress",
+  "trackLabel": "Stress",
+  "showSoakAmount": true,
+  "boxes": [
+    {
+      "isUsed": false,
+      "soakValue": 1
+    },
+    {
+      "isUsed": false,
+      "soakValue": 2
+    }
+  ]
+}

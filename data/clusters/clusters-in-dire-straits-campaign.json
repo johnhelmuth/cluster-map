@@ -1499,7 +1499,7 @@
       "type": "cluster",
       "schemaVersion": "2",
       "id": "cluster-2",
-      "name": "Campaign 2 cluster - Option C",
+      "name": "Campaign 2 cluster",
       "systems": [
         {
           "type": "system",
@@ -1508,7 +1508,7 @@
           "name": "To be named A",
           "attributes": {
             "technology": 1,
-            "environment": 4,
+            "environment": 2,
             "resources": 3
           },
           "aspects": [],
@@ -1524,8 +1524,8 @@
           "name": "Torrin",
           "attributes": {
             "technology": 3,
-            "environment": -1,
-            "resources": -1
+            "environment": 0,
+            "resources": 1
           },
           "aspects": [],
           "position": {

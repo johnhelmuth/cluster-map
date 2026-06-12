@@ -1,0 +1,50 @@
+[
+  {
+    "trackId": "consequence-mild",
+    "trackLabel": "Mild",
+    "showSoakAmount": true,
+    "boxes": [
+      {
+        "isUsed": false,
+        "soakValue": 2
+      }
+    ],
+    "aspect": {
+      "name": "",
+      "freeInvokes": 0,
+      "state": "free"
+    }
+  },
+  {
+    "trackId": "consequence-moderate",
+    "trackLabel": "Moderate",
+    "showSoakAmount": true,
+    "boxes": [
+      {
+        "isUsed": false,
+        "soakValue": 4
+      }
+    ],
+    "aspect": {
+      "name": "",
+      "freeInvokes": 0,
+      "state": "free"
+    }
+  },
+  {
+    "trackId": "consequence-severe",
+    "trackLabel": "Severe",
+    "showSoakAmount": true,
+    "boxes": [
+      {
+        "isUsed": false,
+        "soakValue": 6
+      }
+    ],
+    "aspect": {
+      "name": "",
+      "freeInvokes": 0,
+      "state": "free"
+    }
+  }
+]

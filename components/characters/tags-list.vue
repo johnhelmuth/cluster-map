@@ -8,7 +8,7 @@ defineProps<{
 
 <template>
   <div class="tags-list">
-    <div v-for="tag in tags" :key="tag"><NuxtLink :to="{ name: 'characters', query: { tags: [tag] }}">{{ tag }}</NuxtLink></div>
+    <div v-for="tag in tags" :key="tag"><NuxtLink :to="{ name: 'characters', query: { tags: tag }}">{{ tag }}</NuxtLink></div>
   </div>
 </template>
 

@@ -1,0 +1,73 @@
+{
+  "type": "character",
+  "schemaVersion": "1",
+  "id": "guts-matronas",
+  "name": "Sargent Guts Matronas",
+  "characterType": "NPC",
+  "campaigns": ["campaign-1", "one-shot-3"],
+  "tags": ["home-system:golden-seed"],
+  "aspects": [
+    {
+      "aspectType": "High Concept",
+      "name": "Long Suffering Bodyguard of Lady Ariana Zanetti"
+    },
+    {
+      "name": "Too old for this shit, but it is my duty"
+    }
+  ],
+  "traitType": "skill",
+  "traits": [
+    {
+      "name": "Fight",
+      "rank": 3
+    },
+    {
+      "name": "Athletics",
+      "rank": 3
+    },
+    {
+      "name": "Physique",
+      "rank": 2
+    },
+    {
+      "name": "Shoot",
+      "rank": 1
+    }
+  ],
+  "tracks": [
+    {
+      "trackId": "stress",
+      "trackLabel": "Stress",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 1
+        },
+        {
+          "isUsed": false,
+          "soakValue": 2
+        }
+      ]
+    },
+    {
+      "trackId": "consequence-mild",
+      "trackLabel": "Mild",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 2
+        }
+      ],
+      "aspect": {
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    }
+  ],
+  "notes": [
+    "Carries a short sword and a revolver."
+  ]
+}

@@ -1,0 +1,137 @@
+{
+  "type": "character",
+  "schemaVersion": "1",
+  "id": "dwabit",
+  "name": "Dwabit",
+  "playerName": "Jon",
+  "description": "",
+  "campaigns": ["campaign-2"],
+  "characterType": "PC",
+  "refresh": 3,
+  "fatePoints": 3,
+  "aspects": [
+    {
+      "aspectType": "High Concept",
+      "name": "Tardigrada Teamster"
+    },
+    {
+      "aspectType": "Trouble",
+      "name": ""
+    }
+
+  ],
+  "traitType": "skill",
+  "traits": [
+    {
+      "name": "Physique",
+      "rank": 4
+    },
+    {
+      "name": "Contacts",
+      "rank": 3
+    },
+    {
+      "name": "Fight",
+      "rank": 3
+    },
+    {
+      "name": "Pilot",
+      "rank": 2
+    },
+    {
+      "name": "Resources",
+      "rank": 2
+    },
+    {
+      "name": "Stealth",
+      "rank": 2
+    },
+    {
+      "name": "Burglary",
+      "rank": 1
+    },
+    {
+      "name": "Deceive",
+      "rank": 1
+    },
+    {
+      "name": "Notice",
+      "rank": 1
+    },
+    {
+      "name": "Rapport",
+      "rank": 1
+    }
+  ],
+  "stunts": [
+    {
+      "name": "Percussive Maintenance",
+      "description": "Substitute Physique for Engineering for Overcome rolls when trying to fix technology by smacking it."
+    }
+  ],
+  "tracks": [
+    {
+      "trackId": "stress",
+      "trackLabel": "Stress",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 1
+        },
+        {
+          "isUsed": false,
+          "soakValue": 2
+        }
+      ]
+    },
+    {
+      "trackId": "consequence-mild",
+      "trackLabel": "Mild",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 2
+        }
+      ],
+      "aspect": {
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    },
+    {
+      "trackId": "consequence-moderate",
+      "trackLabel": "Moderate",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 4
+        }
+      ],
+      "aspect": {
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    },
+    {
+      "trackId": "consequence-severe",
+      "trackLabel": "Severe",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 6
+        }
+      ],
+      "aspect":{
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    }
+  ]
+}

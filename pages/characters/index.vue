@@ -4,53 +4,51 @@
 import {useCharactersStore} from "~/stores/use-characters-store";
 import type {CharacterModel} from "~/models/character/CharacterModel";
 import type {CharacterFilterParams} from "~/components/characters/CharacterFilterModal.vue";
-import {CharacterTypes} from "~/types/character/CharacterTypes";
 
 const route = useRoute();
 
 const filterParams = computed(() => {
   if (typeof route.query !== "undefined") {
-    const query = route.query;
     const filterParams = {} as CharacterFilterParams;
-    if (typeof query?.campaigns === 'string') {
+    if (typeof route.query?.campaigns === 'string') {
       const campaigns = [] as string[];
-      campaigns.push(... query.campaigns.split(','));
+      campaigns.push(... route.query.campaigns.split(','));
       filterParams.campaigns = campaigns;
     }
-    if (typeof query?.characterTypes === 'string') {
+    if (typeof route.query?.characterTypes === 'string') {
       const characterTypes = [] as string[];
-      characterTypes.push(... query.characterTypes.split(','));
+      characterTypes.push(... route.query.characterTypes.split(','));
       filterParams.characterTypes = characterTypes;
     }
-    if (query?.tags && typeof query.tags === 'string') {
+    if (typeof route.query.tags === 'string') {
       const tags = [] as string[];
-      tags.push(...query.tags.split(','));
+      tags.push(...route.query.tags.split(','));
       filterParams.tags = tags;
     }
     return filterParams;
   }
 });
 
-const { characters, getCampaignTitle, getCharacterCampaigns, getCharacterTags, UNASSIGNED_CAMPAIGN,  } = useCharactersStore();
+const { characters, getCampaignTitle, getCharacterCampaigns, UNASSIGNED_CAMPAIGN,  } = useCharactersStore();
 
 
-const filterCampaigns = computed(() => new Set<string>(filterParams.value?.campaigns || getCharacterCampaigns()));
-const filterCharacterTypes = computed(() => new Set<string>(filterParams.value?.characterTypes || Object.keys(CharacterTypes)));
-const filterTags = computed(() => new Set<string>(filterParams.value?.tags || []));
+const filterCampaigns = computed(() => filterParams.value?.campaigns ? new Set<string>(filterParams.value.campaigns) : undefined);
+const filterCharacterTypes = computed(() => filterParams.value?.characterTypes ? new Set<string>(filterParams.value.characterTypes) : undefined);
+const filterTags = computed(() => filterParams.value?.tags ? new Set<string>(filterParams.value.tags) : undefined);
 
 type CharacterFiltersType = {
-  campaigns:  Set<string>,
-  characterTypes:  Set<string>,
-  tags:  Set<string>,
+  campaigns?:  Set<string>,
+  characterTypes?:  Set<string>,
+  tags?:  Set<string>,
 }
 function compareCharToFilter(character: CharacterModel, filters: CharacterFiltersType) {
-  if (filters.campaigns.size > 0 && filters.campaigns.intersection(new Set<string>(character?.campaigns.length ? character.campaigns : [UNASSIGNED_CAMPAIGN])).size < 1) {
+  if (filters.campaigns && filters.campaigns.size > 0 && filters.campaigns.intersection(new Set<string>(character?.campaigns.length ? character.campaigns : [UNASSIGNED_CAMPAIGN])).size < 1) {
     return false;
   }
-  if (filters.characterTypes.size && (! character?.characterType || ! filters.characterTypes.has(character?.characterType))) {
+  if (filters.characterTypes && filters.characterTypes.size > 0 && (! character?.characterType || ! filters.characterTypes.has(character?.characterType))) {
     return false;
   }
-  if (filters.tags.size > 0 && (character?.tags.length === 0 || filters.tags.intersection(new Set<string>(character.tags)).size < 1)) {
+  if (filters.tags && filters.tags.size > 0 && (character?.tags.length === 0 || filters.tags.intersection(new Set<string>(character.tags)).size < 1)) {
     return false;
   }
   return true;
@@ -104,8 +102,8 @@ useSeoMeta({
 <template>
   <InfoPage page_title="Characters">
     <CharacterFilterModal :params="filterParams" @changed="applyFilter"/>
-    <table class="characters-table">
-      <template v-if="chars.size" v-for="[campaign, campChars] in chars.entries()">
+    <table v-if="chars.size" class="characters-table">
+      <template v-for="[campaign, campChars] in chars.entries()">
         <tbody>
         <tr class="campaign-header">
           <th colspan="4">
@@ -146,6 +144,7 @@ useSeoMeta({
         </tbody>
       </template>
     </table>
+    <div v-else>No characters match filters.</div>
   </InfoPage>
 </template>
 

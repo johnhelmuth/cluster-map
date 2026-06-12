@@ -1,0 +1,103 @@
+{
+  "type": "character",
+  "schemaVersion": "1",
+  "id": "scout-4e0061377",
+  "name": "Scout 4e0061377",
+  "playerName": "Pete",
+  "description": "",
+  "campaigns": ["campaign-2"],
+  "characterType": "PC",
+  "refresh": 3,
+  "fatePoints": 3,
+  "aspects": [
+    {
+      "aspectType": "High Concept",
+      "name": "War Veteran Recon Clone that Lives to Recon"
+    },
+    {
+      "aspectType": "Trouble",
+      "name": "I Haven't Found Satisfaction in Other Tasks"
+    }
+
+  ],
+  "traitType": "skill",
+  "traits": [
+    {
+      "name": "Stealth",
+      "rank": 4
+    },
+    {
+      "name": "Physique",
+      "rank": 3
+    },
+    {
+      "name": "Notice",
+      "rank": 3
+    }
+  ],
+  "tracks": [
+    {
+      "trackId": "stress",
+      "trackLabel": "Stress",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 1
+        },
+        {
+          "isUsed": false,
+          "soakValue": 2
+        }
+      ]
+    },
+    {
+      "trackId": "consequence-mild",
+      "trackLabel": "Mild",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 2
+        }
+      ],
+      "aspect": {
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    },
+    {
+      "trackId": "consequence-moderate",
+      "trackLabel": "Moderate",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 4
+        }
+      ],
+      "aspect": {
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    },
+    {
+      "trackId": "consequence-severe",
+      "trackLabel": "Severe",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 6
+        }
+      ],
+      "aspect":{
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    }
+  ]
+}

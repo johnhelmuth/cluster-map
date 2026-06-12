@@ -1,18 +1,18 @@
 {
   "type": "character",
   "schemaVersion": "1",
-  "id": "XXXX",
-  "name": "",
-  "playerName": "",
+  "id": "delilah",
+  "name": "Delilah \"Deli\" Land",
+  "playerName": "Bea",
   "description": "",
-  "campaigns": [],
+  "campaigns": ["campaign-2"],
   "characterType": "PC",
   "refresh": 3,
   "fatePoints": 3,
   "aspects": [
     {
       "aspectType": "High Concept",
-      "name": ""
+      "name": "Transhuman Transgender Engineer"
     },
     {
       "aspectType": "Trouble",
@@ -23,15 +23,15 @@
   "traitType": "skill",
   "traits": [
     {
-      "name": "",
+      "name": "Engineering",
       "rank": 4
     },
     {
-      "name": "",
+      "name": "Rapport",
       "rank": 3
     },
     {
-      "name": "",
+      "name": "Notice",
       "rank": 3
     }
   ],
@@ -97,18 +97,6 @@
         "name": "",
         "freeInvokes": 0,
         "state": "free"
-      }
-    }
-  ],
-  "stunts": [
-    {
-      "name": "",
-      "description": "",
-      "parameters": {
-        "trait": "",
-        "modifier": 2,
-        "actions": ["Overcome"],
-        "modificationType": "roll"
       }
     }
   ]
