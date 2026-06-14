@@ -8,15 +8,18 @@ export type CharacterFilterParams = {
   campaigns?: string[];
   characterTypes?: string[];
   tags?: string[];
+  showOnlyTypedCharacterAspects?: boolean;
 }
 
-const { getCharacterTags, getCharacterCampaigns, getCampaignTitle } = useCharactersStore();
+const {getCharacterTags, getCharacterCampaigns, getCampaignTitle} = useCharactersStore();
 
-const { setCurrentOpenModal, closeModal } = useModalStateStore('characterFilterModAl', toggleCharacterFilterModal);
+const {setCurrentOpenModal, closeModal} = useModalStateStore('characterFilterModAl', toggleCharacterFilterModal);
 
 const props = defineProps<{
   params?: CharacterFilterParams
 }>();
+
+const hasShowOnlyTypedCharacterAspectsParam = computed(() => typeof props.params?.showOnlyTypedCharacterAspects !== 'undefined')
 
 const emit = defineEmits<{
   closed: true;
@@ -94,24 +97,37 @@ function clearTags() {
         <ul>
           <li>
             <label for="campaigns">Campaigns</label>
-            <Icon name="material-symbols:delete-outline-rounded" @click="clearCampaigns" />
-            <select id="campaigns" v-model="selectedCampaigns" class="campaigns-selector" multiple :size="Math.min(campaignsList.size, 4)">
-              <option v-for="campaign in campaignsList" :key="campaign" :value="campaign">{{ getCampaignTitle(campaign) }}</option>
+            <Icon name="material-symbols:delete-outline-rounded" @click="clearCampaigns"/>
+            <select id="campaigns" v-model="selectedCampaigns" class="campaigns-selector" multiple
+                    :size="Math.min(campaignsList.size, 4)">
+              <option v-for="campaign in campaignsList" :key="campaign" :value="campaign">{{
+                  getCampaignTitle(campaign)
+                }}
+              </option>
             </select>
           </li>
           <li>
             <label for="character-types">Character Types</label>
-            <Icon name="material-symbols:delete-outline-rounded" @click="clearCharacterTypes" />
-            <select id="character-types" v-model="selectedCharacterTypes" class="character-types-selector" multiple size="3">
-              <option v-for="(charTypeLabel, charType) in CharacterTypes" :key="charType" :value="charType">{{ charTypeLabel }}</option>
+            <Icon name="material-symbols:delete-outline-rounded" @click="clearCharacterTypes"/>
+            <select id="character-types" v-model="selectedCharacterTypes" class="character-types-selector" multiple
+                    size="3">
+              <option v-for="(charTypeLabel, charType) in CharacterTypes" :key="charType" :value="charType">
+                {{ charTypeLabel }}
+              </option>
             </select>
           </li>
           <li>
             <label for="tags">Tags</label>
-            <Icon name="material-symbols:delete-outline-rounded" @click="clearTags" />
+            <Icon name="material-symbols:delete-outline-rounded" @click="clearTags"/>
             <select id="tags" v-model="selectedTags" class="tags-selector" multiple size="4">
               <option v-for="tag in tagsList" :key="tag" :value="tag">{{ tag }}</option>
             </select>
+          </li>
+          <li v-if="hasShowOnlyTypedCharacterAspectsParam">
+            <label for="aspect-filter">
+              Show only typed aspects
+              <input id="aspect-filter" type="checkbox" :checked="!! params?.showOnlyTypedCharacterAspects"/>
+            </label>
           </li>
         </ul>
         <div class="filter-actions">
@@ -149,6 +165,7 @@ function clearTags() {
   box-shadow: inset -0.1rem -0.1rem 0.1rem grey,
   inset 0.1rem 0.1rem 0.1rem lightgrey;
 }
+
 .show-filters {
   position: fixed;
   font-size: 1.5em;
@@ -158,13 +175,16 @@ function clearTags() {
   z-index: var(--layers-navigation);
   cursor: pointer;
 }
+
 .character-filter-container.is-active .character-filter {
   display: block;
 }
+
 .character-filter-container .character-filter h3 {
   text-align: center;
   margin-top: -0.5rem;
 }
+
 .character-filter-container .character-filter ul {
   list-style: none;
   padding: 0;

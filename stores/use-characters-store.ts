@@ -10,7 +10,7 @@ import { characters as rawCharacters } from '~/utils/character-importer';
 
 import type { ParseResult } from "@exodus/schemasafe";
 
-const UNASSIGNED_CAMPAIGN = 'unassigned-campaign';
+export const UNASSIGNED_CAMPAIGN = 'unassigned-campaign';
 
 const traitLabels = new Map<TraitTypesKeys, TraitLabelsType>([
   ["skill", {singular: "Skill", plural: "Skills"}],

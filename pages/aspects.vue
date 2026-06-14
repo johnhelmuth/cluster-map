@@ -2,24 +2,30 @@
 
 import type {CharacterData} from "~/types/character/CharacterTypes";
 import {useCharactersStore} from "~/stores/use-characters-store";
+import {useCharacterFilterParams} from "~/composables/use-character-filter-params";
 
 const charactersStore = useCharactersStore();
 
+const charFilterParams = useCharacterFilterParams();
 const showOnlyTypedCharacterAspects = ref(false);
 
 const aspects = computed(() => {
   const aspectsList = [...charactersStore.characters.entries()].map(([id, character]) => {
-    return character.aspects.map(aspect => {
-      return {characterId: id, characterName: character.name, aspect}
-    });
-  }).flat();
+    if (charFilterParams.compareCharToFilter(character, charFilterParams.filters)) {
+      return character.aspects.map(aspect => {
+        return {characterId: id, characterName: character.name, aspect}
+      });
+    }
+  }).filter(Boolean).flat();
+  console.log('aspects() aspectsList: ', aspectsList);
   return aspectsList;
 });
 
 const filteredAspects = computed(() => {
+  console.log('filteredAspects() showOnlyTypedCharacterAspects.value', showOnlyTypedCharacterAspects.value);
   if (showOnlyTypedCharacterAspects.value) {
     return aspects.value.filter((aspectRow) => {
-      return (aspectRow.aspect?.aspectType)
+      return (aspectRow && aspectRow.aspect?.aspectType)
     })
   }
   return [...aspects.value];
@@ -33,12 +39,10 @@ useSeoMeta({
 
 <template>
   <InfoPage page_title="Aspects">
-    <form name="filters">
-      <label for="aspect-filter">
-        Show only typed aspects
-        <input id="aspect-filter" type="checkbox" v-model="showOnlyTypedCharacterAspects" />
-      </label>
-    </form>
+    <CharacterFilterModal
+        :params="charFilterParams.filterParams.value"
+        @changed="charFilterParams.navigateToFilter"
+    />
     <table>
       <caption><h2>Character Aspects</h2></caption>
       <tbody v-if="filteredAspects?.length">

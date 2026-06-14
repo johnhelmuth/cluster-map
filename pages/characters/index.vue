@@ -4,65 +4,17 @@
 import {useCharactersStore} from "~/stores/use-characters-store";
 import type {CharacterModel} from "~/models/character/CharacterModel";
 import type {CharacterFilterParams} from "~/components/characters/CharacterFilterModal.vue";
+import {useCharacterFilterParams} from "~/composables/use-character-filter-params";
 
 const route = useRoute();
 
-const filterParams = computed(() => {
-  if (typeof route.query !== "undefined") {
-    const filterParams = {} as CharacterFilterParams;
-    if (typeof route.query?.campaigns === 'string') {
-      const campaigns = [] as string[];
-      campaigns.push(... route.query.campaigns.split(','));
-      filterParams.campaigns = campaigns;
-    }
-    if (typeof route.query?.characterTypes === 'string') {
-      const characterTypes = [] as string[];
-      characterTypes.push(... route.query.characterTypes.split(','));
-      filterParams.characterTypes = characterTypes;
-    }
-    if (typeof route.query.tags === 'string') {
-      const tags = [] as string[];
-      tags.push(...route.query.tags.split(','));
-      filterParams.tags = tags;
-    }
-    return filterParams;
-  }
-});
-
-const { characters, getCampaignTitle, getCharacterCampaigns, UNASSIGNED_CAMPAIGN,  } = useCharactersStore();
-
-
-const filterCampaigns = computed(() => filterParams.value?.campaigns ? new Set<string>(filterParams.value.campaigns) : undefined);
-const filterCharacterTypes = computed(() => filterParams.value?.characterTypes ? new Set<string>(filterParams.value.characterTypes) : undefined);
-const filterTags = computed(() => filterParams.value?.tags ? new Set<string>(filterParams.value.tags) : undefined);
-
-type CharacterFiltersType = {
-  campaigns?:  Set<string>,
-  characterTypes?:  Set<string>,
-  tags?:  Set<string>,
-}
-function compareCharToFilter(character: CharacterModel, filters: CharacterFiltersType) {
-  if (filters.campaigns && filters.campaigns.size > 0 && filters.campaigns.intersection(new Set<string>(character?.campaigns.length ? character.campaigns : [UNASSIGNED_CAMPAIGN])).size < 1) {
-    return false;
-  }
-  if (filters.characterTypes && filters.characterTypes.size > 0 && (! character?.characterType || ! filters.characterTypes.has(character?.characterType))) {
-    return false;
-  }
-  if (filters.tags && filters.tags.size > 0 && (character?.tags.length === 0 || filters.tags.intersection(new Set<string>(character.tags)).size < 1)) {
-    return false;
-  }
-  return true;
-}
+const { characters, getCampaignTitle, UNASSIGNED_CAMPAIGN } = useCharactersStore();
+const charFilterParams = useCharacterFilterParams();
 
 const chars = computed(() => {
   const charMap = new Map<string, Array<CharacterModel>>();
-  const filters = {
-    campaigns: filterCampaigns.value,
-    characterTypes: filterCharacterTypes.value,
-    tags: filterTags.value
-  }
   characters.forEach((character, id) => {
-    const matches = compareCharToFilter(character, filters);
+    const matches = charFilterParams.compareCharToFilter(character, charFilterParams.filters);
     if (matches) {
       if (character.campaigns.length === 0) {
         const campaignChars = charMap.get(UNASSIGNED_CAMPAIGN) || [];
@@ -80,20 +32,6 @@ const chars = computed(() => {
   return charMap;
 });
 
-function applyFilter(filterParams: CharacterFilterParams) {
-  const query = {} as Record<keyof CharacterFilterParams, string>;
-  if (filterParams?.campaigns && filterParams?.campaigns?.length > 0) {
-    query.campaigns = filterParams.campaigns.join(',');
-  }
-  if (filterParams?.characterTypes && filterParams?.characterTypes?.length > 0) {
-    query.characterTypes = filterParams.characterTypes.join(',');
-  }
-  if (filterParams?.tags && filterParams?.tags?.length > 0) {
-    query.tags = filterParams.tags.join(',');
-  }
-  navigateTo({ query });
-}
-
 useSeoMeta({
   title: () => `Characters`,
 })
@@ -101,7 +39,7 @@ useSeoMeta({
 
 <template>
   <InfoPage page_title="Characters">
-    <CharacterFilterModal :params="filterParams" @changed="applyFilter"/>
+    <CharacterFilterModal :params="charFilterParams.filterParams.value" @changed="charFilterParams.navigateToFilter"/>
     <table v-if="chars.size" class="characters-table">
       <template v-for="[campaign, campChars] in chars.entries()">
         <tbody>
