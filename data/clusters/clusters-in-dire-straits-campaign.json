@@ -1505,7 +1505,7 @@
           "type": "system",
           "schemaVersion": "2",
           "id": "cl2A",
-          "name": "To be named A",
+          "name": "Clump",
           "attributes": {
             "technology": 1,
             "environment": 2,
@@ -1537,7 +1537,7 @@
           "type": "system",
           "schemaVersion": "2",
           "id": "cl2C",
-          "name": "To be named C",
+          "name": "Salara",
           "attributes": {
             "technology": 1,
             "environment": 1,

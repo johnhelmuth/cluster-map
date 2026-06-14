@@ -1,0 +1,58 @@
+{
+  "type": "character",
+  "schemaVersion": "1",
+  "id": "XXXX",
+  "name": "",
+  "description": "",
+  "campaigns": [],
+  "characterType": "NPC",
+  "aspects": [
+    {
+      "name": ""
+    }
+  ],
+  "traitType": "other",
+  "traits": [
+    {
+      "name": "Good at",
+      "rank": 2
+    },
+    {
+      "name": "Bad at",
+      "rank": 0
+    }
+  ],
+  "tracks": [
+    {
+      "trackId": "stress",
+      "trackLabel": "Stress",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 1
+        },
+        {
+          "isUsed": false,
+          "soakValue": 2
+        }
+      ]
+    },
+    {
+      "trackId": "consequence-mild",
+      "trackLabel": "Mild",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 2
+        }
+      ],
+      "aspect": {
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    }
+  ]
+}

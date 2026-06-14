@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import type {CharacterModel} from "~/models/character/CharacterModel";
-import type {TraitViewTypesKeys} from "~/types/character/CharacterTypes";
+import {TraitViewTypes, type TraitViewTypesKeys} from "~/types/character/CharacterTypes";
 
 const props = defineProps<{
   character?: CharacterModel,
@@ -30,6 +30,28 @@ function useCharacterAspectInvoke(aspectIndex: number): void {
   }
 }
 
+function disAllowPyramid(character: CharacterModel) {
+  return (props.character?.characterType !== 'PC' && (props.character?.traits.length ?? 0) <= 6 && props.traitsViewType === 'pyramid');
+}
+
+const allowedTraitViewTypes = computed(() => {
+  let traitViewTypes = TraitViewTypes as Partial<typeof TraitViewTypes>;
+  if (props.character && disAllowPyramid(props.character)) {
+    delete traitViewTypes.pyramid;
+  }
+  return traitViewTypes;
+})
+
+/*
+ * Don't use pyramid view for traits if it's an NPC and they have less than 5 traits.
+ */
+const actualTraitViewType = computed(() => {
+  if (props.character && disAllowPyramid(props.character)) {
+    return 'rank'
+  }
+  return props.traitsViewType;
+});
+
 function traitTypeChanged(viewType: TraitViewTypesKeys): void {
   emit('traitViewTypeChanged', viewType)
 }
@@ -50,7 +72,8 @@ function traitTypeChanged(viewType: TraitViewTypesKeys): void {
         v-if="character.traits.length"
         :traitType="character.traitType"
         :traits="character.traits"
-        :view-type="traitsViewType"
+        :view-type="actualTraitViewType"
+        :allowed-view-types="allowedTraitViewTypes"
         @traitViewTypeChanged="traitTypeChanged"
         class="block trait-list right-half"
     />

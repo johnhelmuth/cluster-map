@@ -14,11 +14,13 @@ import otarin from "~/data/characters/PCs/otarin.json";
 import ikariKintsugi from "~/data/characters/PCs/ikari-kintsugi.json";
 import daltonMurrieta from "~/data/characters/PCs/dalton-murrieta.json";
 import dwabit from "~/data/characters/PCs/dwabit.json";
-import delilahLand from "~/data/characters/PCs/delilah-land.json";
+import delilahLand from "~/data/characters/PCs/delilah-lands.json";
 import scout4e0061377 from "~/data/characters/PCs/scout-4e0061377.json";
 
 // NPCs
 import gutsMatronas from "~/data/characters/NPCs/guts-matronas.json";
+import captainMartinez from "~/data/characters/NPCs/captain-martinez.json";
+
 import sample from "~/data/characters/NPCs/sample-character.json";
 import sample2 from "~/data/characters/NPCs/sample-character2.json";
 
@@ -38,6 +40,7 @@ export const characters = [
   dwabit,
   delilahLand,
   scout4e0061377,
+  captainMartinez,
   gutsMatronas,
   sample,
   sample2,

@@ -13,7 +13,8 @@ const { getTraitLabel, getLadderLabel, formatTraitRank } = useCharactersStore();
 const props = defineProps<{
   "traitType": TraitTypesKeys,
   "traits": Array<TraitData>,
-  "viewType": TraitViewTypesKeys
+  "viewType": TraitViewTypesKeys,
+  allowedViewTypes?: Partial<typeof TraitViewTypes>
 }>();
 
 const emit = defineEmits<{
@@ -116,6 +117,13 @@ const pyrMaxSlots = computed(() => {
   return max;
 })
 
+const allowedTraitViewTypes = computed(() => {
+  if (typeof props.allowedViewTypes !== "undefined") {
+    return props.allowedViewTypes;
+  }
+  return TraitViewTypes;
+})
+
 const traitLabel = computed(() => getTraitLabel(props.traitType || '', 'plural'));
 
 function TraitViewTypeChanged(e: Event) {
@@ -133,7 +141,7 @@ function TraitViewTypeChanged(e: Event) {
     <h3>{{ traitLabel }}</h3>
     <select @change="TraitViewTypeChanged" :aria-label="`${traitLabel} trait list format type`">
       <option
-          v-for="(label, value) in TraitViewTypes"
+          v-for="(label, value) in allowedTraitViewTypes"
           :value="value"
           :selected="value === viewType"
       >{{ label }}</option>

@@ -1,0 +1,45 @@
+{
+  "type": "character",
+  "schemaVersion": "1",
+  "id": "captain-martinez",
+  "name": "Captain Marco Martinez",
+  "description": "",
+  "campaigns": ["campaign-2"],
+  "characterType": "NPC",
+  "aspects": [
+    {
+      "name": "Narcissistic entitled \"War Hero\" promoted to the level of his incompetence."
+    },
+    {
+      "name": "I don't have a drinking problem.",
+      "description": "I drink, I get drunk, I fall down. No problem."
+    },
+    {
+      "name": "My shit-list is pretty long, and Delilah Land is on top."
+    }
+  ],
+  "traitType": "other",
+  "traits": [
+    {
+      "name": "Knowing people in high places",
+      "rank": 2
+    },
+    {
+      "name": "Everything else",
+      "rank": 0
+    }
+  ],
+  "tracks": [
+    {
+      "trackId": "stress",
+      "trackLabel": "Stress",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 1
+        }
+      ]
+    }
+  ]
+}
