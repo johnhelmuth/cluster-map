@@ -6,6 +6,7 @@
 
    Supports size of image as 'x-small', 'small', 'medium' or 'large'
      'size' sets the width of the image as follows
+         'xx-small': 5cqw
          'x-small': 20cqw
          'small': 40cqw
          'medium': 60cqw
@@ -68,7 +69,7 @@ function isValidAlign(value: any): value is alignType {
   return value && ['left', 'center', 'right'].includes(value);
 }
 function isValidSize(value: any): value is sizeType {
-  return value && ['x-small', 'small', 'medium', 'large'].includes(value);
+  return value && ['xx-small', 'x-small', 'small', 'medium', 'large'].includes(value);
 }
 
 const refinedSrc = computed(() => {
@@ -175,6 +176,9 @@ div.figure-container.left figure img, div.figure-container.right figure img {
   width: 40cqw; /* Smaller for floating images, left or right. */
 }
 /* Except when the size is explicitly called for */
+div.figure-container.xx-small figure img {
+  width: 5cqw
+}
 div.figure-container.x-small figure img {
   width: 20cqw
 }

@@ -17,8 +17,10 @@
     {
       "aspectType": "Trouble",
       "name": "I Haven't Found Satisfaction in Other Tasks"
+    },
+    {
+      "name": "I Don't Like Having to Learn New Things"
     }
-
   ],
   "traitType": "skill",
   "traits": [

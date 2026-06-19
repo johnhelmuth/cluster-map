@@ -1512,6 +1512,7 @@
             "resources": 3
           },
           "aspects": [],
+          "url": "/tatterpedia/places/clusters/isolated-cluster/clump",
           "position": {
             "x": 755,
             "y": 375
@@ -1528,6 +1529,7 @@
             "resources": 1
           },
           "aspects": [],
+          "url": "/tatterpedia/places/clusters/isolated-cluster/torrin",
           "position": {
             "x": 500,
             "y": 120
@@ -1544,6 +1546,7 @@
             "resources": 0
           },
           "aspects": [],
+          "url": "/tatterpedia/places/clusters/isolated-cluster/salara",
           "position": {
             "x": 245,
             "y": 375
@@ -1560,6 +1563,7 @@
             "resources": 0
           },
           "aspects": [],
+          "url": "/tatterpedia/places/clusters/isolated-cluster/cyron",
           "position": {
             "x": 500,
             "y": 630
