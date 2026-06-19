@@ -12,20 +12,25 @@
   "aspects": [
     {
       "aspectType": "High Concept",
-      "name": "Tardigrada Teamster"
+      "name": "Tardigrada Teamster",
+      "description": "Dwabit is a male Tardigrada, a sentient species evolved from tardigrades, capable of surviving in the vacuum of space. His physical strength, toughness, and long experience in space are his greatest assets, but his sensibilities don't always line up with human expectations. He has had many blue-collar space jobs over the decades in this cluster, but is most recently a tugboat pilot in the employ of the Port Rails Port Authority."
     },
     {
       "aspectType": "Trouble",
-      "name": "Kindness & Alone"
+      "name": "Kinless & Alone",
+      "description": "Dwabit and his family escaped a system with a dying star, floating through space in their species' tun state. Since awakening in this cluster, he has not found any sign of his family nor any other Tardigrada. He still hasn't completely given up hope of finding his family, and he suffers from occasional bouts of intense isolation and loneliness."
     },
     {
-      "name": "Buddy, I'm in the Union"
+      "name": "Buddy, I'm in the Unions",
+      "description": "Dwabit was found in this cluster by asteroid miners, who were impressed with his raw strength. He started working as a miner himself, joining the Miners Union as a matter of course. As he moved from job to job in the cluster, he has joined the respective union for each. Through them he has built up both an extended contact network and surrogate family with his fellow workers."
     },
     {
-      "name": "Collector of ship parts"
+      "name": "Collector of ship parts",
+      "description": "Before becoming a teamster, Dwabit worked for a long time at an orbital scrapyard, scrapping derelict ships for recycling. During that time he developed a habit of \"collecting\" rare, interesting, or just useful parts from ships, which he keeps meticulously sorted and stored in his \"collection\". For those in the know, he is a respected gray-market source of ship parts."
     },
     {
-      "name": "Loyal When It Counts"
+      "name": "Loyal When It Counts",
+      "description": "Dwabit has many friends, customers, and contacts in the cluster, and most would attest to his Tardigrada eccentricities. Despite this, if you're lucky enough to get into his inner circle, crossing from friend to family, you'll find Dwabit is a loyal, ride-or-die friend and staunch ally in the toughest of situations."
     }
 
   ],
@@ -36,15 +41,15 @@
       "rank": 4
     },
     {
-      "name": "Contacts",
-      "rank": 3
-    },
-    {
       "name": "Fight",
       "rank": 3
     },
     {
       "name": "Pilot",
+      "rank": 3
+    },
+    {
+      "name": "Contacts",
       "rank": 2
     },
     {
@@ -60,15 +65,15 @@
       "rank": 1
     },
     {
-      "name": "Deceive",
+      "name": "Empathy",
+      "rank": 1
+    },
+    {
+      "name": "Engineering",
       "rank": 1
     },
     {
       "name": "Notice",
-      "rank": 1
-    },
-    {
-      "name": "Rapport",
       "rank": 1
     }
   ],

@@ -1542,7 +1542,7 @@
           "name": "Salara",
           "attributes": {
             "technology": 1,
-            "environment": 1,
+            "environment": 0,
             "resources": 0
           },
           "aspects": [],

@@ -8,7 +8,7 @@
   "campaigns": ["campaign-2"],
   "characterType": "PC",
   "refresh": 3,
-  "fatePoints": 3,
+  "fatePoints": 4,
   "aspects": [
     {
       "aspectType": "High Concept",
