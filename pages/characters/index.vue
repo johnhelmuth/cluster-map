@@ -113,14 +113,12 @@ useSeoMeta({
           </th>
         </tr>
         <tr class="col-headers">
-          <th>ID</th>
           <th>Name/Player/Type/Tags</th>
           <th>Description</th>
           <th>Aspects</th>
         </tr>
         <template v-if="campChars.length" v-for="character in campChars">
           <tr :id="character.id">
-            <td>{{ character.id }}</td>
             <td>
               <NuxtLink v-if="character.toLink()" :to="character.toLink()">
                 {{ character.name }}

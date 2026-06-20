@@ -1,0 +1,83 @@
+{
+  "type": "character",
+  "schemaVersion": "1",
+  "id": "ned-tugboat",
+  "name": "NED Tugboat",
+  "characterType": "ship",
+  "campaigns": ["campaign-2"],
+  "aspects": [
+    {
+      "aspectType": "High Concept",
+      "name": "Small but powerful"
+    },
+    {
+      "name": "Yes, She's Ugly"
+    }
+  ],
+  "traitType": "other",
+  "traits": [
+    {
+      "name": "Defense",
+      "rank": 0
+    },
+    {
+      "name": "Movement",
+      "rank": 0
+    },
+    {
+      "name": "Sensors",
+      "rank": 0
+    }
+  ],
+  "tracks": [
+    {
+      "trackId": "stress",
+      "trackLabel": "Stress",
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 1
+        },
+        {
+          "isUsed": false,
+          "soakValue": 2
+        }
+      ]
+    },
+    {
+      "trackId": "consequence-mild",
+      "trackLabel": "Mild",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 2
+        }
+      ],
+      "aspect": {
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    },
+    {
+      "trackId": "consequence-moderate",
+      "trackLabel": "Moderate",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 4
+        }
+      ],
+      "aspect": {
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    }
+  ],
+  "notes": [
+    "* Bunks for a crew of 6.  \n* Can be safely crewed by 3  \n* In-system drive  \n* FTL Slipstream drive  \n* Power reactor  \n* Sensor suite  \n* Computer System  \n* Fuel storage for 3 consecutive Slipstream jumps  \n* Life support (air/food) for 6 humans for 1 year  \n* Atmosphere capable (can land and take off from planets)  \n* Small cargo bay  \n* 1 large cargo hatch into cargo bay (no airlock)  \n* 1 personnel sized airlock  \n* Size: 25 meters x 10 meters x 10 meters. In-system engines take up about half of that volume."
+  ]
+}

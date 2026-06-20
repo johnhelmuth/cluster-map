@@ -49,7 +49,7 @@ function toggleAccordion() {
 
 <template>
   <div class="aspect-container" :class="aspect?.freeInvokes > 0 ? 'has-invokes' : ''">
-    <div class="aspect-name value" :class="aspectClasses">{{ aspect?.name || ' ' }}
+    <div class="aspect-name value" :class="aspectClasses">{{ aspect?.name || '&nbsp' }}
     </div>
     <div v-if="aspect?.freeInvokes" class="aspect-invokes">
       <StressBox v-for="index in aspect.freeInvokes"

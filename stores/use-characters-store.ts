@@ -50,12 +50,12 @@ function getLadderLabel(rating: number): string | undefined {
   }
 }
 
-function formatTraitRank(rank: number): string {
+function formatTraitRank(rank: number, padZero = false): string {
   let formattedRank = rank.toString();
   if (rank < 0) {
     formattedRank = `-${-rank}`;
   } else if (rank == 0) {
-    formattedRank = " 0";
+    formattedRank = (padZero ? " " : "") + "0";
   } else {
     // rank > 0
     formattedRank = `+${rank}`;

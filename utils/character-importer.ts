@@ -24,6 +24,10 @@ import captainMartinez from "~/data/characters/NPCs/captain-martinez.json";
 import sample from "~/data/characters/NPCs/sample-character.json";
 import sample2 from "~/data/characters/NPCs/sample-character2.json";
 
+// Ships
+
+import tugBoat from "~/data/characters/Ships/ned-tugboat.json";
+
 export const characters = [
   stevenIrwin,
   jithal,
@@ -44,4 +48,5 @@ export const characters = [
   gutsMatronas,
   sample,
   sample2,
+  tugBoat,
 ];
