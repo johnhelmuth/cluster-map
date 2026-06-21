@@ -1,10 +1,10 @@
 {
   "type": "character",
   "schemaVersion": "1",
-  "id": "scout-4e0061377",
-  "name": "Scout 4e0061377",
-  "playerName": "Pete",
-  "description": "",
+  "id": "kiowynne",
+  "name": "Kiowynne",
+  "playerName": "Anne",
+  "description": "Tall for a human woman, long black braided hair, deep tan, lots of gold jewelry.\n\nRed long coat, black, brown & gold vest, black cargo pants, combat boots.\n\nWeapon hidden under coat.",
   "campaigns": ["campaign-2"],
   "characterType": "PC",
   "refresh": 3,
@@ -12,41 +12,54 @@
   "aspects": [
     {
       "aspectType": "High Concept",
-      "name": "War Veteran Recon Clone that Lives to Recon"
+      "name": "Unflappable Badass"
     },
     {
       "aspectType": "Trouble",
-      "name": "I Haven't Found Satisfaction in Other Tasks"
+      "name": "Can't say no to a pretty face"
     },
     {
-      "name": "I Don't Like Having to Learn New Things"
+      "name": "Collects strays"
     }
+
   ],
   "traitType": "skill",
   "traits": [
     {
-      "name": "Stealth",
+      "name": "Shoot",
       "rank": 4
     },
     {
-      "name": "Physique",
+      "name": "Fight",
       "rank": 3
     },
     {
-      "name": "Notice",
+      "name": "Provoke",
       "rank": 3
-    },
-    {
-      "name": "Rapport",
-      "rank": 2
-    },
-    {
-      "name": "Athletics",
-      "rank": 2
     },
     {
       "name": "Empathy",
-      "rank": 1
+      "rank": 2
+    },
+    {
+      "name": "Contacts",
+      "rank": 2
+    },
+    {
+      "name": "Notice",
+      "rank": 2
+    }
+  ],
+  "stunts": [
+    {
+      "name": "Always looking for Danger",
+      "description": "Because I've been in many situations where hidden weapons have put my life in danger, I have learned to spot them, and I get +2 on Notice Overcome rolls to identify when a character has hidden a weapon on themself.",
+      "parameters": {
+        "trait": "",
+        "modifier": 2,
+        "actions": ["Overcome"],
+        "modificationType": "roll"
+      }
     }
   ],
   "tracks": [

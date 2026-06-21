@@ -16,6 +16,7 @@ import daltonMurrieta from "~/data/characters/PCs/dalton-murrieta.json";
 import dwabit from "~/data/characters/PCs/dwabit.json";
 import delilahLand from "~/data/characters/PCs/delilah-lands.json";
 import scout4e0061377 from "~/data/characters/PCs/scout-4e0061377.json";
+import kiowynne from "~/data/characters/PCs/kiowynne.json";
 
 // NPCs
 import gutsMatronas from "~/data/characters/NPCs/guts-matronas.json";
@@ -29,6 +30,7 @@ import sample2 from "~/data/characters/NPCs/sample-character2.json";
 import tugBoat from "~/data/characters/Ships/ned-tugboat.json";
 
 export const characters = [
+    // PCs
   stevenIrwin,
   jithal,
   chris,
@@ -44,9 +46,14 @@ export const characters = [
   dwabit,
   delilahLand,
   scout4e0061377,
+  kiowynne,
+
+    // NPCs
   captainMartinez,
   gutsMatronas,
   sample,
   sample2,
+
+    // Ships
   tugBoat,
 ];

@@ -63,7 +63,7 @@ function toggleAccordion() {
     </div>
     <Icon v-if="aspect?.description" class="button-icon accordion-button" :name="descriptionIsOpen ? iconExpandedName : iconCollapsedName" @click="toggleAccordion"/>
     <div v-if="aspect?.description" class="aspect-description" :class="descriptionIsOpen ? 'open' : 'closed'" @click="toggleAccordion">
-      <MDC :value="aspect.description" />
+      <MDC class="aspect-description-markdown" :value="aspect.description" />
     </div>
   </div>
 </template>
@@ -116,6 +116,10 @@ div.aspect-container.has-invokes {
   font-size: .9rem;
   font-style: italic;
 }
+.aspect-description :deep(.aspect-description-markdown p:last-child) {
+  margin-bottom: 0;
+}
+
 .aspect-description.closed {
   display: none;
 }

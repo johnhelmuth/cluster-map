@@ -16,9 +16,13 @@
     },
     {
       "aspectType": "Trouble",
-      "name": ""
+      "name": "Cyborg \"Menace\"",
+      "description": "To be clear, Delilah is not a cyborg menace; she just has to deal with humans who think that she is."
+    },
+    {
+      "name": "God Damn Chairs",
+      "description": "Delilah's 10 foot long body does not allow her to be comfortable in most human sized spaces.\n\nFor example, Delilah must coil up in the cargo section of the space elevator when she travels the planet."
     }
-
   ],
   "traitType": "skill",
   "traits": [
@@ -33,6 +37,24 @@
     {
       "name": "Notice",
       "rank": 3
+    },
+    {
+      "name": "Physique",
+      "rank": 2
+    },
+    {
+      "name": "Empathy",
+      "rank": 2
+    },
+    {
+      "name": "Shoot",
+      "rank": 1
+    }
+  ],
+  "stunts": [
+    {
+      "name": "Restraint Protocols",
+      "description": "Because ***I have programmed my multiple robotic arms and other limbs to do so***, I can use _Engineering_ instead of _Fight_ to Grapple Opponents in a Conflict"
     }
   ],
   "tracks": [
