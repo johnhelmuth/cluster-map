@@ -20,6 +20,7 @@ export class CharacterModel implements CharacterData {
   refresh: number;
   fatePoints: number;
   aspects: Array<CharacterAspectData>;
+  imageUrl?: string;
   traitType: TraitTypesKeys;
   traits: Array<TraitData>;
   stunts: Array<StuntData>;
@@ -38,6 +39,7 @@ export class CharacterModel implements CharacterData {
     this.refresh = data?.refresh;
     this.fatePoints = data?.fatePoints;
     this.aspects = data?.aspects ?? [];
+    this.imageUrl = data?.imageUrl ?? undefined;
     this.traitType = data?.traitType ?? 'skill' as TraitTypesKeys;
     this.traits = data?.traits ?? [];
     this.stunts = data?.stunts ?? [];

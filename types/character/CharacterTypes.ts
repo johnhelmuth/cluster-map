@@ -116,6 +116,7 @@ export interface CharacterData {
   refresh: number,
   fatePoints: number,
   aspects: Array<CharacterAspectData>,
+  imageUrl?: string;
   traitType: TraitTypesKeys,
   traits: Array<TraitData>,
   stunts: Array<StuntData>,

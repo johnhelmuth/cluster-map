@@ -2,6 +2,7 @@
 
 import type {CharacterModel} from "~/models/character/CharacterModel";
 import {TraitViewTypes, type TraitViewTypesKeys} from "~/types/character/CharacterTypes";
+import CharacterImage from "~/components/characters/character-image.vue";
 
 const props = defineProps<{
   character?: CharacterModel,
@@ -89,6 +90,10 @@ function traitTypeChanged(viewType: TraitViewTypesKeys): void {
         :character="character"
         :stunts="character.stunts"
         class="block stunt-list right-half"
+    />
+    <CharacterImage v-if="character.imageUrl"
+                    :image-url="character.imageUrl"
+                    class="block character-image right-half"
     />
     <NotesBlock
       v-if="character.notes && character.notes.length"

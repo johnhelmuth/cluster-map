@@ -99,6 +99,11 @@
         ]
       }
     },
+    "imageUrl": {
+      "type": "string",
+      "description": "The URI of an image representing the character, to be included on the character's sheet.",
+      "title": "Character Image URI"
+    },
     "traitType": {
       "type": "string",
       "description": "The type of the properties of the character used as a bonus on a dice roll to resolve actions.",
