@@ -103,6 +103,11 @@ export interface TraitData {
   rank: number
 }
 
+export interface ImageData {
+  uri: string,
+  caption?: string,
+}
+
 export const DEFAULT_REFRESH = 3;
 
 export interface CharacterData {
@@ -116,7 +121,7 @@ export interface CharacterData {
   refresh: number,
   fatePoints: number,
   aspects: Array<CharacterAspectData>,
-  imageUrl?: string;
+  images?: ImageData[];
   traitType: TraitTypesKeys,
   traits: Array<TraitData>,
   stunts: Array<StuntData>,

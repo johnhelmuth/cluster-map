@@ -47,7 +47,12 @@
       "title": "Character type",
       "description": "The type of character, PC, NPC, Mob, Ship, etc.",
       "type": "string",
-      "enum": ["PC", "NPC", "ship", "mob"]
+      "enum": [
+        "PC",
+        "NPC",
+        "ship",
+        "mob"
+      ]
     },
     "refresh": {
       "description": "The current minimum number of Fate points the player of this character starts with at the beginning of a session.",
@@ -99,10 +104,29 @@
         ]
       }
     },
-    "imageUrl": {
-      "type": "string",
-      "description": "The URI of an image representing the character, to be included on the character's sheet.",
-      "title": "Character Image URI"
+    "images": {
+      "description": "A list of images representing the character, to be included on the character's sheet.",
+      "title": "Character Images",
+      "type": "array",
+      "items": {
+        "description": "The details about an image.",
+        "title": "Image",
+        "type": "object",
+        "properties": {
+          "uri": {
+            "type": "string",
+            "description": "The URI of an image.",
+            "title": "Image URI"
+          },
+          "caption": {
+            "description": "The caption to be displayed with the image.",
+            "title": "Image Caption",
+            "type": "string"
+          }
+        },
+        "required": ["uri"]
+      },
+      "minItems": 1
     },
     "traitType": {
       "type": "string",
@@ -252,7 +276,11 @@
                 ]
               }
             },
-            "required": ["name", "freeInvokes", "state"]
+            "required": [
+              "name",
+              "freeInvokes",
+              "state"
+            ]
           }
         },
         "required": [

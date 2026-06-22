@@ -22,7 +22,20 @@
       "name": "I Don't Like Having to Learn New Things"
     }
   ],
-  "imageUrl": "/images/characters/scout-sigourney-weaver-alien-3.jpg",
+  "images": [
+    {
+      "uri": "/images/characters/vat-clones/sigourney-weaver-alien3.jpg",
+      "caption": "Scout making a report after a tough recon behind enemy lines."
+    },
+    {
+      "uri": "/images/characters/vat-clones/sigourney-weaver-galaxy-quest.jpg",
+      "caption": "Scout undercover as a communications officer, and not enjoying it."
+    },
+    {
+      "uri": "/images/characters/vat-clones/lee-majors-older.png",
+      "caption":"Scout in deep undercover with extensive plastic surgery."
+    }
+  ],
   "traitType": "skill",
   "traits": [
     {
