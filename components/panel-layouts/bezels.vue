@@ -65,4 +65,21 @@
   border-radius: unset;
 }
 
+@media print {
+
+  body.hide-not-to-be-printed .bezel {
+    border-radius: unset;
+  }
+  body.hide-not-to-be-printed .bezel-panel {
+    border-radius: unset;
+  }
+  body.hide-not-to-be-printed .bezel-panel.display-slot {
+    padding: 0;
+    box-shadow: none;
+    background-color: white;
+    border-radius: unset;
+  }
+}
 </style>
+<script setup lang="ts">
+</script>

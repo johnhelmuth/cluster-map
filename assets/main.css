@@ -26,8 +26,6 @@ button {
   background: var(--color-background);
 }
 
-
-
 @media (hover: hover) {
   a:hover {
     color: var(--color-action-text);
@@ -37,4 +35,16 @@ button {
 
 h1, h2 {
   font-size: 1.25rem;
+}
+
+@page {
+  size: auto;
+  margin: .25in .25in;
+}
+@media print {
+  body.hide-not-to-be-printed #app {
+    box-shadow: none;
+    border-radius: 0;
+    background: revert;
+  }
 }

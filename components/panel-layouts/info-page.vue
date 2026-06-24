@@ -134,4 +134,17 @@ h1 {
 .info-content :deep(strong) {
   font-weight: bolder;
 }
+
+@media print {
+  body.hide-not-to-be-printed .info-content {
+    background-color: white;
+    border-radius: unset;
+    border: none;
+    box-shadow: unset;
+    overflow: visible !important;
+  }
+  body.hide-not-to-be-printed .info-box > h1:first-child {
+    display: none;
+  }
+}
 </style>

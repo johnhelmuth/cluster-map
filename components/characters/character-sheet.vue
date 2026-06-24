@@ -191,4 +191,10 @@ ul .list-label, :deep(ul .list-label) {
 .tags-list {
   margin-top: 2rem;
 }
+
+@media print {
+  body.hide-not-to-be-printed .block {
+    break-inside: avoid-page;
+  }
+}
 </style>
