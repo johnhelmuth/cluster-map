@@ -24,6 +24,10 @@
   ],
   "images": [
     {
+      "uri": "/images/characters/vat-clones/sigourney-weaver-aliens.jpg",
+      "caption":"Scout hunting."
+    },
+    {
       "uri": "/images/characters/vat-clones/sigourney-weaver-alien3.jpg",
       "caption": "Scout making a report after a tough recon behind enemy lines."
     },
