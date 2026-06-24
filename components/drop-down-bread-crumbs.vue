@@ -43,4 +43,10 @@ const showBreadCrumbs = computed(() => {
 .drop-down-bread-crumbs:hover .bread-crumbs {
   display: block;
 }
+
+@media print {
+  body.hide-not-to-be-printed .drop-down-bread-crumbs {
+    display: none;
+  }
+}
 </style>

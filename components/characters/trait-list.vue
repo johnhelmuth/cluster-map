@@ -139,7 +139,7 @@ function TraitViewTypeChanged(e: Event) {
 <template>
   <div>
     <h3>{{ traitLabel }}</h3>
-    <select @change="TraitViewTypeChanged" :aria-label="`${traitLabel} trait list format type`">
+    <select @change="TraitViewTypeChanged" :aria-label="`${traitLabel} trait list format type`" class="trait-type-view-selector">
       <option
           v-for="(label, value) in allowedTraitViewTypes"
           :value="value"
@@ -258,7 +258,6 @@ div.trait-list ul.viewtype-pyramid li.trait-item .traits-ranked-row {
 
 .traits-ranked-row .name.is-empty {
   border-bottom: 1px solid var(--color-border);
-  border-bottom: 1px solid black;
 }
 
 @container (width < 38rem) {
@@ -278,6 +277,10 @@ div.trait-list ul.viewtype-pyramid li.trait-item .traits-ranked-row {
   }
 }
 
-
+@media print {
+  body.hide-not-to-be-printed select.trait-type-view-selector {
+    display: none;
+  }
+}
 
 </style>

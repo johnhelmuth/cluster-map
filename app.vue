@@ -106,4 +106,12 @@ nav .theme-switch {
   margin: 0.5rem 1rem;
 }
 
+@media print {
+  body.hide-not-to-be-printed #app > header,
+  body.hide-not-to-be-printed #app > footer,
+  body.hide-not-to-be-printed #app > nav
+  {
+    display: none;
+  }
+}
 </style>

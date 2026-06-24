@@ -123,4 +123,10 @@ div.aspect-container.has-invokes {
 .aspect-description.closed {
   display: none;
 }
+
+@media print {
+  body.hide-not-to-be-printed .accordion-button {
+    display: none;
+  }
+}
 </style>
