@@ -29,6 +29,16 @@
     }
 
   ],
+  "images": [
+    {
+      "uri": "/images/characters/vat-clones/lee-majors-younger.webp",
+      "caption":"Jim Dade"
+    },
+    {
+      "uri": "/images/characters/vat-clones/lee-majors-older.png",
+      "caption":"Jim Dade"
+    }
+  ],
   "traitType": "skill",
   "traits": [
     {

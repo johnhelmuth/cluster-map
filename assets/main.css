@@ -37,9 +37,20 @@ h1, h2 {
   font-size: 1.25rem;
 }
 
+@property --current-date-time {
+  syntax: "<string>";
+  inherits: true;
+  initial-value: "";
+}
+
 @page {
   size: auto;
-  margin: .25in .25in;
+  margin: .25in .25in .75in;
+  --current-date-time: initial;
+  @bottom-left {
+    content: "Printed on " var(--current-date-time);
+    font-size: .6rem;
+  }
 }
 @media print {
   body.hide-not-to-be-printed #app {

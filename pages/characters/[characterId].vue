@@ -11,7 +11,7 @@ const { userPreferences } = useUserPreferences();
 onMounted(() => {
   // Add hide-not-to-be-printed class to body to trigger printing only the character sheet.
   if (document) {
-    document.querySelector('body')?.classList.add('hide-not-to-be-printed')
+    document.querySelector('body')?.classList.add('hide-not-to-be-printed');
   }
 })
 onBeforeUnmount(() => {
