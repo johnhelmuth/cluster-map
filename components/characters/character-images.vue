@@ -34,7 +34,7 @@ function handleClick(e: PointerEvent) {
     <ProseImg
         v-for="(imageData, index) of images"
         :src="imageData.uri"
-        :caption="imageData.caption"
+        :caption="`${(imageData.caption ?? '')}${images.length > 1 ? ' ' + (index+1).toString() + '/' + images.length.toString() : ''}`"
         size="medium"
         :key="index"
         :data-image-index="index"

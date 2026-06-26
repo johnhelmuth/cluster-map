@@ -64,3 +64,13 @@ export function dateFormat(d: Date) {
 export function fround(f: number) {
   return Math.fround(f);
 }
+
+export function getCSSPageRules() {
+  if (import.meta.client) {
+    return Array.from(document.styleSheets).map(sheet => {
+      return Array.from(sheet.cssRules).filter(rule => {
+        return rule instanceof CSSPageRule;
+      })
+    }).flat().filter(Boolean);
+  }
+}
