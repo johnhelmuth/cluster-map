@@ -26,7 +26,8 @@
     "nuxt": "^4.3.1",
     "vue": "^3.5.30",
     "vue-final-modal": "^4.5.5",
-    "vue-router": "*"
+    "vue-router": "*",
+    "zod-from-json-schema": "^0.4.2"
   },
   "devDependencies": {
     "@iconify-json/material-symbols": "^1.2.47",

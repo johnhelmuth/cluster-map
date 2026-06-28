@@ -1,6 +1,5 @@
 <script setup lang="ts">
 
-import type {CharacterData} from "~/types/character/CharacterTypes";
 import {useCharactersStore} from "~/stores/use-characters-store";
 
 const charactersStore = useCharactersStore();
@@ -8,21 +7,25 @@ const charactersStore = useCharactersStore();
 const showOnlyTypedCharacterAspects = ref(false);
 
 const aspects = computed(() => {
-  const aspectsList = [...charactersStore.characters.entries()].map(([id, character]) => {
-    return character.aspects.map(aspect => {
-      return {characterId: id, characterName: character.name, aspect}
-    });
-  }).flat();
-  return aspectsList;
+  if (typeof charactersStore.characters.value !== "undefined") {
+    return [...charactersStore.characters.value.entries()].map(([id, character]) => {
+      return character.aspects.map(aspect => {
+        return {characterId: id, characterName: character.name, aspect}
+      });
+    }).flat();
+  }
 });
 
 const filteredAspects = computed(() => {
-  if (showOnlyTypedCharacterAspects.value) {
-    return aspects.value.filter((aspectRow) => {
-      return (aspectRow.aspect?.aspectType)
-    })
+  if (typeof aspects.value !== "undefined") {
+    if (showOnlyTypedCharacterAspects.value) {
+      return aspects.value.filter((aspectRow) => {
+        return (aspectRow.aspect?.aspectType)
+      })
+    }
+    return [...aspects.value];
   }
-  return [...aspects.value];
+  return [];
 });
 
 useSeoMeta({

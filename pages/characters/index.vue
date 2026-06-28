@@ -61,22 +61,24 @@ const chars = computed(() => {
     characterTypes: filterCharacterTypes.value,
     tags: filterTags.value
   }
-  characters.forEach((character, id) => {
-    const matches = compareCharToFilter(character, filters);
-    if (matches) {
-      if (character.campaigns.length === 0) {
-        const campaignChars = charMap.get(UNASSIGNED_CAMPAIGN) || [];
-        campaignChars.push(character);
-        charMap.set(UNASSIGNED_CAMPAIGN, campaignChars);
-      } else {
-        [...character.campaigns].forEach((campaign) => {
-          const campaignChars = charMap.get(campaign) || [];
+  if (typeof characters.value !== "undefined") {
+    characters.value.forEach((character, id) => {
+      const matches = compareCharToFilter(character, filters);
+      if (matches) {
+        if (character.campaigns.length === 0) {
+          const campaignChars = charMap.get(UNASSIGNED_CAMPAIGN) || [];
           campaignChars.push(character);
-          charMap.set(campaign, campaignChars);
-        });
+          charMap.set(UNASSIGNED_CAMPAIGN, campaignChars);
+        } else {
+          [...character.campaigns].forEach((campaign) => {
+            const campaignChars = charMap.get(campaign) || [];
+            campaignChars.push(character);
+            charMap.set(campaign, campaignChars);
+          });
+        }
       }
-    }
-  })
+    })
+  }
   return charMap;
 });
 

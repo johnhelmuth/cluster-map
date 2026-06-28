@@ -1,6 +1,13 @@
 import {type ResolvedCollectionSource, defineContentConfig, defineCollection} from '@nuxt/content'
 import { z } from 'zod';
+import { convertJsonSchemaToZod } from 'zod-from-json-schema';
+import characterSchema from '/Users/johnhelmuth/src/cluster-map/data/schemas/characters/character.schema.json';
+// @ts-ignore zod's type export are jacked up?
+import type {JSONSchema} from "zod/v4";
 
+const zodCharacterSchema = convertJsonSchemaToZod(characterSchema as JSONSchema);
+console.log('characterSchema', characterSchema);
+// console.log('zodCharacterSchema.def.shape.refresh', zodCharacterSchema.def.shape.refresh);
 let sourceConnection = {} as Partial<Pick<ResolvedCollectionSource, "cwd" | "repository">>;
 if (process.env.CONTENT_LOCAL_PATH) {
   sourceConnection.cwd = process.env.CONTENT_LOCAL_PATH;
@@ -73,6 +80,15 @@ export default defineContentConfig({
       schema: z.object({
         'publish_date': z.string(),
       })
+    }),
+    characters: defineCollection({
+      type: 'data',
+      source: {
+        include: 'characters/**/*.json',
+        exclude,
+        cwd: 'data'
+      },
+      schema: characterSchema
     })
 
   }

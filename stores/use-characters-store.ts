@@ -1,5 +1,6 @@
 
 import {parseAsCharacterData, parseCharacter} from "~/utils/import-validator";
+import type { CharacterData } from "~/types/character/CharacterTypes";
 import {CharacterModel} from "~/models/character/CharacterModel";
 import type {
   TraitLabelsType,
@@ -64,6 +65,21 @@ function formatTraitRank(rank: number, padZero = false): string {
   return formattedRank;
 }
 
+function convertCharacterFromContentToCharacterData(characterFromContent: Object): CharacterData | undefined {
+  const propsToDrop = ['extension', 'meta', '__hash__'];
+  if (typeof characterFromContent === 'object') {
+    const characterData = characterFromContent;
+    for (const prop of propsToDrop) {
+      if (characterData.hasOwnProperty(prop)) {
+        delete characterData[prop];
+      }
+    }
+    if (parseAsCharacterData(characterData)) {
+      return characterData;
+    }
+  }
+}
+
 export function useCharactersStore() {
 
   const characters = reactive(new Map<string, CharacterModel>());
@@ -85,15 +101,41 @@ export function useCharactersStore() {
     error.value = true;
   }
 
+  // const { data: characters, error, status } = useAsyncData('characters', async () => {
+  //   const characters = new Map<string, CharacterModel>();
+  //   const charactersContent = await queryCollection('characters').all();
+  //   for (const characterRaw of charactersContent) {
+  //     const characterDoc = convertCharacterFromContentToCharacterData(characterRaw);
+  //     if (characterDoc) {
+  //       const characterModel = new CharacterModel(characterDoc);
+  //       characters.set(characterModel.id, characterModel);
+  //     }
+  //   }
+  //   console.log('charactersContent: ', charactersContent);
+  //   console.log('characters: ', characters);
+  //   return characters;
+  // })
+
+
   function getCharacter(characterId: string) : CharacterModel | undefined {
-    return characters.has(characterId) && characters.get(characterId) || undefined;
+    // return typeof characters.value !== 'undefined' && characters.value.has(characterId) && characters.value.get(characterId) || undefined;
+    return typeof characters !== 'undefined' && characters.has(characterId) && characters.get(characterId) || undefined;
   }
 
   function getCharactersByTag(tag: string) {
     const charactersList = [];
-    for (const [characterId, character] of characters) {
-      if (character?.tags && character.tags.includes(tag)) {
-        charactersList.push(character);
+    // if (typeof characters.value !== "undefined") {
+    //   for (const [characterId, character] of characters.value) {
+    //     if (character?.tags && character.tags.includes(tag)) {
+    //       charactersList.push(character);
+    //     }
+    //   }
+    // }
+    if (typeof characters !== "undefined") {
+      for (const [characterId, character] of characters) {
+        if (character?.tags && character.tags.includes(tag)) {
+          charactersList.push(character);
+        }
       }
     }
     return charactersList;
@@ -101,22 +143,35 @@ export function useCharactersStore() {
 
   function getCharacterCampaigns() {
     const campaignSet = new Set<string>([UNASSIGNED_CAMPAIGN]);
-    for (const character of characters.values()) {
-      character.campaigns.forEach(campaign => campaignSet.add(campaign));
+    // if (typeof characters.value !== "undefined") {
+    //   for (const character of characters.value.values()) {
+    //     character.campaigns.forEach(campaign => campaignSet.add(campaign));
+    //   }
+    // }
+    if (typeof characters !== "undefined") {
+      for (const character of characters.values()) {
+        character.campaigns.forEach(campaign => campaignSet.add(campaign));
+      }
     }
     return campaignSet;
   }
 
   function getCharacterTags() {
     const tagsSet = new Set<string>();
-    for (const character of characters.values()) {
-      character.tags.forEach(tag => tagsSet.add(tag));
+    // if (typeof characters.value !== "undefined") {
+    //   for (const character of characters.value.values()) {
+    //     character.tags.forEach(tag => tagsSet.add(tag));
+    //   }
+    // }
+    if (typeof characters !== "undefined") {
+      for (const character of characters.values()) {
+        character.tags.forEach(tag => tagsSet.add(tag));
+      }
     }
     return tagsSet;
   }
 
   function getCampaignTitle(campaign: string) {
-
     return campaign
       .replace(/-/g, ' ')
       .split(' ')
@@ -125,7 +180,7 @@ export function useCharactersStore() {
   }
 
   return {
-    loaded,
+    status,
     error,
     parseErrors,
     characters,

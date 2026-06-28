@@ -31,7 +31,7 @@ export const parseCharacter = parser(characterSchema, {
 export function parseAsCharacterData(data: any): data is CharacterData {
   const parseResults = parseCharacter(JSON.stringify(data));
   if (! parseResults?.valid) {
-    console.warn('Invalid characters. parseResults: ', parseResults);
+    console.warn('Invalid character. parseResults: ', parseResults, data);
   }
   return !! parseResults?.valid;
 }
