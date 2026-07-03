@@ -262,8 +262,6 @@ div.trait-list ul.viewtype-pyramid li.trait-item .traits-ranked-row {
 }
 
 @container (width < 38rem) {
-  div.trait-list ul.viewtype-pyramid {
-  }
   div.trait-list ul li.trait-item {
     column-gap: .5rem;
   }

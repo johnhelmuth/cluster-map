@@ -34,6 +34,20 @@
     }
 
   ],
+  "images": [
+    {
+      "uri": "/images/characters/DwabitProfile.jpg",
+      "caption": "Dwabit's Union Photo"
+    },
+    {
+      "uri": "/images/Tardigrada063026_1.jpg",
+      "caption": "Tardigrada standing"
+    },
+    {
+      "uri": "/images/Tardigrada063026_2.jpg",
+      "caption": "Tardigrada reclining"
+    }
+  ],
   "traitType": "skill",
   "traits": [
     {
