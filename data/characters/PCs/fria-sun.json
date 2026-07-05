@@ -1,0 +1,118 @@
+{
+  "type": "character",
+  "schemaVersion": "1",
+  "id": "fria-sun",
+  "name": "Fria Sun",
+  "playerName": "Jon T",
+  "description": "A vat clone variant based on Linda Hamilton",
+  "campaigns": ["one-shot-4"],
+  "characterType": "PC",
+  "refresh": 3,
+  "fatePoints": 3,
+  "aspects": [
+    {
+      "aspectType": "High Concept",
+      "name": "Vat Clone Combat Medic"
+    },
+    {
+      "aspectType": "Trouble",
+      "name": "Clones Are NOT Disposable",
+      "description": "She's got a chip on her shoulder at any insinuation that clones are less than human."
+    },
+    {
+      "aspectType": "Oneshot Reason",
+      "name": "Private Security, Secret Physician"
+    }
+
+  ],
+  "images": [
+    {
+      "uri": "/images/characters/vat-clones/linda-hamilton.jpg",
+      "caption": "Taking five."
+    }
+  ],
+  "traitType": "skill",
+  "traits": [
+    {
+      "name": "Shoot",
+      "rank": 4
+    },
+    {
+      "name": "Academics",
+      "rank": 3
+    },
+    {
+      "name": "Provoke",
+      "rank": 3
+    }
+  ],
+  "tracks": [
+    {
+      "trackId": "stress",
+      "trackLabel": "Stress",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 1
+        },
+        {
+          "isUsed": false,
+          "soakValue": 2
+        }
+      ]
+    },
+    {
+      "trackId": "consequence-mild",
+      "trackLabel": "Mild",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 2
+        }
+      ],
+      "aspect": {
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    },
+    {
+      "trackId": "consequence-moderate",
+      "trackLabel": "Moderate",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 4
+        }
+      ],
+      "aspect": {
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    },
+    {
+      "trackId": "consequence-severe",
+      "trackLabel": "Severe",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 6
+        }
+      ],
+      "aspect":{
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    }
+  ],
+  "notes": [
+    "Fria Sun is a vat clone, a war veteran, one of the few to get advanced medical training (it's usually cheaper to grow new after too much damage).\n\n",
+    "On the surface she's just another ex-soldier working in private security - but secretly, her primary clientele are those of the rich and powerful hiding serious medical conditions, who want an \"off the books\" physician on hand at all times."
+  ]
+}

@@ -1,0 +1,142 @@
+{
+  "type": "character",
+  "schemaVersion": "1",
+  "id": "avery-johnson",
+  "name": "Avery Johnson",
+  "playerName": "Chance",
+  "description": "Security for SMTF",
+  "campaigns": ["one-shot-4"],
+  "characterType": "PC",
+  "refresh": 3,
+  "fatePoints": 3,
+  "aspects": [
+    {
+      "aspectType": "High Concept",
+      "name": "Career Soldier"
+    },
+    {
+      "aspectType": "Trouble",
+      "name": "Thrill-seeker"
+    },
+    {
+      "aspectType": "Oneshot Reason",
+      "name": "To boldly go"
+    }
+
+  ],
+  "traitType": "skill",
+  "traits": [
+    {
+      "name": "Notice",
+      "rank": 4
+    },
+    {
+      "name": "Athletics",
+      "rank": 3
+    },
+    {
+      "name": "Shoot",
+      "rank": 3
+    },
+    {
+      "name": "Rapport",
+      "rank": 2
+    },
+    {
+      "name": "Engineering",
+      "rank": 2
+    },
+    {
+      "name": "Physique",
+      "rank": 2
+    }
+  ],
+  "tracks": [
+    {
+      "trackId": "stress",
+      "trackLabel": "Stress",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 1
+        },
+        {
+          "isUsed": false,
+          "soakValue": 2
+        }
+      ]
+    },
+    {
+      "trackId": "consequence-mild",
+      "trackLabel": "Mild",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 2
+        }
+      ],
+      "aspect": {
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    },
+    {
+      "trackId": "consequence-moderate",
+      "trackLabel": "Moderate",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 4
+        }
+      ],
+      "aspect": {
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    },
+    {
+      "trackId": "consequence-severe",
+      "trackLabel": "Severe",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 6
+        }
+      ],
+      "aspect":{
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    }
+  ],
+  "stunts": [
+    {
+      "name": "Prefers to disable",
+      "description": "Because I ***Prefer to Disable*** my opponents, I get +2 to Shoot Attacks when I am using a gun to stun or otherwise not kill.",
+      "parameters": {
+        "trait": "Shoot",
+        "modifier": 2,
+        "actions": ["Attack"],
+        "modificationType": "roll"
+      }
+    }
+  ],
+  "notes": [
+    "#### Load out for Straitgate missions:",
+    "* Laser Rifle",
+    "* Pistol (Slugthrower, Semiautomatic)",
+    "* Combat/Utility Knife",
+    "* Body armour / vacuum ready",
+    "* Chem-lights",
+    "* Radio communication system integrated with body armour/vac-suit",
+    "#### History",
+    "Currently working security for the embassy and scientific mission on Cothar III, based in the city of Cabitar, and as a guest of the royal family of the kingdom of Cabitar."
+  ]
+}

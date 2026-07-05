@@ -17,6 +17,9 @@ import dwabit from "~/data/characters/PCs/dwabit.json";
 import delilahLand from "~/data/characters/PCs/delilah-lands.json";
 import scout4e0061377 from "~/data/characters/PCs/scout-4e0061377.json";
 import kiowynne from "~/data/characters/PCs/kiowynne.json";
+import beaOneShot4 from "~/data/characters/PCs/dr-ridley-caast.json";
+import jonOneShot4 from "~/data/characters/PCs/fria-sun.json";
+import chanceOneShot4 from "~/data/characters/PCs/avery-johnson.json";
 
 // NPCs
 import gutsMatronas from "~/data/characters/NPCs/guts-matronas.json";
@@ -47,6 +50,9 @@ export const characters = [
   delilahLand,
   scout4e0061377,
   kiowynne,
+  beaOneShot4,
+  jonOneShot4,
+  chanceOneShot4,
 
     // NPCs
   captainMartinez,

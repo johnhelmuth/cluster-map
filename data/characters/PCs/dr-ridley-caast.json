@@ -1,0 +1,118 @@
+{
+  "type": "character",
+  "schemaVersion": "1",
+  "id": "dr-ridley-caast",
+  "name": "Dr. Ridley 6ad-Bayanul-Longshores-Swifttide aan Caast-Foundling, PhD",
+  "playerName": "Bea",
+  "description": "Grulvax raised by the Calcoran Schools, she wears a full body suit and tries not to freak other species out.",
+  "campaigns": ["one-shot-4"],
+  "characterType": "PC",
+  "refresh": 3,
+  "fatePoints": 3,
+  "aspects": [
+    {
+      "aspectType": "High Concept",
+      "name": "Soft-spoken Academic"
+    },
+    {
+      "aspectType": "Trouble",
+      "name": "Confidence Breaking Anxiety / Terrifying Visage"
+    },
+    {
+      "aspectType": "Oneshot Reason",
+      "name": "Linguistic and Cultural Sapientologist on loan from Longshore University's Terrestrial Sapientology department"
+    },
+    {
+      "name": "Begrudging Mathematics Expert"
+    }
+  ],
+  "traitType": "skill",
+  "traits": [
+    {
+      "name": "Academics",
+      "rank": 4
+    },
+    {
+      "name": "Rapport",
+      "rank": 3
+    },
+    {
+      "name": "Empathy",
+      "rank": 3
+    }
+  ],
+  "tracks": [
+    {
+      "trackId": "stress",
+      "trackLabel": "Stress",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 1
+        },
+        {
+          "isUsed": false,
+          "soakValue": 2
+        }
+      ]
+    },
+    {
+      "trackId": "consequence-mild",
+      "trackLabel": "Mild",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 2
+        }
+      ],
+      "aspect": {
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    },
+    {
+      "trackId": "consequence-moderate",
+      "trackLabel": "Moderate",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 4
+        }
+      ],
+      "aspect": {
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    },
+    {
+      "trackId": "consequence-severe",
+      "trackLabel": "Severe",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 6
+        }
+      ],
+      "aspect":{
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    }
+  ],
+  "notes": [
+    "Doctor Ridley aan Caast-Foundling is a Grulvaxian raised by Calcorans who found her egg aboard a derelict ship of unknown make drifting in the Bayanul system. While loved by her parents and siblings, Swifttide cultural norms and a lack of knowledge about her species caused her to develop anxieties over many of her innate behavioral urges and her physical appearance. While talented in mathematics, even by Calcoran standards, she chose not to go into banking and instead studied linguistics and the impact language evolution has on the societies that speak them.\n",
+    "**Note well:** Dr aan Caast-Foundling has no idea what a Grulvaxian is, and believes that must be others out there, but has not been able to find out anything about them on the Tatternet.\n",
+    "\n",
+    "#### History",
+    "* Studied the dead language of a lost colony Maaraat of Ohlzor and So'enela after noting the similarity with the glyphs on the ancient artifact discovered in the Glaorkg system.\n",
+    "* Conversant in the language of the Ohlzor on the rediscovered planet Cothar III. Created the translator program to allow speakers of Galacticom to converse with the Cotharians.",
+    "* Currently studying the cultures of Cothar III based in the city of Cabitar, and as a guest of the royal family of the kingdom of Cabitar."
+  ]
+}
