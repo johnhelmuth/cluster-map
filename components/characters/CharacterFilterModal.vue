@@ -10,7 +10,7 @@ export type CharacterFilterParams = {
   tags?: string[];
 }
 
-const { getCharacterTags, getCharacterCampaigns, getCampaignTitle } = useCharactersStore();
+const { getCharacterTags, getCharacterCampaigns, getCampaignTitle } = await useCharactersStore();
 
 const { setCurrentOpenModal, closeModal } = useModalStateStore('characterFilterModAl', toggleCharacterFilterModal);
 

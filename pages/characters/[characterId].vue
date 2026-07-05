@@ -5,7 +5,7 @@ import {useCharactersStore} from "~/stores/use-characters-store";
 import {type TraitViewTypesKeys} from "~/types/character/CharacterTypes";
 
 const route = useRoute();
-const { getCharacter} = useCharactersStore();
+const { getCharacter} = await useCharactersStore();
 const { userPreferences } = useUserPreferences();
 
 const character = computed(() => {

@@ -6,7 +6,6 @@ import type {
   TraitLabelsTypeKeys,
   TraitTypesKeys
 } from "~/types/character/CharacterTypes";
-import { characters as rawCharacters } from '~/utils/character-importer';
 
 import type { ParseResult } from "@exodus/schemasafe";
 
@@ -64,36 +63,44 @@ function formatTraitRank(rank: number, padZero = false): string {
   return formattedRank;
 }
 
-export function useCharactersStore() {
+export async function useCharactersStore() {
 
-  const characters = reactive(new Map<string, CharacterModel>());
   const loaded = ref(false);
   const error = ref(false);
 
   const parseErrors = ref([] as Array<ParseResult>);
-  rawCharacters.forEach((characterDoc) => {
-    if (parseAsCharacterData(characterDoc)) {
-      const characterModel = new CharacterModel(characterDoc);
-      characters.set(characterModel.id, characterModel);
-    } else {
-      const parseResults = parseCharacter(JSON.stringify(characterDoc));
-      // @ts-ignore
-      parseErrors.value.push(parseResults)
+  const {data: characters} = await useAsyncData('characters', async () => {
+    const rawCharacters = await $fetch('/api/characters');
+    const characters = new Map<string, CharacterModel>();
+    if (typeof rawCharacters !== "undefined") {
+      rawCharacters.forEach((characterDoc: any) => {
+        if (parseAsCharacterData(characterDoc)) {
+          const characterModel = new CharacterModel(characterDoc);
+          characters.set(characterModel.id, characterModel);
+        } else {
+          const parseResults = parseCharacter(JSON.stringify(characterDoc));
+          // @ts-ignore
+          parseErrors.value.push(parseResults)
+        }
+      })
+      if (parseErrors.value.length > 0) {
+        error.value = true;
+      }
     }
-  })
-  if (parseErrors.value.length > 0) {
-    error.value = true;
-  }
+    return characters;
+  });
 
   function getCharacter(characterId: string) : CharacterModel | undefined {
-    return characters.has(characterId) && characters.get(characterId) || undefined;
+    return typeof characters.value !== 'undefined' && characters.value.has(characterId) ? characters.value.get(characterId) : undefined;
   }
 
   function getCharactersByTag(tag: string) {
     const charactersList = [];
-    for (const [characterId, character] of characters) {
-      if (character?.tags && character.tags.includes(tag)) {
-        charactersList.push(character);
+    if (typeof characters.value !== "undefined") {
+      for (const [characterId, character] of characters.value) {
+        if (character?.tags && character.tags.includes(tag)) {
+          charactersList.push(character);
+        }
       }
     }
     return charactersList;
@@ -101,16 +108,20 @@ export function useCharactersStore() {
 
   function getCharacterCampaigns() {
     const campaignSet = new Set<string>([UNASSIGNED_CAMPAIGN]);
-    for (const character of characters.values()) {
-      character.campaigns.forEach(campaign => campaignSet.add(campaign));
+    if (typeof characters.value !== "undefined") {
+      for (const character of characters.value.values()) {
+        character.campaigns.forEach(campaign => campaignSet.add(campaign));
+      }
     }
     return campaignSet;
   }
 
   function getCharacterTags() {
     const tagsSet = new Set<string>();
-    for (const character of characters.values()) {
-      character.tags.forEach(tag => tagsSet.add(tag));
+    if (typeof characters.value !== "undefined") {
+      for (const character of characters.value.values()) {
+        character.tags.forEach(tag => tagsSet.add(tag));
+      }
     }
     return tagsSet;
   }

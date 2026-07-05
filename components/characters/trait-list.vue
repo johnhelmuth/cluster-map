@@ -8,7 +8,7 @@ import {
   type TraitViewTypesKeys
 } from "~/types/character/CharacterTypes";
 
-const { getTraitLabel, getLadderLabel, formatTraitRank } = useCharactersStore();
+const { getTraitLabel, getLadderLabel, formatTraitRank } = await useCharactersStore();
 
 const props = defineProps<{
   "traitType": TraitTypesKeys,

@@ -3,7 +3,7 @@
 import type {CharacterData} from "~/types/character/CharacterTypes";
 import {useCharactersStore} from "~/stores/use-characters-store";
 
-const charactersStore = useCharactersStore();
+const charactersStore = await useCharactersStore();
 
 const showOnlyTypedCharacterAspects = ref(false);
 

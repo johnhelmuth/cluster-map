@@ -12,12 +12,12 @@ const filterParams = computed(() => {
     const filterParams = {} as CharacterFilterParams;
     if (typeof route.query?.campaigns === 'string') {
       const campaigns = [] as string[];
-      campaigns.push(... route.query.campaigns.split(','));
+      campaigns.push(...route.query.campaigns.split(','));
       filterParams.campaigns = campaigns;
     }
     if (typeof route.query?.characterTypes === 'string') {
       const characterTypes = [] as string[];
-      characterTypes.push(... route.query.characterTypes.split(','));
+      characterTypes.push(...route.query.characterTypes.split(','));
       filterParams.characterTypes = characterTypes;
     }
     if (typeof route.query.tags === 'string') {
@@ -29,23 +29,23 @@ const filterParams = computed(() => {
   }
 });
 
-const { characters, getCampaignTitle, getCharacterCampaigns, UNASSIGNED_CAMPAIGN,  } = useCharactersStore();
-
+const {characters, getCampaignTitle, getCharacterCampaigns, UNASSIGNED_CAMPAIGN,} = await useCharactersStore();
 
 const filterCampaigns = computed(() => filterParams.value?.campaigns ? new Set<string>(filterParams.value.campaigns) : undefined);
 const filterCharacterTypes = computed(() => filterParams.value?.characterTypes ? new Set<string>(filterParams.value.characterTypes) : undefined);
 const filterTags = computed(() => filterParams.value?.tags ? new Set<string>(filterParams.value.tags) : undefined);
 
 type CharacterFiltersType = {
-  campaigns?:  Set<string>,
-  characterTypes?:  Set<string>,
-  tags?:  Set<string>,
+  campaigns?: Set<string>,
+  characterTypes?: Set<string>,
+  tags?: Set<string>,
 }
+
 function compareCharToFilter(character: CharacterModel, filters: CharacterFiltersType) {
   if (filters.campaigns && filters.campaigns.size > 0 && filters.campaigns.intersection(new Set<string>(character?.campaigns.length ? character.campaigns : [UNASSIGNED_CAMPAIGN])).size < 1) {
     return false;
   }
-  if (filters.characterTypes && filters.characterTypes.size > 0 && (! character?.characterType || ! filters.characterTypes.has(character?.characterType))) {
+  if (filters.characterTypes && filters.characterTypes.size > 0 && (!character?.characterType || !filters.characterTypes.has(character?.characterType))) {
     return false;
   }
   if (filters.tags && filters.tags.size > 0 && (character?.tags.length === 0 || filters.tags.intersection(new Set<string>(character.tags)).size < 1)) {
@@ -54,6 +54,11 @@ function compareCharToFilter(character: CharacterModel, filters: CharacterFilter
   return true;
 }
 
+onMounted(() => {
+  console.log('onMounted() characters ', characters);
+})
+
+
 const chars = computed(() => {
   const charMap = new Map<string, Array<CharacterModel>>();
   const filters = {
@@ -61,22 +66,26 @@ const chars = computed(() => {
     characterTypes: filterCharacterTypes.value,
     tags: filterTags.value
   }
-  characters.forEach((character, id) => {
-    const matches = compareCharToFilter(character, filters);
-    if (matches) {
-      if (character.campaigns.length === 0) {
-        const campaignChars = charMap.get(UNASSIGNED_CAMPAIGN) || [];
-        campaignChars.push(character);
-        charMap.set(UNASSIGNED_CAMPAIGN, campaignChars);
-      } else {
-        [...character.campaigns].forEach((campaign) => {
-          const campaignChars = charMap.get(campaign) || [];
+  if (typeof characters.value !== 'undefined') {
+    characters.value.forEach((character, id) => {
+      console.log('characters/index character, id', character, id);
+      const matches = compareCharToFilter(character, filters);
+      if (matches) {
+        if (character.campaigns.length === 0) {
+          const campaignChars = charMap.get(UNASSIGNED_CAMPAIGN) || [];
           campaignChars.push(character);
-          charMap.set(campaign, campaignChars);
-        });
+          charMap.set(UNASSIGNED_CAMPAIGN, campaignChars);
+        } else {
+          [...character.campaigns].forEach((campaign) => {
+            const campaignChars = charMap.get(campaign) || [];
+            campaignChars.push(character);
+            charMap.set(campaign, campaignChars);
+          });
+        }
       }
-    }
-  })
+    })
+  }
+
   return charMap;
 });
 
@@ -91,7 +100,7 @@ function applyFilter(filterParams: CharacterFilterParams) {
   if (filterParams?.tags && filterParams?.tags?.length > 0) {
     query.tags = filterParams.tags.join(',');
   }
-  navigateTo({ query });
+  navigateTo({query});
 }
 
 useSeoMeta({
