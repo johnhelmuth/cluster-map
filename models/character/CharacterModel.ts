@@ -167,4 +167,11 @@ export class CharacterModel implements CharacterData {
     }
   }
 
+  toJSON(key: string): object {
+    return {
+      ...this,
+      "type": "character",
+    };
+  }
+
 }

@@ -66,8 +66,8 @@ const chars = computed(() => {
     characterTypes: filterCharacterTypes.value,
     tags: filterTags.value
   }
-  if (typeof characters.value !== 'undefined') {
-    characters.value.forEach((character, id) => {
+  if (typeof characters !== 'undefined') {
+    characters.forEach((character, id) => {
       console.log('characters/index character, id', character, id);
       const matches = compareCharToFilter(character, filters);
       if (matches) {
