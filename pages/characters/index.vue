@@ -54,11 +54,6 @@ function compareCharToFilter(character: CharacterModel, filters: CharacterFilter
   return true;
 }
 
-onMounted(() => {
-  console.log('onMounted() characters ', characters);
-})
-
-
 const chars = computed(() => {
   const charMap = new Map<string, Array<CharacterModel>>();
   const filters = {
@@ -68,7 +63,6 @@ const chars = computed(() => {
   }
   if (typeof characters !== 'undefined') {
     characters.forEach((character, id) => {
-      console.log('characters/index character, id', character, id);
       const matches = compareCharToFilter(character, filters);
       if (matches) {
         if (character.campaigns.length === 0) {
@@ -76,7 +70,11 @@ const chars = computed(() => {
           campaignChars.push(character);
           charMap.set(UNASSIGNED_CAMPAIGN, campaignChars);
         } else {
-          [...character.campaigns].forEach((campaign) => {
+          const campaignsToUse =
+              filterCampaigns.value && filterCampaigns.value?.size > 0
+                ? filterCampaigns.value?.intersection(new Set([...character.campaigns]))
+                : character.campaigns;
+          [...campaignsToUse].forEach((campaign) => {
             const campaignChars = charMap.get(campaign) || [];
             campaignChars.push(character);
             charMap.set(campaign, campaignChars);
