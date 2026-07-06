@@ -15,21 +15,6 @@ export default defineNuxtConfig({
     },
   },
 
-  routeRules: {
-    "/map": {
-      redirect: {
-        to: "/maps",
-        statusCode: 308
-      },
-    },
-    "/sessions": {
-      redirect: {
-        to: "/campaigns/campaign-1",
-        statusCode: 308
-      }
-    }
-  },
-
   components: [
     {
       path: '~/components/',
@@ -59,6 +44,31 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@nuxt/content',
   ],
+
+  nitro: {
+
+    routeRules: {
+      "/map": {
+        redirect: {
+          to: "/maps",
+          statusCode: 308
+        },
+      },
+      "/sessions": {
+        redirect: {
+          to: "/campaigns/campaign-1",
+          statusCode: 308
+        }
+      }
+    },
+
+    serverAssets: [
+      {
+        baseName: "characters",
+        dir: "../data/characters", // bundle characters/ as server assets
+      },
+    ],
+  },
 
   vite: {
     optimizeDeps: {

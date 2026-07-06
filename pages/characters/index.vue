@@ -54,37 +54,70 @@ function compareCharToFilter(character: CharacterModel, filters: CharacterFilter
   return true;
 }
 
+function sortCharacters(chars: CharacterModel[]) {
+  const undefinedType = 'ZZZZZZZ';
+  const typeOrder = ['PC', 'NPC', 'ship', 'mob', undefinedType];
+  return chars.sort((a, b) => {
+    const aTypeOrder = typeOrder.indexOf(a.characterType??undefinedType);
+    const bTypeOrder = typeOrder.indexOf(b.characterType??undefinedType);
+
+    if (aTypeOrder !== bTypeOrder) {
+      return aTypeOrder - bTypeOrder;
+    }
+
+    if (a.name > b.name) return 1;
+    if (a.name < b.name) return -1;
+    return 0;
+  })
+}
+
 const chars = computed(() => {
-  const charMap = new Map<string, Array<CharacterModel>>();
-  const filters = {
-    campaigns: filterCampaigns.value,
-    characterTypes: filterCharacterTypes.value,
-    tags: filterTags.value
-  }
   if (typeof characters !== 'undefined') {
-    characters.forEach((character, id) => {
+    const unsortedCharMap = new Map<string, Array<CharacterModel>>();
+    const filters = {
+      campaigns: filterCampaigns.value,
+      characterTypes: filterCharacterTypes.value,
+      tags: filterTags.value
+    }
+    for (const character of characters.values()) {
       const matches = compareCharToFilter(character, filters);
       if (matches) {
         if (character.campaigns.length === 0) {
-          const campaignChars = charMap.get(UNASSIGNED_CAMPAIGN) || [];
+          const campaignChars = unsortedCharMap.get(UNASSIGNED_CAMPAIGN) || [];
           campaignChars.push(character);
-          charMap.set(UNASSIGNED_CAMPAIGN, campaignChars);
+          unsortedCharMap.set(UNASSIGNED_CAMPAIGN, campaignChars);
         } else {
           const campaignsToUse =
               filterCampaigns.value && filterCampaigns.value?.size > 0
                 ? filterCampaigns.value?.intersection(new Set([...character.campaigns]))
                 : character.campaigns;
-          [...campaignsToUse].forEach((campaign) => {
-            const campaignChars = charMap.get(campaign) || [];
+          for (const campaign of campaignsToUse) {
+            const campaignChars = unsortedCharMap.get(campaign) || [];
             campaignChars.push(character);
-            charMap.set(campaign, campaignChars);
-          });
+            unsortedCharMap.set(campaign, campaignChars);
+          }
         }
       }
-    })
+    }
+    for (const campaignId of unsortedCharMap.keys()) {
+      const chars = unsortedCharMap.get(campaignId);
+      if (typeof chars !== 'undefined') {
+        unsortedCharMap.set(campaignId, sortCharacters(chars));
+      }
+    }
+    const sortedCharEntries = [...unsortedCharMap.entries()]
+        .sort(([aId], [bId]) => {
+          // Make sure unassigned campaign characters end up at bottom of list.
+          if (aId === UNASSIGNED_CAMPAIGN) return 1;
+          if (bId === UNASSIGNED_CAMPAIGN) return -1;
+          if (aId === bId) return 0
+          else if (aId < bId) return -1
+          return 1;
+        })
+    ;
+    return new Map(sortedCharEntries);
   }
 
-  return charMap;
 });
 
 function applyFilter(filterParams: CharacterFilterParams) {
@@ -109,7 +142,7 @@ useSeoMeta({
 <template>
   <InfoPage page_title="Characters">
     <CharacterFilterModal :params="filterParams" @changed="applyFilter"/>
-    <table v-if="chars.size" class="characters-table">
+    <table v-if="chars?.size" class="characters-table">
       <template v-for="[campaign, campChars] in chars.entries()">
         <tbody>
         <tr class="campaign-header">
@@ -123,6 +156,7 @@ useSeoMeta({
           <th>Name/Player/Type/Tags</th>
           <th>Description</th>
           <th>Aspects</th>
+          <th>Campaigns</th>
         </tr>
         <template v-if="campChars.length" v-for="character in campChars">
           <tr :id="character.id">
@@ -137,12 +171,19 @@ useSeoMeta({
             </td>
             <td>{{ character.description }}</td>
             <td>
-              <ul v-if="character.aspects && character.aspects.length">
+              <ul v-if="character.aspects && character.aspects.length" class="aspects-list">
                 <li v-for="aspect in character.aspects">
                   <span v-if="aspect.aspectType">{{ aspect.aspectType }}: </span><strong>{{ aspect.name }}</strong>
                 </li>
               </ul>
               <p v-else>No Aspects for character.</p>
+            </td>
+            <td>
+              <ul v-if="character.campaigns && character.campaigns.length" class="campaigns-list">
+                <li v-for="campaign in character.campaigns" v-if="campaign">
+                  <NuxtLink :to="{path: '/characters', query: {campaigns: campaign}}">{{ getCampaignTitle(campaign) }}</NuxtLink>
+                </li>
+              </ul>
             </td>
           </tr>
         </template>
@@ -188,6 +229,10 @@ table tr.col-headers th {
   background-color: var(--color-background-soft);
 }
 
+table tr td {
+  vertical-align: top;
+}
+
 div.tags-list {
   display: flex;
   gap: .25rem;
@@ -195,4 +240,23 @@ div.tags-list {
 div.tags-list :last-child {
   font-style: italic;
 }
+table tr td ul {
+  list-style: none;
+  padding-left: .5rem;
+  padding-right: .5rem;
+  gap: 0.5rem;
+}
+
+table tr td ul.campaigns-list {
+  font-size: .7rem;
+}
+
+table tr td ul.campaigns-list li {
+  text-wrap: nowrap;
+  margin-left: 1rem;
+  border: 1px solid var(--color-border);
+  padding: .25rem .5rem;
+  background-color: var(--color-background);
+}
+
 </style>

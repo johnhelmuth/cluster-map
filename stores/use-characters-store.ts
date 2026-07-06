@@ -71,7 +71,8 @@ export async function useCharactersStore() {
   const parseErrors = ref([] as Array<[any, ParseResult]>);
 
   const {data: charactersArray} = await useAsyncData('characters', async () => {
-    const rawCharacters = await $fetch('/api/characters');
+
+    const { characters: rawCharacters } = await $fetch('/api/characters');
     const characters = [] as CharacterData[];
     if (typeof rawCharacters !== "undefined") {
       for (const characterDoc of rawCharacters) {
@@ -89,6 +90,7 @@ export async function useCharactersStore() {
       }
     }
     return characters;
+
   });
 
   const characters = reactive(new Map<string, CharacterModel>());
