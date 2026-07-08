@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import {ModalsContainer} from 'vue-final-modal'
-import {getCSSPageRules} from "~/utils/utils";
+import {getCSSPageRules, setPrintFooter} from "~/utils/utils";
 
 const route = useRoute();
 
@@ -14,15 +14,7 @@ useSeoMeta({
 });
 
 onMounted(() => {
-  // document.querySelector('body')?.style.setProperty('--current-date-time', '"2026-06-24"')
-  const pageRules = getCSSPageRules();
-  if (pageRules && pageRules.length > 0) {
-    const pageRule = pageRules[0];
-    console.log('app.onMounted() pageRule', pageRule)
-    if (Object.hasOwn(pageRules, "style")) {
-
-    }
-  }
+  setPrintFooter();
 })
 </script>
 
