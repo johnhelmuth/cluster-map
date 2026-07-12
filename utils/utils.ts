@@ -64,8 +64,7 @@ export function dateFormat(d: Date) {
 export function dateTimeFormat(d: Date) {
   const hour = leadingZeros(d.getHours().toString(10),2);
   const minute = leadingZeros(d.getMinutes().toString(10),2);
-  const second = leadingZeros(d.getSeconds().toString(10),2);
-  return dateFormat(d) + ' ' + [hour, minute, second].join(':');
+  return dateFormat(d) + ' ' + [hour, minute].join(':');
 }
 
 export function fround(f: number) {
@@ -79,24 +78,5 @@ export function getCSSPageRules() {
         return rule instanceof CSSPageRule;
       })
     }).flat().filter(Boolean);
-  }
-}
-
-export function setPrintFooter() {
-  if (import.meta.client) {
-    // Set up a footer that includes the current datetime.
-    for (const sheet of document.styleSheets) {
-      for (const rule of sheet.cssRules) {
-        if (rule instanceof CSSPageRule && typeof rule?.cssRules !== 'undefined') {
-          for (const subRule of rule.cssRules) {
-            // @ts-ignore
-            if (subRule instanceof CSSMarginRule && subRule.name === 'bottom-left' && typeof subRule.style !== 'undefined') {
-              // @ts-ignore
-              subRule.style.setProperty('content', `"Printed on ${dateTimeFormat(new Date())}"`)
-            }
-          }
-        }
-      }
-    }
   }
 }

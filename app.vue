@@ -1,7 +1,6 @@
 <script setup lang="ts">
 
 import {ModalsContainer} from 'vue-final-modal'
-import {getCSSPageRules, setPrintFooter} from "~/utils/utils";
 
 const route = useRoute();
 
@@ -13,9 +12,6 @@ useSeoMeta({
   }
 });
 
-onMounted(() => {
-  setPrintFooter();
-})
 </script>
 
 <template>
