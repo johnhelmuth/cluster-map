@@ -31,16 +31,16 @@
     },
     "campaigns": {
       "title": "Campaigns",
-      "description": "A list of campaigns this character is in.",
+      "description": "A list of campaign IDs this character is in.",
       "type": "array",
       "items": {
         "type": "string",
-        "title": "Campaign name",
-        "description": "The name of one of the campaigns the character is in."
+        "title": "Campaign ID",
+        "description": "The IDs of the campaigns the character is in."
       }
     },
     "description": {
-      "description": "The description of the character.",
+      "description": "The description of the character, Markdown allowed.",
       "type": "string"
     },
     "characterType": {
@@ -89,7 +89,7 @@
             "type": "string"
           },
           "description": {
-            "description": "A description of the Aspect, giving a little more context.",
+            "description": "A description of the Aspect, giving a little more context, Markdown allowed.",
             "type": "string"
           },
           "freeInvokes": {
@@ -172,7 +172,7 @@
           },
           "description": {
             "type": "string",
-            "description": "A description of the stunt describe the mechanical or narrative effect of the stunt and the conditions under which it applies."
+            "description": "A description of the stunt describe the mechanical or narrative effect of the stunt and the conditions under which it applies. Markdown allowed."
           },
           "parameters": {
             "type": "object",
@@ -262,6 +262,10 @@
               "name": {
                 "type": "string",
                 "description": "The Aspect representing the consequence in this track."
+              },
+              "description": {
+                "description": "A description of the Consequence Aspect, giving a little more context, Markdown allowed.",
+                "type": "string"
               },
               "freeInvokes": {
                 "type": "number",

@@ -68,6 +68,15 @@ export default defineNuxtConfig({
         dir: "../data/characters", // bundle characters/ as server assets
       },
     ],
+
+    publicAssets: [
+      {
+        baseURL: "data/schemas",
+        dir: "../data/schemas",
+        maxAge: 3600,
+      },
+    ],
+
   },
 
   vite: {
