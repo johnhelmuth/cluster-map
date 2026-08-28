@@ -20,6 +20,9 @@
     },
     {
       "name": "I Don't Like Having to Learn New Things"
+    },
+    {
+      "name": "I am good at telling if non-vat-clones are lying"
     }
   ],
   "images": [
@@ -63,7 +66,19 @@
       "rank": 2
     },
     {
+      "name": "Fight",
+      "rank": 2
+    },
+    {
       "name": "Empathy",
+      "rank": 1
+    },
+    {
+      "name": "Provoke",
+      "rank": 1
+    },
+    {
+      "name": "Shoot",
       "rank": 1
     }
   ],
