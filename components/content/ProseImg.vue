@@ -29,7 +29,7 @@ import {withTrailingSlash, withLeadingSlash, joinURL} from 'ufo'
 import {useRuntimeConfig, computed} from '#imports'
 
 export type alignType = 'center' | 'left' | 'right';
-export type sizeType = 'x-small' | 'small' | 'medium' | 'large';
+export type sizeType = 'xx-small' | 'x-small' | 'small' | 'medium' | 'large';
 
 const props = defineProps({
   src: {

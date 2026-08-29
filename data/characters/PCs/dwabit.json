@@ -95,6 +95,15 @@
     {
       "name": "Percussive Maintenance",
       "description": "Substitute Physique for Engineering for Overcome rolls when trying to fix technology by smacking it."
+    },
+    {
+      "name": "Wrecking Ball",
+      "description": "+2 to Attack with Fight when charging a mob at least one zone away.",
+      "parameters": {
+        "trait": "Fight",
+        "modifier": 2,
+        "actions": [ "Attack" ]
+      }
     }
   ],
   "tracks": [

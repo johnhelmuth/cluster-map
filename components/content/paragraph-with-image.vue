@@ -5,7 +5,7 @@ import {useRuntimeConfig, computed} from '#imports'
 
 export type alignType = 'center' | 'left' | 'right';
 export type verticalPositionType = 'before' | 'after';
-export type sizeType = 'x-small' | 'small' | 'medium' | 'large';
+export type sizeType = 'xx-small' | 'x-small' | 'small' | 'medium' | 'large';
 
 const props = defineProps({
   src: {
@@ -49,7 +49,7 @@ function isValidAlign(value: any): value is alignType {
   return value && ['left', 'center', 'right'].includes(value);
 }
 function isValidSize(value: any): value is sizeType {
-  return value && ['x-small', 'small', 'medium', 'large'].includes(value);
+  return value && ['xx-small', 'x-small', 'small', 'medium', 'large'].includes(value);
 }
 function isValidVerticalPosition(value: any): value is verticalPositionType {
   return value && ['before', 'after'].includes(value);
@@ -210,6 +210,9 @@ div.paragraph-with-image.left div.figure-container figure img, div.paragraph-wit
   width: 40cqw; /* Smaller for floating images, left or right. */
 }
 /* Except when the size is explicitly called for */
+div.paragraph-with-image.xx-small div.figure-container figure img {
+  width: 5cqw
+}
 div.paragraph-with-image.x-small div.figure-container figure img {
   width: 20cqw
 }
