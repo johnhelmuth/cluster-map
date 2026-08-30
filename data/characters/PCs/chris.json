@@ -143,14 +143,20 @@
   ],
   "stunts": [
     {
+      "schemaVersion": "1",
+      "type":  "stunt",
       "name": "Specialist: Orbital Mechanics",
       "description": ""
     },
     {
+      "schemaVersion": "1",
+      "type":  "stunt",
       "name": "Tough as Nails",
       "description": "Once per session, at the cost of a fate point, I can reduce the severity of a moderate consequence that's physical in nature to a mild consequence (if your mild consequence slot is free), or erase a mild consequence altogether."
     },
     {
+      "schemaVersion": "1",
+      "type":  "stunt",
       "name": "Inhaler of Soldier-Caste Pheromones",
       "description": "Once per scene, as a free action, can inhale a type of pheromone, and creates an Aspect like \"Fixated on [Soldier-Caste Priority]\""
     }

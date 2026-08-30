@@ -76,12 +76,17 @@
     {
       "name": "Tuck and Roll Under Fire",
       "description": "+2 on Athletics checks when Defending from ranged weapon fire when there is cover near by me",
-      "parameters": {
-        "trait": "Athletics",
-        "modifier": 2,
-        "actions": ["Defend"],
-        "modificationType": "roll"
-      }
+      "mechanics":  [
+        {
+          "mechanicType": "dice-roll",
+          "parameters": {
+            "trait": "Athletics",
+            "modifier": 2,
+            "actions": ["Defend"],
+            "modificationType": "roll"
+          }
+        }
+      ]
     }
   ],
   "tracks": [

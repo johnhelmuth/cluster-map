@@ -14,7 +14,10 @@ export default defineEventHandler(async (event) => {
   const characterKeys = await assets.keys();
   const charactersData = await assets.getItems(characterKeys);
   for await (const {key, value: characterDoc} of charactersData) {
-    if (key.startsWith("templates:")) {
+    if (
+      key.startsWith("templates:") ||
+      key.startsWith("stunts-db:")
+    ) {
       continue;
     }
     if (parseAsCharacterData(characterDoc)) {

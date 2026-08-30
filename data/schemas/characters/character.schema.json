@@ -124,7 +124,9 @@
             "type": "string"
           }
         },
-        "required": ["uri"]
+        "required": [
+          "uri"
+        ]
       },
       "minItems": 1
     },
@@ -163,59 +165,7 @@
       "type": "array",
       "description": "A list of the stunts the character can use.",
       "items": {
-        "type": "object",
-        "description": "A stunt the character can use.",
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "The name of the stunt"
-          },
-          "description": {
-            "type": "string",
-            "description": "A description of the stunt describe the mechanical or narrative effect of the stunt and the conditions under which it applies. Markdown allowed."
-          },
-          "parameters": {
-            "type": "object",
-            "description": "The details of the mechanical effect of a stunt.",
-            "properties": {
-              "trait": {
-                "type": "string",
-                "description": "The trait (from the 'trait[].name' list) that the mechanics of this stunt applies."
-              },
-              "modifier": {
-                "type": "integer",
-                "description": "How many points should be applied as the mechanical effect of the stunt. It can either add to a roll or the shifts of effect from the roll when successful.",
-                "minimum": 1
-              },
-              "actions": {
-                "type": "array",
-                "description": "The action types to which the mechanical effect applies.",
-                "items": {
-                  "enum": [
-                    "Overcome",
-                    "CaA",
-                    "Defend",
-                    "Attack"
-                  ]
-                },
-                "uniqueItems": true,
-                "minItems": 1
-              },
-              "modificationType": {
-                "type": "string",
-                "description": "The part of the resolution task to which the modifier is applied, either the total of the roll, or the total of the effect when the roll is successful.",
-                "enum": [
-                  "roll",
-                  "effect"
-                ],
-                "default": "roll"
-              }
-            }
-          }
-        },
-        "required": [
-          "description"
-        ]
+        "$ref": "https://in-dire-straits.space/data/schemas/characters/stunt.schema.json"
       }
     },
     "tracks": {

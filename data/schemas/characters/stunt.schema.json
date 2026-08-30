@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://in-dire-straits.space/data/schemas/characters/stunt.schema.json",
+  "title": "Stunt",
+  "description": "A stunt for a character in a Role Playing Game.",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "description": "The version of the schema for the data.",
+      "type": "string",
+      "const": "1"
+    },
+    "type": {
+      "description": "The type of thingy the data describes, 'stunt'.",
+      "type": "string",
+      "const": "stunt"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the stunt"
+    },
+    "description": {
+      "type": "string",
+      "description": "A description of the stunt describe the mechanical or narrative effect of the stunt and the conditions under which it applies. Markdown allowed."
+    },
+    "mechanics": {
+      "type": "array",
+      "title": "Rules mechanics",
+      "description": "A list of rules mechanics that are triggered by this stunt.",
+      "items": {
+        "mechanicType": {
+          "title": "Stunt mechanic type",
+          "description": "The type of rule mechanics this stunt enables.",
+          "enum": [
+            "dice-roll",
+            "add-consequence"
+          ]
+        },
+        "if": {
+          "mechanicType": {
+            "enum": [
+              "dice-roll",
+              "add-consequence"
+            ]
+          }
+        },
+        "then": {
+          "required": [
+            "parameters"
+          ],
+          "parameters": {
+            "type": "object",
+            "description": "The details of the mechanical effect of a stunt.",
+            "if": {
+              "mechanicType": {
+                "const": "dice-roll"
+              }
+            },
+            "then": {
+              "properties": {
+                "trait": {
+                  "type": "string",
+                  "description": "The trait (from the 'trait[].name' list) that the mechanics of this stunt applies."
+                },
+                "modifier": {
+                  "type": "integer",
+                  "description": "How many points should be applied as the mechanical effect of the stunt. It can either add to a roll or the shifts of effect from the roll when successful.",
+                  "minimum": 1
+                },
+                "actions": {
+                  "type": "array",
+                  "description": "The action types to which the mechanical effect applies.",
+                  "items": {
+                    "enum": [
+                      "Overcome",
+                      "CaA",
+                      "Defend",
+                      "Attack"
+                    ]
+                  },
+                  "uniqueItems": true,
+                  "minItems": 1
+                },
+                "modificationType": {
+                  "type": "string",
+                  "description": "The part of the resolution task to which the modifier is applied, either the total of the roll, or the total of the effect when the roll is successful.",
+                  "enum": [
+                    "roll",
+                    "effect"
+                  ],
+                  "default": "roll"
+                }
+              },
+              "required": ["trait", "modifier"]
+            },
+            "else": {
+              "if": {
+                "mechanicType": {
+                  "const": "add-consequence"
+                }
+              },
+              "then": {
+                "properties": {
+                  "consequenceLevel": {
+                    "title": "Consequence Level",
+                    "description": "The level of the consequence, Mild (2), Moderate (4), Severe (6). The track must be manually included in the \"tracks\" property.",
+                    "enum": [
+                      "mild",
+                      "moderate",
+                      "severe"
+                    ]
+                  },
+                  "trackLabel": {
+                    "type": "string",
+                    "description": "The label or title for this track."
+                  }
+                },
+                "required": [
+                  "consequenceLevel",
+                  "trackLabel"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "description"
+  ]
+}

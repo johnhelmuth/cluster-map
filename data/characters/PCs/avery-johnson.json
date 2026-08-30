@@ -5,7 +5,9 @@
   "name": "Avery Johnson",
   "playerName": "Chance",
   "description": "Security for SMTF",
-  "campaigns": ["one-shot-4"],
+  "campaigns": [
+    "one-shot-4"
+  ],
   "characterType": "PC",
   "refresh": 3,
   "fatePoints": 3,
@@ -22,7 +24,6 @@
       "aspectType": "Oneshot Reason",
       "name": "To boldly go"
     }
-
   ],
   "traitType": "skill",
   "traits": [
@@ -109,7 +110,7 @@
           "soakValue": 6
         }
       ],
-      "aspect":{
+      "aspect": {
         "name": "",
         "freeInvokes": 0,
         "state": "free"
@@ -118,14 +119,23 @@
   ],
   "stunts": [
     {
+      "schemaVersion": "1",
+      "type":  "stunt",
       "name": "Prefers to disable",
       "description": "Because I ***Prefer to Disable*** my opponents, I get +2 to Shoot Attacks when I am using a gun to stun or otherwise not kill.",
-      "parameters": {
-        "trait": "Shoot",
-        "modifier": 2,
-        "actions": ["Attack"],
-        "modificationType": "roll"
-      }
+      "mechanics": [
+        {
+          "mechanicType": "dice-roll",
+          "parameters": {
+            "trait": "Shoot",
+            "modifier": 2,
+            "actions": [
+              "Attack"
+            ],
+            "modificationType": "roll"
+          }
+        }
+      ]
     }
   ],
   "notes": [

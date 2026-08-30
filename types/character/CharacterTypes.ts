@@ -65,6 +65,13 @@ export const ActionTypes = {
 
 export type ActionTypesKeys = keyof typeof ActionTypes;
 
+export const ConsequenceTypes = {
+  "mild": "Mild",
+  "moderate": "Moderate",
+  "severe": "Severe"
+}
+export type ConsequenceType = keyof typeof ConsequenceTypes;
+
 export const ModificationTypes = {
   "roll": "Roll",
   "effect": "effect"
@@ -72,17 +79,36 @@ export const ModificationTypes = {
 
 export type ModificationTypesKeys = keyof typeof ModificationTypes;
 
-export type StuntParametersData = {
-  trait?: string,
-  modifier?: number,
-  actions?: Array<ActionTypesKeys>,
-  modificationType?: ModificationTypesKeys
+export const StuntMechanicTypes = {
+  "dice-roll": "Dice roll",
+  "add-consequence": "Add consequence slot"
 }
+
+export type StuntMechanicType = keyof typeof StuntMechanicTypes;
+
+export type StuntMechanicDieRollData = {
+  mechanicType: "dice-roll",
+  parameters: {
+    trait: string,
+    modifier: number,
+    actions?: Array<ActionTypesKeys>,
+    modificationType?: ModificationTypesKeys
+  }
+}
+
+export type StuntMechanicAddConsequenceData = {
+  mechanicType: "add-consequence",
+  parameters: {
+    consequenceLevel: ConsequenceType,
+    trackLabel: string
+  }
+}
+export type StuntMechanicData = StuntMechanicDieRollData | StuntMechanicAddConsequenceData;
 
 export interface StuntData {
   name?: string,
   description?: string,
-  parameters?: StuntParametersData
+  mechanics: StuntMechanicData[]
 }
 
 export interface BoxData {

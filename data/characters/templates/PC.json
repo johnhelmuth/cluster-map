@@ -37,14 +37,21 @@
   ],
   "stunts": [
     {
+      "schemaVersion": "1",
+      "type":  "stunt",
       "name": "",
       "description": "",
-      "parameters": {
-        "trait": "",
-        "modifier": 2,
-        "actions": ["Overcome"],
-        "modificationType": "roll"
-      }
+      "mechanics": [
+        {
+          "mechanicType": "dice-roll",
+          "parameters": {
+            "trait": "",
+            "modifier": 2,
+            "actions": ["Overcome"],
+            "modificationType": "roll"
+          }
+        }
+      ]
     }
   ],
   "tracks": [

@@ -17,7 +17,11 @@ const props = defineProps<{
       <li v-for="(stunt, indx) in stunts" class="stunt-item property-item">
         <h4>{{ stunt.name }}</h4>
         <MDC v-if="stunt.description" :value="stunt.description" />
-        <p v-if="character.stuntDiceExpression(indx)?.description">{{ character.stuntDiceExpression(indx)?.description}}</p>
+        <template v-if="stunt.mechanics?.length" >
+          <p v-for="mechanicDescription in character.stuntMechanicsDescription(indx)" class="mechanic-description">{{
+              mechanicDescription.description
+            }}</p>
+        </template>
       </li>
     </ul>
   </div>
@@ -28,5 +32,11 @@ const props = defineProps<{
 
 .stunt-item > * {
   grid-column: 1 / 3;
+}
+
+.stunt-item .mechanic-description {
+  font-style: italic;
+  text-align: right;
+  font-size: .9rem;
 }
 </style>

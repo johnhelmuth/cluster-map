@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "1",
+  "type": "stunt",
+  "name": "Tougher than your average bear",
+  "description": "Because I am *tougher than your average bear*, I get an extra Mild (2) Consequence slot that can only be used for physical consequences.",
+  "mechanics": [
+    {
+      "mechanicType": "add-consequence",
+      "parameters": {
+        "consequenceLevel": "mild",
+        "trackLabel": "Mild (Phys)"
+      }
+    }
+  ]
+}

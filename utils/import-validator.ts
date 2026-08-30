@@ -6,6 +6,7 @@ import systemSchema from '~/data/schemas/clusters/system.schema.json';
 import clusterSchema from '~/data/schemas/clusters/cluster.schema.json';
 import clustersSchema from '~/data/schemas/clusters/clusters.schema.json';
 import characterSchema from '~/data/schemas/characters/character.schema.json';
+import stuntSchema from '~/data/schemas/characters/stunt.schema.json';
 import userPreferencesSchema from '~/data/schemas/user-preferences.schema.json';
 import type { CharacterData } from '~/types/character/CharacterTypes';
 import type {UserPreferencesData} from "~/composables/use-user-preferences";
@@ -24,6 +25,9 @@ export function getParseClusters() : Parse {
 }
 
 export const parseCharacter = parser(characterSchema, {
+  schemas: {
+    "https://in-dire-straits.space/data/schemas/characters/stunt.schema.json": stuntSchema
+  },
   mode: "lax",
   includeErrors: true,
 });
