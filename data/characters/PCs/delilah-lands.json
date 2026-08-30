@@ -128,7 +128,7 @@
       }
     },
     {
-      "trackId": "consequence-mild",
+      "trackId": "consequence-mild-phys",
       "trackLabel": "Mild (Phys)",
       "showSoakAmount": true,
       "boxes": [

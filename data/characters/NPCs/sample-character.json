@@ -101,7 +101,7 @@
   "stunts": [
     {
       "schemaVersion": "1",
-      "type":  "stunt",
+      "type": "stunt",
       "name": "Resolute",
       "description": "In order to steel myself to action, I get +2 to a Will roll to Create an Advantage representing my decision to follow through on that action. The Aspect created can be used to resist efforts to stop me completing the action.",
       "mechanics": [
@@ -113,6 +113,21 @@
             "actions": [
               "CaA"
             ]
+          }
+        }
+      ]
+    },
+    {
+      "schemaVersion": "1",
+      "type": "stunt",
+      "name": "Tougher than your average bear",
+      "description": "Because I am *tougher than your average bear*, I get an extra Mild (2) Consequence slot that can only be used for physical consequences.",
+      "mechanics": [
+        {
+          "mechanicType": "add-consequence",
+          "parameters": {
+            "consequenceLevel": "mild",
+            "trackLabel": "Mild (Phys)"
           }
         }
       ]
@@ -155,6 +170,22 @@
       }
     },
     {
+      "trackId": "consequence-mild-phys",
+      "trackLabel": "Mild (Phys)",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": false,
+          "soakValue": 2
+        }
+      ],
+      "aspect": {
+        "name": "",
+        "freeInvokes": 0,
+        "state": "free"
+      }
+    },
+    {
       "trackId": "consequence-moderate",
       "trackLabel": "Moderate",
       "showSoakAmount": true,
@@ -187,5 +218,7 @@
       }
     }
   ],
-  "tags": ["detective"]
+  "tags": [
+    "detective"
+  ]
 }
