@@ -134,6 +134,8 @@ function applyFilter(filterParams: CharacterFilterParams) {
   navigateTo({query});
 }
 
+const selectedCharacterIds = ref([] as string[])
+
 useSeoMeta({
   title: () => `Characters`,
 })
@@ -142,6 +144,7 @@ useSeoMeta({
 <template>
   <InfoPage page_title="Characters">
     <CharacterFilterModal :params="filterParams" @changed="applyFilter"/>
+    <NuxtLink :to="{ path: '/characters/playing', query: { chars: selectedCharacterIds.join(',')}}">Playing with selected characters</NuxtLink>
     <table v-if="chars?.size" class="characters-table">
       <template v-for="[campaign, campChars] in chars.entries()">
         <tbody>
@@ -157,6 +160,7 @@ useSeoMeta({
           <th>Description</th>
           <th>Aspects</th>
           <th>Campaigns</th>
+          <th></th>
         </tr>
         <template v-if="campChars.length" v-for="character in campChars">
           <tr :id="character.id">
@@ -185,6 +189,7 @@ useSeoMeta({
                 </li>
               </ul>
             </td>
+            <td><input type="checkbox" name="select-character" v-model="selectedCharacterIds" :value="character.id"/></td>
           </tr>
         </template>
         </tbody>

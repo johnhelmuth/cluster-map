@@ -11,10 +11,11 @@ import {
 const { getTraitLabel, getLadderLabel, formatTraitRank } = await useCharactersStore();
 
 const props = defineProps<{
-  "traitType": TraitTypesKeys,
+  "traitType"?: TraitTypesKeys,
   "traits": Array<TraitData>,
   "viewType": TraitViewTypesKeys,
-  allowedViewTypes?: Partial<typeof TraitViewTypes>
+  allowedViewTypes?: Partial<typeof TraitViewTypes>,
+  hideViewTypeSelector?: boolean,
 }>();
 
 const emit = defineEmits<{
@@ -124,7 +125,7 @@ const allowedTraitViewTypes = computed(() => {
   return TraitViewTypes;
 })
 
-const traitLabel = computed(() => getTraitLabel(props.traitType || '', 'plural'));
+const traitLabel = computed(() => typeof props.traitType !== 'undefined' ? getTraitLabel(props.traitType || '', 'plural') : undefined);
 
 function TraitViewTypeChanged(e: Event) {
   console.log('viewTypeChanged() e.target', e.target);
@@ -138,8 +139,8 @@ function TraitViewTypeChanged(e: Event) {
 
 <template>
   <div>
-    <h3>{{ traitLabel }}</h3>
-    <select @change="TraitViewTypeChanged" :aria-label="`${traitLabel} trait list format type`" class="trait-type-view-selector">
+    <h3 v-if="traitLabel">{{ traitLabel }}</h3>
+    <select v-if="! hideViewTypeSelector" @change="TraitViewTypeChanged" :aria-label="`${traitLabel} trait list format type`" class="trait-type-view-selector">
       <option
           v-for="(label, value) in allowedTraitViewTypes"
           :value="value"

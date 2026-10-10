@@ -187,6 +187,15 @@ export class CharacterModel implements CharacterData {
     return 0;
   }
 
+  peakTraits(numTraits = 3) {
+    if (this.traits.length > 0) {
+      return this.traits
+        .sort((a, b) => this.getTraitRank(b.name) - this.getTraitRank(a.name))
+        .slice(0, numTraits);
+    }
+    return [] as TraitData[];
+  }
+
   toLink() {
     if (this?.id) {
       return `/characters/${this.id}`;

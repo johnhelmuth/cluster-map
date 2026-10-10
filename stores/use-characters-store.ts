@@ -105,6 +105,17 @@ export async function useCharactersStore() {
     return typeof characters !== 'undefined' && characters.has(characterId) ? characters.get(characterId) : undefined;
   }
 
+  function getCharacters(characterIds: string[]): CharacterModel[] {
+    const characters: CharacterModel[] = [];
+    for (const characterId of characterIds) {
+      const char = getCharacter(characterId);
+      if (typeof char !== "undefined") {
+        characters.push(char);
+      }
+    }
+    return characters;
+  }
+
   function getCharactersByTag(tag: string) {
     const charactersList = [];
     if (typeof characters !== "undefined") {
@@ -151,6 +162,7 @@ export async function useCharactersStore() {
     parseErrors,
     characters,
     getCharacter,
+    getCharacters,
     getCharactersByTag,
     getCharacterTags,
     getCharacterCampaigns,
