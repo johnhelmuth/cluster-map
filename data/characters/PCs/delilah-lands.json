@@ -92,7 +92,7 @@
       "schemaVersion": "1",
       "type":  "stunt",
       "name": "Self-Repair Protocol",
-      "description": "Because ***I've engineered my own cyberbody with knowledge on how to fix itself***, I can reduce a moderate injury to a mild,"
+      "description": "Because ***I've engineered my own cyberbody***, in the scene after I receive a moderate consequence, my automatic self-repair protocol reduces it to a mild consequence, and automatically makes a successful recover roll for that mild consequence."
     }
   ],
   "tracks": [
@@ -175,5 +175,9 @@
         "state": "free"
       }
     }
+  ],
+  "notes": [
+    "***Cyborg body capabilities***",
+    "* Voice synth/modulation","* Equipment compartments","* Recording software","* Advanced audio/visual sensors","* Oxygen recycler","* Integrated smart phone/computer for communications"
   ]
 }
