@@ -159,22 +159,6 @@
       "showSoakAmount": true,
       "boxes": [
         {
-          "isUsed": true,
-          "soakValue": 2
-        }
-      ],
-      "aspect": {
-        "name": "Bruised knuckles",
-        "freeInvokes": 2,
-        "state": "used"
-      }
-    },
-    {
-      "trackId": "consequence-mild-phys",
-      "trackLabel": "Mild (Phys)",
-      "showSoakAmount": true,
-      "boxes": [
-        {
           "isUsed": false,
           "soakValue": 2
         }
@@ -183,6 +167,22 @@
         "name": "",
         "freeInvokes": 0,
         "state": "free"
+      }
+    },
+    {
+      "trackId": "consequence-mild-phys",
+      "trackLabel": "Mild (Phys)",
+      "showSoakAmount": true,
+      "boxes": [
+        {
+          "isUsed": true,
+          "soakValue": 2
+        }
+      ],
+      "aspect": {
+        "name": "Bruised knuckles",
+        "freeInvokes": 2,
+        "state": "used"
       }
     },
     {
@@ -213,7 +213,7 @@
       ],
       "aspect": {
         "name": "Compound fracture, left shin.",
-        "freeInvokes": 1,
+        "freeInvokes": 0,
         "state": "recovering"
       }
     }

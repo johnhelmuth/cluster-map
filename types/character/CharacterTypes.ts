@@ -48,6 +48,54 @@ export interface ConsequenceAspectData extends AspectData {
   state: ConsequenceStateTypeKeys,
 }
 
+export function isAspectData(data: any): data is AspectData {
+  if (typeof data !== 'undefined' && typeof data === 'object') {
+    if (typeof data?.name !== 'undefined') {
+      if (typeof data?.description === 'undefined' || typeof data?.description === 'string') {
+        if (typeof data?.freeInvokes === 'undefined' || typeof data?.freeInvokes === 'number') {
+          return true;
+        }
+      }
+    }
+  }
+  return false;
+}
+
+export function isCharacterAspectData(data: any): data is CharacterAspectData {
+  if (isAspectData(data)) {
+    // @ts-ignore
+    if (typeof data?.aspectType === 'undefined') {
+      return true;
+    }
+    // @ts-ignore
+    if (typeof data?.aspectType === 'string') {
+      // @ts-ignore
+      if (AspectTypes.hasOwnProperty(data?.aspectType)) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+export function isConsequenceAspectData(data: any): data is ConsequenceAspectData {
+  if (isAspectData(data)) {
+    // @ts-ignore
+    if (typeof data?.state === 'undefined') {
+      return true;
+    }
+    // @ts-ignore
+    if (typeof data?.state === 'string') {
+      // @ts-ignore
+      if (ConsequenceStateType.hasOwnProperty(data?.state)) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+
 export const ConsequenceStateType = {
   free: "Free",
   used: "Used",

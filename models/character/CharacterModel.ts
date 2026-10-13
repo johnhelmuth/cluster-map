@@ -187,6 +187,16 @@ export class CharacterModel implements CharacterData {
     return 0;
   }
 
+  highConcept(property = 'name') {
+    const hcAspect = this.aspects.find(a => a.aspectType === 'High Concept');
+    if (typeof hcAspect !== 'undefined') {
+      if (hcAspect.hasOwnProperty(property)) {
+        return hcAspect[property as keyof CharacterAspectData];
+      }
+      return hcAspect.name;
+    }
+  }
+
   peakTraits(numTraits = 3) {
     if (this.traits.length > 0) {
       return this.traits

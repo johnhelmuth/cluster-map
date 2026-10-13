@@ -58,8 +58,8 @@ function sortCharacters(chars: CharacterModel[]) {
   const undefinedType = 'ZZZZZZZ';
   const typeOrder = ['PC', 'NPC', 'ship', 'mob', undefinedType];
   return chars.sort((a, b) => {
-    const aTypeOrder = typeOrder.indexOf(a.characterType??undefinedType);
-    const bTypeOrder = typeOrder.indexOf(b.characterType??undefinedType);
+    const aTypeOrder = typeOrder.indexOf(a.characterType ?? undefinedType);
+    const bTypeOrder = typeOrder.indexOf(b.characterType ?? undefinedType);
 
     if (aTypeOrder !== bTypeOrder) {
       return aTypeOrder - bTypeOrder;
@@ -89,8 +89,8 @@ const chars = computed(() => {
         } else {
           const campaignsToUse =
               filterCampaigns.value && filterCampaigns.value?.size > 0
-                ? filterCampaigns.value?.intersection(new Set([...character.campaigns]))
-                : character.campaigns;
+                  ? filterCampaigns.value?.intersection(new Set([...character.campaigns]))
+                  : character.campaigns;
           for (const campaign of campaignsToUse) {
             const campaignChars = unsortedCharMap.get(campaign) || [];
             campaignChars.push(character);
@@ -120,6 +120,18 @@ const chars = computed(() => {
 
 });
 
+const allFilteredCharIds = computed(() => {
+  if (typeof chars.value !== 'undefined') {
+    const charIdsSet = new Set<string>();
+    for (const campChars of chars.value.values()) {
+      for (const c of campChars) {
+        charIdsSet.add(c.id)
+      }
+    }
+    return [...charIdsSet];
+  }
+})
+
 function applyFilter(filterParams: CharacterFilterParams) {
   const query = {} as Record<keyof CharacterFilterParams, string>;
   if (filterParams?.campaigns && filterParams?.campaigns?.length > 0) {
@@ -134,7 +146,60 @@ function applyFilter(filterParams: CharacterFilterParams) {
   navigateTo({query});
 }
 
+function toggleAllSelect(e: Event) {
+  if (typeof chars.value !== 'undefined') {
+    const target = e.target as HTMLInputElement;
+    const newState = target.checked;
+    if (newState) {
+      if (typeof allFilteredCharIds.value !== 'undefined') {
+        selectedCharacterIds.value = [...allFilteredCharIds.value];
+      }
+    } else {
+      selectedCharacterIds.value = [] as string[];
+    }
+  }
+}
+
 const selectedCharacterIds = ref([] as string[])
+
+const selectAllCheckbox = useTemplateRef('selectAll')
+watch([selectedCharacterIds, allFilteredCharIds], (newValue, oldValue) => {
+  if (import.meta.client) {
+    if (typeof selectedCharacterIds.value !== 'undefined' &&
+        typeof allFilteredCharIds.value !== 'undefined' &&
+        typeof selectAllCheckbox.value !== 'undefined' && selectAllCheckbox.value
+    ) {
+      const selectedCount = selectedCharacterIds.value.length;
+      const allFilteredCount = allFilteredCharIds.value.length;
+      if (allFilteredCount > 0) {
+        if (selectedCount === 0) {
+          selectAllCheckbox.value.checked = false;
+          selectAllCheckbox.value.indeterminate = false;
+        } else if (selectedCount < allFilteredCount) {
+          selectAllCheckbox.value.checked = false;
+          selectAllCheckbox.value.indeterminate = true;
+        } else if (selectedCount >= allFilteredCount) {
+          selectAllCheckbox.value.checked = true;
+          selectAllCheckbox.value.indeterminate = false;
+          if (selectedCount > allFilteredCount) {
+            const selectedSet = new Set<string>(selectedCharacterIds.value);
+            const allFilteredSet = new Set<string>(allFilteredCharIds.value);
+            const newSelectedCharacterids = [...allFilteredSet.intersection(selectedSet)]
+            if (newSelectedCharacterids.length !== allFilteredCount) {
+              throw new Error('Something went wrong.');
+            }
+            selectedCharacterIds.value = newSelectedCharacterids;
+          }
+        }
+      } else {
+        /* There are no filtered characters, selected characters need to be set to 0. */
+        selectAllCheckbox.value.checked = false;
+        selectAllCheckbox.value.indeterminate = false;
+        selectedCharacterIds.value = [] as string[];
+      }
+    }
+  }
+})
 
 useSeoMeta({
   title: () => `Characters`,
@@ -143,13 +208,13 @@ useSeoMeta({
 
 <template>
   <InfoPage page_title="Characters">
-    <CharacterFilterModal :params="filterParams" @changed="applyFilter"/>
-    <NuxtLink :to="{ path: '/characters/playing', query: { chars: selectedCharacterIds.join(',')}}">Playing with selected characters</NuxtLink>
+    <input type="checkbox" ref="selectAll" name="select-all" @click="toggleAllSelect"/>
+    <CharacterFilterModal :params="filterParams" :selectedCharacterIds="selectedCharacterIds" @changed="applyFilter"/>
     <table v-if="chars?.size" class="characters-table">
       <template v-for="[campaign, campChars] in chars.entries()">
         <tbody>
         <tr class="campaign-header">
-          <th colspan="4">
+          <th colspan="5">
             <div>
               {{ campaign !== UNASSIGNED_CAMPAIGN ? getCampaignTitle(campaign) : 'No campaign' }}
             </div>
@@ -170,8 +235,12 @@ useSeoMeta({
               </NuxtLink>
               <div v-else>{{ character.name }}</div>
               <div v-if="character.playerName">{{ character.playerName }}</div>
-              <div v-if="character.characterType && (! character.playerName || character.characterType !== 'PC')">Type: {{ character.characterType }}</div>
-              <div class="tags-list" v-if="character.tags.length > 0">Tags: <div>{{ character.renderTagsList() }}</div></div>
+              <div v-if="character.characterType && (! character.playerName || character.characterType !== 'PC')">Type:
+                {{ character.characterType }}
+              </div>
+              <div class="tags-list" v-if="character.tags.length > 0">Tags:
+                <div>{{ character.renderTagsList() }}</div>
+              </div>
             </td>
             <td>{{ character.description }}</td>
             <td>
@@ -185,11 +254,15 @@ useSeoMeta({
             <td>
               <ul v-if="character.campaigns && character.campaigns.length" class="campaigns-list">
                 <li v-for="campaign in character.campaigns" v-if="campaign">
-                  <NuxtLink :to="{path: '/characters', query: {campaigns: campaign}}">{{ getCampaignTitle(campaign) }}</NuxtLink>
+                  <NuxtLink :to="{path: '/characters', query: {campaigns: campaign}}">{{
+                      getCampaignTitle(campaign)
+                    }}
+                  </NuxtLink>
                 </li>
               </ul>
             </td>
-            <td><input type="checkbox" name="select-character" v-model="selectedCharacterIds" :value="character.id"/></td>
+            <td class="select-character"><input type="checkbox" name="select-character" v-model="selectedCharacterIds"
+                                                :value="character.id"/></td>
           </tr>
         </template>
         </tbody>
@@ -200,6 +273,14 @@ useSeoMeta({
 </template>
 
 <style scoped>
+
+input[name="select-all"] {
+  position: fixed;
+  position-anchor: --info-content;
+  z-index: calc(var(--layers-content) - 1);
+  right: calc(anchor(right) + 0.75rem);
+  top: calc(anchor(top) + 4rem);
+}
 
 div table.characters-table {
   background-color: var(--color-background);
@@ -238,13 +319,20 @@ table tr td {
   vertical-align: top;
 }
 
+table tr td.select-character {
+  text-align: center;
+  vertical-align: middle;
+}
+
 div.tags-list {
   display: flex;
   gap: .25rem;
 }
+
 div.tags-list :last-child {
   font-style: italic;
 }
+
 table tr td ul {
   list-style: none;
   padding-left: .5rem;

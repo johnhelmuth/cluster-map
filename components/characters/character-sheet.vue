@@ -66,7 +66,8 @@ function traitTypeChanged(viewType: TraitViewTypesKeys): void {
     <AspectList
         :aspects="character.aspects"
         v-if="character.aspects && character.aspects.length"
-        class="block aspect-list left-half"
+        class="block aspect-list"
+        :class="actualTraitViewType === 'pyramid' ? 'left-half' : 'first-three-columns'"
         @useInvoke="useCharacterAspectInvoke"
     />
     <TraitList
@@ -76,7 +77,8 @@ function traitTypeChanged(viewType: TraitViewTypesKeys): void {
         :view-type="actualTraitViewType"
         :allowed-view-types="allowedTraitViewTypes"
         @traitViewTypeChanged="traitTypeChanged"
-        class="block trait-list right-half"
+        class="block trait-list"
+        :class="actualTraitViewType === 'pyramid' ? 'right-half' : 'last-column'"
     />
     <TrackList
         v-if="character.tracks && character.tracks.length"

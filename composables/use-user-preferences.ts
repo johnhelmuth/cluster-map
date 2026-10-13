@@ -4,22 +4,24 @@ import {isUserPreferences} from "~/utils/import-validator";
 
 const LOCALSTORAGE_USER_PREFERENCES_KEY = 'cm-user-preferences';
 
-const USER_PREFERENCES_SCHEMA_VERSION = '1';
+const USER_PREFERENCES_SCHEMA_VERSION = '2';
 export type UserPreferencesData = {
   type: 'user-preferences',
   schemaVersion: typeof USER_PREFERENCES_SCHEMA_VERSION,
   characterSheet: {
     traitViewStyle: TraitViewTypesKeys,
   },
+  nowPlayingCharacters: string[],
   lastUpdated: number;
 }
 
 const userPreferences = reactive<UserPreferencesData>({
   type: 'user-preferences',
-  schemaVersion: '1',
+  schemaVersion: USER_PREFERENCES_SCHEMA_VERSION,
   characterSheet: {
     traitViewStyle: 'name',
   },
+  nowPlayingCharacters: [],
   lastUpdated: 0,
 })
 
@@ -39,10 +41,27 @@ export default function useUserPreferences() {
       if (! lsUserPreferencesJSON) {
         savePreferences();
       } else {
+        let needsUpdate = false;
         const lsUserPreferences = JSON.parse(lsUserPreferencesJSON);
+        if (
+          typeof lsUserPreferences !== "undefined"
+          && typeof lsUserPreferences.schemaVersion !== "undefined"
+          && lsUserPreferences.schemaVersion < USER_PREFERENCES_SCHEMA_VERSION
+        ) {
+          /* Convert version 1 to version 2 */
+          if (typeof lsUserPreferences.nowPlayingCharacters === 'undefined') {
+            lsUserPreferences.nowPlayingCharacters = [] as string[];
+          }
+          lsUserPreferences.schemaVersion = USER_PREFERENCES_SCHEMA_VERSION;
+          needsUpdate = true;
+        }
         if (lsUserPreferences && isUserPreferences(lsUserPreferences)) {
           userPreferences.characterSheet.traitViewStyle = lsUserPreferences.characterSheet.traitViewStyle;
+          userPreferences.nowPlayingCharacters = lsUserPreferences.nowPlayingCharacters ?? [] as string[];
           userPreferences.lastUpdated = lsUserPreferences.lastUpdated;
+          if (needsUpdate) {
+            savePreferences();
+          }
         }
       }
     }

@@ -10,16 +10,21 @@ export type CharacterFilterParams = {
   tags?: string[];
 }
 
-const { getCharacterTags, getCharacterCampaigns, getCampaignTitle } = await useCharactersStore();
+const {getCharacters, getCharacterTags, getCharacterCampaigns, getCampaignTitle} = await useCharactersStore();
 
-const { setCurrentOpenModal, closeModal } = useModalStateStore('characterFilterModAl', toggleCharacterFilterModal);
+import useUserPreferences from "~/composables/use-user-preferences";
+
+const {setCurrentOpenModal, closeModal} = useModalStateStore('characterFilterModal', toggleCharacterFilterModal);
+
+const {userPreferences, savePreferences} = useUserPreferences();
 
 const props = defineProps<{
-  params?: CharacterFilterParams
+  params?: CharacterFilterParams,
+  selectedCharacterIds?: string[];
 }>();
 
 const emit = defineEmits<{
-  closed: true;
+  closed: [];
   changed: [filters: CharacterFilterParams];
 }>();
 
@@ -82,6 +87,23 @@ function clearCharacterTypes() {
 function clearTags() {
   selectedTags.value = [] as string[];
 }
+
+const selectedCharacters = computed(() => {
+  if (typeof props.selectedCharacterIds !== 'undefined') {
+    return getCharacters(props.selectedCharacterIds);
+  }
+})
+
+function saveDefaultCharacters() {
+  if (typeof props.selectedCharacterIds !== 'undefined') {
+    userPreferences.nowPlayingCharacters = props.selectedCharacterIds;
+    savePreferences();
+  }
+}
+
+function noOp(e: SubmitEvent) {
+  e.preventDefault();
+}
 </script>
 
 <template>
@@ -90,25 +112,32 @@ function clearTags() {
   >
     <div class="character-filter">
       <h3>Filters</h3>
-      <form name="character-filter-form">
+      <form name="character-filter-form" @submit="noOp">
         <ul>
           <li>
             <label for="campaigns">Campaigns</label>
-            <Icon name="material-symbols:delete-outline-rounded" @click="clearCampaigns" />
-            <select id="campaigns" v-model="selectedCampaigns" class="campaigns-selector" multiple :size="Math.min(campaignsList.size, 4)">
-              <option v-for="campaign in campaignsList" :key="campaign" :value="campaign">{{ getCampaignTitle(campaign) }}</option>
+            <Icon name="material-symbols:delete-outline-rounded" @click="clearCampaigns"/>
+            <select id="campaigns" v-model="selectedCampaigns" class="campaigns-selector" multiple
+                    :size="Math.min(campaignsList.length, 4)">
+              <option v-for="campaign in campaignsList" :key="campaign" :value="campaign">{{
+                  getCampaignTitle(campaign)
+                }}
+              </option>
             </select>
           </li>
           <li>
             <label for="character-types">Character Types</label>
-            <Icon name="material-symbols:delete-outline-rounded" @click="clearCharacterTypes" />
-            <select id="character-types" v-model="selectedCharacterTypes" class="character-types-selector" multiple size="3">
-              <option v-for="(charTypeLabel, charType) in CharacterTypes" :key="charType" :value="charType">{{ charTypeLabel }}</option>
+            <Icon name="material-symbols:delete-outline-rounded" @click="clearCharacterTypes"/>
+            <select id="character-types" v-model="selectedCharacterTypes" class="character-types-selector" multiple
+                    size="3">
+              <option v-for="(charTypeLabel, charType) in CharacterTypes" :key="charType" :value="charType">
+                {{ charTypeLabel }}
+              </option>
             </select>
           </li>
           <li>
             <label for="tags">Tags</label>
-            <Icon name="material-symbols:delete-outline-rounded" @click="clearTags" />
+            <Icon name="material-symbols:delete-outline-rounded" @click="clearTags"/>
             <select id="tags" v-model="selectedTags" class="tags-selector" multiple size="4">
               <option v-for="tag in tagsList" :key="tag" :value="tag">{{ tag }}</option>
             </select>
@@ -120,6 +149,27 @@ function clearTags() {
           <button class="apply-action" @click="applyFilters">Apply</button>
         </div>
       </form>
+      <template v-if="typeof selectedCharacters !== 'undefined' && selectedCharacters.length > 0">
+        <h3>Selected Characters</h3>
+        <ul class="selected-characters-list">
+          <li v-for="c of selectedCharacters" :key="c.id">
+            <div class="selected-name">{{ c.name }}</div>
+            <div class="selected-hc">{{ c.highConcept() }}</div>
+          </li>
+        </ul>
+        <div class="select-actions">
+          <button class="go-to-now-playing">
+            <NuxtLink v-if="selectedCharacterIds"
+                      :to="{ path: '/characters/playing', query: { chars: selectedCharacterIds.join(',')}}">
+              Go to<br>Now Playing Page with<br>Selected Characters
+            </NuxtLink>
+          </button>
+          <button class="save-default-now-playing" @click="saveDefaultCharacters">
+            Save the <br>Selected Characters<br>as Default
+          </button>
+        </div>
+      </template>
+      <p v-else>No selected characters.</p>
     </div>
 
     <Icon class="show-filters" @click="toggleCharacterFilterModal"
@@ -149,6 +199,7 @@ function clearTags() {
   box-shadow: inset -0.1rem -0.1rem 0.1rem grey,
   inset 0.1rem 0.1rem 0.1rem lightgrey;
 }
+
 .show-filters {
   position: fixed;
   font-size: 1.5em;
@@ -158,18 +209,21 @@ function clearTags() {
   z-index: var(--layers-navigation);
   cursor: pointer;
 }
+
 .character-filter-container.is-active .character-filter {
   display: block;
 }
+
 .character-filter-container .character-filter h3 {
   text-align: center;
   margin-top: -0.5rem;
 }
+
 .character-filter-container .character-filter ul {
   list-style: none;
   padding: 0;
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto 2rem;
   align-items: center;
   width: 100%;
 }
@@ -184,10 +238,52 @@ function clearTags() {
   margin-top: .5rem;
 
 }
+.character-filter-container .character-filter ul li select {
+  grid-column: 1 / -1;
+}
 
 .filter-actions {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  margin-bottom: 1.5rem;
+}
+
+.character-filter-container .character-filter ul.selected-characters-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1.5rem max-content;
+  grid-auto-rows: 1fr;
+  align-items: center;
+  width: 100%;
+}
+.character-filter-container .character-filter ul.selected-characters-list li {
+  grid-column: 1 / -1;
+  width: 100%;
+  font-size: .8rem;
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-template-areas: "name name"
+                       ". aspect";
+  grid-auto-rows: min-content;
+  align-items: center;
+  border: 1px solid grey;
+  background-color: var(--color-background);
+  margin-top: .5rem;
+  padding: .5rem;
+}
+.character-filter-container .character-filter ul.selected-characters-list li .selected-name {
+  grid-area: name;
+  font-weight: bold;
+}
+.character-filter-container .character-filter ul.selected-characters-list li .selected-hc {
+  grid-area: aspect;
+  font-style: italic;
+}
+.select-actions {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 1rem;
 }
 
 </style>

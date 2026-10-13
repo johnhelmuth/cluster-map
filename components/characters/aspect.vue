@@ -2,7 +2,12 @@
 
 import { useAttrs } from 'vue'
 
-import type {AspectData} from "~/types/character/CharacterTypes";
+import {
+  type AspectData,
+  type CharacterAspectData,
+  type ConsequenceAspectData,
+  isConsequenceAspectData
+} from "~/types/character/CharacterTypes";
 
 defineOptions({
   inheritAttrs: false
@@ -10,7 +15,7 @@ defineOptions({
 
 const props = defineProps<{
   trackId: string;
-  aspect: AspectData
+  aspect: AspectData | CharacterAspectData | ConsequenceAspectData
 }>();
 
 const emit = defineEmits<{
@@ -42,6 +47,14 @@ const aspectClasses = computed(() => {
   }
 })
 
+const isConsequence = computed(() => isConsequenceAspectData(props.aspect));
+
+const consequenceRecovered = computed(() => {
+  if (isConsequenceAspectData(props.aspect) && typeof props.aspect?.state !== 'undefined') {
+    return props.aspect.state === 'recovering';
+  }
+})
+
 function toggleAccordion() {
   descriptionIsOpen.value = !descriptionIsOpen.value;
 }
@@ -50,6 +63,9 @@ function toggleAccordion() {
 <template>
   <div class="aspect-container" :class="aspect?.freeInvokes > 0 ? 'has-invokes' : ''">
     <div class="aspect-name value" :class="aspectClasses">{{ aspect?.name || '&nbsp' }}
+    </div>
+    <div v-if="isConsequence" class="aspect-recovered">
+      <Icon v-if="consequenceRecovered" name="material-symbols:asterisk-rounded" title="Recovering"/>
     </div>
     <div v-if="aspect?.freeInvokes" class="aspect-invokes">
       <StressBox v-for="index in aspect.freeInvokes"

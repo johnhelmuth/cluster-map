@@ -13,7 +13,7 @@
     "schemaVersion": {
       "description": "The version of the schema for the data.",
       "type": "string",
-      "const": "1"
+      "const": "2"
     },
     "characterSheet": {
       "title": "Character Sheet Preferences",
@@ -25,6 +25,16 @@
           "description": "How should traits on the character sheet be rendered, by Name, by Rank, or as a Pyramid",
           "enum": ["name", "rank", "pyramid"]
         }
+      }
+    },
+    "nowPlayingCharacters": {
+      "title": "Now Playing Characters",
+      "description": "Default list of characters to display on the Now Playing page",
+      "type": "array",
+      "items": {
+        "title": "Character ID",
+        "description": "The ID of the character in the list.",
+        "type": "string"
       }
     },
     "lastUpdated": {

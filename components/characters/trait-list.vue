@@ -16,11 +16,24 @@ const props = defineProps<{
   "viewType": TraitViewTypesKeys,
   allowedViewTypes?: Partial<typeof TraitViewTypes>,
   hideViewTypeSelector?: boolean,
+  hideHeader?: boolean
+  firstCol?: "rank" | "name",
 }>();
 
 const emit = defineEmits<{
   traitViewTypeChanged: [viewType: TraitViewTypesKeys]
 }>();
+
+const firstColumn = computed(() => {
+  if (props.viewType !== "pyramid") {
+    if (typeof props.firstCol !== "undefined") {
+      return props.firstCol;
+    } else if (props.viewType === "name") {
+      return "name";
+    }
+  }
+  return "rank";
+})
 
 function traitCompareFunction(viewType: TraitViewTypesKeys) {
   return function (a: TraitData, b: TraitData): number {
@@ -125,7 +138,7 @@ const allowedTraitViewTypes = computed(() => {
   return TraitViewTypes;
 })
 
-const traitLabel = computed(() => typeof props.traitType !== 'undefined' ? getTraitLabel(props.traitType || '', 'plural') : undefined);
+const traitLabel = computed(() => typeof props.traitType !== 'undefined' ? getTraitLabel(props.traitType, 'plural') : undefined);
 
 function TraitViewTypeChanged(e: Event) {
   console.log('viewTypeChanged() e.target', e.target);
@@ -139,7 +152,7 @@ function TraitViewTypeChanged(e: Event) {
 
 <template>
   <div>
-    <h3 v-if="traitLabel">{{ traitLabel }}</h3>
+    <h3 v-if="! hideHeader">{{ traitLabel }}</h3>
     <select v-if="! hideViewTypeSelector" @change="TraitViewTypeChanged" :aria-label="`${traitLabel} trait list format type`" class="trait-type-view-selector">
       <option
           v-for="(label, value) in allowedTraitViewTypes"
@@ -147,14 +160,23 @@ function TraitViewTypeChanged(e: Event) {
           :selected="value === viewType"
       >{{ label }}</option>
     </select>
-    <ul :class="{[`viewtype-${viewType}`]: true, [`max-slots-${pyrMaxSlots}`]: viewType === 'pyramid'}">
+    <ul :class="{[`viewtype-${viewType}`]: true, [`max-slots-${pyrMaxSlots}`]: viewType === 'pyramid',  [`first-col-${! firstColumn ? 'rank' : firstColumn}`]: true}">
       <template v-if="viewType !== 'pyramid'">
         <li v-for="trait in sortedTraits" class="trait-item property-item">
-          <div class="rank list-label">{{ getLadderLabel(trait.rank) }} ({{
-              formatTraitRank(trait.rank)
-            }})
-          </div>
-          <div class="value name">{{ trait.name }}</div>
+          <template v-if="firstColumn === 'rank'">
+            <div class="rank list-label">{{ getLadderLabel(trait.rank) }} ({{
+                formatTraitRank(trait.rank)
+              }})
+            </div>
+            <div class="value name">{{ trait.name }}</div>
+          </template>
+          <template v-else >
+            <div class="value name">{{ trait.name }}</div>
+            <div class="rank list-label">{{ getLadderLabel(trait.rank) }} ({{
+                formatTraitRank(trait.rank)
+              }})
+            </div>
+          </template>
         </li>
       </template>
       <template v-else>
@@ -164,7 +186,7 @@ function TraitViewTypeChanged(e: Event) {
               formatTraitRank(rank)
             }})
           </div>
-          <div class="traits-ranked-row">
+          <div class="value traits-ranked-row">
             <template v-for="trait in pyrTraitData.traits">
               <div v-if="! trait.name" class="name is-empty">&nbsp;</div>
               <div v-else class="name">{{ trait.name }}</div>
@@ -189,7 +211,6 @@ div.trait-list h3 {
 div.trait-list select {
   grid-column: 2 / -1;
   height: 1.2rem;
-  width: 5rem;
   text-align: center;
   justify-self: right;
 }
@@ -197,37 +218,35 @@ div.trait-list ul {
   width: 100%;
   grid-column: 1 / -1;
   padding-left: 0;
+  list-style: none;
   display: grid;
-  grid-template-columns: auto 1fr;
-  grid-template-areas: "rank name";
+  grid-template-columns: min-content max-content;
+  grid-template-areas: "rank-or-name rank-or-name";
   grid-auto-rows: min-content;
+  row-gap: .25rem;
+}
+div.trait-list ul.viewtype-pyramid {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: max-content 1fr;
+  grid-template-areas: "rank names";
 }
 
 div.trait-list ul li.trait-item {
   grid-column: 1 / -1;
   display: grid;
   grid-template-columns: subgrid;
+  align-items: center;
   column-gap: 1rem;
 }
-div.trait-list ul li.trait-item div.rank {
-  grid-area: rank;
-}
-div.trait-list ul li.trait-item div.name {
-  grid-area: name;
-}
-div.trait-list ul.viewtype-name {
-  grid-template-areas: "name rank";
-}
-div.trait-list ul.viewtype-name li.trait-item div.list-label {
+div.trait-list ul.first-col-name li.trait-item div.list-label {
   text-align: left;
 }
-div.trait-list ul.viewtype-name li.trait-item div.value {
+div.trait-list ul.first-col-name li.trait-item div.value {
   text-align: right;
 }
-div.trait-list ul.viewtype-pyramid {
-  display: grid;
-  grid-template-columns: max-content max-content;
-  grid-template-areas: "rank names";
+div.trait-list ul.first-col-name li.trait-item .name {
+  font-weight: bold;
 }
 
 div.trait-list ul.viewtype-pyramid li.trait-item {
@@ -235,25 +254,35 @@ div.trait-list ul.viewtype-pyramid li.trait-item {
   display: grid;
   grid-template-columns: subgrid;
 }
-
-div.trait-list ul.viewtype-pyramid li.trait-item div.rank {
+div.trait-list ul.viewtype-pyramid li.trait-item .rank {
   grid-area: rank;
   font-size: inherit;
 }
-
 div.trait-list ul.viewtype-pyramid li.trait-item .traits-ranked-row {
   grid-area: names;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-items: center;
-  justify-content: flex-start;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: .5rem;
+}
+div.trait-list ul.viewtype-pyramid.max-slots-2 li.trait-item .traits-ranked-row {
+  grid-template-columns: repeat(2, 1fr);
+}
+div.trait-list ul.viewtype-pyramid.max-slots-3 li.trait-item .traits-ranked-row {
+  grid-template-columns: repeat(3, 1fr);
+}
+div.trait-list ul.viewtype-pyramid.max-slots-4 li.trait-item .traits-ranked-row {
+  grid-template-columns: repeat(4, 1fr);
+}
+div.trait-list ul.viewtype-pyramid.max-slots-5 li.trait-item .traits-ranked-row {
+  grid-template-columns: repeat(5, 1fr);
+}
+div.trait-list ul.viewtype-pyramid.max-slots-6 li.trait-item .traits-ranked-row {
+  grid-template-columns: repeat(6, 1fr);
 }
 
 .traits-ranked-row .name {
   font-weight: bold;
-  width: 5em;
+  min-width: 5em;
   margin-left: .5rem;
 }
 

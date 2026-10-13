@@ -58,11 +58,19 @@
       "rank": 2
     },
     {
-      "name": "Shoot",
+      "name": "Athletics",
+      "rank": 1
+    },
+    {
+      "name": "Contacts",
       "rank": 1
     },
     {
       "name": "Pilot",
+      "rank": 1
+    },
+    {
+      "name": "Shoot",
       "rank": 1
     }
   ],

@@ -2,12 +2,23 @@
 import {
   TraitViewTypes
 } from "~/types/character/CharacterTypes";
+import {useCharactersStore} from "~/stores/use-characters-store";
+import type {CharacterModel} from "~/models/character/CharacterModel";
 
+const {userPreferences, resetPreferences, savePreferences} = useUserPreferences();
+const {getCharacters} = await useCharactersStore();
 
-const {userPreferences, resetPreferences, savePreferences } = useUserPreferences();
 
 const traitViewStyle = ref(userPreferences.characterSheet.traitViewStyle);
+const nowPlayingCharacterIds = ref(userPreferences.nowPlayingCharacters);
 const settingsChanged = ref(false);
+
+const nowPlayingChars = computed(() => {
+  if (typeof nowPlayingCharacterIds.value !== "undefined" && nowPlayingCharacterIds.value.length > 0) {
+    return getCharacters(nowPlayingCharacterIds.value);
+  }
+  return [] as CharacterModel[];
+})
 
 useSeoMeta({
   title: () => `Settings`,
@@ -18,9 +29,15 @@ watch(traitViewStyle, (newVal, oldVal) => {
     settingsChanged.value = true;
   }
 })
+watch(nowPlayingCharacterIds, (newVal, oldVal) => {
+  if (newVal !== oldVal && newVal !== userPreferences.nowPlayingCharacters) {
+    settingsChanged.value = true;
+  }
+})
 watch(userPreferences, (newVal, oldVal) => {
   console.log('watch(userPreferences, newVal, oldVal)', newVal, oldVal);
   traitViewStyle.value = userPreferences.characterSheet.traitViewStyle;
+  nowPlayingCharacterIds.value = userPreferences.nowPlayingCharacters;
   settingsChanged.value = false;
 })
 
@@ -28,13 +45,16 @@ function resetSettings() {
   console.log('resetSettings() userPreferences', userPreferences);
   console.log('resetSettings() traitViewStyle', traitViewStyle);
   traitViewStyle.value = userPreferences.characterSheet.traitViewStyle;
+  nowPlayingCharacterIds.value = userPreferences.nowPlayingCharacters;
   settingsChanged.value = false;
 }
 
 function applySettings() {
   console.log('resetSettings() userPreferences', userPreferences);
   console.log('resetSettings() traitViewStyle', traitViewStyle);
+  console.log('resetSettings() nowPlayingCharacterIds', nowPlayingCharacterIds);
   userPreferences.characterSheet.traitViewStyle = traitViewStyle.value;
+  userPreferences.nowPlayingCharacters = nowPlayingCharacterIds.value;
   savePreferences();
   settingsChanged.value = false;
 
@@ -48,10 +68,10 @@ function applySettings() {
     <main>
       <section class="settings">
         <p>Things that change how the site works.</p>
+        <p class="note">Note: These settings are stored in your browser's local storage.</p>
         <h2>Character sheet preferences</h2>
         <div class="charsheet-settings">
           <p>Preferences related to how character sheets are rendered.</p>
-          <p class="note">Note: These settings are stored in your browser's local storage.</p>
           <ul class="charsheet-settings-list settings-list">
             <li>
               <label for="trait-view-style">Trait View Style</label>
@@ -64,16 +84,46 @@ function applySettings() {
                 </option>
               </select>
               <aside class="note">
-                <p>This setting changes how the traits list (Skills, Approaches, etc) is rendered, by default, on the character sheet.</p>
+                <p>This setting changes how the traits list (Skills, Approaches, etc) is rendered, by default, on the
+                  character sheet.</p>
                 <ul class="trait-view-setting-list">
-                  <li><div>By Name:</div><div>The traits are listed vertically, ordered by the trait name.</div></li>
-                  <li><div>By Rank:</div><div>The traits are listed vertically, ordered by the trait rank.</div></li>
-                  <li><div>Pyramid:</div><div>The traits are listed in a pyramid, each rank on its own row in ascending order, and each rank's traits listed in that row.</div></li>
+                  <li>
+                    <div>By Name:</div>
+                    <div>The traits are listed vertically, ordered by the trait name.</div>
+                  </li>
+                  <li>
+                    <div>By Rank:</div>
+                    <div>The traits are listed vertically, ordered by the trait rank.</div>
+                  </li>
+                  <li>
+                    <div>Pyramid:</div>
+                    <div>The traits are listed in a pyramid, each rank on its own row in ascending order, and each
+                      rank's traits listed in that row.
+                    </div>
+                  </li>
                 </ul>
               </aside>
             </li>
           </ul>
 
+        </div>
+
+        <h2>Now Playing Page preferences</h2>
+        <div class="now-playing-page-settings">
+          <p>Default "Now Playing" Characters</p>
+          <aside class="note">
+            <p>These are the characters that will be displayed by default on the
+              <NuxtLink to="/characters/playing">Now Playing</NuxtLink>
+              page.
+            </p>
+          </aside>
+          <ul v-if="nowPlayingChars.length > 0" class="now-playing-characters-list">
+            <li v-for="char of nowPlayingChars" :key="char.id">
+              <NuxtLink :to="char.toLink()">{{ char.name }}</NuxtLink>
+              <div>{{ char.highConcept('name') }}</div>
+            </li>
+          </ul>
+          <p v-else>No current default "Now Playing" Characters</p>
         </div>
         <div class="actions">
           <button class="action-button action-reset" :disabled="! settingsChanged" @click="resetSettings">Reset</button>
@@ -125,21 +175,25 @@ aside.note {
   margin: .5rem 1rem;
 }
 
-aside.note ul.trait-view-setting-list {
+aside.note > ul {
   padding-left: 0;
   display: grid;
-  grid-template-columns: 1fr 6fr;
+  grid-template-columns: max-content 1fr;
   grid-auto-rows: min-content;
 }
+
 aside.note ul li {
   grid-column: 1/-1;
   display: grid;
   grid-template-columns: subgrid;
+  align-items: center;
 }
+
 aside.note ul li :first-child {
   justify-self: end;
   font-weight: 600;
 }
+
 aside.note ul li :last-child {
   margin-left: .5rem;
 }
