@@ -43,6 +43,8 @@ useSeoMeta({
 
       <p><NuxtLink to="/characters?campaigns=campaign-2">Characters for Campaign 2</NuxtLink></p>
 
+      <p><NuxtLink to="/characters/playing">Playing overview (currently only PCs)</NuxtLink></p>
+
       <h2>
         <NuxtLink to="/maps">Cluster Maps</NuxtLink>
       </h2>
