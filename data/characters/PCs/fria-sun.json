@@ -44,6 +44,30 @@
     {
       "name": "Provoke",
       "rank": 3
+    },
+    {
+      "name": "Stealth",
+      "rank": 2
+    }
+  ],
+  "stunts": [
+    {
+      "schemaVersion": "1",
+      "type":  "stunt",
+      "name": "Anti-Slavery",
+      "description": "Because of ***the way most  sapients treat vat clones***, I get +2 to Attack with Shoot to prevent someone being enslaved.",
+      "mechanics": [
+        {
+          "mechanicType": "dice-roll",
+          "parameters": {
+            "trait": "Shoot",
+            "modifier": 2,
+            "actions": [
+              "Attack"
+            ]
+          }
+        }
+      ]
     }
   ],
   "tracks": [
@@ -115,7 +139,7 @@
     "Fria Sun is a vat clone, a war veteran, one of the few to get advanced medical training (it's usually cheaper to grow new after too much damage).\n\n",
     "On the surface she's just another ex-soldier working in private security - but secretly, her primary clientele are those of the rich and powerful hiding serious medical conditions, who want an \"off the books\" physician on hand at all times.\n",
     "#### Load out for Straitgate missions:",
-    "* Laser Rifle",
+    "* Semi-auto laser AR-15",
     "* Pistol (Slugthrower, Semiautomatic)",
     "* Combat/Utility Knife",
     "* Body armour / vacuum ready",
