@@ -83,6 +83,8 @@ export default defineNuxtConfig({
     optimizeDeps: {
       include: [
         '@exodus/schemasafe', // CJS
+        '@formkit/drag-and-drop',
+        '@formkit/drag-and-drop/vue',
         'minisearch',
         'vue-final-modal',
       ]
