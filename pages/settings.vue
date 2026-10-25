@@ -35,24 +35,18 @@ watch(nowPlayingCharacterIds, (newVal, oldVal) => {
   }
 })
 watch(userPreferences, (newVal, oldVal) => {
-  console.log('watch(userPreferences, newVal, oldVal)', newVal, oldVal);
   traitViewStyle.value = userPreferences.characterSheet.traitViewStyle;
   nowPlayingCharacterIds.value = userPreferences.nowPlayingCharacters;
   settingsChanged.value = false;
 })
 
 function resetSettings() {
-  console.log('resetSettings() userPreferences', userPreferences);
-  console.log('resetSettings() traitViewStyle', traitViewStyle);
   traitViewStyle.value = userPreferences.characterSheet.traitViewStyle;
   nowPlayingCharacterIds.value = userPreferences.nowPlayingCharacters;
   settingsChanged.value = false;
 }
 
 function applySettings() {
-  console.log('resetSettings() userPreferences', userPreferences);
-  console.log('resetSettings() traitViewStyle', traitViewStyle);
-  console.log('resetSettings() nowPlayingCharacterIds', nowPlayingCharacterIds);
   userPreferences.characterSheet.traitViewStyle = traitViewStyle.value;
   userPreferences.nowPlayingCharacters = nowPlayingCharacterIds.value;
   savePreferences();
