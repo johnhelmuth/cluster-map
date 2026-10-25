@@ -23,11 +23,15 @@ const chars = computed(() => {
 
 watch(characterIds, () => {
   if (import.meta.client) {
-    if (characterIds.value.length < 1 && typeof userPreferences.nowPlayingCharacters !== "undefined") {
+    if (characterIds.value.length < 1 &&
+        typeof userPreferences.nowPlayingCharacters !== "undefined" &&
+        userPreferences.nowPlayingCharacters.length > 0
+    ) {
       characterIds.value = [...userPreferences.nowPlayingCharacters];
+      return;
     }
+    updateAddress();
   }
-  updateAddress();
 })
 
 onMounted(() => {
