@@ -195,6 +195,16 @@ export class CharacterModel implements CharacterData {
       }
       return hcAspect.name;
     }
+    /* If the character doesn't have a high concept aspect, use the first aspect, if they have any. */
+    if (this.aspects.length > 0) {
+      const firstAspect = this.aspects[0];
+      if (typeof firstAspect !== 'undefined') {
+        if (firstAspect.hasOwnProperty(property)) {
+          return firstAspect[property as keyof CharacterAspectData];
+        }
+        return firstAspect.name;
+      }
+    }
   }
 
   peakTraits(numTraits = 3) {

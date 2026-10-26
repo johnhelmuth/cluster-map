@@ -251,33 +251,29 @@ function noOp(e: SubmitEvent) {
 .character-filter-container .character-filter ul.selected-characters-list {
   list-style: none;
   padding: 0;
-  display: grid;
-  grid-template-columns: 1.5rem max-content;
-  grid-auto-rows: 1fr;
-  align-items: center;
   width: 100%;
 }
 .character-filter-container .character-filter ul.selected-characters-list li {
-  grid-column: 1 / -1;
   width: 100%;
   font-size: .8rem;
-  display: grid;
-  grid-template-columns: subgrid;
-  grid-template-areas: "name name"
-                       ". aspect";
-  grid-auto-rows: min-content;
   align-items: center;
   border: 1px solid grey;
+  border-bottom: none;
   background-color: var(--color-background);
-  margin-top: .5rem;
-  padding: .5rem;
+  margin-top: 0;
+  padding: .25rem .5rem;
+  display: flex;
+  column-gap: .5rem;
+
+  &:last-child {
+    border-bottom: 1px solid grey;
+  }
 }
+
 .character-filter-container .character-filter ul.selected-characters-list li .selected-name {
-  grid-area: name;
   font-weight: bold;
 }
 .character-filter-container .character-filter ul.selected-characters-list li .selected-hc {
-  grid-area: aspect;
   font-style: italic;
 }
 .select-actions {
