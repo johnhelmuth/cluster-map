@@ -17,8 +17,8 @@
     },
     {
       "aspectType": "Trouble",
-      "name": "Kinless & Alone",
-      "description": "Dwabit and his family escaped a system with a dying star, floating through space in their species' tun state. Since awakening in this cluster, he has not found any sign of his family nor any other Tardigrada. He still hasn't completely given up hope of finding his family, and he suffers from occasional bouts of intense isolation and loneliness."
+      "name": "My People Are Out There",
+      "description": "Dwabit and his family escaped a system with a dying star, floating through space in their species' tun state. For decades after awakening in this cluster, he had not found any sign of his family nor any other Tardigrada. He hadn't completely given up hope of finding his family, but suffered from occasional bouts of intense isolation and loneliness. Recently, he discovered, through Abercombe Willinegsworth, that at least one member of his anello had been alive, 25 or 30 years ago."
     },
     {
       "name": "Buddy, I'm in the Unions",
@@ -88,6 +88,10 @@
     },
     {
       "name": "Notice",
+      "rank": 1
+    },
+    {
+      "name": "Will",
       "rank": 1
     }
   ],

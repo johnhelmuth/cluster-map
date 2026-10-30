@@ -116,6 +116,8 @@ const pyramidTraits = computed(() => {
         for (let i = rankTraitsData.traits.length; i < rankTraitsData.slotCount; i++) {
           rankTraitsData.traits.push({rank})
         }
+      } else {
+        rankTraitsData.slotCount = rankTraitsData.traits.length;
       }
     }
     return rankedTraits;
@@ -278,6 +280,9 @@ div.trait-list ul.viewtype-pyramid.max-slots-5 li.trait-item .traits-ranked-row 
 }
 div.trait-list ul.viewtype-pyramid.max-slots-6 li.trait-item .traits-ranked-row {
   grid-template-columns: repeat(6, 1fr);
+}
+div.trait-list ul.viewtype-pyramid.max-slots-7 li.trait-item .traits-ranked-row {
+  grid-template-columns: repeat(7, 1fr);
 }
 
 .traits-ranked-row .name {
