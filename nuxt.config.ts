@@ -33,7 +33,10 @@ export default defineNuxtConfig({
     },
     renderer: {
       anchorLinks: true,
-    }
+    },
+    experimental: {
+      sqliteConnector: 'native'
+    },
   },
 
   css: ['~/assets/main.css'],
