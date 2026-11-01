@@ -44,5 +44,99 @@
         }
       ]
     }
+  ],
+  "extras": [
+    {
+      "name": "Captain Martinez's relationship with...",
+      "description": "This extra tracks the relationships between Captain Martinez and other characters over time.\n\nThe relationship with each other character is tracked by a series of stress boxes, an \"empty\" Aspect that applies when no stress boxes are checked, and a \"full\" Aspect that applies when all the stress boxes are checked.\n\nI decided that Captain Martinez is so self-involved, that his opinions don't change much over time, so these tracks are 7 boxes long.",
+      "elements": [
+        {
+          "extraType": "track",
+          "trackId": "relate-delilah-lands",
+          "trackLabel": "Delilah Lands",
+          "characterReference": "delilah",
+          "showSoakAmount": false,
+          "emptyAspect": {
+            "name": "She is an OK... person"
+          },
+          "fullAspect": {
+            "name": "Will act to get her fired"
+          },
+          "boxes": [
+            {
+              "isUsed": true,
+              "soakValue": 1
+            },
+            {
+              "isUsed": true,
+              "soakValue": 1
+            },
+            {
+              "isUsed": true,
+              "soakValue": 1
+            },
+            {
+              "isUsed": true,
+              "soakValue": 1
+            },
+            {
+              "isUsed": true,
+              "soakValue": 1
+            },
+            {
+              "isUsed": true,
+              "soakValue": 1
+            },
+            {
+              "isUsed": false,
+              "soakValue": 1
+            }
+          ]
+        },
+        {
+          "extraType": "track",
+          "trackId": "relate-scout",
+          "trackLabel": "Scout 4e006",
+          "characterReference": "scout-4e0061377",
+          "showSoakAmount": false,
+          "emptyAspect": {
+            "name": "She is a good soldier"
+          },
+          "fullAspect": {
+            "name": "Not on my ship, dammit!"
+          },
+          "boxes": [
+            {
+              "isUsed": false,
+              "soakValue": 1
+            },
+            {
+              "isUsed": false,
+              "soakValue": 1
+            },
+            {
+              "isUsed": false,
+              "soakValue": 1
+            },
+            {
+              "isUsed": false,
+              "soakValue": 1
+            },
+            {
+              "isUsed": false,
+              "soakValue": 1
+            },
+            {
+              "isUsed": false,
+              "soakValue": 1
+            },
+            {
+              "isUsed": false,
+              "soakValue": 1
+            }
+          ]
+        }
+      ]
+    }
   ]
 }

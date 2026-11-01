@@ -2,7 +2,7 @@ import {
   ActionTypes,
   type CharacterAspectData,
   type CharacterData,
-  type CharacterTypesKeys,
+  type CharacterTypesKeys, type ExtraData,
   type ImageData,
   type ModificationTypesKeys,
   type StuntData,
@@ -35,6 +35,7 @@ export class CharacterModel implements CharacterData {
   traits: Array<TraitData>;
   stunts: Array<StuntData>;
   tracks: Array<TrackData>;
+  extras: Array<ExtraData>;
   notes: Array<string>;
   tags: Array<string>;
 
@@ -54,6 +55,7 @@ export class CharacterModel implements CharacterData {
     this.traits = data?.traits ?? [];
     this.stunts = data?.stunts ?? [];
     this.tracks = data?.tracks ?? [];
+    this.extras = data?.extras ?? [];
     this.notes = data?.notes ?? [];
     this.tags = data?.tags ?? [];
   }

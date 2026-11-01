@@ -61,6 +61,9 @@ export default defineContentConfig({
         'in_game_start': z.string(),
         'in_game_end': z.string(),
         'publish_date': z.string(),
+        'session': z.string(),
+        'episode': z.string(),
+        'episodes': z.array(z.string()),
       })
     }),
     news: defineCollection({

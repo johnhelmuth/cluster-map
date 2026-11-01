@@ -1,0 +1,71 @@
+{
+  "type": "character",
+  "schemaVersion": "1",
+  "id": "mara-chu",
+  "name": "Mara Chu",
+  "characterType": "NPC",
+  "campaigns": [
+    "campaign-2"
+  ],
+  "tags": [
+    "home-system:torrin"
+  ],
+  "description": "Mara is a short human woman with short black hair pulled back in a bun, dressed in inexpensive clothing, well cared for.",
+  "aspects": [
+    {
+      "aspectType": "High Concept",
+      "name": "Rookie Patriot Security Officer"
+    },
+    {
+      "name": "Head filled with stories about Union Busting",
+      "description": "Mara's grandfather was a union-busting Pinkerton-type, and she grew up listening to his \"war stories\", featuring the \"villainous mastermind\" Dwabit. She is a newly-badged private security officer, completely naive to which side of history she's joining."
+    }
+  ],
+  "extras": [
+    {
+      "name": "Mara's relationship with...",
+      "description": "This extra tracks the relationships between Mara Chu and other characters over time.\n\nThe relationship with each other character is tracked by a series of stress boxes, an \"empty\" Aspect that applies when no stress boxes are checked, and a \"full\" Aspect that applies when all the stress boxes are checked.",
+      "elements": [
+        {
+          "extraType": "track",
+          "trackId": "relate-dwabit",
+          "trackLabel": "Dwabit",
+          "characterReference": "dwabit",
+          "showSoakAmount": false,
+          "emptyAspect": {
+            "name": "A Steadfast Friend"
+          },
+          "fullAspect": {
+            "name": "Bring Him In, Dead or Alive"
+          },
+          "boxes": [
+            {
+              "isUsed": true,
+              "soakValue": 1
+            },
+            {
+              "isUsed": true,
+              "soakValue": 1
+            },
+            {
+              "isUsed": true,
+              "soakValue": 1
+            },
+            {
+              "isUsed": true,
+              "soakValue": 1
+            },
+            {
+              "isUsed": false,
+              "soakValue": 1
+            },
+            {
+              "isUsed": false,
+              "soakValue": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

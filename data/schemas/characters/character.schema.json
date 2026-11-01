@@ -70,38 +70,7 @@
       "description": "The Aspects describing the character.",
       "type": "array",
       "items": {
-        "type": "object",
-        "properties": {
-          "aspectType": {
-            "description": "The type of Aspect",
-            "type": "string",
-            "enum": [
-              "High Concept",
-              "Trouble",
-              "Relationship",
-              "Reason to Race",
-              "Oneshot Reason",
-              "Other"
-            ]
-          },
-          "name": {
-            "description": "The name of the Aspect",
-            "type": "string"
-          },
-          "description": {
-            "description": "A description of the Aspect, giving a little more context, Markdown allowed.",
-            "type": "string"
-          },
-          "freeInvokes": {
-            "type": "number",
-            "description": "How many Free Invokes are currently on the Aspect",
-            "minimum": 0,
-            "default": 0
-          }
-        },
-        "required": [
-          "name"
-        ]
+        "$ref": "#/$defs/character-aspect"
       }
     },
     "images": {
@@ -172,74 +141,7 @@
       "type": "array",
       "description": "The data structures used to track the current state of the character.",
       "items": {
-        "type": "object",
-        "properties": {
-          "trackId": {
-            "type": "string",
-            "description": "A unique identifier for this track on the character to which it is tied."
-          },
-          "trackLabel": {
-            "type": "string",
-            "description": "The label or title for this track."
-          },
-          "showSoakAmount": {
-            "type": "boolean",
-            "description": "Should the amount of soak the boxes in this track be displayed to the user?"
-          },
-          "boxes": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "isUsed": {
-                  "type": "boolean",
-                  "description": "Has the box been used to soak shifts of effect?"
-                },
-                "soakValue": {
-                  "type": "number",
-                  "description": "How many shifts of effect the box can soak."
-                }
-              },
-              "required": [
-                "isUsed",
-                "soakValue"
-              ]
-            }
-          },
-          "aspect": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string",
-                "description": "The Aspect representing the consequence in this track."
-              },
-              "description": {
-                "description": "A description of the Consequence Aspect, giving a little more context, Markdown allowed.",
-                "type": "string"
-              },
-              "freeInvokes": {
-                "type": "number",
-                "description": "How many Free Invokes the consequence already has."
-              },
-              "state": {
-                "type": "string",
-                "enum": [
-                  "free",
-                  "used",
-                  "recovering"
-                ]
-              }
-            },
-            "required": [
-              "name",
-              "freeInvokes",
-              "state"
-            ]
-          }
-        },
-        "required": [
-          "trackId"
-        ]
+        "$ref": "#/$defs/track"
       }
     },
     "notes": {
@@ -261,6 +163,13 @@
         "type": "string",
         "minLength": 2
       }
+    },
+    "extras": {
+      "type": "array",
+      "description": "A list of extras that do not fit into any other category on the character. Each Extra can include multiple Tracks, Aspects (including character aspects), or Traits",
+      "items": {
+        "$ref": "#/$defs/extra"
+      }
     }
   },
   "required": [
@@ -268,5 +177,152 @@
     "schemaVersion",
     "id",
     "name"
-  ]
+  ],
+  "$defs": {
+    "aspect": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "The name of the Aspect",
+          "type": "string"
+        },
+        "description": {
+          "description": "A description of the Aspect, giving a little more context, Markdown allowed.",
+          "type": "string"
+        },
+        "freeInvokes": {
+          "type": "number",
+          "description": "How many Free Invokes are currently on the Aspect",
+          "minimum": 0,
+          "default": 0
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "character-aspect": {
+      "aspectType": {
+        "description": "The type of Aspect",
+        "type": "string",
+        "enum": [
+          "High Concept",
+          "Trouble",
+          "Relationship",
+          "Reason to Race",
+          "Oneshot Reason",
+          "Other"
+        ]
+      },
+      "$ref": "#/$defs/aspect"
+    },
+    "consequence-aspect": {
+      "$ref": "#/$defs/aspect",
+      "state": {
+        "type": "string",
+        "enum": [
+          "free",
+          "used",
+          "recovering"
+        ]
+      }
+    },
+    "track": {
+      "type": "object",
+      "properties": {
+        "trackId": {
+          "type": "string",
+          "description": "A unique identifier for this track on the character to which it is tied."
+        },
+        "trackLabel": {
+          "type": "string",
+          "description": "The label or title for this track."
+        },
+        "showSoakAmount": {
+          "type": "boolean",
+          "description": "Should the amount of soak the boxes in this track be displayed to the user?"
+        },
+        "characterReference": {
+          "type": "string",
+          "description": "The ID of a different character to which this track applies."
+        },
+        "emptyAspect": {
+          "$ref": "#/$defs/aspect"
+        },
+        "fullAspect": {
+          "$ref": "#/$defs/aspect"
+        },
+        "boxes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "isUsed": {
+                "type": "boolean",
+                "description": "Has the box been used to soak shifts of effect?"
+              },
+              "soakValue": {
+                "type": "number",
+                "description": "How many shifts of effect the box can soak."
+              }
+            },
+            "required": [
+              "isUsed",
+              "soakValue"
+            ]
+          }
+        },
+        "aspect": {
+          "$ref": "#/$defs/consequence-aspect"
+        }
+      },
+      "required": [
+        "trackId"
+      ]
+    },
+    "extra-type": {
+      "enum": [ "track", "character-aspect"]
+    },
+    "extra": {
+      "type": "object",
+      "description": "An \"Extra\", a group of things about a character that do not fit into any other category.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the extra"
+        },
+        "description": {
+          "type": "string",
+          "description": "The description of the extra. Markdown allowed."
+        },
+        "elements": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "extraType": {
+                  "const": "track"
+                },
+                "$ref": "#/$defs/track",
+                "required": [
+                  "extraType"
+                ]
+              },
+              {
+                "extraType": {
+                  "const": "character-aspect"
+                },
+                "$ref": "#/$defs/character-aspect",
+                "required": [
+                  "extraType"
+                ]
+              }
+            ]
+          },
+          "minItems": 1
+        }
+      },
+      "required": ["elements"]
+    }
+  }
 }

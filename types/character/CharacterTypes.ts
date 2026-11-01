@@ -168,8 +168,33 @@ export interface TrackData {
   trackId: string,
   trackLabel: string,
   showSoakAmount?: boolean,
+  characterReference?: string,
+  emptyAspect?: AspectData,
+  fullAspect?: AspectData,
   boxes: BoxData[],
   aspect: ConsequenceAspectData
+}
+
+export const ExtraElementTypes = {
+  "track": "Track",
+  "character-aspect": "Character Aspect",
+}
+
+export type ExtraElementTypes = keyof typeof ExtraElementTypes;
+
+export interface ExtraElementTrackData extends TrackData {
+  extraType: ExtraElementTypes & "track"
+}
+export interface ExtraElementCharacterAspectData extends CharacterAspectData {
+  extraType: ExtraElementTypes & "character-aspect"
+}
+
+export type ExtraElementData = ExtraElementTrackData | ExtraElementCharacterAspectData;
+
+export interface ExtraData {
+  name: string,
+  description?: string,
+  elements: Array<ExtraElementData>
 }
 
 export interface TraitData {
@@ -200,6 +225,7 @@ export interface CharacterData {
   traits: Array<TraitData>,
   stunts: Array<StuntData>,
   tracks: Array<TrackData>,
+  extras: Array<ExtraData>,
   notes: Array<string>,
   tags: Array<string>,
 }

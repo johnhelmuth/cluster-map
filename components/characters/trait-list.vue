@@ -289,6 +289,7 @@ div.trait-list ul.viewtype-pyramid.max-slots-7 li.trait-item .traits-ranked-row 
   font-weight: bold;
   min-width: 5em;
   margin-left: .5rem;
+  text-align: center;
 }
 
 .traits-ranked-row .name.is-empty {

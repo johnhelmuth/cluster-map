@@ -26,4 +26,10 @@ div.tags-list > div {
   padding: .25rem .5rem;
   background-color: var(--color-background);
 }
+
+@media print {
+  body.hide-not-to-be-printed .tags-list {
+    display: none !important;
+  }
+}
 </style>

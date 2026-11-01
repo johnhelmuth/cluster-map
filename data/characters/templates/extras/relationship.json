@@ -1,0 +1,83 @@
+
+{
+  "name": "Character's relationship with...",
+  "description": "Use this extra when you want to track the relationship between this character and other characters over time.\n\nThe relationship with each other character is tracked by a series of stress boxes, an \"empty\" Aspect that applies when no stress boxes are checked, and a \"full\" Aspect that applies when all the stress boxes are checked.\n\nThe track for each character's relationship should be between 3 and 7 boxes long, depending on how much time in the game you want to spend moving the relationship one way or the other.",
+  "elements": [
+    {
+      "extraType": "track",
+      "trackId": "relate-character-1",
+      "trackLabel": "Character 1",
+      "showSoakAmount": false,
+      "emptyAspect": {
+        "name": "Friend"
+      },
+      "fullAspect": {
+        "name": "Enemy"
+      },
+      "boxes": [
+        {
+          "isUsed": true,
+          "soakValue": 1
+        },
+        {
+          "isUsed": true,
+          "soakValue": 1
+        },
+        {
+          "isUsed": true,
+          "soakValue": 1
+        },
+        {
+          "isUsed": false,
+          "soakValue": 1
+        },
+        {
+          "isUsed": false,
+          "soakValue": 1
+        },
+        {
+          "isUsed": false,
+          "soakValue": 1
+        }
+      ]
+    },
+    {
+      "extraType": "track",
+      "trackId": "relate-character-2",
+      "trackLabel": "Character 2",
+      "showSoakAmount": false,
+      "emptyAspect": {
+        "name": "Marry me!"
+      },
+      "fullAspect": {
+        "name": "Who are you again?"
+      },
+      "boxes": [
+        {
+          "isUsed": true,
+          "soakValue": 1
+        },
+        {
+          "isUsed": true,
+          "soakValue": 1
+        },
+        {
+          "isUsed": true,
+          "soakValue": 1
+        },
+        {
+          "isUsed": true,
+          "soakValue": 1
+        },
+        {
+          "isUsed": true,
+          "soakValue": 1
+        },
+        {
+          "isUsed": true,
+          "soakValue": 1
+        }
+      ]
+    }
+  ]
+}

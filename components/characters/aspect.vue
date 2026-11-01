@@ -33,15 +33,12 @@ function useInvoke(trackId: string) {
 }
 
 const aspectClasses = computed(() => {
-  let classes = {};
+  let classes = {} as { [key: string]: boolean };
   if (attrs?.class) {
     (attrs.class as string).split(' ')
-        // @ts-ignore
         .forEach((className) => classes[className] = true);
     if (! props.aspect?.name) {
-      // @ts-ignore
       classes['is-empty'] = true;
-
     }
     return classes;
   }
@@ -101,8 +98,6 @@ div.aspect-container.has-invokes {
   font-weight: bold;
   font-style: italic;
   font-size: 1.1rem;
-  padding-left: 1rem;
-  text-indent: -1rem;
   grid-area: name;
   display: flex;
   justify-content: space-between;

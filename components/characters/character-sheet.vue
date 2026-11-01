@@ -102,6 +102,11 @@ function traitTypeChanged(viewType: TraitViewTypesKeys): void {
       :notes="character.notes"
       class="block notes-block all-columns"
     />
+    <ExtrasList
+        v-if="character.extras"
+        :extras="character.extras"
+        class="block all-columns"
+    />
     <TagsList
       v-if="character.tags && character.tags.length"
       :tags="character.tags"
@@ -143,7 +148,7 @@ function traitTypeChanged(viewType: TraitViewTypesKeys): void {
 
 h3, :deep(h3) {
   text-align: left;
-  text-indent: 3rem;
+  text-indent: 1rem;
 }
 
 h4, :deep(h4) {
@@ -153,6 +158,7 @@ h4, :deep(h4) {
 
 ul, :deep(ul) {
   list-style-type: none;
+  padding-left: 0;
 }
 
 .block {
