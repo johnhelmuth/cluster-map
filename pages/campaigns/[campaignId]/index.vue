@@ -6,11 +6,11 @@ const route = useRoute()
 const {data} = await useAsyncData(`campaign-${route.params.campaignId}`, async () => {
   const campaignId = route.params.campaignId;
   const data = await queryCollection('campaigns')
-      .select('id', 'title', 'description', 'path', 'meta', 'in_game_start', 'in_game_end')
+      .select('id', 'title', 'description', 'path', 'in_game_start', 'in_game_end', 'date')
       .where('path', 'LIKE', `/campaigns/${campaignId}/%`)
       .where('path', 'NOT LIKE', '/campaigns/%/%/%')
       .where('path', 'NOT LIKE', '/campaigns/%/.navigation')
-      .order('in_game_start', 'ASC')
+      .order('date', 'ASC')
       .all()
   ;
   const dataCampaignsMeta = await queryCollectionNavigation('campaigns', ['id', 'title', 'description', 'path'])
@@ -122,7 +122,7 @@ function showEndTime(sessionIndex: number) {
         <div class="session-title">
           <NuxtLink :to="session.path">{{ session.title }}</NuxtLink>
         </div>
-        <div class="session-date">{{ session.meta.date }}</div>
+        <div class="session-date">{{ session.date }}</div>
         <div v-if="session.in_game_start && (showStartDate(index) || showStartTime(index))" class="session-game-datetime session-game-start">
           <span v-if="showStartDate(index)" class="game-date">{{ uitDate(session.in_game_start) }}</span>
           <span v-if="showStartTime(index)" class="game-time">{{ uitTime(session.in_game_start)}}</span>

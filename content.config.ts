@@ -60,6 +60,7 @@ export default defineContentConfig({
       schema: z.object({
         'in_game_start': z.string(),
         'in_game_end': z.string(),
+        'date': z.string(),
         'publish_date': z.string(),
         'session': z.string(),
         'episode': z.string(),
