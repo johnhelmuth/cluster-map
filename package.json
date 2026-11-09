@@ -30,7 +30,7 @@
     "vue-router": "*"
   },
   "devDependencies": {
-    "@iconify-json/material-symbols": "^1.2.95",
-    "@types/node": "^26.6.5"
+    "@iconify-json/material-symbols": "^1.2.97",
+    "@types/node": "^26.6.6"
   }
 }
